@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap"
+    />
+  </head>
+  <body onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage()">
+    <form class="browse-element-page">
+      <div class="sidebar">
+        <div class="title-wrapper">
+          <div class="title">Administration web</div>
+        </div>
+        <div class="menu-item-parent">
+          <div class="menu-item">
+            <div class="functions">Functions</div>
+          </div>
+          <div class="functionframe">
+            <div class="menu-item1">
+              <img class="home-icon" alt="" src="/img/home.png" />
+
+              <div class="home">Home</div>
+            </div>
+            <div class="menu-item2">
+              <img class="search-icon" alt="" src="/img/search.png" />
+
+              <div class="browse">Browse</div>
+            </div>
+            <div class="menu-item3">
+              <img class="radio-icon" alt="" src="/img/static.png" />
+                <div class="static">Static</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <header class="card-header">
+        <div class="content">
+          <div class="text-and-supporting-text">
+            <div class="text-and-badge">
+              <div class="text">Welcome back, Admin</div>
+              <div class="badge">
+                <div class="badge-base">
+					<div class="text1">Date: <span id="current-date"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="actions">
+            <div class="button-04">
+              <div class="button-base">
+                <div class="text2">Tertiary</div>
+              </div>
+            </div>
+            <div class="button-03">
+              <div class="button-base1">
+                <div class="text3">Secondary</div>
+              </div>
+            </div>
+            <div class="button-5">
+              <div class="button-base2">
+                <img
+                  class="download-cloud-02-icon"
+                  alt=""
+                  src="/img/cloud.jpg"
+                />
+
+                <div class="button">Export</div>
+              </div>
+            </div>
+            <button class="button-01">
+              <button class="button-base3">
+                <img class="plus-icon" alt="" src="/img/plus.png" />
+
+                <div class="text4">Add new File</div>
+              </button>
+            </button>
+          </div>
+        </div>
+      </header>
+      <div class="buttons-wrapper">
+        <div class="buttons">
+          <div class="frame-parent">
+            <div class="icon-person-wrapper">
+              <img class="icon-person" alt="" src="/img/icon _person.png" />
+            </div>
+            <div class="customers">Customers</div>
+          </div>
+          <div class="frame-group">
+            <div class="vector-wrapper">
+              <img class="vector-icon" alt="" src="/img/icon_room.png" />
+            </div>
+            <div class="rooms">Rooms</div>
+          </div>
+          <div class="frame-container">
+            <div class="vector-container">
+              <img class="vector-icon1" alt="" src="/img/icon_booking.png" />
+            </div>
+            <div class="booking">Booking</div>
+          </div>
+          <div class="frame-button">
+            <div class="icon-service-wrapper">
+              <img
+                class="icon-service"
+                alt=""
+                src="/img/icon _service.png"
+              />
+            </div>
+            <div class="services">Services</div>
+          </div>
+          <div class="frame-parent1">
+            <div class="icon-employee-group-solid-wrapper">
+              <img
+                class="icon-employee-group-solid"
+                alt=""
+                src="/img/icon _employee.png"
+              />
+            </div>
+            <div class="employees">Employees</div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class = "table-border">
+        <table class = "table">
+                <% if (data.length > 0) { %>
+                    <tr>
+                        <th></th> <!-- Thêm cột cho checkbox -->
+                        <% for (let key in data[0]) { %>
+                            <th class = "tieude"><%= key %></th>
+                        <% } %>
+                    </tr>
+                    <% data.forEach((row, index) => { %>
+                        <tr>
+                            <td><input type="checkbox" name="selectedRows[]" value="<%= row.customer_id %>" class="row-checkbox"></td>
+                            <% for (let key in row) { %>
+                                <td><%= row[key] %></td>
+                            <% } %>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td>No data to display</td>
+                    </tr>
+                <% } %>
+                </table>
+              </div>
+    </form>
+	<script src="main.js"></script>
+  </body>
+</html>

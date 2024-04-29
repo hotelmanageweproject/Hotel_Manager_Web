@@ -1,0 +1,297 @@
+.title {
+    position: relative;
+    letter-spacing: -0.01em;
+    line-height: 150%;
+    font-weight: 600;
+  }
+  .title-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0 var(--padding-base);
+  }
+  .functions {
+    flex: 1;
+    position: relative;
+    line-height: 150%;
+    font-weight: 600;
+  }
+  .menu-item {
+    align-self: stretch;
+    border-radius: var(--br-5xs);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--padding-5xs) var(--padding-base);
+  }
+  .home,
+  .home-icon {
+    position: relative;
+    overflow: hidden;
+  }
+  .home-icon {
+    height: 24px;
+    width: 24px;
+    flex-shrink: 0;
+    min-height: 24px;
+  }
+  .home {
+    flex: 1;
+    line-height: 150%;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .menu-item1 {
+    align-self: stretch;
+    border-radius: var(--br-5xs);
+    background-color: var(--color-white);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--padding-5xs) var(--padding-base);
+    gap: var(--gap-base);
+  }
+  .browse,
+  .search-icon {
+    position: relative;
+    overflow: hidden;
+  }
+  .search-icon {
+    height: 24px;
+    width: 24px;
+    flex-shrink: 0;
+    min-height: 24px;
+  }
+  .browse {
+    flex: 1;
+    line-height: 150%;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .menu-item2 {
+    align-self: stretch;
+    border-radius: var(--br-5xs);
+    background-color: var(--color-white);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--padding-5xs) var(--padding-base);
+    gap: var(--gap-base);
+  }
+  .radio-icon,
+  .static {
+    position: relative;
+    overflow: hidden;
+  }
+  .radio-icon {
+    height: 24px;
+    width: 24px;
+    flex-shrink: 0;
+    object-fit: cover;
+    min-height: 24px;
+  }
+  .static {
+    flex: 1;
+    line-height: 150%;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .menu-item3 {
+    align-self: stretch;
+    border-radius: var(--br-5xs);
+    background-color: var(--color-white);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--padding-5xs) var(--padding-base);
+    gap: var(--gap-base);
+  }
+  .functionframe {
+    align-self: stretch;
+    gap: 4px;
+    top: 0;
+    z-index: 99;
+    position: sticky;
+  }
+  .functionframe,
+  .menu-item-parent,
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .menu-item-parent {
+    align-self: stretch;
+    font-size: var(--small-text-size);
+  }
+  .sidebar {
+    width: 256px;
+    background-color: var(--color-white);
+    border-right: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    padding: var(--padding-5xl) 7px 694px;
+    gap: 24px;
+  }
+  .badge-box,
+  .text {
+    position: relative;
+    line-height: 28px;
+    font-weight: 500;
+  }
+  .text {
+    line-height: 18px;
+    display: inline-block;
+    min-width: 102px;
+  }
+  .badge-base {
+    border-radius: 16px;
+    background-color: #f7faff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 2px var(--padding-5xs);
+    white-space: nowrap;
+  }
+  .badge,
+  .text-and-badge {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .badge {
+    align-items: flex-start;
+    mix-blend-mode: multiply;
+    text-align: center;
+    font-size: var(--text-xs-medium-size);
+    color: #0070ff;
+  }
+  .text-and-badge {
+    align-self: stretch;
+    align-items: center;
+    padding: 0 655px 0 0;
+    gap: 8px;
+  }
+  .text-and-supporting-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    max-width: 100%;
+  }
+  .card-header,
+  .content {
+    align-self: stretch;
+    box-sizing: border-box;
+    display: flex;
+    max-width: 100%;
+  }
+  .content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--padding-xl) var(--padding-5xl) 19px;
+  }
+  .card-header {
+    background-color: var(--color-white);
+    border-bottom: 1px solid #eaecf0;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 32.5px 0 31px;
+    text-align: left;
+    font-size: var(--text-lg-medium-size);
+    color: #101828;
+    font-family: var(--text-xs-medium);
+  }
+  .frame-child {
+    align-self: stretch;
+    height: 814px;
+    position: relative;
+    background-color: var(--color-white);
+    z-index: 1;
+    margin-top: -7px;
+  }
+  .card-header-parent {
+    align-self: stretch;
+    flex-direction: column;
+    max-width: 100%;
+  }
+  .card-header-parent,
+  .home-page,
+  .home-page-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .home-page-inner {
+    flex: 1;
+    flex-direction: column;
+    padding: 1px 0 0;
+    box-sizing: border-box;
+    max-width: calc(100% - 256px);
+  }
+  .home-page {
+    width: 100%;
+    position: relative;
+    background-color: var(--color-white);
+    flex-direction: row;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    font-size: 20px;
+    color: var(--color-black);
+    font-family: var(--text-xs-medium);
+  }
+  a {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Keeps the original color */
+  }
+
+  a:visited {
+    color: inherit; /* Keeps the original color even after the link has been visited */
+  }
+  @media screen and (max-width: 975px) {
+    .sidebar {
+      display: none;
+      padding-top: var(--padding-xl);
+      padding-bottom: 451px;
+      box-sizing: border-box;
+    }
+    .text-and-badge {
+      flex-wrap: wrap;
+      padding-right: 327px;
+      box-sizing: border-box;
+    }
+    .home-page-inner {
+      max-width: 100%;
+    }
+    .home-page {
+      padding-left: var(--padding-xl);
+      padding-right: var(--padding-xl);
+      box-sizing: border-box;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    .text-and-badge {
+      padding-right: 163px;
+      box-sizing: border-box;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .title {
+      font-size: var(--small-text-size);
+      line-height: 24px;
+    }
+  }
+  
