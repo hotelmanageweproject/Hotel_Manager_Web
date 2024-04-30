@@ -691,3 +691,22 @@ body {
   color: white; /* Màu chữ trắng */
   text-align: left; /* Căn trái nội dung tiêu đề */
 }
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.popup form {
+  margin: 15% auto;
+  padding: 20px;
+  background: white;
+  width: 30%;
+}
