@@ -153,9 +153,18 @@
     <button id="addButton">Add</button>
     <button id="deleteButton">Delete</button>
     <button id="updateButton">Update</button>
-    
-    <button id="button1">Tien 10</button>
-    <button id="button2">Lui 10</button>
+    <button id="prevButton" onclick="window.location.href='/browse/customer/?page=<%= page - 1 %>&search=<%= searchQuery %>'">Hiển thị 10 trước</button>
+    <button id="nextButton" onclick="window.location.href='/browse/customer/?page=<%= page + 1 %>&search=<%= searchQuery %>'">Hiển thị 10 tiếp theo</button>
+    <form action="/browse/customer/" method="GET">
+      <input type="text" name="search" placeholder="Tìm kiếm..." value="<%= searchQuery || '' %>">
+      <button type="submit">Tìm</button>
+  </form>
+  <form action="/browse/customer/advanced-search" method="GET">
+    <input type="text" name="customer_id" placeholder="Customer ID">
+    <input type="text" name="first_name" placeholder="First Name">
+    <input type="text" name="last_name" placeholder="Last Name">
+    <button type="submit">Tìm kiếm nâng cao</button>
+</form>
     <!-- Popup for Add -->
     <div id="addPopup" class="popup">
       <form id="addForm" action="./addCustomer" method="post">

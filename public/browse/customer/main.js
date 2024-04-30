@@ -119,16 +119,4 @@ document.getElementById('addButton').addEventListener('click', function() {
     document.getElementById('updatePopup').style.display = 'block';
   });
   
-  document.getElementById('loadMore').addEventListener('click', function() {
-    // Logic to load more data
-  });
 
-  $(document).ready(function() {
-    $('#button1').click(function() {
-        window.location.href = '/your-endpoint?value=-10';
-    });
-
-    $('#button2').click(function() {
-        window.location.href = '/your-endpoint?value=10';
-    });
-});

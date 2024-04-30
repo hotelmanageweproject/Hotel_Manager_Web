@@ -4,20 +4,35 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import db from '../../../config/db.js';
+import session from 'express-session';
+
 
 const router_cus = express.Router();
 router_cus.use(express.static(path.join(__dirname, 'public/browse/customer')));
 router_cus.use(express.urlencoded({ extended: true }));
 
-router_cus.get('/', async(req, res) => {
-  const query = `SELECT * FROM customers LIMIT 10`;
-    try {
-        const result = await db.query(query);
-        res.render('browse/customer/index.ejs', { data: result.rows});
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server error');
-    }
+router_cus.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true
+}));
+
+router_cus.get('/', async (req, res) => {
+  const searchQuery = req.query.search;
+  const page = req.query.page ? parseInt(req.query.page) : 0;
+  const limit = 10;
+  const offset = page * limit;
+  let query = `SELECT * FROM customers WHERE customer_id::text LIKE '%${searchQuery}%' OR cccd_passport LIKE '%${searchQuery}%' OR first_name LIKE '%${searchQuery}%' OR last_name LIKE '%${searchQuery}%' OR email LIKE '%${searchQuery}%' OR phone LIKE '%${searchQuery}%' OR address LIKE '%${searchQuery}%' LIMIT ${limit} OFFSET ${offset}`;
+  if (!searchQuery) {
+    query = `SELECT * FROM customers LIMIT ${limit} OFFSET ${offset}`;
+  }
+  try {
+      const result = await db.query(query);
+      res.render('browse/customer/index.ejs', { data: result.rows, page: page, searchQuery: searchQuery });
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error');
+  }
 });
 
 router_cus.post('/addCustomer', (req, res) => {

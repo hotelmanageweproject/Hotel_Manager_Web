@@ -149,8 +149,77 @@
                     </tr>
                 <% } %>
                 </table>
-              </div>
+               
+      </div>
     </form>
+    <button id="addButton">Add</button>
+    <button id="deleteButton">Delete</button>
+    <button id="updateButton">Update</button>
+    <button id="prevButton" onclick="window.location.href='/browse/booking/?page=<%= page - 1 %>&search=<%= searchQuery %>'">Hiển thị 10 trước</button>
+    <button id="nextButton" onclick="window.location.href='/browse/booking/?page=<%= page + 1 %>&search=<%= searchQuery %>'">Hiển thị 10 tiếp theo</button>
+    <form action="/browse/booking/" method="GET">
+      <input type="text" name="search" placeholder="Tìm kiếm..." value="<%= searchQuery || '' %>">
+      <button type="submit">Tìm</button>
+  </form>
+    <!-- Popup for Add -->
+    <div id="addPopup" class="popup">
+      <form id="addForm" action="./addBooking" method="post">
+        <!-- Form fields for adding -->
+        <input type="text" name="booking_id" placeholder="booking_id" required>
+        <input type="text" name="customer_id" placeholder="customer_id" required>
+        <input type="text" name="room_id" placeholder="room_id" required>
+        <input type="text" name="number_of_adult" placeholder="number_of_adult" required>
+        <input type="text" name="number_of_child" placeholder="number_of_child" required>
+        <select name="status" required>
+          <option value="">Select status</option>
+          <option value="female">Kín</option>
+          <option value="other">Trống</option>
+        </select>
+        <input type="date" name="check_in_date" placeholder="check_in_date" required>
+        <input type="date" name="check_out_date" placeholder="check_out_date" required>
+        <input type="text" name="total_price" placeholder="total_price" required>
+        <select name="reservation_status" required>
+          <option value="">Select reservation_status</option>
+          <option value="female">Đã đặt</option>
+          <option value="other">Trống</option>
+        </select>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    
+    <!-- Popup for Delete -->
+    <div id="deletePopup" class="popup">
+      <form id="deleteForm" action="./deleteBooking" method="post"> 
+          <input type="text" name="booking_id" placeholder="Booking_id" required>
+          <button type="submit">Submit</button>
+      </form>
+    </div>
+    
+    <!-- Popup for Update -->
+    <div id="updatePopup" class="popup">
+      <form id="updateForm" action="./updateBooking" method="post">
+        <input type="text" name="booking_id" placeholder="booking_id" required>
+        <input type="text" name="customer_id" placeholder="customer_id" required>
+        <input type="text" name="room_id" placeholder="room_id" required>
+        <input type="text" name="number_of_adult" placeholder="number_of_adult" required>
+        <input type="text" name="number_of_child" placeholder="number_of_child" required>
+        <select name="status" required>
+          <option value="">Select status</option>
+          <option value="female">Kín</option>
+          <option value="other">Trống</option>
+        </select>
+        <input type="date" name="check_in_date" placeholder="check_in_date" required>
+        <input type="date" name="check_out_date" placeholder="check_out_date" required>
+        <input type="text" name="total_price" placeholder="total_price" required>
+        <select name="reservation_status" required>
+          <option value="">Select reservation_status</option>
+          <option value="female">Đã đặt</option>
+          <option value="other">Trống</option>
+        </select>
+        <!-- Form fields for updating -->
+        <button type="submit">Submit</button>
+      </form>
+    </div>
 	<script src="main.js"></script>
   </body>
 </html>
