@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap"
+    />
+  </head>
+  <body onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage(); showPopup(); handleFileUpload(); handleFileDownload()">
+    <form class="browse-element-page">
+      <div class="sidebar">
+        <div class="title-wrapper">
+          <div class="title">Administration web</div>
+        </div>
+        <div class="menu-item-parent">
+          <div class="menu-item">
+            <div class="functions">Functions</div>
+          </div>
+          <div class="functionframe">
+            <div class="menu-item1">
+              <img class="home-icon" alt="" src="/Assets/home.png" />
+
+              <div class="home">Home</div>
+            </div>
+            <div class="menu-item2">
+              <img class="search-icon" alt="" src="/Assets/search.png" />
+
+              <div class="browse">Browse</div>
+            </div>
+            <div class="menu-item3">
+              <img class="radio-icon" alt="" src="/Assets/static.png" />
+
+              <input class="static" placeholder="Static" type="text" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <header class="card-header">
+        <div class="content">
+          <div class="text-and-supporting-text">
+            <div class="text-and-badge">
+              <div class="text">Welcome back, Admin</div>
+              <div class="badge">
+                <div class="badge-base">
+					<div class="text1">Date: <span id="current-date"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="actions">
+            <div class="button-04">
+              <div class="button-base">
+                <div class="text2">Tertiary</div>
+              </div>
+            </div>
+            <div class="button-03">
+              <div class="button-base1">
+                <div class="text3">Secondary</div>
+              </div>
+            </div>
+            <div class="button-5">
+              <div class="button-base2">
+                <img
+                  class="download-cloud-02-icon"
+                  alt=""
+                  src="/Assets/cloud.jpg"
+                />
+
+                <div class="button">Export</div>
+              </div>
+            </div>
+            <div class="button-01">
+              <div class="button-base3">
+                <img class="plus-icon" alt="" src="/Assets/plus.png" />
+
+                <div class="text4">Add new File</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="buttons-wrapper">
+        <div class="buttons">
+          <div class="frame-parent">
+            <div class="icon-person-wrapper">
+              <img class="icon-person" alt="" src="/Assets/icon _person.png" />
+            </div>
+            <div class="customers">Customers</div>
+          </div>
+          <div class="frame-group">
+            <div class="vector-wrapper">
+              <img class="vector-icon" alt="" src="/Assets/icon_room.png" />
+            </div>
+            <div class="rooms">Rooms</div>
+          </div>
+          <div class="frame-container">
+            <div class="vector-container">
+              <img class="vector-icon1" alt="" src="/Assets/icon_booking.png" />
+            </div>
+            <div class="booking">Booking</div>
+          </div>
+          <div class="frame-button">
+            <div class="icon-service-wrapper">
+              <img
+                class="icon-service"
+                alt=""
+                src="/Assets/icon _service.png"
+              />
+            </div>
+            <div class="services">Services</div>
+          </div>
+          <div class="frame-parent1">
+            <div class="icon-employee-group-solid-wrapper">
+              <img
+                class="icon-employee-group-solid"
+                alt=""
+                src="/Assets/icon _employee.png"
+              />
+            </div>
+            <div class="employees">Employees</div>
+          </div>
+        </div>
+      </div>
+      <footer class="table-pagination2">
+        <div class="of-972"></div>
+        <div class="table-pagination-inner2">
+          <div class="rows-per-page-parent2">
+            <div class="rows-per-page2">Rows per page:</div>
+            <div class="button-instance-parent2">
+              <div class="button-instance2">10</div>
+              <img class="down-icon2" alt="" src="/Assets/down.png" />
+            </div>
+          </div>
+        </div>
+        <div class="table-pagination-child2">
+          <div class="button-parent2">
+            <div class="button2">
+              <img
+                class="left-icon2"
+                loading="lazy2"
+                alt=""
+                src="/Assets/left.png"
+              />
+            </div>
+            <div class="div2">
+              <span class="span2">1</span>
+              <span class="span12">/10</span>
+            </div>
+            <div class="button12">
+              <div class="button22">
+                <img
+                  class="right-icon2"
+                  loading="lazy2"
+                  alt=""
+                  src="/Assets/right.png"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <div class="button32">
+        <div class="button42">Update</div>
+      </div>
+      <div class="button52">
+        <div class="button62">Delete</div>
+      </div>
+      <div class="button72">
+        <div class="button82">Add</div>
+      </div>
+      <div class="input2">
+        <img class="search-icon2" alt="" src="/Assets/search.png" />
+
+        <input class="search2" placeholder="Search..." type="text" />
+      </div>
+      <div class="button92">
+        <img class="filter-icon2" alt="" src="/Assets/filter.png" />
+      </div>
+    </form>
+    <div id="addPopup" class="popup">
+      <div class="popup-content">
+        <span class="close">&times;</span>
+        <form class="popup-form">
+          <input type="text" placeholder="Room ID">
+          <input type="text" placeholder="Room Type">
+          <input type="text" placeholder="Facility">
+          <input type="text" placeholder="Price">
+          <input type="text" placeholder="Status">
+          <div type="submit" class="submit-button">Submit</div>
+        </form>
+      </div>
+    </div>
+    <div id="updatePopup" class="popup">
+      <div class="popup-content">
+        <span class="close update-close">&times;</span>
+        <form class="popup-form">
+          <input type="text" placeholder="Room ID">
+          <input type="text" placeholder="Room Type">
+          <input type="text" placeholder="Facility">
+          <input type="text" placeholder="Price">
+          <input type="text" placeholder="Status">
+          <div type="submit" class="submit-button">Submit</div>
+        </form>
+      </div>
+    </div>
+    <div id="deletePopup" class="popup">
+      <div class="popup-content">
+        <span class="close delete-close">&times;</span>
+        <form class="popup-form">
+          <input type="text" placeholder="Room ID">
+          <div type="submit" class="submit-button">Delete</div>
+        </form>
+      </div>
+    </div>
+	<script src="main.js"></script>
+  </body>
+</html>
