@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap"
     />
   </head>
-  <body onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage()">
+  <body onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage(); showPopup(); handleFileUpload(); handleFileDownload()">
     <form class="browse-element-page">
       <div class="sidebar">
         <div class="title-wrapper">
@@ -34,7 +34,8 @@
             </div>
             <div class="menu-item3">
               <img class="radio-icon" alt="" src="/img/static.png" />
-                <div class="static">Static</div>
+
+              <input class="static" placeholder="Static" type="text" />
             </div>
           </div>
         </div>
@@ -73,13 +74,13 @@
                 <div class="button">Export</div>
               </div>
             </div>
-            <button class="button-01">
-              <button class="button-base3">
+            <div class="button-01">
+              <div class="button-base3">
                 <img class="plus-icon" alt="" src="/img/plus.png" />
 
                 <div class="text4">Add new File</div>
-              </button>
-            </button>
+              </div>
+            </div>
           </div>
         </div>
       </header>
@@ -125,100 +126,133 @@
           </div>
         </div>
       </div>
-      <br>
-      <div class = "table-border">
-        <table class = "table">
-                <% if (data.length > 0) { %>
-                    <tr>
-                        <th></th> <!-- Thêm cột cho checkbox -->
-                        <% for (let key in data[0]) { %>
-                            <th class = "tieude"><%= key %></th>
-                        <% } %>
-                    </tr>
-                    <% data.forEach((row, index) => { %>
-                        <tr>
-                            <td><input type="checkbox" name="selectedRows[]" value="<%= row.customer_id %>" class="row-checkbox"></td>
-                            <% for (let key in row) { %>
-                                <td><%= row[key] %></td>
-                            <% } %>
-                        </tr>
-                    <% }); %>
-                <% } else { %>
-                    <tr>
-                        <td>No data to display</td>
-                    </tr>
-                <% } %>
-                </table>
-               
+      <footer class="table-pagination2">
+        <div class="of-972"></div>
+        <div class="table-pagination-inner2">
+          <div class="rows-per-page-parent2">
+            <div class="rows-per-page2">Rows per page:</div>
+            <div class="button-instance-parent2">
+              <div class="button-instance2">10</div>
+              <img class="down-icon2" alt="" src="/img/down.png" />
+            </div>
+          </div>
+        </div>
+        <div class="table-pagination-child2">
+          <div class="button-parent2">
+            <div class="button2" onclick="window.location.href='/browse/customer/?page=<%= page - 1 %>&search=<%= searchQuery %>'">
+              <img
+                class="left-icon2"
+                loading="lazy2"
+                alt=""
+                src="/img/left.png"
+              />
+            </div>
+            <div class="div2">
+              <span class="span2">1</span>
+              <span class="span12">/10</span>
+            </div>
+            <div class="button12">
+              <div class="button22" onclick="window.location.href='/browse/customer/?page=<%= page + 1 %>&search=<%= searchQuery %>'">
+                <img
+                  class="right-icon2"
+                  loading="lazy2"
+                  alt=""
+                  src="/img/right.png"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <div class="button32">
+        <div class="button42">Update</div>
+      </div>
+      <div class="button52">
+        <div class="button62">Delete</div>
+      </div>
+      <div class="button72">
+        <div class="button82">Add</div>
+      </div>
+      <div class="input2">
+        <form action="/browse/booking" method="GET">
+          <input class="search2" placeholder="Search..." type="text" />
+          <button type="submit"><img class="search-icon2" alt="" src="/img/search.png" /></button>
+    </form>
+      </div>
+      <div class="button92">
+        <img class="filter-icon2" alt="" src="/img/filter.png" />
       </div>
     </form>
-    <button id="addButton">Add</button>
-    <button id="deleteButton">Delete</button>
-    <button id="updateButton">Update</button>
-    <button id="prevButton" onclick="window.location.href='/browse/booking/?page=<%= page - 1 %>&search=<%= searchQuery %>'">Hiển thị 10 trước</button>
-    <button id="nextButton" onclick="window.location.href='/browse/booking/?page=<%= page + 1 %>&search=<%= searchQuery %>'">Hiển thị 10 tiếp theo</button>
-    <form action="/browse/booking/" method="GET">
-      <input type="text" name="search" placeholder="Tìm kiếm..." value="<%= searchQuery || '' %>">
-      <button type="submit">Tìm</button>
-  </form>
-    <!-- Popup for Add -->
     <div id="addPopup" class="popup">
-      <form id="addForm" action="./addBooking" method="post">
-        <!-- Form fields for adding -->
-        <input type="text" name="booking_id" placeholder="booking_id" required>
-        <input type="text" name="customer_id" placeholder="customer_id" required>
-        <input type="text" name="room_id" placeholder="room_id" required>
-        <input type="text" name="number_of_adult" placeholder="number_of_adult" required>
-        <input type="text" name="number_of_child" placeholder="number_of_child" required>
-        <select name="status" required>
-          <option value="">Select status</option>
-          <option value="female">Kín</option>
-          <option value="other">Trống</option>
-        </select>
-        <input type="date" name="check_in_date" placeholder="check_in_date" required>
-        <input type="date" name="check_out_date" placeholder="check_out_date" required>
-        <input type="text" name="total_price" placeholder="total_price" required>
-        <select name="reservation_status" required>
-          <option value="">Select reservation_status</option>
-          <option value="female">Đã đặt</option>
-          <option value="other">Trống</option>
-        </select>
-        <button type="submit">Submit</button>
-      </form>
+      <div class="popup-content">
+        <span class="close">&times;</span>
+        <form class="popup-form" action="./addBooking" method="post">
+          <input type="text" placeholder="Customer ID">
+          <input type="text" placeholder="Room ID">
+          <input type="text" placeholder="Adult">
+          <input type="text" placeholder="Child">
+          <input type="text" placeholder="Service ID">
+          <input type="text" placeholder="Status">
+          <input type="text" placeholder="Booking ID">
+          <div class="input-groups-container">
+            <div class="input-group">
+              <label for="add-check-in-date" class="date-label">Check-in Date:</label>
+              <div class="date-time-group">
+                <input type="date" id="add-check-in-date" class="input-style">
+                <input type="time" id="add-check-in-time" class="input-style">
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="add-check-out-date" class="date-label">Check-out Date:</label>
+              <div class="date-time-group">
+                <input type="date" id="add-check-out-date" class="input-style">
+                <input type="time" id="add-check-out-time" class="input-style">
+              </div>
+            </div>
+          </div>
+          <div type="submit" class="submit-button">Submit</div>
+        </form>
+      </div>
     </div>
-    
-    <!-- Popup for Delete -->
-    <div id="deletePopup" class="popup">
-      <form id="deleteForm" action="./deleteBooking" method="post"> 
-          <input type="text" name="booking_id" placeholder="Booking_id" required>
-          <button type="submit">Submit</button>
-      </form>
-    </div>
-    
-    <!-- Popup for Update -->
     <div id="updatePopup" class="popup">
-      <form id="updateForm" action="./updateBooking" method="post">
-        <input type="text" name="booking_id" placeholder="booking_id" required>
-        <input type="text" name="customer_id" placeholder="customer_id" required>
-        <input type="text" name="room_id" placeholder="room_id" required>
-        <input type="text" name="number_of_adult" placeholder="number_of_adult" required>
-        <input type="text" name="number_of_child" placeholder="number_of_child" required>
-        <select name="status" required>
-          <option value="">Select status</option>
-          <option value="female">Kín</option>
-          <option value="other">Trống</option>
-        </select>
-        <input type="date" name="check_in_date" placeholder="check_in_date" required>
-        <input type="date" name="check_out_date" placeholder="check_out_date" required>
-        <input type="text" name="total_price" placeholder="total_price" required>
-        <select name="reservation_status" required>
-          <option value="">Select reservation_status</option>
-          <option value="female">Đã đặt</option>
-          <option value="other">Trống</option>
-        </select>
-        <!-- Form fields for updating -->
-        <button type="submit">Submit</button>
-      </form>
+      <div class="popup-content">
+        <span class="close update-close">&times;</span>
+        <form class="popup-form" action="./updateBooking">
+          <input type="text" placeholder="Customer ID">
+          <input type="text" placeholder="Room ID">
+          <input type="text" placeholder="Adult">
+          <input type="text" placeholder="Child">
+          <input type="text" placeholder="Service ID">
+          <input type="text" placeholder="Status">
+          <input type="text" placeholder="Booking ID">
+          <div class="input-groups-container">
+            <div class="input-group">
+              <label for="update-check-in-date" class="date-label">Check-in Date:</label>
+              <div class="date-time-group">
+                <input type="date" id="update-check-in-date" class="input-style">
+                <input type="time" id="update-check-in-time" class="input-style">
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="update-check-out-date" class="date-label">Check-out Date:</label>
+              <div class="date-time-group">
+                <input type="date" id="update-check-out-date" class="input-style">
+                <input type="time" id="update-check-out-time" class="input-style">
+              </div>
+            </div>
+          </div>
+          <div type="submit" class="submit-button">Submit</div>
+        </form>
+      </div>
+    </div>
+    <div id="deletePopup" class="popup">
+      <div class="popup-content">
+        <span class="close delete-close">&times;</span>
+        <form class="popup-form" action="./deleteBooking">
+          <input type="text" placeholder="Customer ID">
+          <div type="submit" class="submit-button">Delete</div>
+        </form>
+      </div>
     </div>
 	<script src="main.js"></script>
   </body>

@@ -107,14 +107,74 @@ function goToSearchEmployeePage() {
     }
 }
 
-document.getElementById('addButton').addEventListener('click', function() {
-    document.getElementById('addPopup').style.display = 'block';
-  });
-  
-  document.getElementById('deleteButton').addEventListener('click', function() {
-    document.getElementById('deletePopup').style.display = 'block';
-  });
-  
-  document.getElementById('updateButton').addEventListener('click', function() {
-    document.getElementById('updatePopup').style.display = 'block';
-  });
+// Function to handle file upload
+function handleFileUpload(event) {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*'; 
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        console.log('Uploaded file:', file);
+    });
+
+    fileInput.click();
+}
+const addButton = document.querySelector('.button-01');
+addButton.addEventListener('click', handleFileUpload);
+
+// Function to handle file download
+function handleFileDownload() {
+    const fileURL = '/path/to/file.pdf';
+    const link = document.createElement('a');
+    link.href = fileURL;
+    link.download = 'exported_file.pdf';
+    link.click();
+}
+const exportButton = document.querySelector('.button-5');
+exportButton.addEventListener('click', handleFileDownload);
+
+//Popup Add
+var addModal = document.getElementById("addPopup");
+var addBtn = document.querySelector(".button72"); 
+var addSpan = document.getElementsByClassName("close")[0];
+addBtn.onclick = function(event) {
+  event.stopPropagation();
+  addModal.style.display = "block";
+}
+addSpan.onclick = function(event) {
+  event.stopPropagation(); 
+  addModal.style.display = "none";
+}
+
+//Popup Update
+var updateModal = document.getElementById("updatePopup");
+var updateBtn = document.querySelector(".button32"); 
+var updateSpan = document.getElementsByClassName("update-close")[0];
+updateBtn.onclick = function() {
+  updateModal.style.display = "block";
+}
+updateSpan.onclick = function() {
+  updateModal.style.display = "none";
+}
+
+// Popup Delete
+var deleteModal = document.getElementById("deletePopup");
+var deleteBtn = document.querySelector(".button62");
+var deleteSpan = document.getElementsByClassName("delete-close")[0];
+deleteBtn.onclick = function() {
+  deleteModal.style.display = "block";
+}
+deleteSpan.onclick = function() {
+  deleteModal.style.display = "none";
+}
+
+// Unified window.onclick function to handle clicks outside of any modals
+window.onclick = function(event) {
+  if (event.target == addModal) {
+    addModal.style.display = "none";
+  } else if (event.target == updateModal) {
+    updateModal.style.display = "none";
+  } else if (event.target == deleteModal) {
+    deleteModal.style.display = "none";
+  }
+}

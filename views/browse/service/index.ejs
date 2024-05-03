@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap"
     />
   </head>
-  <body onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage()">
+  <body onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage(); showPopup(); handleFileUpload(); handleFileDownload()">
     <form class="browse-element-page">
       <div class="sidebar">
         <div class="title-wrapper">
@@ -74,13 +74,13 @@
                 <div class="button">Export</div>
               </div>
             </div>
-            <button class="button-01">
-              <button class="button-base3">
+            <div class="button-01">
+              <div class="button-base3">
                 <img class="plus-icon" alt="" src="/img/plus.png" />
 
                 <div class="text4">Add new File</div>
-              </button>
-            </button>
+              </div>
+            </div>
           </div>
         </div>
       </header>
@@ -126,32 +126,96 @@
           </div>
         </div>
       </div>
-      <br>
-      <div class = "table-border">
-        <table class = "table">
-                <% if (data.length > 0) { %>
-                    <tr>
-                        <th></th> <!-- Thêm cột cho checkbox -->
-                        <% for (let key in data[0]) { %>
-                            <th class = "tieude"><%= key %></th>
-                        <% } %>
-                    </tr>
-                    <% data.forEach((row, index) => { %>
-                        <tr>
-                            <td><input type="checkbox" name="selectedRows[]" value="<%= row.customer_id %>" class="row-checkbox"></td>
-                            <% for (let key in row) { %>
-                                <td><%= row[key] %></td>
-                            <% } %>
-                        </tr>
-                    <% }); %>
-                <% } else { %>
-                    <tr>
-                        <td>No data to display</td>
-                    </tr>
-                <% } %>
-                </table>
+      <footer class="table-pagination2">
+        <div class="of-972"></div>
+        <div class="table-pagination-inner2">
+          <div class="rows-per-page-parent2">
+            <div class="rows-per-page2">Rows per page:</div>
+            <div class="button-instance-parent2">
+              <div class="button-instance2">10</div>
+              <img class="down-icon2" alt="" src="/img/down.png" />
+            </div>
+          </div>
+        </div>
+        <div class="table-pagination-child2">
+          <div class="button-parent2">
+            <div class="button2" onclick="window.location.href='/browse/service/?page=<%= page - 1 %>&search=<%= searchQuery %>'">
+              <img
+                class="left-icon2"
+                loading="lazy2"
+                alt=""
+                src="/img/left.png"
+              />
+            </div>
+            <div class="div2">
+              <span class="span2">1</span>
+              <span class="span12">/10</span>
+            </div>
+            <div class="button12">
+              <div class="button22" onclick="window.location.href='/browse/service/?page=<%= page + 1 %>&search=<%= searchQuery %>'">
+                <img
+                  class="right-icon2"
+                  loading="lazy2"
+                  alt=""
+                  src="/img/right.png"
+                />
               </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <div class="button32">
+        <div class="button42">Update</div>
+      </div>
+      <div class="button52">
+        <div class="button62">Delete</div>
+      </div>
+      <div class="button72">
+        <div class="button82">Add</div>
+      </div>
+      <div class="input2">
+        <form action="/browse/service" method="GET">
+          <input type="text" name="search" class="search2" placeholder="Tìm kiếm..." value="<%= searchQuery || '' %>">
+          <button type="submit"><img class="search-icon2" alt="" src="/img/search.png" /></button>
+      </form>
+      </div>
+      <div class="button92">
+        <img class="filter-icon2" alt="" src="/img/filter.png" />
+      </div>
     </form>
+    <div id="addPopup" class="popup">
+      <div class="popup-content">
+        <span class="close">&times;</span>
+        <form class="popup-form" action="./addService" method="post">
+          <input type="text" placeholder="Service ID">
+          <input type="text" placeholder="Service Name">
+          <input type="text" placeholder="Price">
+          <input type="text" placeholder="Description">
+          <div type="submit" class="submit-button">Submit</div>
+        </form>
+      </div>
+    </div>
+    <div id="updatePopup" class="popup">
+      <div class="popup-content">
+        <span class="close update-close">&times;</span>
+        <form class="popup-form" action="./updateService" method="post">
+          <input type="text" placeholder="Service ID">
+          <input type="text" placeholder="Service Name">
+          <input type="text" placeholder="Price">
+          <input type="text" placeholder="Description">
+          <div type="submit" class="submit-button">Submit</div>
+        </form>
+      </div>
+    </div>
+    <div id="deletePopup" class="popup" >
+      <div class="popup-content">
+        <span class="close delete-close">&times;</span>
+        <form class="popup-form" action="./deleteService" method="post">
+          <input type="text" placeholder="Service ID">
+          <div type="submit" class="submit-button">Delete</div>
+        </form>
+      </div>
+    </div>
 	<script src="main.js"></script>
   </body>
 </html>

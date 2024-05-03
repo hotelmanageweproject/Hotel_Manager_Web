@@ -651,62 +651,469 @@
   }
 }
 
-body {
-  font-family: 'lato', sans-serif;
+.button-instance2,
+.of-972,
+.rows-per-page2 {
+position: relative;
+font-size: var(--caption-size);
+letter-spacing: 0.03em;
+line-height: 18px;
+font-weight: 500;
+font-family: var(--body-b2);
+color: var(--gray-500);
+display: inline-block;
 }
-
-/* Định nghĩa CSS cho bảng và các hàng */
-.table-border {
-  border: 1px solid #ffffff; /* Màu viền xanh dương */
-  border-radius: 15px; /* Bo tròn góc */
-  margin: 15px;
-  padding: 0px; /* Khoảng cách từ viền đến các thành phần xung quanh */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Đổ bóng cho viền bao quanh */
-  overflow: hidden; /* Đảm bảo các thành phần con không vượt ra ngoài viền */
+.of-972 {
+height: 18px;
+flex: 1;
+text-align: left;
+min-width: 30%; /* Thay đổi từ cố định sang phần trăm */
+max-width: 100%;
 }
-
-.table {
+.button-instance2,
+.rows-per-page2 {
+text-align: right;
+min-width: 94px;
+}
+.button-instance2 {
+position: absolute;
+top: 1px;
+left: 0;
+line-height: 14px;
+min-width: 15px;
+}
+.down-icon2 {
+position: absolute;
+top: 0;
+left: 16px;
+width: 16px;
+height: 16px;
+}
+.button-instance-parent2 {
+height: 16px;
+width: 32px;
+position: relative;
+}
+.rows-per-page-parent2 {
+position: absolute;
+top: 0;
+left: 0;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+gap: 4px;
+width: 100%;
+height: 100%;
+}
+.left-icon2,
+.table-pagination-inner2 {
+height: 18px;
+width: 130px;
+position: relative;
+}
+.left-icon2 {
+height: 16px;
+width: 16px;
+}
+.button2 {
+box-shadow: var(--sd-button-inactive);
+border-radius: var(--br-7xs);
+background-color: var(--gray-0);
+overflow: hidden;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+padding: var(--padding-11xs) var(--padding-9xs);
+}
+.span2 {
+color: #171c26;
+}
+.span12 {
+color: var(--gray-500);
+}
+.div2 {
+position: relative;
+font-size: var(--caption-size);
+letter-spacing: 0.03em;
+line-height: 18px;
+font-weight: 500;
+font-family: var(--body-b2);
+text-align: right;
+display: inline-block;
+min-width: 29px;
+}
+.right-icon2 {
+height: 16px;
+width: 16px;
+position: relative;
+}
+.button22 {
+box-shadow: var(--sd-button-default);
+border-radius: var(--br-7xs);
+background-color: var(--white);
+overflow: hidden;
+align-items: center;
+justify-content: center;
+padding: var(--padding-11xs) var(--padding-9xs);
+}
+.button-parent2,
+.button12,
+.button22 {
+display: flex;
+flex-direction: row;
+}
+.button12 {
+border-radius: var(--br-7xs);
+align-items: flex-start;
+justify-content: flex-start;
+}
+.button-parent2 {
+position: absolute;
+top: 0;
+left: 0;
+align-items: center;
+justify-content: center;
+gap: var(--gap-5xs);
+width: 100%;
+height: 100%;
+}
+.table-pagination-child2 {
+height: 20px;
+width: 93px;
+position: relative;
+}
+.table-pagination2 {
+position: absolute;
+bottom: 0;
+left: 0; /* Thay đổi từ cố định sang 0 để căn lề trái */
+right: 0; /* Thêm thuộc tính này để căn phải */
+backdrop-filter: blur(8px);
+background-color: rgba(244, 247, 252, 0.75);
+width: 100%; /* Thay đổi từ giá trị cố định sang 100% */
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+align-items: center;
+justify-content: center;
+padding: var(--padding-xs) 20px;
+box-sizing: border-box;
+gap: 20px;
+}
+.add-icon2 {
+  height: 16px;
+  width: 16px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: none;
+}
+.button42 {
+  position: relative;
+  font-size: var(--body-b2-size);
+  letter-spacing: 0.02em;
+  line-height: 20px;
+  font-weight: 500;
+  font-family: var(--body-b2);
+  color: var(--white);
+  text-align: left;
+  display: inline-block;
+  min-width: 59px;
+}
+.button32 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-7xs) 9px var(--padding-7xs) var(--padding-xs);
+  background-color: var(--blue-500);
+  position: absolute;
+  top: 206px;
+  right: 24px;
+  box-shadow: 0 1px 0#4b85fa inset, 0 1px 1px rgba(0, 0, 0, 0.14),
+    0 0 0 1px #2264e6, 0 2px 5px rgba(34, 100, 230, 0.12);
+  border-radius: var(--br-7xs);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.button32:hover,
+.button52:hover,
+.button72:hover {
+  background-color: var(--color-dodgerblue);
+}
+.add-icon12 {
+  height: 16px;
+  width: 16px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: none;
+}
+.button62 {
+  position: relative;
+  font-size: var(--body-b2-size);
+  letter-spacing: 0.02em;
+  line-height: 20px;
+  font-weight: 500;
+  font-family: var(--body-b2);
+  color: var(--white);
+  text-align: left;
+  display: inline-block;
+  min-width: 46px;
+}
+.button52 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-7xs) 11px;
+  background-color: var(--blue-500);
+  position: absolute;
+  top: 206px;
+  right: 117px;
+  box-shadow: 0 1px 0#4b85fa inset, 0 1px 1px rgba(0, 0, 0, 0.14),
+    0 0 0 1px #2264e6, 0 2px 5px rgba(34, 100, 230, 0.12);
+  border-radius: var(--br-7xs);
+  width: 70px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+}
+.add-icon22 {
+  height: 16px;
+  width: 16px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: none;
+}
+.button82 {
+  position: relative;
+  font-size: var(--body-b2-size);
+  letter-spacing: 0.02em;
+  line-height: 20px;
+  font-weight: 500;
+  font-family: var(--body-b2);
+  color: var(--white);
+  text-align: left;
+  display: inline-block;
+  min-width: 29px;
+}
+.button72 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-7xs) var(--padding-xs);
+  background-color: var(--blue-500);
+  position: absolute;
+  top: 206px;
+  right: 205px;
+  box-shadow: 0 1px 0#4b85fa inset, 0 1px 1px rgba(0, 0, 0, 0.14),
+    0 0 0 1px #2264e6, 0 2px 5px rgba(34, 100, 230, 0.12);
+  border-radius: var(--br-7xs);
+  width: 55px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+  white-space: nowrap;
+}
+.search-icon2 {
+  height: 16px;
+  width: 16px;
+  position: relative;
+}
+.search2 {
+  width: calc(100% - 40px);
+  border: 0;
+  outline: 0;
+  font-family: var(--body-b2);
+  font-size: var(--body-b2-size);
+  background-color: transparent;
+  height: 20px;
+  flex: 1;
+  position: relative;
+  line-height: 20px;
+  color: var(--gray-300);
+  text-align: left;
+  display: inline-block;
+  min-width: 163px;
+  padding: 0;
+}
+.input2 {
+  position: absolute;
+  top: 206px;
+  left: 318px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(104, 113, 130, 0.16);
+  border-radius: var(--br-7xs);
+  background-color: var(--white);
+  width: 320px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) var(--padding-xs);
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+}
+.filter-icon2 {
+  height: 16px;
+  width: 16px;
+  position: relative;
+}
+.browse-element-page2,
+.button92 {
+  background-color: var(--white);
+  overflow: hidden;
+}
+.button92 {
+  position: absolute;
+  top: 206px;
+  left: 262px;
+  box-shadow: var(--sd-button-default);
+  border-radius: var(--br-7xs);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px var(--padding-xs);
+}
+.browse-element-page2 {
+  margin: 0;
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 15px; /* Khoảng cách giữa các hàng */
+  height: 940px;
+  position: relative;
+  line-height: normal;
+  letter-spacing: normal;
 }
-
-.table tr {
-  background-color: #e4f6fd; /* Màu nền cho mỗi hàng */
-  border-radius: 15px; /* Viền cong cho mỗi hàng */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Đổ bóng nhẹ cho mỗi hàng */
-  overflow: hidden; /* Đảm bảo các thành phần con không vượt ra ngoài viền cong */
+@media screen and (max-width: 825px) {
+  .browse-element-page2 {
+    height: auto;
+    min-height: 940;
+  }
 }
-
-.table th, .table td {
-  padding: 10px; /* Đệm cho nội dung trong th và td */
-  border: none; /* Bỏ viền mặc định */
-}
-
-.table th {
-  background-color: #0070FF; /* Màu xanh dương cho tiêu đề */
-  display: flexbox;
-  text-align: center;
-  border-radius: 15px; /* Viền cong */
-  color: white; /* Màu chữ trắng */
-  text-align: left; /* Căn trái nội dung tiêu đề */
+@media screen and (max-width: 675px) {
+  .of-972 {
+    min-width: 100%;
+  }
 }
 
 .popup {
-  display: none;
-  position: fixed;
-  z-index: 1;
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-.popup form {
-  margin: 15% auto;
+.popup-content {
+  border-radius: 15px;
+  background-color: #fefefe;
+  margin: 15% auto 0 auto; /* 15% from the top and centered, modified to add 0 for bottom margin */
+  margin-top: calc(15% + 30px); /* Lowering the popup by 30px */
   padding: 20px;
-  background: white;
-  width: 30%;
+  border: 1px solid #888;
+  width: 95%; /* Adjusted for better layout control */
+  box-sizing: border-box; /* Includes padding and border in the width */
+  position: relative; /* Needed for absolute positioning of the close button */
+}
+
+.close {
+  position: absolute; /* Absolute positioning */
+  top: 5px; /* Close to the top of the container */
+  right: 5px; /* Close to the right of the container */
+  color: #333; /* Darker color */
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black; /* Even darker on hover/focus */
+  text-decoration: none;
+}
+
+.popup-form input[type="text"] {
+  font-family: inherit;
+  flex: 1; /* Each input takes equal width */
+  padding: 8px;
+  margin: 10px 5px; /* Increased spacing between inputs */
+  border: 2px solid #ccc; /* Thicker border */
+  box-sizing: border-box;
+  border-radius: 10px; /* Rounded corners */
+}
+
+.popup-form .submit-button {
+  font-family: inherit; /* Use the same font as the rest of the page */
+  flex: 1; /* Adjust width as needed */
+  padding: 8px 15px; /* Padding for better text spacing */
+  margin: 10px 5px; /* Consistent spacing with input fields */
+  background-color: #007BFF; /* Example blue background */
+  color: white; /* Text color */
+  border: none; /* No border for a cleaner look */
+  border-radius: 10px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size similar to other buttons */
+  text-align: center; /* Center the text inside the button */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Optional: Adds shadow for 3D effect */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.popup-form .submit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover for visual feedback */
+}
+body {
+  font-family: 'Inter', sans-serif; /* Ensures the whole page uses 'Inter' */
+}
+
+/* Style for Delete Popup */
+#deletePopup .popup-content {
+width: 30%; /* Adjust width to fit the content */
+margin: 15% auto; /* Center the popup vertically and horizontally */
+padding: 20px;
+border: 1px solid #888;
+background-color: #fefefe;
+text-align: center; /* Center the content inside the popup */
+}
+
+#deletePopup input[type="text"] {
+width: 80%; /* Adjust the width of the input field */
+padding: 10px;
+margin-top: 20px; /* Space above the input field */
+margin-bottom: 20px; /* Space below the input field */
+border: 1px solid #ccc;
+box-sizing: border-box; /* Include padding and border in the width */
+}
+
+#deletePopup .submit-button {
+font-family: inherit; /* Use the same font as the rest of the page */
+flex: 1; /* Adjust width as needed */
+padding: 8px 15px; /* Padding for better text spacing */
+margin: 10px 5px; /* Consistent spacing with input fields */
+background-color: #f44336; /* Red background */
+color: white; /* Text color */
+border: none; /* No border for a cleaner look */
+border-radius: 10px; /* Rounded corners */
+cursor: pointer; /* Pointer cursor on hover */
+font-size: 16px; /* Font size similar to other buttons */
+text-align: center; /* Center the text inside the button */
+box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Optional: Adds shadow for 3D effect */
+transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+#deletePopup .submit-button:hover {
+background-color: #ff6666; /* Lighter red on hover */
 }
