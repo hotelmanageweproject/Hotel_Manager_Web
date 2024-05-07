@@ -70,14 +70,12 @@
                   alt=""
                   src="/img/cloud.jpg"
                 />
-
                 <div class="button">Export</div>
               </div>
             </div>
             <div class="button-01">
               <div class="button-base3">
                 <img class="plus-icon" alt="" src="/img/plus.png" />
-
                 <div class="text4">Add new File</div>
               </div>
             </div>
@@ -126,6 +124,7 @@
           </div>
         </div>
       </div>
+      
       <footer class="table-pagination2">
         <div class="of-972"></div>
         <div class="table-pagination-inner2">
@@ -177,25 +176,28 @@
         <form action="/browse/customer" method="GET">
         <input class="search2" placeholder="Search..." type="text" />
         <button type="submit"><img class="search-icon2" alt="" src="/img/search.png" /></button>
-  </form>
+        </form>
       </div>
       <div class="button92">
         <img class="filter-icon2" alt="" src="/img/filter.png" />
       </div>
+      
     </form>
+    
     <div id="addPopup" class="popup">
       <div class="popup-content">
         <span class="close">&times;</span>
         <form class="popup-form" action="./addCustomer" method="post">
-          <input type="text" placeholder="Customer ID">
-          <input type="text" placeholder="First Name">
-          <input type="text" placeholder="Last Name">
-          <input type="text" placeholder="Birthday">
-          <input type="text" placeholder="Gender">
-          <input type="text" placeholder="Email">
-          <input type="text" placeholder="Phone">
-          <input type="text" placeholder="Address">
-          <div type="submit" class="submit-button">Submit</div>
+          <input type="text" name="customer_id" placeholder="Customer ID">
+          <input type="text" name="cccd_passport" placeholder="CCCD - Passport">
+          <input type="text" name="first_name" placeholder="First Name">
+          <input type="text" name="last_name" placeholder="Last Name">
+          <input type="text" name="birthday" placeholder="Birthday">
+          <input type="text" name="gender" placeholder="Gender">
+          <input type="text" name="email" placeholder="Email">
+          <input type="text" name="phone" placeholder="Phone">
+          <input type="text" name="address" placeholder="Address">
+          <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
     </div>
@@ -203,15 +205,16 @@
       <div class="popup-content">
         <span class="close update-close">&times;</span>
         <form class="popup-form" action="./updateCustomer" method="post">
-          <input type="text" placeholder="Customer ID">
-          <input type="text" placeholder="First Name">
-          <input type="text" placeholder="Last Name">
-          <input type="text" placeholder="Birthday">
-          <input type="text" placeholder="Gender">
-          <input type="text" placeholder="Email">
-          <input type="text" placeholder="Phone">
-          <input type="text" placeholder="Address">
-          <div type="submit" class="submit-button">Submit</div>
+          <input type="text" name="customer_id" placeholder="Customer ID">
+          <input type="text" name="cccd_passport" placeholder="CCCD - Passport">
+          <input type="text" name="first_name" placeholder="First Name">
+          <input type="text" name="last_name" placeholder="Last Name">
+          <input type="text" name="birthday" placeholder="Birthday">
+          <input type="text" name="gender" placeholder="Gender">
+          <input type="text" name="email" placeholder="Email">
+          <input type="text" name="phone" placeholder="Phone">
+          <input type="text" name="address" placeholder="Address">
+          <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
     </div>
@@ -219,11 +222,34 @@
       <div class="popup-content">
         <span class="close delete-close">&times;</span>
         <form class="popup-form" action="./deleteCustomer" method="post">
-          <input type="text" placeholder="Customer ID">
-          <div type="submit" class="submit-button">Delete</div>
+          <input type="text" name = "customer_id" placeholder="Customer ID">
+          <button type="submit" class="submit-button">Delete</button>
         </form>
       </div>
     </div>
+    
+    <% function renderTable(data, headers) { %>
+      <table>
+        <thead>
+          <tr>
+            <% headers.forEach((header) => { %>
+              <th><%= header %></th>
+            <% }); %>
+          </tr>
+        </thead>
+        <tbody>
+          <% data.forEach((row) => { %>
+            <tr>
+              <% headers.forEach((header) => { %>
+                <td><%= row[header] %></td>
+              <% }); %>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+    
+    <% renderTable(data, ['customer_id', 'cccd_passport', 'first_name', 'last_name', 'birthday', 'gender', 'email', 'phone', 'address']) %>
 	<script src="main.js"></script>
   </body>
 </html>
