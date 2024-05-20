@@ -109,29 +109,38 @@ function goToSearchEmployeePage() {
 
 // Function to handle file upload
 function handleFileUpload(event) {
+    const form = document.createElement('form');
+    form.method = 'post';
+    form.enctype = 'multipart/form-data';
+    form.action = '/browse/customer/upload';
+
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
-    fileInput.accept = 'image/*'; 
-    fileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        console.log('Uploaded file:', file);
+    fileInput.name = 'file';
+    fileInput.accept = '.csv'; 
+
+    const submitInput = document.createElement('input');
+    submitInput.type = 'submit';
+    submitInput.style.display = 'none';
+
+    form.appendChild(fileInput);
+    form.appendChild(submitInput);
+
+    fileInput.addEventListener('change', () => {
+        form.submit();
     });
+
+    form.style.display = 'none';
+    document.body.appendChild(form);
 
     fileInput.click();
 }
-const addButton = document.querySelector('.button-01');
+
+const addButton = document.querySelector('.text4');
 addButton.addEventListener('click', handleFileUpload);
 
 // Function to handle file download
-function handleFileDownload() {
-    const fileURL = '/path/to/file.pdf';
-    const link = document.createElement('a');
-    link.href = fileURL;
-    link.download = 'exported_file.pdf';
-    link.click();
-}
-const exportButton = document.querySelector('.button-5');
-exportButton.addEventListener('click', handleFileDownload);
+
 
 //Popup Add
 var addModal = document.getElementById("addPopup");

@@ -4,34 +4,44 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import db from '../../../config/db.js';
-import session from 'express-session';
-
+import { getCustomers } from '../../../models/customer.js';
+import { Parser } from 'json2csv';
+import multer from 'multer';
+import csvParser from 'csv-parser';
+import fs from 'fs';
 
 const router_cus = express.Router();
 router_cus.use(express.static(path.join(__dirname, 'public/browse/customer')));
 router_cus.use(express.urlencoded({ extended: true }));
 
-router_cus.use(session({
-  secret: 'your-secret-key',
-  resave: false,
-  saveUninitialized: true
-}));
+
 
 router_cus.get('/', async (req, res) => {
   const searchQuery = req.query.search;
+  console.log('searchQuery:', searchQuery);
   const page = req.query.page ? parseInt(req.query.page) : 0;
-  const limit = 10;
-  const offset = page * limit;
-  let query = `SELECT * FROM customers WHERE customer_id::text LIKE '%${searchQuery}%' OR cccd_passport LIKE '%${searchQuery}%' OR first_name LIKE '%${searchQuery}%' OR last_name LIKE '%${searchQuery}%' OR email LIKE '%${searchQuery}%' OR phone LIKE '%${searchQuery}%' OR address LIKE '%${searchQuery}%' LIMIT ${limit} OFFSET ${offset}`;
-  if (!searchQuery) {
-    query = `SELECT * FROM customers LIMIT ${limit} OFFSET ${offset}`;
-  }
   try {
-      const result = await db.query(query);
-      res.render('browse/customer/index.ejs', { data: result.rows, page: page, searchQuery: searchQuery });
+    const data = await getCustomers(searchQuery, page);
+    res.render('browse/customer/index.ejs', { data: data, page: page, searchQuery: searchQuery });
   } catch (err) {
-      console.error(err);
-      res.status(500).send('Server error');
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+router_cus.get('/export', async (req, res) => {
+  try {
+    const searchQuery = req.query.search;
+    const page = req.query.page ? parseInt(req.query.page) : 0;
+    const data = await getCustomers(searchQuery, page);
+    const json2csv = new Parser();
+    const csv = json2csv.parse(data);
+    res.header('Content-Type', 'text/csv');
+    res.attachment('customers.csv');
+    return res.send(csv);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
   }
 });
 
