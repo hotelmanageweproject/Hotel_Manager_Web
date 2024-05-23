@@ -29,11 +29,13 @@
             </div>
             <div class="menu-item2">
               <img class="search-icon" alt="" src="/img/search.png" />
+
               <div class="browse">Browse</div>
             </div>
             <div class="menu-item3">
               <img class="radio-icon" alt="" src="/img/static.png" />
-              <div class="static">Static</div>
+
+              <input class="static" placeholder="Static" type="text" />
             </div>
           </div>
         </div>
@@ -63,19 +65,13 @@
             </div>
             <div class="button-5">
               <div class="button-base2">
-                <img
-                  class="download-cloud-02-icon"
-                  alt=""
-                  src="/img/cloud.jpg"
-                />
-
+                <img class="download-cloud-02-icon" alt="" src="/img/cloud.jpg"/>
                 <div class="button">Export</div>
               </div>
             </div>
             <div class="button-01">
               <div class="button-base3">
                 <img class="plus-icon" alt="" src="/img/plus.png" />
-
                 <div class="text4">Add new File</div>
               </div>
             </div>
@@ -124,63 +120,116 @@
           </div>
         </div>
       </div>
-      <footer class="table-pagination2">
-        <div class="of-972"></div>
-        <div class="table-pagination-inner2">
-          <div class="rows-per-page-parent2">
-            <div class="rows-per-page2">Rows per page:</div>
-            <div class="button-instance-parent2">
-              <div class="button-instance2">10</div>
-              <img class="down-icon2" alt="" src="/img/down.png" />
-            </div>
+      <div class="content-container">
+        <div class="control-panel">
+          <div class="button32">
+            <div class="button42">Update</div>
+          </div>
+          <div class="button52">
+            <div class="button62">Delete</div>
+          </div>
+          <div class="button72">
+            <div class="button82">Add</div>
+          </div>
+          <div class="date-picker">
+            <input type="date" name="date" class="date-input" placeholder="Select Date">
+          </div>
+          <div class="input2">
+            <form action="/browse/room" method="GET">
+              <input type="text" name="search" class="search2" placeholder="Search..." value="<%= searchQuery || '' %>">
+              <button type="submit" style="background-color: #ffffff; border: none;"><img class="search-icon2" alt="" src="/img/search.png" /></button>
+            </form>
+          </div>
+          <div class="button92">
+            <img class="filter-icon2" alt="" src="/img/filter.png" />
           </div>
         </div>
-        <div class="table-pagination-child2">
-          <div class="button-parent2">
-            <div class="button2" onclick="window.location.href='/browse/room/?page=<%= page - 1 %>&search=<%= searchQuery %>'">
-              <img
-                class="left-icon2"
-                loading="lazy2"
-                alt=""
-                src="/img/left.png"
-              />
-            </div>
-            <div class="div2">
-              <span class="span2">1</span>
-              <span class="span12">/10</span>
-            </div>
-            <div class="button12">
-              <div class="button22" onclick="window.location.href='/browse/room/?page=<%= page + 1 %>&search=<%= searchQuery %>'">
-                <img
-                  class="right-icon2"
-                  loading="lazy2"
-                  alt=""
-                  src="/img/right.png"
-                />
+
+        <div class="table-container">
+          <% function renderTable(data, headers) { %>
+            <table>
+              <thead>
+                <tr>
+                  <% headers.forEach((header) => { %>
+                    <th><%= header %></th>
+                  <% }); %>
+                </tr>
+              </thead>
+              <thead>
+                <tr>
+                  <td><input type="text" name="customer_id" placeholder></td>
+                  <td><input type="text" name="cccd_passport" placeholder></td>
+                  <td><input type="text" name="first_name" placeholder></td>
+                  <td><input type="text" name="last_name" placeholder></td>
+                  <td><input type="text" name="birthday" placeholder></td>
+                  <td><input type="text" name="gender" placeholder></td>
+                  <td><input type="text" name="email" placeholder></td>
+                  <td><input type="text" name="phone" placeholder></td>
+                  <td><input type="text" name="address" placeholder></td>
+                </tr>
+              </thead>
+              <tbody>
+                <% data.forEach((row) => { %>
+                  <tr>
+                    <% headers.forEach((header, index) => { %>
+                      <td class="last-column">
+                        <div class="content-wrapper">
+                          <%= row[header] %>
+                          <% if (index === headers.length - 1) { %>
+                            <img class="document-icon" src="/img/3doc.png" alt="Document">
+                          <% } %>
+                        </div>
+                      </td>
+                    <% }); %>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          <% } %>
+          <% renderTable(data, ['customer_id', 'cccd_passport', 'first_name', 'last_name', 'birthday', 'gender', 'email', 'phone', 'address']) %>
+        </div>
+        
+        <footer class="table-pagination2">
+          <div class="of-972"></div>
+          <div class="table-pagination-inner2">
+            <div class="rows-per-page-parent2">
+              <div class="rows-per-page2">Rows per page:</div>
+              <div class="button-instance-parent2">
+                <div class="button-instance2">10</div>
+                <img class="down-icon2" alt="" src="/img/down.png" />
               </div>
             </div>
           </div>
-        </div>
-      </footer>
-      <div class="button32">
-        <div class="button42">Update</div>
-      </div>
-      <div class="button52">
-        <div class="button62">Delete</div>
-      </div>
-      <div class="button72">
-        <div class="button82">Add</div>
-      </div>
-      <div class="input2">
-        <form action="/browse/room" method="GET">
-          <input type="text" name="search" class="search2" placeholder="Tìm kiếm..." value="<%= searchQuery || '' %>">
-          <button type="submit"><img class="search-icon2" alt="" src="/img/search.png" /></button>
-      </form>
-      </div>
-      <div class="button92">
-        <img class="filter-icon2" alt="" src="/img/filter.png" />
+          <div class="table-pagination-child2">
+            <div class="button-parent2">
+              <div class="button2" onclick="window.location.href='/browse/customer/?page=<%= page - 1 %>&search=<%= searchQuery %>'">
+                <img
+                  class="left-icon2"
+                  loading="lazy2"
+                  alt=""
+                  src="/img/left.png"
+                />
+              </div>
+              <div class="div2">
+                <span class="span2"><%=page + 1%>/10</span>
+                
+              </div>
+              <div class="button12">
+                <div class="button22" onclick="window.location.href='/browse/customer/?page=<%= page + 1 %>&search=<%= searchQuery %>'">
+                  <img
+                    class="right-icon2"
+                    loading="lazy2"
+                    alt=""
+                    src="/img/right.png"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </form>
+    
     <div id="addPopup" class="popup">
       <div class="popup-content">
         <span class="close">&times;</span>
