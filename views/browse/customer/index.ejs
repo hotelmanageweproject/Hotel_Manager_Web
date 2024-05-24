@@ -165,50 +165,46 @@
 
         <div class="table-container">
           <% function renderTable(data, headers) { %>
-          <table>
-            <thead>
-              <tr>
-                <% headers.forEach((header) => { %>
-                <th><%= header %></th>
+            <table>
+              <thead>
+                <tr>
+                  <% headers.forEach((header) => { %>
+                    <th><%= header %></th>
+                  <% }); %>
+                </tr>
+              </thead>
+              <thead>
+                <tr>
+                  <td><input type="text" name="customer_id" placeholder></td>
+                  <td><input type="text" name="cccd_passport" placeholder></td>
+                  <td><input type="text" name="first_name" placeholder></td>
+                  <td><input type="text" name="last_name" placeholder></td>
+                  <td><input type="text" name="birthday" placeholder></td>
+                  <td><input type="text" name="gender" placeholder></td>
+                  <td><input type="text" name="email" placeholder></td>
+                  <td><input type="text" name="phone" placeholder></td>
+                  <td><input type="text" name="address" placeholder></td>
+                </tr>
+              </thead>
+              <tbody>
+                <% data.forEach((row) => { %>
+                  <tr>
+                    <% headers.forEach((header, index) => { %>
+                      <td class="last-column">
+                        <div class="content-wrapper">
+                          <%= row[header] %>
+                          <% if (index === headers.length - 1) { %>
+                            <img class="document-icon" src="/img/3doc.png" alt="Document">
+                          <% } %>
+                        </div>
+                      </td>
+                    <% }); %>
+                  </tr>
                 <% }); %>
-              </tr>
-            </thead>
-            <thead>
-              <tr>
-                <td><input type="text" name="customerID" placeholder /></td>
-                <td><input type="text" name="cccd_passport" placeholder /></td>
-                <td><input type="text" name="first_name" placeholder /></td>
-                <td><input type="text" name="last_name" placeholder /></td>
-                <td><input type="text" name="birthday" placeholder /></td>
-                <td><input type="text" name="gender" placeholder /></td>
-                <td><input type="text" name="email" placeholder /></td>
-                <td><input type="text" name="phone" placeholder /></td>
-                <td><input type="text" name="address" placeholder /></td>
-              </tr>
-            </thead>
-            <tbody>
-              <% data.forEach((row) => { %>
-              <tr>
-                <% headers.forEach((header, index) => { %>
-                <td class="last-column">
-                  <div class="content-wrapper">
-                    <%= row[header] %> <% if (index === headers.length - 1) { %>
-                    <img
-                      class="document-icon"
-                      src="/img/3doc.png"
-                      alt="Document"
-                    />
-                    <% } %>
-                  </div>
-                </td>
-                <% }); %>
-              </tr>
-              <% }); %>
-            </tbody>
-          </table>
-          <% } %> <% renderTable(data, ['customerid', 'rankid',
-          'personalid', 'firstname', 'lastname', 'birthday', 'gender', 'email',
-          'phone','address']) %>
+              </tbody>
+            </table>
+          <% } %>
+          <% renderTable(data, ['customer_id', 'cccd_passport', 'first_name', 'last_name', 'birthday', 'gender', 'email', 'phone', 'address']) %>
         </div>
 
         <footer class="table-pagination2">
@@ -304,6 +300,6 @@
         </form>
       </div>
     </div>
-    <script src="main.js"></script>
+	<script src="main.js"></script>
   </body>
 </html>

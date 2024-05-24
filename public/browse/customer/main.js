@@ -178,3 +178,31 @@ window.onclick = function(event) {
     deleteModal.style.display = "none";
   }
 }
+
+function showDetailsPopup(data) {
+    const rowData = JSON.parse(decodeURIComponent(data));
+    const overlay = document.getElementById('documentDetailsPopupOverlay');
+    const popup = document.getElementById('documentDetailsPopup');
+    const content = popup.querySelector('.document-popup-content');
+    
+    content.innerHTML = '';
+  
+    Object.keys(rowData).forEach(key => {
+      const row = document.createElement('div');
+      row.className = 'row';
+  
+      const keyElement = document.createElement('div');
+      keyElement.className = 'key';
+      keyElement.textContent = key;
+  
+      const valueElement = document.createElement('div');
+      valueElement.className = 'value';
+      valueElement.textContent = rowData[key];
+  
+      row.appendChild(keyElement);
+      row.appendChild(valueElement);
+      content.appendChild(row);
+    });
+  
+    overlay.style.display = 'block';
+  }

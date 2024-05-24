@@ -179,16 +179,30 @@ window.onclick = function(event) {
   }
 }
 
-document.getElementById('add-check-in-date').addEventListener('change', function() {
-    var date = new Date(this.value);
-    var formattedDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-    // Hiển thị ngày đã chọn hoặc sử dụng theo yêu cầu
-    console.log(formattedDate); // Hoặc hiển thị lên một phần tử HTML
-  });
+function showDetailsPopup(data) {
+    const rowData = JSON.parse(decodeURIComponent(data));
+    const overlay = document.getElementById('documentDetailsPopupOverlay');
+    const popup = document.getElementById('documentDetailsPopup');
+    const content = popup.querySelector('.document-popup-content');
+    
+    content.innerHTML = '';
   
-  document.getElementById('add-check-out-date').addEventListener('change', function() {
-    var date = new Date(this.value);
-    var formattedDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-    // Hiển thị ngày đã chọn hoặc sử dụng theo yêu cầu
-    console.log(formattedDate); // Hoặc hiển thị lên một phần tử HTML
-  });
+    Object.keys(rowData).forEach(key => {
+      const row = document.createElement('div');
+      row.className = 'row';
+  
+      const keyElement = document.createElement('div');
+      keyElement.className = 'key';
+      keyElement.textContent = key;
+  
+      const valueElement = document.createElement('div');
+      valueElement.className = 'value';
+      valueElement.textContent = rowData[key];
+  
+      row.appendChild(keyElement);
+      row.appendChild(valueElement);
+      content.appendChild(row);
+    });
+  
+    overlay.style.display = 'block';
+  }
