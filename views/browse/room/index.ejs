@@ -176,7 +176,7 @@
                         <div class="content-wrapper">
                           <%= row[header] %>
                           <% if (index === headers.length - 1) { %>
-                            <img class="document-icon" src="/img/3doc.png" alt="Document">
+                            <img class="document-icon" src="/img/3doc.png" alt="Document" onclick="showDetailsPopup('<%= encodeURIComponent(JSON.stringify(row)) %>')">
                           <% } %>
                         </div>
                       </td>
@@ -263,6 +263,14 @@
           <input type="text" placeholder="Room ID">
           <div type="submit" class="submit-button">Delete</div>
         </form>
+      </div>
+    </div>
+    <div id="documentDetailsPopupOverlay" class="document-popup-overlay" onclick="document.getElementById('documentDetailsPopupOverlay').style.display='none';">
+      <div id="documentDetailsPopup" class="document-popup" onclick="event.stopPropagation();">
+        <div class="document-popup-content">
+          
+        </div>
+        <span class="document-close" onclick="document.getElementById('documentDetailsPopupOverlay').style.display='none'">&times;</span>
       </div>
     </div>
 	<script src="main.js"></script>
