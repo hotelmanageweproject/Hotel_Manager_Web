@@ -3,96 +3,63 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-import db from '../../../config/db.js';
-import session from 'express-session';
+import customerModel from '../../../models/customer.js';
+
 
 
 const router_cus = express.Router();
 router_cus.use(express.static(path.join(__dirname, 'public/browse/customer')));
 router_cus.use(express.urlencoded({ extended: true }));
 
-router_cus.use(session({
-  secret: 'your-secret-key',
-  resave: false,
-  saveUninitialized: true
-}));
 
 router_cus.get('/', async (req, res) => {
   const searchQuery = req.query.search;
   const page = req.query.page ? parseInt(req.query.page) : 0;
   const limit = 10;
   const offset = page * limit;
-  let query = `SELECT * FROM customers WHERE customer_id::text LIKE '%${searchQuery}%' OR cccd_passport LIKE '%${searchQuery}%' OR first_name LIKE '%${searchQuery}%' OR last_name LIKE '%${searchQuery}%' OR email LIKE '%${searchQuery}%' OR phone LIKE '%${searchQuery}%' OR address LIKE '%${searchQuery}%' LIMIT ${limit} OFFSET ${offset}`;
-  if (!searchQuery) {
-    query = `SELECT * FROM customers LIMIT ${limit} OFFSET ${offset}`;
-  }
   try {
-      const result = await db.query(query);
-      res.render('browse/customer/index.ejs', { data: result.rows, page: page, searchQuery: searchQuery });
+    const data = await customerModel.getCustomers(searchQuery, limit, offset);
+    res.render('browse/customer/index.ejs', { data, page, searchQuery });
   } catch (err) {
-      console.error(err);
-      res.status(500).send('Server error');
+    console.error(err);
+    res.status(500).send('Server error');
   }
 });
 
-router_cus.post('/addCustomer', (req, res) => {
-  const {customer_id, cccd_passport, first_name, last_name, birthday, gender, email, phone, address } = req.body;
-
-  const query = `
-    INSERT INTO customers (customer_id, cccd_passport, first_name, last_name, birthday, gender, email, phone, address)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-  `;
-
-  const values = [customer_id, cccd_passport, first_name, last_name, birthday, gender, email, phone, address];
-
-  db.query(query, values, (err, result) => {
-    if (err) {
-      console.error('Error executing query', err.stack);
-      res.status(500).send('Error adding customer');
-    } else {
-      console.log('Customer added successfully');
-      res.redirect('/browse/customer');
-    }
-  });
+router_cus.post('/addCustomer', async (req, res) => {
+  const {customerID, rankID, personalID, firstName, lastName, birthday, gender, email, phone, address} = req.body;
+  console.log("Add customer: ",req.body);
+  try {
+    await customerModel.addCustomer(customerID, rankID, personalID, firstName, lastName, birthday, gender, email, phone, address);
+    res.redirect('/browse/customer');
+  } catch (err) {
+    console.error('Error adding customer', err);
+    res.status(500).send('Error adding customer');
+  }
 });
 
-router_cus.post('/deleteCustomer', (req, res) => {
-  const {customer_id} = req.body;
-
-  const query = `DELETE FROM customers WHERE customer_id = $1`;
-  db.query(query, [customer_id], (err, result) => {
-    if (err) {
-      console.error('Error executing query', err.stack);
-      res.status(500).send('Error deleting customer');
-    } else {
-      console.log('Customer deleted successfully');
-      res.redirect('/browse/customer');
-    }
-  });
+router_cus.post('/deleteCustomer', async (req, res) => {
+  const {customerID} = req.body;
+  console.log("Delete customer: ",req.body);
+  try {
+    await customerModel.deleteCustomer(customerID);
+    res.redirect('/browse/customer');
+  } catch (err) {
+    console.error('Error deleting customer', err);
+    res.status(500).send('Error deleting customer');
+  }
 });
 
 router_cus.post('/updateCustomer', async (req, res) => {
-  const { customer_id, cccd_passport, first_name, last_name, birthday, gender, email, phone, address } = req.body;
-  console.log('Updating customer:', req.body);
+  const { customerID, rankID, personalID, firstName, lastName, birthday, gender, email, phone, address} = req.body;
+  console.log("Update customer: ",req.body);
   try {
-    await updateCustomer(customer_id, { cccd_passport, first_name, last_name, birthday, gender, email, phone, address });
+    await customerModel.updateCustomer(customer_id, { rankID, personalID, firstName, lastName, birthday, gender, email, phone, address});
     res.redirect('/browse/customer');
-  } catch (error) {
-    console.error('Error updating customer:', error);
+  } catch (err) {
+    console.error('Error update customer', err);
     res.status(500).send('Error updating customer');
   }
 });
 
-async function updateCustomer(customer_id, fields) {
-  const updates = [];
-  for (let key in fields) {
-    if (fields[key] !== undefined && fields[key] !== '') {
-      updates.push(`${key} = '${fields[key]}'`);
-    }
-  }
-  if (updates.length > 0) {
-    const query = `UPDATE customers SET ${updates.join(', ')} WHERE customer_id = '${customer_id}'`;
-    await db.query(query);
-  }
-}
 export default router_cus;
