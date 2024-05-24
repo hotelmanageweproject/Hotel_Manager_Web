@@ -1,12 +1,8 @@
 .title {
   position: relative;
-  font-size: 20px;
   letter-spacing: -0.01em;
   line-height: 150%;
   font-weight: 600;
-  font-family: var(--small-text);
-  color: var(--color-black);
-  text-align: left;
 }
 .title-wrapper {
   display: flex;
@@ -18,12 +14,8 @@
 .functions {
   flex: 1;
   position: relative;
-  font-size: var(--small-text-size);
   line-height: 150%;
   font-weight: 600;
-  font-family: var(--small-text);
-  color: var(--color-black);
-  text-align: left;
 }
 .menu-item {
   align-self: stretch;
@@ -47,12 +39,8 @@
 }
 .home {
   flex: 1;
-  font-size: var(--small-text-size);
   line-height: 150%;
   font-weight: 500;
-  font-family: var(--small-text);
-  color: var(--color-black);
-  text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -80,12 +68,8 @@
 }
 .browse {
   flex: 1;
-  font-size: var(--small-text-size);
   line-height: 150%;
   font-weight: 500;
-  font-family: var(--small-text);
-  color: var(--color-black);
-  text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -114,12 +98,8 @@
 }
 .static {
   flex: 1;
-  font-size: var(--small-text-size);
   line-height: 150%;
   font-weight: 500;
-  font-family: var(--small-text);
-  color: var(--color-black);
-  text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -151,6 +131,7 @@
 }
 .menu-item-parent {
   align-self: stretch;
+  font-size: var(--small-text-size);
 }
 .sidebar {
   width: 256px;
@@ -160,21 +141,14 @@
   padding: var(--padding-5xl) 7px 694px;
   gap: 24px;
 }
-.text,
-.text1 {
+.badge-box,
+.text {
   position: relative;
-  font-size: var(--text-lg-medium-size);
   line-height: 28px;
   font-weight: 500;
-  font-family: var(--small-text);
-  color: #101828;
-  text-align: left;
 }
-.text1 {
-  font-size: var(--text-xs-medium-size);
+.text {
   line-height: 18px;
-  color: #0070ff;
-  text-align: center;
   display: inline-block;
   min-width: 102px;
 }
@@ -185,7 +159,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: var(--padding-11xs) var(--padding-5xs);
+  padding: 2px var(--padding-5xs);
   white-space: nowrap;
 }
 .badge,
@@ -197,6 +171,9 @@
 .badge {
   align-items: flex-start;
   mix-blend-mode: multiply;
+  text-align: center;
+  font-size: var(--text-xs-medium-size);
+  color: #0070ff;
 }
 .text-and-badge {
   align-self: stretch;
@@ -232,228 +209,49 @@
   align-items: flex-start;
   justify-content: center;
   padding: 32.5px 0 31px;
-}
-.icon-person {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-.icon-person-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: var(--padding-11xs) 0 0;
-}
-.customers {
-  position: relative;
-  font-size: var(--small-text-size);
-  line-height: 150%;
-  font-weight: 500;
-  font-family: var(--small-text);
-  color: var(--color-black);
   text-align: left;
-  display: inline-block;
-  min-width: 84px;
+  font-size: var(--text-lg-medium-size);
+  color: #101828;
+  font-family: var(--text-xs-medium);
 }
-.frame-parent {
-  cursor: pointer;
-  border: 1px solid var(--color-black);
-  padding: var(--padding-5xs) var(--padding-4xl);
-  background-color: transparent;
-  border-radius: var(--br-xl);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-3xs);
-}
-.vector-icon {
-  width: 16.7px;
-  height: 20px;
-  position: relative;
-}
-.vector-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: var(--padding-11xs) 0 0;
-}
-.rooms {
-  position: relative;
-  font-size: var(--small-text-size);
-  line-height: 150%;
-  font-weight: 500;
-  font-family: var(--small-text);
-  color: var(--color-black);
-  text-align: left;
-  display: inline-block;
-  min-width: 53px;
-}
-.frame-group {
-  cursor: pointer;
-  border: 1px solid var(--color-black);
-  padding: var(--padding-5xs) 40px var(--padding-5xs) 41.4px;
-  background-color: transparent;
-  border-radius: var(--br-xl);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 9.9px;
-}
-.vector-icon1 {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-.vector-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: var(--padding-11xs) 0 0;
-}
-.booking {
-  position: relative;
-  font-size: var(--small-text-size);
-  line-height: 150%;
-  font-weight: 500;
-  font-family: var(--small-text);
-  color: var(--color-black);
-  text-align: left;
-  display: inline-block;
-  min-width: 63px;
-}
-.frame-container {
-  cursor: pointer;
-  border: 1px solid var(--color-black);
-  padding: var(--padding-5xs) 34px;
-  background-color: transparent;
-  border-radius: var(--br-xl);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-3xs);
-}
-.icon-service {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-.icon-service-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: var(--padding-11xs) 0 0;
-}
-.services {
-  position: relative;
-  font-size: var(--small-text-size);
-  line-height: 150%;
-  font-weight: 500;
-  font-family: var(--small-text);
-  color: var(--color-black);
-  text-align: left;
-  display: inline-block;
-  min-width: 67px;
-}
-.frame-button {
-  cursor: pointer;
-  border: 1px solid var(--color-black);
-  padding: var(--padding-5xs) 32px;
-  background-color: transparent;
-  border-radius: var(--br-xl);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-3xs);
-}
-.icon-employee-group-solid {
-  width: 20.6px;
-  height: 20px;
-  position: relative;
-}
-.icon-employee-group-solid-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: var(--padding-11xs) 0 0;
-}
-.employees {
-  position: relative;
-  font-size: var(--small-text-size);
-  line-height: 150%;
-  font-weight: 500;
-  font-family: var(--small-text);
-  color: var(--color-black);
-  text-align: left;
-  display: inline-block;
-  min-width: 84px;
-}
-.buttons,
-.buttons-wrapper,
-.frame-parent1 {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-.frame-parent1 {
-  cursor: pointer;
-  border: 1px solid var(--color-black);
-  padding: var(--padding-5xs) var(--padding-4xl);
-  background-color: transparent;
-  border-radius: var(--br-xl);
-  gap: var(--gap-3xs);
-}
-.buttons,
-.buttons-wrapper {
-  max-width: 100%;
-}
-.buttons {
-  flex: 1;
-  flex-wrap: wrap;
-  gap: 100px;
-}
-.buttons-wrapper {
+.frame-child {
   align-self: stretch;
-  padding: 0 var(--padding-5xl);
-  box-sizing: border-box;
+  height: 814px;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  margin-top: -7px;
 }
 .card-header-parent {
   align-self: stretch;
   flex-direction: column;
-  gap: 15px;
   max-width: 100%;
 }
-.browse-home-page,
-.browse-home-page-inner,
-.card-header-parent {
+.card-header-parent,
+.home-page,
+.home-page-inner {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
 }
-.browse-home-page-inner {
+.home-page-inner {
   flex: 1;
   flex-direction: column;
   padding: 1px 0 0;
   box-sizing: border-box;
   max-width: calc(100% - 256px);
 }
-.browse-home-page {
-  margin: 0;
+.home-page {
   width: 100%;
   position: relative;
   background-color: var(--color-white);
   flex-direction: row;
   line-height: normal;
   letter-spacing: normal;
+  text-align: left;
+  font-size: 20px;
+  color: var(--color-black);
+  font-family: var(--text-xs-medium);
 }
 @media screen and (max-width: 975px) {
   .sidebar {
@@ -467,10 +265,10 @@
     padding-right: 327px;
     box-sizing: border-box;
   }
-  .browse-home-page-inner {
+  .home-page-inner {
     max-width: 100%;
   }
-  .browse-home-page {
+  .home-page {
     padding-left: var(--padding-xl);
     padding-right: var(--padding-xl);
     box-sizing: border-box;
@@ -480,9 +278,6 @@
   .text-and-badge {
     padding-right: 163px;
     box-sizing: border-box;
-  }
-  .buttons {
-    gap: 20px;
   }
 }
 @media screen and (max-width: 450px) {
