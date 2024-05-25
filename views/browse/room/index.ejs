@@ -176,7 +176,7 @@
                         <div class="content-wrapper">
                           <%= row[header] %>
                           <% if (index === headers.length - 1) { %>
-                            <img class="document-icon" src="/img/3doc.png" alt="Document" onclick="showDetailsPopup('<%= encodeURIComponent(JSON.stringify(row)) %>')">
+                            <img class="document-icon" src="/img/3doc.png" alt="Doc<img class="document-icon" src="/img/3doc.png" alt="Document" onclick="showDetailsPopup('<%= encodeURIComponent(JSON.stringify(row)) %>')">
                           <% } %>
                         </div>
                       </td>
@@ -236,9 +236,11 @@
         <form class="popup-form" action="./addRoom" method="post">
           <input type="text" placeholder="Room ID">
           <input type="text" placeholder="Room Type">
-          <input type="text" placeholder="Facility">
-          <input type="text" placeholder="Price">
           <input type="text" placeholder="Status">
+          <input type="text" placeholder="Name">
+          <input type="text" placeholder="Price Per Night">
+          <input type="text" placeholder="Max Adult">
+          <input type="text" placeholder="Max Child">
           <div type="submit" class="submit-button">Submit</div>
         </form>
       </div>
@@ -249,9 +251,11 @@
         <form class="popup-form" action="./updateRoom" method="post">
           <input type="text" placeholder="Room ID">
           <input type="text" placeholder="Room Type">
-          <input type="text" placeholder="Facility">
-          <input type="text" placeholder="Price">
           <input type="text" placeholder="Status">
+          <input type="text" placeholder="Name">
+          <input type="text" placeholder="Price Per Night">
+          <input type="text" placeholder="Max Adult">
+          <input type="text" placeholder="Max Child">
           <div type="submit" class="submit-button">Submit</div>
         </form>
       </div>
