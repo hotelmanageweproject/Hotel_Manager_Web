@@ -34,8 +34,7 @@
             </div>
             <div class="menu-item3">
               <img class="radio-icon" alt="" src="/img/static.png" />
-
-              <input class="static" placeholder="Static" type="text" />
+              <div class="static">Static</div>
             </div>
           </div>
         </div>
@@ -230,17 +229,48 @@
       </div>
     </form>
     
+    <div id="addPopup" class="popup">
+      <div class="popup-content">
+        <span class="close add-close">&times;</span>
+        <form class="popup-form" action="./addBooking">
+          <input type="text" placeholder="Booking ID">
+          <input type="text" placeholder="Customer ID">
+          <input type="text" placeholder="Booking Data">
+          <input type="text" placeholder="Booking Type">
+          <input type="text" placeholder="Total Adult">
+          <input type="text" placeholder="Total Child">
+          <input type="text" placeholder="Room ID">
+          <div class="input-groups-container">
+            <div class="input-group">
+              <label for="add-check-in-date" class="date-label">Check-in Date:</label>
+              <div class="date-time-group">
+                <input type="date" id="add-check-in-date" class="input-style">
+                <input type="time" id="add-check-in-time" class="input-style">
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="add-check-out-date" class="date-label">Check-out Date:</label>
+              <div class="date-time-group">
+                <input type="date" id="add-check-out-date" class="input-style">
+                <input type="time" id="add-check-out-time" class="input-style">
+              </div>
+            </div>
+          </div>
+          <div type="submit" class="submit-button">Submit</div>
+        </form>
+      </div>
+    </div>
     <div id="updatePopup" class="popup">
       <div class="popup-content">
         <span class="close update-close">&times;</span>
         <form class="popup-form" action="./updateBooking">
-          <input type="text" placeholder="Customer ID">
-          <input type="text" placeholder="Room ID">
-          <input type="text" placeholder="Adult">
-          <input type="text" placeholder="Child">
-          <input type="text" placeholder="Service ID">
-          <input type="text" placeholder="Status">
           <input type="text" placeholder="Booking ID">
+          <input type="text" placeholder="Customer ID">
+          <input type="text" placeholder="Booking Data">
+          <input type="text" placeholder="Booking Type">
+          <input type="text" placeholder="Total Adult">
+          <input type="text" placeholder="Total Child">
+          <input type="text" placeholder="Room ID">
           <div class="input-groups-container">
             <div class="input-group">
               <label for="update-check-in-date" class="date-label">Check-in Date:</label>
@@ -265,7 +295,7 @@
       <div class="popup-content">
         <span class="close delete-close">&times;</span>
         <form class="popup-form" action="./deleteBooking">
-          <input type="text" placeholder="Customer ID">
+          <input type="text" placeholder="Booking ID">
           <div type="submit" class="submit-button">Delete</div>
         </form>
       </div>
