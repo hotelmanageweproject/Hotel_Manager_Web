@@ -47,9 +47,9 @@ const deleteCustomer = (customerID) => {
   });
 };
 // Query cập nhật dữ liệu
-const updateCustomer = (booking_id, { customerID, bookingDate, bookingType, totalAdult, totalChild}) => {
+const updateCustomer = (customerID, { rankID, personalID, firstName, lastName, birthday, gender, email, phone, address}) => {
     return new Promise((resolve, reject) => {
-      const fields = { customerID, bookingDate, bookingType, totalAdult, totalChild };
+      const fields = { rankID, personalID, firstName, lastName, birthday, gender, email, phone, address };
       const updates = [];
       for (let key in fields) {
         if (fields[key] !== undefined && fields[key] !== '') {
@@ -57,7 +57,7 @@ const updateCustomer = (booking_id, { customerID, bookingDate, bookingType, tota
         }
       }
       if (updates.length > 0) {
-        const query = `UPDATE Customers SET ${updates.join(', ')} WHERE customerid = '${booking_id}'`;
+        const query = `UPDATE Customers SET ${updates.join(', ')} WHERE customerid = '${customerID}'`;
         db.query(query, (err, result) => {
           if (err) {
           console.error('Error executing query', err.stack);

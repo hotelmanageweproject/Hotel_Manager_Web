@@ -12,7 +12,7 @@
     />
   </head>
   <body
-    onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage(); showPopup(); handleFileUpload(); handleFileDownload()"
+    onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage(); showPopup(); handleFileUpload(); handleFileDownload(); showDetailsPopup()"
   >
     <form class="browse-element-page">
       <div class="sidebar">
@@ -141,6 +141,7 @@
               placeholder="Select Date"
             />
           </div>
+          
           <div class="input2">
             <form action="/browse/room" method="GET">
               <input
@@ -148,8 +149,8 @@
                 name="search"
                 class="search2"
                 placeholder="Search..."
-                value="<%= searchQuery || '' %>"
               />
+              
               <button
                 type="submit"
                 style="background-color: #ffffff; border: none"
@@ -222,8 +223,12 @@
             <div class="button-parent2">
               <div
                 class="button2"
-                onclick="window.location.href='/browse/customer/?page=<%= page - 1 %>&search=<%= searchQuery %>'"
-              >
+                <%if (urlBeforePage === "/browse/customer/" || urlBeforePage.startsWith("/browse/customer/?page")) {%>
+                  onclick="window.location.href='?page=<%= page - 1 %>'"
+                <%} else {%>
+                  onclick="window.location.href='<%= urlBeforePage%>&page=<%= page - 1 %>'"
+                <%};%> 
+                >
                 <img
                   class="left-icon2"
                   loading="lazy2"
@@ -237,7 +242,11 @@
               <div class="button12">
                 <div
                   class="button22"
-                  onclick="window.location.href='/browse/customer/?page=<%= page + 1 %>&search=<%= searchQuery %>'"
+                  <%if (urlBeforePage === "/browse/customer/" || urlBeforePage.startsWith("/browse/customer/?page")) {%>
+                    onclick="window.location.href='?page=<%= page + 1 %>'"
+                  <%} else {%>
+                    onclick="window.location.href='<%= urlBeforePage%>&page=<%= page + 1 %>'"
+                  <%};%>
                 >
                   <img
                     class="right-icon2"

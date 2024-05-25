@@ -2,7 +2,7 @@
 import db from '../config/db.js'; // Đảm bảo rằng bạn đã import db từ file đúng
 
 // Query hiển thị dữ liệu ra màn hình
-const getBookings = async (searchQuery, limit, offset) => {
+const getBooking = async (searchQuery, limit, offset) => {
   let query = `SELECT * FROM Booking WHERE booking_id::text LIKE '%${searchQuery}%' OR customer_id LIKE '%${searchQuery}%' OR room_id LIKE '%${searchQuery}%' OR number_of_adult LIKE '%${searchQuery}%' OR number_of_child LIKE '%${searchQuery}%' OR status LIKE '%${searchQuery}%' OR check_in_date LIKE '%${searchQuery}%' OR check_out_date LIKE '%${searchQuery}%' OR total_price LIKE '%${searchQuery}%' OR reservation_status LIKE '%${searchQuery}%' LIMIT ${limit} OFFSET ${offset}`;
   if (!searchQuery) {
     query = `SELECT * FROM Booking LIMIT ${limit} OFFSET ${offset}`;
@@ -47,7 +47,7 @@ const deleteBooking = (bookingID) => {
   });
 };
 // Query cập nhật dữ liệu
-const updateBooking = (booking_id, { customerID, bookingDate, bookingType, totalAdult, totalChild}) => {
+const updateBooking = (bookingID, { customerID, bookingDate, bookingType, totalAdult, totalChild}) => {
     return new Promise((resolve, reject) => {
       const fields = { customerID, bookingDate, bookingType, totalAdult, totalChild };
       const updates = [];
@@ -57,7 +57,7 @@ const updateBooking = (booking_id, { customerID, bookingDate, bookingType, total
         }
       }
       if (updates.length > 0) {
-        const query = `UPDATE Booking SET ${updates.join(', ')} WHERE booking_id = '${booking_id}'`;
+        const query = `UPDATE Booking SET ${updates.join(', ')} WHERE booking_id = '${bookingID}'`;
         db.query(query, (err, result) => {
           if (err) {
           console.error('Error executing query', err.stack);
@@ -72,7 +72,7 @@ const updateBooking = (booking_id, { customerID, bookingDate, bookingType, total
   };
 // Export module
 export default {
-    getBookings,
+    getBooking,
     deleteBooking,
     updateBooking,
     addBooking,

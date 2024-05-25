@@ -13,13 +13,19 @@ router_cus.use(express.urlencoded({ extended: true }));
 
 
 router_cus.get('/', async (req, res) => {
+  let url = req.originalUrl;
+  let parts = url.split("&page");
+  let urlBeforePage = parts[0]; // "/browse/customer/?date=&search=&customer_id=&cccd_passport=&first_name=&last_name=&birthday=&gender=&email=&phone=&address="
   const searchQuery = req.query.search;
   const page = req.query.page ? parseInt(req.query.page) : 0;
   const limit = 10;
   const offset = page * limit;
+  console.log("Search query: ",req.query.customerID);
   try {
     const data = await customerModel.getCustomers(searchQuery, limit, offset);
-    res.render('browse/customer/index.ejs', { data, page, searchQuery });
+    console.log("Url: ",urlBeforePage);
+    console.log("page: ",page)
+    res.render('browse/customer/index.ejs', { data, page, urlBeforePage, searchQuery});
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
@@ -54,7 +60,7 @@ router_cus.post('/updateCustomer', async (req, res) => {
   const { customerID, rankID, personalID, firstName, lastName, birthday, gender, email, phone, address} = req.body;
   console.log("Update customer: ",req.body);
   try {
-    await customerModel.updateCustomer(customer_id, { rankID, personalID, firstName, lastName, birthday, gender, email, phone, address});
+    await customerModel.updateCustomer(customerID, { rankID, personalID, firstName, lastName, birthday, gender, email, phone, address});
     res.redirect('/browse/customer');
   } catch (err) {
     console.error('Error update customer', err);
