@@ -11,9 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap"
     />
   </head>
-  <body
-    onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage(); showPopup(); handleFileUpload(); handleFileDownload(); showDetailsPopup()"
-  >
+  <body onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage(); showPopup(); handleFileUpload(); handleFileDownload(); showDetailsPopup()">
     <form class="browse-element-page">
       <div class="sidebar">
         <div class="title-wrapper">
@@ -36,8 +34,7 @@
             </div>
             <div class="menu-item3">
               <img class="radio-icon" alt="" src="/img/static.png" />
-
-              <input class="static" placeholder="Static" type="text" />
+              <div class="static" >Statistic</div>
             </div>
           </div>
         </div>
@@ -266,15 +263,16 @@
       <div class="popup-content">
         <span class="close">&times;</span>
         <form class="popup-form" action="./addCustomer" method="post">
-          <input type="text" name="customer_id" placeholder="Customer ID" />
-          <input type="text" name="cccd_passport" placeholder="CCCD - Passport"/>
-          <input type="text" name="first_name" placeholder="First Name" />
-          <input type="text" name="last_name" placeholder="Last Name" />
-          <input type="text" name="birthday" placeholder="Birthday" />
-          <input type="text" name="gender" placeholder="Gender" />
-          <input type="text" name="email" placeholder="Email" />
-          <input type="text" name="phone" placeholder="Phone" />
-          <input type="text" name="address" placeholder="Address" />
+          <input type="text" name="customer_id" placeholder="Customer ID">
+          <input type="text" name="personal_id" placeholder="Personal_id">
+          <input type="text" name="first_name" placeholder="First Name">
+          <input type="text" name="last_name" placeholder="Last Name">
+          <input type="text" name="birthday" placeholder="Birthday">
+          <input type="text" name="gender" placeholder="Gender">
+          <input type="text" name="email" placeholder="Email">
+          <input type="text" name="phone" placeholder="Phone">
+          <input type="text" name="address" placeholder="Address">
+          <input type="text" name="rank" placeholder="Rank">
           <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
@@ -283,19 +281,16 @@
       <div class="popup-content">
         <span class="close update-close">&times;</span>
         <form class="popup-form" action="./updateCustomer" method="post">
-          <input type="text" name="customer_id" placeholder="Customer ID" />
-          <input
-            type="text"
-            name="cccd_passport"
-            placeholder="CCCD - Passport"
-          />
-          <input type="text" name="first_name" placeholder="First Name" />
-          <input type="text" name="last_name" placeholder="Last Name" />
-          <input type="text" name="birthday" placeholder="Birthday" />
-          <input type="text" name="gender" placeholder="Gender" />
-          <input type="text" name="email" placeholder="Email" />
-          <input type="text" name="phone" placeholder="Phone" />
-          <input type="text" name="address" placeholder="Address" />
+          <input type="text" name="customer_id" placeholder="Customer ID">
+          <input type="text" name="personal_id" placeholder="Personal_id">
+          <input type="text" name="first_name" placeholder="First Name">
+          <input type="text" name="last_name" placeholder="Last Name">
+          <input type="text" name="birthday" placeholder="Birthday">
+          <input type="text" name="gender" placeholder="Gender">
+          <input type="text" name="email" placeholder="Email">
+          <input type="text" name="phone" placeholder="Phone">
+          <input type="text" name="address" placeholder="Address">
+          <input type="text" name="rank" placeholder="Rank">
           <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
