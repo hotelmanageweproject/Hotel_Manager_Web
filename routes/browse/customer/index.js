@@ -20,11 +20,22 @@ router_cus.get('/', async (req, res) => {
   const page = req.query.page ? parseInt(req.query.page) : 0;
   const limit = 10;
   const offset = page * limit;
-  console.log("Search query: ",req.query.customerID);
+  console.log("Search query: ",req.query.customerid);
   try {
     const data = await customerModel.getCustomers(searchQuery, limit, offset);
-    console.log("Url: ",urlBeforePage);
-    console.log("page: ",page)
+    for (let obj of data) {
+      for (let key in obj) {
+        if (typeof obj[key] === 'string') {
+          obj[key] = obj[key].trim();
+        }
+        // Nếu trường hiện tại là 'birthday', chuyển đổi nó thành định dạng ngày
+        if (key === 'birthday') {
+          let birthday = new Date(obj[key]);
+          obj[key] = birthday.toISOString().split('T')[0];
+        }
+      }
+    }
+    console.log("data: ",data);
     res.render('browse/customer/index.ejs', { data, page, urlBeforePage, searchQuery});
   } catch (err) {
     console.error(err);
@@ -33,10 +44,10 @@ router_cus.get('/', async (req, res) => {
 });
 
 router_cus.post('/addCustomer', async (req, res) => {
-  const {customerID, rankID, personalID, firstName, lastName, birthday, gender, email, phone, address} = req.body;
+  const {customerid, rankid, personalid, firstname, lastname, birthday, gender, email, phone, address} = req.body;
   console.log("Add customer: ",req.body);
   try {
-    await customerModel.addCustomer(customerID, rankID, personalID, firstName, lastName, birthday, gender, email, phone, address);
+    await customerModel.addCustomer(customerid, rankid, personalid, firstname, lastname, birthday, gender, email, phone, address);
     res.redirect('/browse/customer');
   } catch (err) {
     console.error('Error adding customer', err);
@@ -45,10 +56,10 @@ router_cus.post('/addCustomer', async (req, res) => {
 });
 
 router_cus.post('/deleteCustomer', async (req, res) => {
-  const {customerID} = req.body;
+  const {customerid} = req.body;
   console.log("Delete customer: ",req.body);
   try {
-    await customerModel.deleteCustomer(customerID);
+    await customerModel.deleteCustomer(customerid);
     res.redirect('/browse/customer');
   } catch (err) {
     console.error('Error deleting customer', err);
@@ -57,10 +68,10 @@ router_cus.post('/deleteCustomer', async (req, res) => {
 });
 
 router_cus.post('/updateCustomer', async (req, res) => {
-  const { customerID, rankID, personalID, firstName, lastName, birthday, gender, email, phone, address} = req.body;
+  const { customerid, rankid, personalid, firstName, lastName, birthday, gender, email, phone, address} = req.body;
   console.log("Update customer: ",req.body);
   try {
-    await customerModel.updateCustomer(customerID, { rankID, personalID, firstName, lastName, birthday, gender, email, phone, address});
+    await customerModel.updateCustomer(customerid, { rankid, personalid, firstName, lastName, birthday, gender, email, phone, address});
     res.redirect('/browse/customer');
   } catch (err) {
     console.error('Error update customer', err);

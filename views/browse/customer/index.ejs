@@ -173,10 +173,11 @@
               </thead>
               <thead>
                 <tr>
-                  <td><input type="text" name="customer_id" placeholder></td>
-                  <td><input type="text" name="cccd_passport" placeholder></td>
-                  <td><input type="text" name="first_name" placeholder></td>
-                  <td><input type="text" name="last_name" placeholder></td>
+                  <td><input type="text" name="customerid" placeholder></td>
+                  <td><input type="text" name="rankid" placeholder></td>
+                  <td><input type="text" name="personalid" placeholder></td>
+                  <td><input type="text" name="firstName" placeholder></td>
+                  <td><input type="text" name="lastName" placeholder></td>
                   <td><input type="text" name="birthday" placeholder></td>
                   <td><input type="text" name="gender" placeholder></td>
                   <td><input type="text" name="email" placeholder></td>
@@ -192,7 +193,7 @@
                         <div class="content-wrapper">
                           <%= row[header] %>
                           <% if (index === headers.length - 1) { %>
-                            <img class="document-icon" src="/img/3doc.png" alt="Document">
+                            <img class="document-icon" src="/img/3doc.png" alt="Document" onclick="showDetailsPopup('<%= encodeURIComponent(JSON.stringify(row)) %>')">
                           <% } %>
                         </div>
                       </td>
@@ -202,7 +203,7 @@
               </tbody>
             </table>
           <% } %>
-          <% renderTable(data, ['customer_id', 'cccd_passport', 'first_name', 'last_name', 'birthday', 'gender', 'email', 'phone', 'address']) %>
+          <% renderTable(data, ['customerid', 'rankid', 'personalid', 'firstname', 'lastname','birthday', 'gender', 'email', 'phone', 'address']) %>
         </div>
 
         <footer class="table-pagination2">
@@ -263,10 +264,10 @@
       <div class="popup-content">
         <span class="close">&times;</span>
         <form class="popup-form" action="./addCustomer" method="post">
-          <input type="text" name="customer_id" placeholder="Customer ID">
-          <input type="text" name="personal_id" placeholder="Personal_id">
-          <input type="text" name="first_name" placeholder="First Name">
-          <input type="text" name="last_name" placeholder="Last Name">
+          <input type="text" name="customerid" placeholder="Customer ID">
+          <input type="text" name="personalid" placeholder="Personal_id">
+          <input type="text" name="firstname" placeholder="First Name">
+          <input type="text" name="lastname" placeholder="Last Name">
           <input type="text" name="birthday" placeholder="Birthday">
           <input type="text" name="gender" placeholder="Gender">
           <input type="text" name="email" placeholder="Email">
@@ -281,16 +282,16 @@
       <div class="popup-content">
         <span class="close update-close">&times;</span>
         <form class="popup-form" action="./updateCustomer" method="post">
-          <input type="text" name="customer_id" placeholder="Customer ID">
-          <input type="text" name="personal_id" placeholder="Personal_id">
-          <input type="text" name="first_name" placeholder="First Name">
-          <input type="text" name="last_name" placeholder="Last Name">
+          <input type="text" name="customerid" placeholder="Customer ID">
+          <input type="text" name="personalid" placeholder="Personal_id">
+          <input type="text" name="firstName" placeholder="First Name">
+          <input type="text" name="lastName" placeholder="Last Name">
           <input type="text" name="birthday" placeholder="Birthday">
           <input type="text" name="gender" placeholder="Gender">
           <input type="text" name="email" placeholder="Email">
           <input type="text" name="phone" placeholder="Phone">
           <input type="text" name="address" placeholder="Address">
-          <input type="text" name="rank" placeholder="Rank">
+          <input type="text" name="rankid" placeholder="Rank">
           <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
@@ -299,7 +300,7 @@
       <div class="popup-content">
         <span class="close delete-close">&times;</span>
         <form class="popup-form" action="./deleteCustomer" method="post">
-          <input type="text" name="customer_id" placeholder="Customer ID" />
+          <input type="text" name="customer_id" placeholder="Customer id" />
           <button type="submit" class="submit-button">Delete</button>
         </form>
       </div>
