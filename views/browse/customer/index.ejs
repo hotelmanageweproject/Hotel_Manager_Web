@@ -46,7 +46,7 @@
               <div class="text">Welcome back, Admin</div>
               <div class="badge">
                 <div class="badge-base">
-					<div class="text1">Date: <span id="current-date"></span></div>
+                  <div class="text1">Date: <span id="current-date"></span></div>
                 </div>
               </div>
             </div>
@@ -64,7 +64,11 @@
             </div>
             <div class="button-5">
               <div class="button-base2">
-                <img class="download-cloud-02-icon" alt="" src="/img/cloud.jpg"/>
+                <img
+                  class="download-cloud-02-icon"
+                  alt=""
+                  src="/img/cloud.jpg"
+                />
                 <div class="button">Export</div>
               </div>
             </div>
@@ -99,11 +103,7 @@
           </div>
           <div class="frame-button">
             <div class="icon-service-wrapper">
-              <img
-                class="icon-service"
-                alt=""
-                src="/img/icon _service.png"
-              />
+              <img class="icon-service" alt="" src="/img/icon _service.png" />
             </div>
             <div class="services">Services</div>
           </div>
@@ -131,12 +131,29 @@
             <div class="button82">Add</div>
           </div>
           <div class="date-picker">
-            <input type="date" name="date" class="date-input" placeholder="Select Date">
+            <input
+              type="date"
+              name="date"
+              class="date-input"
+              placeholder="Select Date"
+            />
           </div>
+          
           <div class="input2">
             <form action="/browse/room" method="GET">
-              <input type="text" name="search" class="search2" placeholder="Search..." value="<%= searchQuery || '' %>">
-              <button type="submit" style="background-color: #ffffff; border: none;"><img class="search-icon2" alt="" src="/img/search.png" /></button>
+              <input
+                type="text"
+                name="search"
+                class="search2"
+                placeholder="Search..."
+              />
+              
+              <button
+                type="submit"
+                style="background-color: #ffffff; border: none"
+              >
+                <img class="search-icon2" alt="" src="/img/search.png" />
+              </button>
             </form>
           </div>
           <div class="button92">
@@ -156,10 +173,11 @@
               </thead>
               <thead>
                 <tr>
-                  <td><input type="text" name="customer_id" placeholder></td>
-                  <td><input type="text" name="cccd_passport" placeholder></td>
-                  <td><input type="text" name="first_name" placeholder></td>
-                  <td><input type="text" name="last_name" placeholder></td>
+                  <td><input type="text" name="customerid" placeholder></td>
+                  <td><input type="text" name="rankid" placeholder></td>
+                  <td><input type="text" name="personalid" placeholder></td>
+                  <td><input type="text" name="firstName" placeholder></td>
+                  <td><input type="text" name="lastName" placeholder></td>
                   <td><input type="text" name="birthday" placeholder></td>
                   <td><input type="text" name="gender" placeholder></td>
                   <td><input type="text" name="email" placeholder></td>
@@ -185,9 +203,9 @@
               </tbody>
             </table>
           <% } %>
-          <% renderTable(data, ['customer_id', 'cccd_passport', 'first_name', 'last_name', 'birthday', 'gender', 'email', 'phone', 'address']) %>
+          <% renderTable(data, ['customerid', 'rankid', 'personalid', 'firstname', 'lastname','birthday', 'gender', 'email', 'phone', 'address']) %>
         </div>
-        
+
         <footer class="table-pagination2">
           <div class="of-972"></div>
           <div class="table-pagination-inner2">
@@ -201,7 +219,14 @@
           </div>
           <div class="table-pagination-child2">
             <div class="button-parent2">
-              <div class="button2" onclick="window.location.href='/browse/customer/?page=<%= page - 1 %>&search=<%= searchQuery %>'">
+              <div
+                class="button2"
+                <%if (urlBeforePage === "/browse/customer/" || urlBeforePage.startsWith("/browse/customer/?page")) {%>
+                  onclick="window.location.href='?page=<%= page - 1 %>'"
+                <%} else {%>
+                  onclick="window.location.href='<%= urlBeforePage%>&page=<%= page - 1 %>'"
+                <%};%> 
+                >
                 <img
                   class="left-icon2"
                   loading="lazy2"
@@ -211,10 +236,16 @@
               </div>
               <div class="div2">
                 <span class="span2"><%=page + 1%>/10</span>
-                
               </div>
               <div class="button12">
-                <div class="button22" onclick="window.location.href='/browse/customer/?page=<%= page + 1 %>&search=<%= searchQuery %>'">
+                <div
+                  class="button22"
+                  <%if (urlBeforePage === "/browse/customer/" || urlBeforePage.startsWith("/browse/customer/?page")) {%>
+                    onclick="window.location.href='?page=<%= page + 1 %>'"
+                  <%} else {%>
+                    onclick="window.location.href='<%= urlBeforePage%>&page=<%= page + 1 %>'"
+                  <%};%>
+                >
                   <img
                     class="right-icon2"
                     loading="lazy2"
@@ -228,21 +259,21 @@
         </footer>
       </div>
     </form>
-    
+
     <div id="addPopup" class="popup">
       <div class="popup-content">
         <span class="close">&times;</span>
         <form class="popup-form" action="./addCustomer" method="post">
-          <input type="text" name="customerid" placeholder="customerid">
-          <input type="text" name="personalid" placeholder="personalid">
-          <input type="text" name="firstname" placeholder="firstname">
-          <input type="text" name="lastname" placeholder="lastname">
-          <input type="text" name="birthday" placeholder="birthday">
-          <input type="text" name="gender" placeholder="gender">
-          <input type="text" name="email" placeholder="email">
-          <input type="text" name="phone" placeholder="phone">
-          <input type="text" name="address" placeholder="address">
-          <input type="text" name="rank" placeholder="rank">
+          <input type="text" name="customer_id" placeholder="Customer ID">
+          <input type="text" name="personal_id" placeholder="Personal_id">
+          <input type="text" name="first_name" placeholder="First Name">
+          <input type="text" name="last_name" placeholder="Last Name">
+          <input type="text" name="birthday" placeholder="Birthday">
+          <input type="text" name="gender" placeholder="Gender">
+          <input type="text" name="email" placeholder="Email">
+          <input type="text" name="phone" placeholder="Phone">
+          <input type="text" name="address" placeholder="Address">
+          <input type="text" name="rank" placeholder="Rank">
           <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
@@ -251,16 +282,16 @@
       <div class="popup-content">
         <span class="close update-close">&times;</span>
         <form class="popup-form" action="./updateCustomer" method="post">
-          <input type="text" name="customerid" placeholder="customerid">
-          <input type="text" name="personalid" placeholder="personalid">
-          <input type="text" name="firstname" placeholder="firstname">
-          <input type="text" name="lastname" placeholder="lastname">
-          <input type="text" name="birthday" placeholder="birthday">
-          <input type="text" name="gender" placeholder="gender">
-          <input type="text" name="email" placeholder="email">
-          <input type="text" name="phone" placeholder="phone">
-          <input type="text" name="address" placeholder="address">
-          <input type="text" name="rank" placeholder="rank">
+          <input type="text" name="customer_id" placeholder="Customer ID">
+          <input type="text" name="personal_id" placeholder="Personal_id">
+          <input type="text" name="first_name" placeholder="First Name">
+          <input type="text" name="last_name" placeholder="Last Name">
+          <input type="text" name="birthday" placeholder="Birthday">
+          <input type="text" name="gender" placeholder="Gender">
+          <input type="text" name="email" placeholder="Email">
+          <input type="text" name="phone" placeholder="Phone">
+          <input type="text" name="address" placeholder="Address">
+          <input type="text" name="rank" placeholder="Rank">
           <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
@@ -269,17 +300,9 @@
       <div class="popup-content">
         <span class="close delete-close">&times;</span>
         <form class="popup-form" action="./deleteCustomer" method="post">
-          <input type="text" name = "customer_id" placeholder="Customer ID">
+          <input type="text" name="customer_id" placeholder="Customer id" />
           <button type="submit" class="submit-button">Delete</button>
         </form>
-      </div>
-    </div>
-    <div id="documentDetailsPopupOverlay" class="document-popup-overlay" onclick="document.getElementById('documentDetailsPopupOverlay').style.display='none';">
-      <div id="documentDetailsPopup" class="document-popup" onclick="event.stopPropagation();">
-        <div class="document-popup-content">
-          
-        </div>
-        <span class="document-close" onclick="document.getElementById('documentDetailsPopupOverlay').style.display='none'">&times;</span>
       </div>
     </div>
 	<script src="main.js"></script>

@@ -201,26 +201,40 @@
           </div>
           <div class="table-pagination-child2">
             <div class="button-parent2">
-              <div class="button2" onclick="window.location.href='/browse/customer/?page=<%= page - 1 %>&search=<%= searchQuery %>'">
-                <img
-                  class="left-icon2"
-                  loading="lazy2"
-                  alt=""
-                  src="/img/left.png"
-                />
+              <div
+              class="button2"
+              <%if (urlBeforePage === "/browse/service/" || urlBeforePage.startsWith("/browse/service/?page")) {%>
+                onclick="window.location.href='?page=<%= page - 1 %>'"
+              <%} else {%>
+                onclick="window.location.href='<%= urlBeforePage%>&page=<%= page - 1 %>'"
+              <%};%> 
+              >
+              <img
+                class="left-icon2"
+                loading="lazy2"
+                alt=""
+                src="/img/left.png"
+              />
               </div>
               <div class="div2">
                 <span class="span2"><%=page + 1%>/10</span>
                 
               </div>
               <div class="button12">
-                <div class="button22" onclick="window.location.href='/browse/customer/?page=<%= page + 1 %>&search=<%= searchQuery %>'">
-                  <img
-                    class="right-icon2"
-                    loading="lazy2"
-                    alt=""
-                    src="/img/right.png"
-                  />
+                <div
+                class="button22"
+                <%if (urlBeforePage === "/browse/service/" || urlBeforePage.startsWith("/browse/service/?page")) {%>
+                  onclick="window.location.href='?page=<%= page + 1 %>'"
+                <%} else {%>
+                  onclick="window.location.href='<%= urlBeforePage%>&page=<%= page + 1 %>'"
+                <%};%>
+              >
+                <img
+                  class="right-icon2"
+                  loading="lazy2"
+                  alt=""
+                  src="/img/right.png"
+                />
                 </div>
               </div>
             </div>

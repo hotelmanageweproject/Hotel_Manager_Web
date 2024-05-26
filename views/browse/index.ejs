@@ -11,7 +11,9 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap"
     />
   </head>
-  <body onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage()">
+  <body
+    onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage()"
+  >
     <form class="browse-home-page">
       <div class="sidebar">
         <div class="title-wrapper">
@@ -48,7 +50,9 @@
                   <div class="text">Welcome back, Admin</div>
                   <div class="badge">
                     <div class="badge-base">
-                      <div class="text1">Date: <span id="current-date"></span></div>
+                      <div class="text1">
+                        Date: <span id="current-date"></span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -59,11 +63,7 @@
             <div class="buttons">
               <div class="frame-parent">
                 <div class="icon-person-wrapper">
-                  <img
-                    class="icon-person"
-                    alt=""
-                    src="/img/icon _person.png"
-                  />
+                  <img class="icon-person" alt="" src="/img/icon _person.png" />
                 </div>
                 <div class="customers">Customers</div>
               </div>
