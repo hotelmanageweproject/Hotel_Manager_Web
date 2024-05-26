@@ -156,15 +156,14 @@
               </thead>
               <thead>
                 <tr>
-                  <td><input type="text" name="customer_id" placeholder></td>
-                  <td><input type="text" name="cccd_passport" placeholder></td>
-                  <td><input type="text" name="first_name" placeholder></td>
-                  <td><input type="text" name="last_name" placeholder></td>
-                  <td><input type="text" name="birthday" placeholder></td>
-                  <td><input type="text" name="gender" placeholder></td>
-                  <td><input type="text" name="email" placeholder></td>
-                  <td><input type="text" name="phone" placeholder></td>
-                  <td><input type="text" name="address" placeholder></td>
+                  <td><input type="text" name="serviceid" placeholder></td>
+                  <td><input type="text" name="name" placeholder></td>
+                  <td><input type="text" name="price" placeholder></td>
+                  <td><input type="text" name="description" placeholder></td>
+                  <td><input type="text" name="departmentid" placeholder></td>
+                  <td><input type="text" name="name" placeholder></td>
+                  <td><input type="text" name="manager" placeholder></td>
+                  <td><input type="text" name="note" placeholder></td>
                 </tr>
               </thead>
               <tbody>
@@ -246,28 +245,15 @@
     <div id="addPopup" class="popup">
       <div class="popup-content">
         <span class="close">&times;</span>
-        <form class="popup-form" action="./addCustomer" method="post">
-          <input type="text" name="customer_id" placeholder="Customer ID">
-          <input type="text" name="cccd_passport" placeholder="CCCD - Passport">
-          <input type="text" name="first_name" placeholder="First Name">
-          <input type="text" name="last_name" placeholder="Last Name">
-          <input type="text" name="birthday" placeholder="Birthday">
-          <input type="text" name="gender" placeholder="Gender">
-          <input type="text" name="email" placeholder="Email">
-          <input type="text" name="phone" placeholder="Phone">
-          <input type="text" name="address" placeholder="Address">
-          <button type="submit" class="submit-button">Submit</button>
-        </form>
-      </div>
-    </div>
-    <div id="addPopup" class="popup">
-      <div class="popup-content">
-        <span class="close">&times;</span>
         <form class="popup-form" action="./addService" method="post">
-          <input type="text" placeholder="Service ID">
-          <input type="text" placeholder="Service Name">
-          <input type="text" placeholder="Price">
-          <input type="text" placeholder="Description">
+            <input type="text" name="serviceid" placeholder="Service ID">
+            <input type="text" name="name" placeholder="Service Name">
+            <input type="text" name="price" placeholder="Price">
+            <input type="text" name="description" placeholder="Description">
+            <input type="text" name="departmentid" placeholder="Department ID">
+            <input type="text" name="name" placeholder="Department Name">
+            <input type="text" name="manager" placeholder="Manager">
+            <input type="text" name="note" placeholder="Note">
           <div type="submit" class="submit-button">Submit</div>
         </form>
       </div>
@@ -276,10 +262,14 @@
       <div class="popup-content">
         <span class="close update-close">&times;</span>
         <form class="popup-form" action="./updateService" method="post">
-          <input type="text" placeholder="Service ID">
-          <input type="text" placeholder="Service Name">
-          <input type="text" placeholder="Price">
-          <input type="text" placeholder="Description">
+          <input type="text" name="serviceid" placeholder="Service ID">
+            <input type="text" name="name" placeholder="Service Name">
+            <input type="text" name="price" placeholder="Price">
+            <input type="text" name="description" placeholder="Description">
+            <input type="text" name="departmentid" placeholder="Department ID">
+            <input type="text" name="name" placeholder="Department Name">
+            <input type="text" name="manager" placeholder="Manager">
+            <input type="text" name="note" placeholder="Note">
           <div type="submit" class="submit-button">Submit</div>
         </form>
       </div>

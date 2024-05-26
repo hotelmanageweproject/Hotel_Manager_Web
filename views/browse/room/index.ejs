@@ -156,15 +156,13 @@
               </thead>
               <thead>
                 <tr>
-                  <td><input type="text" name="customer_id" placeholder></td>
-                  <td><input type="text" name="cccd_passport" placeholder></td>
-                  <td><input type="text" name="first_name" placeholder></td>
-                  <td><input type="text" name="last_name" placeholder></td>
-                  <td><input type="text" name="birthday" placeholder></td>
-                  <td><input type="text" name="gender" placeholder></td>
-                  <td><input type="text" name="email" placeholder></td>
-                  <td><input type="text" name="phone" placeholder></td>
-                  <td><input type="text" name="address" placeholder></td>
+                  <td><input type="text" name="roomid" placeholder></td>
+                  <td><input type="text" name="roomtype" placeholder></td>
+                  <td><input type="text" name="status" placeholder></td>
+                  <td><input type="text" name="name" placeholder></td>
+                  <td><input type="text" name="pricepernight" placeholder></td>
+                  <td><input type="text" name="maxadult" placeholder></td>
+                  <td><input type="text" name="maxchild" placeholder></td>
                 </tr>
               </thead>
               <tbody>
@@ -247,13 +245,13 @@
       <div class="popup-content">
         <span class="close">&times;</span>
         <form class="popup-form" action="./addRoom" method="post">
-          <input type="text" placeholder="Room ID">
-          <input type="text" placeholder="Room Type">
-          <input type="text" placeholder="Status">
-          <input type="text" placeholder="Name">
-          <input type="text" placeholder="Price Per Night">
-          <input type="text" placeholder="Max Adult">
-          <input type="text" placeholder="Max Child">
+          <input type="text" name="roomid" placeholder="Room ID">
+          <input type="text" name="roomtype" placeholder="Room Type">
+          <input type="text" name="status" placeholder="Status">
+          <input type="text" name="name" placeholder="Name">
+          <input type="text" name="pricepernight" placeholder="Price Per Night">
+          <input type="text" name="maxadult" placeholder="Max Adult">
+          <input type="text" name="maxchild" placeholder="Max Child">
           <div type="submit" class="submit-button">Submit</div>
         </form>
       </div>
@@ -262,13 +260,13 @@
       <div class="popup-content">
         <span class="close update-close">&times;</span>
         <form class="popup-form" action="./updateRoom" method="post">
-          <input type="text" placeholder="Room ID">
-          <input type="text" placeholder="Room Type">
-          <input type="text" placeholder="Status">
-          <input type="text" placeholder="Name">
-          <input type="text" placeholder="Price Per Night">
-          <input type="text" placeholder="Max Adult">
-          <input type="text" placeholder="Max Child">
+          <input type="text" name="roomid" placeholder="Room ID">
+          <input type="text" name="roomtype" placeholder="Room Type">
+          <input type="text" name="status" placeholder="Status">
+          <input type="text" name="name" placeholder="Name">
+          <input type="text" name="pricepernight" placeholder="Price Per Night">
+          <input type="text" name="maxadult" placeholder="Max Adult">
+          <input type="text" name="maxchild" placeholder="Max Child">
           <div type="submit" class="submit-button">Submit</div>
         </form>
       </div>
