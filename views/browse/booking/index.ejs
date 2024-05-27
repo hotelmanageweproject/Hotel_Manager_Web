@@ -134,7 +134,7 @@
             <input type="date" name="date" class="date-input" placeholder="Select Date">
           </div>
           <div class="input2">
-            <form action="/browse/room" method="GET">
+            <form action="/browse/booking" method="GET">
               <input type="text" name="search" class="search2" placeholder="Search..." value="<%= searchQuery || '' %>">
               <button type="submit" style="background-color: #ffffff; border: none;"><img class="search-icon2" alt="" src="/img/search.png" /></button>
             </form>
@@ -163,6 +163,8 @@
                   <td><input type="text" name="totaladult" placeholder></td>
                   <td><input type="text" name="totalchild" placeholder></td>
                   <td><input type="text" name="roomid" placeholder></td>
+                  <td><input type="text" name="checkin" placeholder></td>
+                  <td><input type="text" name="checkout" placeholder></td>
                 </tr>
               </thead>
               <tbody>

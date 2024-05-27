@@ -140,20 +140,9 @@
           </div>
           
           <div class="input2">
-            <form action="/browse/room" method="GET">
-              <input
-                type="text"
-                name="search"
-                class="search2"
-                placeholder="Search..."
-              />
-              
-              <button
-                type="submit"
-                style="background-color: #ffffff; border: none"
-              >
-                <img class="search-icon2" alt="" src="/img/search.png" />
-              </button>
+            <form action="/browse/customer" method="GET">
+              <input type="text" name="search" class="search2" placeholder="Search..." value="<%= searchQuery || '' %>">
+              <button type="submit" style="background-color: #ffffff; border: none;"><img class="search-icon2" alt="" src="/img/search.png" /></button>
             </form>
           </div>
           <div class="button92">
@@ -303,6 +292,14 @@
           <input type="text" name="customer_id" placeholder="Customer id" />
           <button type="submit" class="submit-button">Delete</button>
         </form>
+      </div>
+    </div>
+    <div id="documentDetailsPopupOverlay" class="document-popup-overlay" onclick="document.getElementById('documentDetailsPopupOverlay').style.display='none';">
+      <div id="documentDetailsPopup" class="document-popup" onclick="event.stopPropagation();">
+        <div class="document-popup-content">
+          
+        </div>
+        <span class="document-close" onclick="document.getElementById('documentDetailsPopupOverlay').style.display='none'">&times;</span>
       </div>
     </div>
 	<script src="main.js"></script>
