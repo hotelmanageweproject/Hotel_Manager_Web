@@ -184,7 +184,7 @@
               </tbody>
             </table>
           <% } %>
-          <% renderTable(data, ['customer_id', 'cccd_passport', 'first_name', 'last_name', 'birthday', 'gender', 'email', 'phone', 'address']) %>
+          <% renderTable(data, ['serviceid, 'name', 'note', 'departmentid', 'name', 'manager', 'description']) %>
         </div>
         
         <footer class="table-pagination2">
@@ -248,7 +248,6 @@
         <form class="popup-form" action="./addService" method="post">
             <input type="text" name="serviceid" placeholder="Service ID">
             <input type="text" name="name" placeholder="Service Name">
-            <input type="text" name="price" placeholder="Price">
             <input type="text" name="description" placeholder="Description">
             <input type="text" name="departmentid" placeholder="Department ID">
             <input type="text" name="name" placeholder="Department Name">
@@ -264,7 +263,6 @@
         <form class="popup-form" action="./updateService" method="post">
           <input type="text" name="serviceid" placeholder="Service ID">
             <input type="text" name="name" placeholder="Service Name">
-            <input type="text" name="price" placeholder="Price">
             <input type="text" name="description" placeholder="Description">
             <input type="text" name="departmentid" placeholder="Department ID">
             <input type="text" name="name" placeholder="Department Name">
