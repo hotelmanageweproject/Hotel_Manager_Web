@@ -165,6 +165,8 @@
                   <td><input type="text" name="roomid" placeholder></td>
                   <td><input type="text" name="checkin" placeholder></td>
                   <td><input type="text" name="checkout" placeholder></td>
+                  <td><input type="text" name="numofchild" placeholder></td>
+                  <td><input type="text" name="numofadult" placeholder></td>
                 </tr>
               </thead>
               <tbody>
@@ -185,7 +187,7 @@
               </tbody>
             </table>
           <% } %>
-          <% renderTable(data, ['bookingid', 'customerid', 'bookingdata', 'bookingtype', 'totaladult', 'totalchild', 'roomid', 'checkin', 'checkout']) %>
+          <% renderTable(data, ['bookingid', 'customerid', 'bookingdata', 'bookingtype', 'totaladult', 'totalchild', 'roomid', 'checkin', 'checkout', 'numofchild', 'numofadult']) %>
         </div>
         
         <footer class="table-pagination2">
@@ -254,6 +256,8 @@
           <input type="text" name="totaladult" placeholder="Total Adult">
           <input type="text" name="totalchild" placeholder="Total Child">
           <input type="text" name="roomid" placeholder="Room ID">
+          <input type="text" name="numofchild" placeholder="Num of child">
+          <input type="text" name="numofadult" placeholder="Num of adult">
           <div class="input-groups-container">
             <div class="input-group">
               <label for="add-check-in-date" class="date-label">Check-in Date:</label>
@@ -285,6 +289,8 @@
           <input type="text" name="totaladult" placeholder="Total Adult">
           <input type="text" name="totalchild" placeholder="Total Child">
           <input type="text" name="roomid" placeholder="Room ID">
+          <input type="text" name="numofchild" placeholder="Num of child">
+          <input type="text" name="numofadult" placeholder="Num of adult">
           <div class="input-groups-container">
             <div class="input-group">
               <label for="update-check-in-date" class="date-label">Check-in Date:</label>
