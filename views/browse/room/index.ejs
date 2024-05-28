@@ -273,17 +273,13 @@
           <input type="text" name="maxchild" placeholder="Max Child">
           <input type="text" name="bookingid" placeholder="Booking ID">
           <input type="text" name="customerid" placeholder="Customer ID">
-          <input type="text" name="serviceid" placeholder="Service ID">
-          <input type="text" name="totalservice" placeholder="Total Service">
-          <input type="text" name="staffid" placeholder="Staff ID">
-          <div class="input-groups-container">
-            <div class="input-group">
-              <label for="update-date" class="date-label">Service Date:</label>
-              <div class="date-time-group">
-                <input type="date" id="update-date" class="input-style">
-              </div>
-            </div>
-          </div>
+          <input type="text" list="serviceid" name="serviceid" id="serviceid" placeholder="Service ID">
+          <datalist id="serviceid">
+            <!--Viết câu truy vấn kiểm tra các service id từ room id ở đây để hiện thị dropdown-->
+          </datalist>
+          <input type="text" name="servicename" placeholder="Service Name">
+          <input type="text" name="departmentid" placeholder="Department ID">
+          <input type="text" name="servicenote" placeholder="Service Note">
           <div type="submit" class="submit-button">Submit</div>
         </form>
       </div>

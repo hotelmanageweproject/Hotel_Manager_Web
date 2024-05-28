@@ -263,14 +263,14 @@
               <label for="add-check-in-date" class="date-label">Check-in Date:</label>
               <div class="date-time-group">
                 <input type="date" id="add-check-in-date" class="input-style">
-                <input type="time" id="add-check-in-time" class="input-style">
+                <!--<input type="time" id="add-check-in-time" class="input-style">-->
               </div>
             </div>
             <div class="input-group">
               <label for="add-check-out-date" class="date-label">Check-out Date:</label>
               <div class="date-time-group">
                 <input type="date" id="add-check-out-date" class="input-style">
-                <input type="time" id="add-check-out-time" class="input-style">
+                <!--<input type="time" id="add-check-out-time" class="input-style">-->
               </div>
             </div>
           </div>
@@ -288,7 +288,10 @@
           <input type="text" name="bookingtype" placeholder="Booking Type">
           <input type="text" name="totaladult" placeholder="Total Adult">
           <input type="text" name="totalchild" placeholder="Total Child">
-          <input type="text" name="roomid" placeholder="Room ID">
+          <input type="text" list="roomid" name="roomid" id="roomid" placeholder="Room ID">
+          <datalist id="roomid">
+            <!--Viết câu truy vấn kiểm tra các room id từ booking id ở đây để hiện thị dropdown-->
+          </datalist>
           <input type="text" name="numofchild" placeholder="Num of child">
           <input type="text" name="numofadult" placeholder="Num of adult">
           <div class="input-groups-container">
@@ -296,14 +299,14 @@
               <label for="update-check-in-date" class="date-label">Check-in Date:</label>
               <div class="date-time-group">
                 <input type="date" id="update-check-in-date" class="input-style">
-                <input type="time" id="update-check-in-time" class="input-style">
+                <!--<input type="time" id="update-check-in-time" class="input-style">-->
               </div>
             </div>
             <div class="input-group">
               <label for="update-check-out-date" class="date-label">Check-out Date:</label>
               <div class="date-time-group">
                 <input type="date" id="update-check-out-date" class="input-style">
-                <input type="time" id="update-check-out-time" class="input-style">
+                <!--<input type="time" id="update-check-out-time" class="input-style">-->
               </div>
             </div>
           </div>
