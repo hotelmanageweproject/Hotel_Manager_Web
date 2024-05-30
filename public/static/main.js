@@ -31,7 +31,7 @@ function goToHomePage() {
     var elements = document.getElementsByClassName("menu-item1");
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener("click", function () {
-            window.location.href = "/";
+            window.location.href = "/HomePage/index.html";
         });
     }
 }
@@ -41,7 +41,7 @@ function goToBrowseHomePage() {
     var elements = document.getElementsByClassName("menu-item2");
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener("click", function () {
-            window.location.href = "/browse";
+            window.location.href = "/BrowseHomePage/index.html";
         });
     }
 }
@@ -51,17 +51,24 @@ function goToStaticHomePage() {
     var elements = document.getElementsByClassName("menu-item3");
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener("click", function () {
-            window.location.href = "/static";
+            window.location.href = "/StaticHomePage/index.html";
         });
     }
 }
 
-function changeYear(direction) {
+function changeYear1(direction) {
     const yearElement = document.getElementById('chart-year');
     let currentYear = parseInt(yearElement.textContent);
     currentYear += direction;
     yearElement.textContent = currentYear;
     updateChart(document.getElementById('chart-date-selector').value);
+}
+function changeYear2(direction) {
+    const yearElement = document.getElementById('hotel-statistic-year');
+    let currentYear = parseInt(yearElement.textContent);
+    currentYear += direction;
+    yearElement.textContent = currentYear;
+    updateHotelStatistic(document.getElementById('hotel-statistic-date-selector').value);
 }
 
 let myChart;
@@ -224,9 +231,29 @@ function updateChart(selectedValue) {
     myChart.update();
 }
 
-function changeYear(direction) {
-    const yearElement = document.getElementById('chart-year');
-    let currentYear = parseInt(yearElement.textContent);
-    currentYear += direction;
-    yearElement.textContent = currentYear;
+function updateHotelStatistic(period) {
+    // Dữ liệu giả để mô phỏng
+    const mockData = {
+        today: { bookings: 100, customers: 150, rooms: 90 },
+        week: { bookings: 700, customers: 1050, rooms: 630 },
+        month: { bookings: 3000, customers: 4500, rooms: 2700 },
+        year: { bookings: 36000, customers: 54000, rooms: 32400 }
+    };
+
+    // Lấy dữ liệu giả dựa trên lựa chọn
+    const data = mockData[period];
+
+    // Cập nhật các giá trị trong HTML
+    document.querySelector('.value.bookings').textContent = data.bookings;
+    document.querySelector('.value.customers').textContent = data.customers;
+    document.querySelector('.value.rooms').textContent = data.rooms;
 }
+
+function showPopup(popupId) {
+    var popup = document.getElementById(popupId);
+    if (popup.style.display === 'none' || !popup.style.display) {
+      popup.style.display = 'block';
+    } else {
+      popup.style.display = 'none';
+    }
+  }

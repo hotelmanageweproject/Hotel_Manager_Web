@@ -56,13 +56,55 @@
             </div>
           </header>
         </div>
+        <div class="input2">
+          <img class="search-icon2" alt="" src="/Assets/search.png" />
+          <input class="search2" placeholder="Check total payment for customers" type="text"/>
+        </div>
+
+        <div class="Hotel-statistic-ranking">
+          <div class="hotel-statistic-header">
+            <span class="hotel-statistic-title">HOTEL STATISTIC</span>
+            <div class="hotel-statistic-year-selector">
+              <button type="button" onclick="changeYear2(-1)">&#9664;</button>
+              <span id="hotel-statistic-year">2024</span>
+              <button type="button" onclick="changeYear2(1)">&#9654;</button>
+            </div>
+            <div class="hotel-statistic-date-selector">
+              <select id="hotel-statistic-date-selector" onchange="updateHotelStatistic(this.value)">
+                <option value="today">Today</option>
+                <option value="week">Week</option>
+                <option value="month">Month</option>
+                <option value="year">Year</option>
+              </select>
+            </div>
+          </div>
+          <div class="statistic-item">
+            <img class="icon" src="/Assets/icon_booking.png" alt="Bookings Icon" />
+            <span class="label">Bookings</span>
+            <span class="value bookings">98</span>
+            <img class="info-icon" src="/Assets/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticBooking')" />
+          </div>
+          <div class="statistic-item">
+            <img class="icon" src="/Assets/icon _person.png" alt="Customers Icon" />
+            <span class="label">Customers</span>
+            <span class="value customers">120</span>
+            <img class="info-icon" src="/Assets/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticCustomer')" />
+          </div>
+          <div class="statistic-item">
+            <img class="icon" src="/Assets/icon_room.png" alt="Rooms Icon" />
+            <span class="label">Rooms</span>
+            <span class="value rooms">98</span>
+            <img class="info-icon" src="/Assets/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticRoom')" />
+          </div>
+        </div>
+
         <div class="chart-container">
           <div class="chart-header">
             <span class="chart-title">REVENUE</span>
             <div class="chart-year-selector">
-              <button type="button" onclick="changeYear(-1)">&#9664;</button>
+              <button type="button" onclick="changeYear1(-1)">&#9664;</button>
               <span id="chart-year">2024</span>
-              <button type="button" onclick="changeYear(1)">&#9654;</button>
+              <button type="button" onclick="changeYear1(1)">&#9654;</button>
             </div>
             <div class="chart-date-selector">
               <select id="chart-date-selector" onchange="updateChart(this.value)">
@@ -74,7 +116,6 @@
             </div>
           </div>
           <canvas id="myChart"></canvas>
-        </div>
       </section>
     </form>
     <script src="main.js"></script>
