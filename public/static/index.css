@@ -464,6 +464,19 @@
   margin-left: 10px;
 }
 
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+
+/* General styles for all popups */
 .popup {
   display: none;
   position: fixed;
@@ -475,4 +488,137 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Tăng kích thước popup */
+  font-family: 'Inter', sans-serif; /* Đảm bảo font chữ giống với cả trang */
+}
+
+/* Popup content container */
+.popup .HS-popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Header of the popup */
+.popup .popup-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Title of the popup header aligned to the left */
+.popup .popup-header span:first-child {
+  flex-grow: 1;
+  text-align: left;
+}
+
+/* Close button in the popup header */
+.popup .close {
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #000; /* Màu đậm hơn */
+}
+
+/* Input styles within popups */
+.popup input[type="date"] {
+  width: 80%; /* Adjust width to fit within the popup */
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+.popup input[type="date"]:hover {
+  border-color: black; /* Change border color on hover */
+}
+
+/* Display area for booking, customer, and room values */
+#booking-value-display,
+#customer-value-display,
+#room-value-display {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 40%; /* Increase the display area width */
+  height: 40px;
+  max-width: 600px; /* Set a maximum width */
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+  text-align: center; /* Center align text */
+}
+
+#booking-value-display:hover,
+#customer-value-display:hover,
+#room-value-display:hover {
+  border-color: black; /* Change border color on hover */
+}
+
+.popup-total-bill {
+  display: none; /* Initially hidden */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 600px; /* Set the width of the popup */
+  left: 50%; /* Center the popup horizontally */
+  transform: translateX(-50%); /* Ensure it is centered properly */
+}
+
+.popup-total-bill .HS-popup-content {
+  width: 100%;
+}
+
+.popup-total-bill .popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid black; /* Black line under the header */
+}
+
+.total-bill-container {
+  display: flex;
+  align-items: center;
+}
+
+#total-bill-value {
+  margin-left: 5px; /* Adjust the spacing between the label and the value */
+}
+
+.popup-header .close {
+  cursor: pointer; /* Adds a pointer cursor on hover */
+}
+
+.popup-total-bill .popup-body {
+  padding: 20px;
+  width: 100%; /* Adjust as needed */
+}
+
+.popup-total-bill .popup-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border-top: 1px solid black; /* Black line above the footer */
+}
+
+.popup-footer {
+  display: flex;
+  justify-content: flex-end; /* Aligns content to the right */
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border-top: 1px solid black; /* Black line above the footer */
+}
+
+.total-amount-value {
+  margin-left: 10px; /* Adds spacing between the label and value */
 }
