@@ -251,9 +251,38 @@ function updateHotelStatistic(period) {
 
 function showPopup(popupId) {
     var popup = document.getElementById(popupId);
-    if (popup.style.display === 'none' || !popup.style.display) {
-      popup.style.display = 'block';
-    } else {
-      popup.style.display = 'none';
+    var overlay = document.getElementById('overlay');
+    overlay.style.display = 'block';
+    popup.style.display = 'block';
+}
+  
+function closePopup() {
+    var popups = document.getElementsByClassName('popup');
+    var overlay = document.getElementById('overlay');
+    overlay.style.display = 'none';
+    for (var i = 0; i < popups.length; i++) {
+      popups[i].style.display = 'none';
     }
-  }
+}
+
+document.querySelector('.search2').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      showPopup('TotalBillPopup');
+    }
+});
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      document.getElementById('TotalBillPopup').style.display = 'flex';
+    }
+}
+function showPopupSearch() {
+    document.getElementById('TotalBillPopup').style.display = 'flex';
+    document.getElementById('overlay').style.display = 'block'; // Show the overlay if it exists
+}
+  
+document.querySelector('.search2').addEventListener('input', function() {
+    const inputValue = this.value;
+    document.getElementById('total-bill-value').textContent = inputValue;
+  });

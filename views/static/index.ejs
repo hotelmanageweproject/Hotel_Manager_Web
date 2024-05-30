@@ -11,7 +11,7 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
-  <body onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart()">
+  <body onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart(); closePopup()">
     <form class="home-page">
         <div class="sidebar">
         <div class="title-wrapper">
@@ -57,7 +57,7 @@
           </header>
         </div>
         <div class="input2">
-          <img class="search-icon2" alt="" src="/Assets/search.png" />
+          <img class="search-icon2" alt="" src="/img/search.png" onclick="showPopupSearch()" />
           <input class="search2" placeholder="Check total payment for customers" type="text"/>
         </div>
 
@@ -79,22 +79,22 @@
             </div>
           </div>
           <div class="statistic-item">
-            <img class="icon" src="/Assets/icon_booking.png" alt="Bookings Icon" />
+            <img class="icon" src="/img/icon_booking.png" alt="Bookings Icon" />
             <span class="label">Bookings</span>
-            <span class="value bookings">98</span>
-            <img class="info-icon" src="/Assets/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticBooking')" />
+            <span class="value bookings"></span>
+            <img class="info-icon" src="/img/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticBooking')" />
           </div>
           <div class="statistic-item">
-            <img class="icon" src="/Assets/icon _person.png" alt="Customers Icon" />
+            <img class="icon" src="/img/icon _person.png" alt="Customers Icon" />
             <span class="label">Customers</span>
-            <span class="value customers">120</span>
-            <img class="info-icon" src="/Assets/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticCustomer')" />
+            <span class="value customers"></span>
+            <img class="info-icon" src="/img/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticCustomer')" />
           </div>
           <div class="statistic-item">
-            <img class="icon" src="/Assets/icon_room.png" alt="Rooms Icon" />
+            <img class="icon" src="/img/icon_room.png" alt="Rooms Icon" />
             <span class="label">Rooms</span>
-            <span class="value rooms">98</span>
-            <img class="info-icon" src="/Assets/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticRoom')" />
+            <span class="value rooms"></span>
+            <img class="info-icon" src="/img/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticRoom')" />
           </div>
         </div>
 
@@ -118,6 +118,62 @@
           <canvas id="myChart"></canvas>
       </section>
     </form>
+
+    <div id="overlay" class="overlay" onclick="closePopup()"></div>
+
+    <div id="HotelStatisticBooking" class="popup popup-booking">
+      <div class="HS-popup-content">
+        <div class="popup-header">
+          <span>Booking</span>
+          <span class="close" onclick="closePopup()">&times;</span>
+        </div>
+        <input type="date" id="HS-booking-date" class="input-style" onchange="updateValue('bookings', this.value)">
+        <div id="booking-value-display"></div>
+      </div>
+    </div>
+
+    <div id="HotelStatisticCustomer" class="popup popup-customer">
+      <div class="HS-popup-content">
+        <div class="popup-header">
+          <span>Customer</span>
+          <span class="close" onclick="closePopup()">&times;</span>
+        </div>
+        <input type="date" id="HS-customer-date" class="input-style" onchange="updateValue('customers', this.value)">
+        <div id="customer-value-display"></div>
+      </div>
+    </div>
+
+    <div id="HotelStatisticRoom" class="popup popup-room">
+      <div class="HS-popup-content">
+        <div class="popup-header">
+          <span>Room</span>
+          <span class="close" onclick="closePopup()">&times;</span>
+        </div>
+        <input type="date" id="HS-room-date" class="input-style" onchange="updateValue('rooms', this.value)">
+        <div id="room-value-display"></div>
+      </div>
+    </div>
+
+    <div id="TotalBillPopup" class="popup large-popup popup-total-bill">
+      <div class="HS-popup-content">
+        <div class="popup-header">
+          <div class="total-bill-container">
+            <span>Total Bill:</span>
+            <span id="total-bill-value"></span>
+          </div>
+          <span class="close" onclick="closePopup()">&times;</span>
+        </div>
+        <div class="popup-body">
+          <!-- Nội dung khác có thể thêm vào đây -->
+        </div>
+        <hr>
+        <div class="popup-footer">
+          <span>Total amount:</span>
+          <span id="total-amount-value" class="total-amount-value">0</span>
+        </div>
+      </div>
+    </div>
+    <input class="search2" type="text" placeholder="Search..." onkeypress="handleKeyPress(event)">
     <script src="main.js"></script>
   </body>
 </html>
