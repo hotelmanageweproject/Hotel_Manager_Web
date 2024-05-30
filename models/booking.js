@@ -2,11 +2,44 @@
 import db from '../config/db.js'; // Đảm bảo rằng bạn đã import db từ file đúng
 
 // Query hiển thị dữ liệu ra màn hình
-const getBooking = async (searchQuery, limit, offset) => {
-  let query = `SELECT * FROM Booking WHERE booking_id::text LIKE '%${searchQuery}%' OR customer_id LIKE '%${searchQuery}%' OR room_id LIKE '%${searchQuery}%' OR number_of_adult LIKE '%${searchQuery}%' OR number_of_child LIKE '%${searchQuery}%' OR status LIKE '%${searchQuery}%' OR check_in_date LIKE '%${searchQuery}%' OR check_out_date LIKE '%${searchQuery}%' OR total_price LIKE '%${searchQuery}%' OR reservation_status LIKE '%${searchQuery}%' LIMIT ${limit} OFFSET ${offset}`;
-  if (!searchQuery) {
-    query = `SELECT * FROM Booking LIMIT ${limit} OFFSET ${offset}`;
+const getBooking = async (bookingid,customerid,bookingdate,bookingtype,totaladult,totalchild,roomid,checkin,checkout,numofchild,numofadult,page,searchQuery, limit, offset) => {
+  let whereConditions = [];
+  let query = '';
+  if (bookingid) whereConditions.push(`b.bookingid = ${bookingid}`);
+  if (customerid) whereConditions.push(`b.customerid = ${customerid}`);
+  if (bookingdate) whereConditions.push(`b.bookingdate = ${bookingdate}`);
+  if (bookingtype) whereConditions.push(`b.bookingtype LIKE '%${bookingtype}%'`);
+  if (totaladult) whereConditions.push(`b.totaladult = ${totaladult}`);
+  if (totalchild) whereConditions.push(`b.totalchild = ${totalchild}`);
+  if (roomid) whereConditions.push(`br.roomid = ${roomid}`);
+  if (checkin) whereConditions.push(`br.checkin = ${checkin}`);
+  if (checkout) whereConditions.push(`br.checkout = ${checkout}`);
+  if (numofchild) whereConditions.push(`br.numofchild = ${numofchild}`);
+  if (numofadult) whereConditions.push(`br.numofadult = ${numofadult}`);
+  // Thêm các điều kiện tương tự cho các tham số khác nếu chúng không phải là NULL
+  if (searchQuery) {
+    query = `
+    SELECT b.bookingid, b.customerid, b.bookingdate, b.bookingtype, b.totaladult, b.totalchild, br.roomid, br.checkin, br.checkout, br.numofadult, br.numofchild
+    FROM booking b
+    JOIN booking_rooms br ON b.bookingid = br.bookingid
+    WHERE b.bookingid LIKE '%${searchQuery}%' OR b.customerid LIKE '%${searchQuery}%' OR b.bookingdate LIKE '%${searchQuery}%' OR b.bookingtype LIKE '%${searchQuery}%' OR b.totaladult LIKE '%${searchQuery}%' OR b.totalchild LIKE '%${searchQuery}%' OR br.roomid LIKE '%${searchQuery}%' OR br.checkin LIKE '%${searchQuery}%' OR br.checkout LIKE '%${searchQuery}%' OR br.numofchild LIKE '%${searchQuery}%' OR br.numofadult LIKE '%${searchQuery}%'
+    ORDER BY b.bookingid ASC LIMIT ${limit} OFFSET ${offset}`;
+
+  } else {
+     query = `
+    SELECT b.bookingid, b.customerid, b.bookingdate, b.bookingtype, b.totaladult, b.totalchild, br.roomid, br.checkin, br.checkout, br.numofadult, br.numofchild
+    FROM booking b
+    JOIN booking_rooms br ON b.bookingid = br.bookingid
+  `;
+
+  if (whereConditions.length > 0) {
+    query += 'WHERE ' + whereConditions.join(' AND ') + ' ';
   }
+  
+  query += `ORDER BY b.bookingid ASC LIMIT ${limit} OFFSET ${offset}`;
+  };
+  console.log(query);
+ 
   const result = await db.query(query);
   return result.rows;
 };
