@@ -1210,15 +1210,16 @@ flex-basis: 70%; /* Cố định chiều rộng ban đầu là 70% của hàng *
 .table-container {
   margin-top: 20px; /* Thêm khoảng cách phía trên để tránh lấn vào control panel */
   margin-left: 0; /* Đẩy bảng sát vào sidebar */
-  width: 100%; /* Chiều rộng của bảng kéo dài hết phía bên phải */
+  width: 1270px; /* Chiều rộng của bảng kéo dài hết phía bên phải */
   padding: 0; /* Loại bỏ padding nếu có */
   flex-grow: 1; /* Đảm bảo bảng chiếm hết không gian còn lại */
+  overflow-x: auto; /* Cho phép cuộn ngang */
 }
 
 .table-pagination2 {
   margin-top: 0; /* Loại bỏ khoảng cách trên của table pagination */
   margin-left: 0; /* Đẩy pagination sát vào sidebar */
-  width: 100%; /* Chiều rộng của pagination kéo dài hết phía bên phải */
+  width: 1270px; /* Chiều rộng của pagination kéo dài hết phía bên phải */
   padding: 10px 0; /* Thêm padding nếu cần */
   display: flex;
   justify-content: space-between;
@@ -1247,7 +1248,7 @@ flex-basis: 70%; /* Cố định chiều rộng ban đầu là 70% của hàng *
   gap: var(--gap-9xs);
   line-height: normal;
   letter-spacing: normal;
-  height: calc(100vh + 390px); /* Chiều cao của trang trừ đi chiều cao của pagination */
+  height: calc(100vh + 1000px); /* Chiều cao của trang trừ đi chiều cao của pagination */
 }
 
 .content-container {
@@ -1403,4 +1404,3 @@ table input[type="text"] {
 .document-close:focus {
   color: black;
 }
-
