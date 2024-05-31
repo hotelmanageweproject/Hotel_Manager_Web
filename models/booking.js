@@ -7,7 +7,7 @@ const getBooking = async (bookingid,customerid,bookingdate,bookingtype,totaladul
   let query = '';
   if (bookingid) whereConditions.push(`b.bookingid = ${bookingid}`);
   if (customerid) whereConditions.push(`b.customerid = ${customerid}`);
-  if (bookingdate) whereConditions.push(`b.bookingdate = ${bookingdate}`);
+  if (bookingdate) whereConditions.push(`b.bookingdate = '%${bookingdate}%'`);
   if (bookingtype) whereConditions.push(`b.bookingtype LIKE '%${bookingtype}%'`);
   if (totaladult) whereConditions.push(`b.totaladult = ${totaladult}`);
   if (totalchild) whereConditions.push(`b.totalchild = ${totalchild}`);
@@ -38,7 +38,6 @@ const getBooking = async (bookingid,customerid,bookingdate,bookingtype,totaladul
   
   query += `ORDER BY b.bookingid ASC LIMIT ${limit} OFFSET ${offset}`;
   };
-  console.log(query);
  
   const result = await db.query(query);
   return result.rows;

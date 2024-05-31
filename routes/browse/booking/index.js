@@ -14,7 +14,6 @@ router_booking.get('/', async (req, res) => {
   let url = req.originalUrl;
   let parts = url.split("&page");
   let urlBeforePage = parts[0];
-  console.log("Boooking ID: ",bookingid);
   page = page ? parseInt(page) : 0;
   const limit = 10;
   const offset = page * limit;

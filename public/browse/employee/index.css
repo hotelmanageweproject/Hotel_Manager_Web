@@ -1247,7 +1247,7 @@ flex-basis: 70%; /* Cố định chiều rộng ban đầu là 70% của hàng *
   gap: var(--gap-9xs);
   line-height: normal;
   letter-spacing: normal;
-  height: calc(100vh + 1000px); /* Chiều cao của trang trừ đi chiều cao của pagination */
+  height: calc(100vh + 1200px); /* Chiều cao của trang trừ đi chiều cao của pagination */
 }
 
 .content-container {

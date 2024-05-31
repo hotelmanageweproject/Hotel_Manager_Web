@@ -141,7 +141,7 @@
           
           <div class="input2">
             <form action="/browse/customer" method="GET">
-              <input type="text" name="search" class="search2" placeholder="Search..." value="<%= searchQuery || '' %>">
+              <input type="text" name="search" class="search2" placeholder="Search..." value="<%= search || '' %>">
               <button type="submit" style="background-color: #ffffff; border: none;"><img class="search-icon2" alt="" src="/img/search.png" /></button>
             </form>
           </div>
@@ -164,8 +164,8 @@
                 <tr>
                   <td><input type="text" name="customerid" placeholder></td>
                   <td><input type="text" name="personalid" placeholder></td>
-                  <td><input type="text" name="firstName" placeholder></td>
-                  <td><input type="text" name="lastName" placeholder></td>
+                  <td><input type="text" name="firstname" placeholder></td>
+                  <td><input type="text" name="lastname" placeholder></td>
                   <td><input type="text" name="birthday" placeholder></td>
                   <td><input type="text" name="gender" placeholder></td>
                   <td><input type="text" name="email" placeholder></td>
@@ -192,7 +192,7 @@
               </tbody>
             </table>
           <% } %>
-          <% renderTable(data, ['customerid', 'personalid', 'firstname', 'lastname', 'birthday','gender', 'email', 'phone', 'address', 'namerank']) %>
+          <% renderTable(data, ['customerid', 'personalid', 'firstname', 'lastname', 'birthdate','gender', 'email', 'phone', 'address', 'namerank']) %>
         </div>
 
         <footer class="table-pagination2">

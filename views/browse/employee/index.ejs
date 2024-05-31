@@ -135,7 +135,7 @@
           </div>
           <div class="input2">
             <form action="/browse/employee" method="GET">
-              <input type="text" name="search" class="search2" placeholder="Search..." value="<%= searchQuery || '' %>">
+              <input type="text" name="search" class="search2" placeholder="Search..." value="<%= search || '' %>">
               <button type="submit" style="background-color: #ffffff; border: none;"><img class="search-icon2" alt="" src="/img/search.png" /></button>
             </form>
           </div>
@@ -157,7 +157,7 @@
               <thead>
                 <tr>
                     <td><input type="text" name="staffid" placeholder></td>
-                    <td><input type="text" name="departmentid" placeholder></td>
+                    <td><input type="text" name="departmentname" placeholder></td>
                     <td><input type="text" name="personalid" placeholder></td>
                     <td><input type="text" name="firstname" placeholder></td>
                     <td><input type="text" name="lastname" placeholder></td>
@@ -166,7 +166,7 @@
                     <td><input type="text" name="email" placeholder></td>
                     <td><input type="text" name="phone" placeholder></td>
                     <td><input type="text" name="address" placeholder></td>
-                    <td><input type="text" name="currentsalary" placeholder></td>
+                    <td><input type="text" name="currentsal" placeholder></td>
                     <td><input type="text" name="startdate" placeholder></td>
                     <td><input type="text" name="enddate" placeholder></td>
                 </tr>
@@ -189,7 +189,7 @@
               </tbody>
             </table>
           <% } %>
-          <% renderTable(data, ['staffid', 'departmentid', 'personalid','firstname', 'lastname', 'birthday', 'gender', 'email', 'phone', 'address', 'currentsal', 'startdate', 'enddate']) %>
+          <% renderTable(data, ['staffid', 'departmentname', 'personalid','firstname', 'lastname', 'birthdate', 'gender', 'email', 'phone', 'address', 'currentsal', 'startdate', 'enddate']) %>
         </div>
         
         <footer class="table-pagination2">
@@ -252,7 +252,7 @@
         <span class="close">&times;</span>
         <form class="popup-form" action="./addEmployee" method="post">
           <input type="text" name="staffid" placeholder="Staff ID">
-          <input type="text" name="departmentid" placeholder="Department ID">
+          <input type="text" name="departmentname" placeholder="Department ID">
           <input type="text" name="personalid" placeholder="Personal ID">
           <input type="text" name="firstname" placeholder="First Name">
           <input type="text" name="lastname" placeholder="Last Name">
@@ -261,7 +261,7 @@
           <input type="text" name="email" placeholder="Email">
           <input type="text" name="phone" placeholder="Phone">
           <input type="text" name="address" placeholder="Address">
-          <input type="text" name="currentsalary" placeholder="Current Salary">
+          <input type="text" name="currentsal" placeholder="Current Salary">
           <div class="input-groups-container">
             <div class="input-group">
               <label for="add-start-date" class="date-label">Start Date:</label>
@@ -287,7 +287,7 @@
         <span class="close update-close">&times;</span>
         <form class="popup-form" action="./updateEmployee" method="post">
           <input type="text" name="staffid" placeholder="Staff ID">
-          <input type="text" name="departmentid" placeholder="Department ID">
+          <input type="text" name="departmentname" placeholder="Department ID">
           <input type="text" name="personalid" placeholder="Personal ID">
           <input type="text" name="firstname" placeholder="First Name">
           <input type="text" name="lastname" placeholder="Last Name">
@@ -296,7 +296,7 @@
           <input type="text" name="email" placeholder="Email">
           <input type="text" name="phone" placeholder="Phone">
           <input type="text" name="address" placeholder="Address">
-          <input type="text" name="currentsalary" placeholder="Current Salary">
+          <input type="text" name="currentsal" placeholder="Current Salary">
           <div class="input-groups-container">
             <div class="input-group">
               <label for="update-start-date" class="date-label">Start Date:</label>

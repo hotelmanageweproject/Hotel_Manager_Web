@@ -2,11 +2,44 @@
 import db from '../config/db.js'; // Đảm bảo rằng bạn đã import db từ file đúng
 
 // Query hiển thị dữ liệu ra màn hình
-const getStaff = async (searchQuery, limit, offset) => {
-  let query = `SELECT * FROM staff WHERE staffID::text LIKE '%${searchQuery}%' ORDER BY staffID ASC LIMIT ${limit} OFFSET ${offset} `;
-  if (!searchQuery) {
-    query = `SELECT * FROM staff ORDER BY staffID ASC LIMIT ${limit} OFFSET ${offset}`;
+const getStaff = async (staffid, departmentname, personalid, firstname, lastname, birthday, gender, email, phone, address,currentsal, startdate, enddate,search, limit, offset) => {
+  let whereConditions = [];
+  let query = '';
+  if (staffid) whereConditions.push(`e.staffid = ${staffid}`);
+  if (departmentname) whereConditions.push(`d.name LIKE '%${departmentname}%'`);
+  if (personalid) whereConditions.push(`e.personalid = ${personalid}`);
+  if (firstname) whereConditions.push(`e.firstname LIKE '%${firstname}%'`);
+  if (lastname) whereConditions.push(`e.lastname LIKE '%${lastname}%'`);
+  if (birthday) whereConditions.push(`e.birthdate = '%${birthday}%'`);
+  if (gender) whereConditions.push(`e.gender LIKE '%${gender}%'`);
+  if (email) whereConditions.push(`e.email LIKE '%${email}%'`);
+  if (phone) whereConditions.push(`e.phone LIKE '%${phone}%'`);
+  if (address) whereConditions.push(`e.address LIKE '%${address}%'`);
+  if (currentsal) whereConditions.push(`e.currentsal = '%${currentsal}%'`);
+  if (startdate) whereConditions.push(`e.startdate = '%${startdate}%'`);
+  if (enddate) whereConditions.push(`e.enddate = '%${enddate}%'`);
+  // Thêm các điều kiện tương tự cho các tham số khác nếu chúng không phải là NULL
+  if (search) {
+    query = `
+    SELECT e.staffid, d.name AS departmentname, e.personalid, e.firstname, e.lastname, e.birthdate, e.gender,e.email, e.phone, e.address,e.currentsal, e.startdate, e.enddate
+    FROM staff e
+    JOIN departments d ON e.departmentid = d.departmentid
+    WHERE e.staffid::text LIKE '%${search}%' OR d.name LIKE '%${search}%' OR e.personalid LIKE '%${search}%' OR e.firstname LIKE '%${search}%' OR e.lastname LIKE '%${search}%' OR e.birthdate LIKE '%${search}%' OR e.email LIKE '%${search}%' OR e.phone LIKE '%${search}%' OR e.address LIKE '%${search}%' OR e.currentsal LIKE '%${search}%' OR e.startdate LIKE '%${search}%'
+    ORDER BY e.staffid ASC LIMIT ${limit} OFFSET ${offset}`;
+  } else {
+    query = `
+    SELECT e.staffid, d.name AS departmentName, e.personalid, e.firstname, e.lastname, e.birthdate, e.gender,e.email, e.phone, e.address,e.currentsal, e.startdate, e.enddate
+    FROM staff e
+    JOIN departments d ON e.departmentid = d.departmentid
+  `;
+
+  if (whereConditions.length > 0) {
+    query += 'WHERE ' + whereConditions.join(' AND ') + ' ';
   }
+  
+  query += `ORDER BY e.staffid ASC LIMIT ${limit} OFFSET ${offset}`;
+  };
+  console.log(query);
   const result = await db.query(query);
   return result.rows;
 };

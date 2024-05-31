@@ -13,30 +13,29 @@ router_cus.use(express.urlencoded({ extended: true }));
 
 
 router_cus.get('/', async (req, res) => {
+  let {customerid,personalid,firstname,lastname,birthday,gender,email,phone,address,rank,page,search} = req.query;
   let url = req.originalUrl;
   let parts = url.split("&page");
   let urlBeforePage = parts[0]; // "/browse/customer/?date=&search=&customer_id=&cccd_passport=&first_name=&last_name=&birthday=&gender=&email=&phone=&address="
-  const searchQuery = req.query.search;
-  const page = req.query.page ? parseInt(req.query.page) : 0;
+  page = req.query.page ? parseInt(req.query.page) : 0;
   const limit = 10;
   const offset = page * limit;
-  console.log("Search query: ",req.query.customerid);
   try {
-    const data = await customerModel.getCustomers(searchQuery, limit, offset);
+    const data = await customerModel.getCustomers(customerid,personalid,firstname,lastname,birthday,gender,email,phone,address,rank,search, limit, offset);
     for (let obj of data) {
       for (let key in obj) {
         if (typeof obj[key] === 'string') {
           obj[key] = obj[key].trim();
         }
         // Nếu trường hiện tại là 'birthday', chuyển đổi nó thành định dạng ngày
-        if (key === 'birthday') {
+        if (key === 'birthdate') {
           let birthday = new Date(obj[key]);
           obj[key] = birthday.toISOString().split('T')[0];
         }
       }
     }
     console.log("data: ",data);
-    res.render('browse/customer/index.ejs', { data, page, urlBeforePage, searchQuery});
+    res.render('browse/customer/index.ejs', {data, page, urlBeforePage, search});
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');

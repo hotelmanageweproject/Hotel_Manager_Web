@@ -10,19 +10,28 @@ router_employee.use(express.static(path.join(__dirname, 'public/browse/employee'
 router_employee.use(express.urlencoded({ extended: true }));
 
 router_employee.get('/', async (req, res) => {
+  let {staffid, departmentname, personalid, firstname, lastname, birthday, gender, email, phone, address,currentsal, startdate, enddate,page,search} = req.query;
   let url = req.originalUrl;
   let parts = url.split("&page");
   let urlBeforePage = parts[0]; // "/browse/customer/?date=&search=&customer_id=&cccd_passport=&first_name=&last_name=&birthday=&gender=&email=&phone=&address="
-  const searchQuery = req.query.search;
-  const page = req.query.page ? parseInt(req.query.page) : 0;
+  page = req.query.page ? parseInt(req.query.page) : 0;
   const limit = 10;
   const offset = page * limit;
-  console.log("Search query: ",req.query.staffID);
   try {
-    const data = await employeeModel.getStaff(searchQuery, limit, offset);
-    console.log("Url: ",urlBeforePage);
-    console.log("page: ",page)
-    res.render('browse/employee/index.ejs', { data, page, urlBeforePage, searchQuery});
+    const data = await employeeModel.getStaff(staffid, departmentname, personalid, firstname, lastname, birthday, gender, email, phone, address,currentsal, startdate, enddate,search, limit, offset);
+    for (let obj of data) {
+      for (let key in obj) {
+        if (typeof obj[key] === 'string') {
+          obj[key] = obj[key].trim();
+        }
+        // Nếu trường hiện tại là 'birthday', chuyển đổi nó thành định dạng ngày
+        if (key === 'birthdate') {
+          let birthday = new Date(obj[key]);
+          obj[key] = birthday.toISOString().split('T')[0];
+        }
+      }
+    }
+    res.render('browse/employee/index.ejs', { data, page, urlBeforePage, search});
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
