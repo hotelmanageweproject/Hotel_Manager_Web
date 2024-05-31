@@ -10,19 +10,19 @@ router_service.use(express.static(path.join(__dirname, 'public/browse/service'))
 router_service.use(express.urlencoded({ extended: true }));
 
 router_service.get('/', async (req, res) => {
+  let {serviceid, servicename, note, departmentid, departmentname, manager, descrpition, page, search} = req.query;
   let url = req.originalUrl;
   let parts = url.split("&page");
   let urlBeforePage = parts[0];
   const searchQuery = req.query.search;
-  const page = req.query.page ? parseInt(req.query.page) : 0;
+  page = req.query.page ? parseInt(req.query.page) : 0;
   const limit = 10;
   const offset = page * limit;
-  console.log("Search query: ",req.query.serviceID);
   try {
-    const data = await serviceModel.getService(searchQuery, limit, offset);
+    const data = await serviceModel.getService(serviceid, servicename, note, departmentid, departmentname, manager, descrpition,search, limit, offset);
     console.log("Url: ",urlBeforePage);
     console.log("page: ",page)
-    res.render('browse/service/index.ejs', { data, page, urlBeforePage, searchQuery});
+    res.render('browse/service/index.ejs', { data, page, urlBeforePage, search});
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');

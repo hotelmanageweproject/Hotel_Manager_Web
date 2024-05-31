@@ -135,7 +135,7 @@
           </div>
           <div class="input2">
             <form action="/browse/room" method="GET">
-              <input type="text" name="search" class="search2" placeholder="Search..." value="<%= searchQuery || '' %>">
+              <input type="text" name="search" class="search2" placeholder="Search..." value="<%= search || '' %>">
               <button type="submit" style="background-color: #ffffff; border: none;"><img class="search-icon2" alt="" src="/img/search.png" /></button>
             </form>
           </div>
@@ -157,14 +157,12 @@
               <thead>
                 <tr>
                   <td><input type="text" name="roomid" placeholder></td>
-                  <td><input type="text" name="roomtype" placeholder></td>
                   <td><input type="text" name="status" placeholder></td>
-                  <td><input type="text" name="name" placeholder></td>
+                  <td><input type="text" name="roomtype" placeholder></td>
                   <td><input type="text" name="pricepernight" placeholder></td>
                   <td><input type="text" name="maxadult" placeholder></td>
                   <td><input type="text" name="maxchild" placeholder></td>
-                  <td><input type="text" name="bookingid" placeholder></td>
-                  <td><input type="text" name="customerid" placeholder></td>
+                  <td><input type="text" name="roomstate" placeholder></td>
                 </tr>
               </thead>
               <tbody>
@@ -185,7 +183,7 @@
               </tbody>
             </table>
           <% } %>
-          <% renderTable(data, ['roomid', 'roomtype', 'status', 'roomtypename', 'pricepernight', 'maxadult', 'maxchild', 'bookingid', 'customerid']) %>
+          <% renderTable(data, ['roomid', 'status', 'roomtype', 'pricepernight', 'maxadult', 'maxchild', 'roomstate']) %>
         </div>
         
         <footer class="table-pagination2">
