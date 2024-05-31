@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import browseRoute from './routes/browse/index.js';
+import staticRoute from './routes/static/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/browse', browseRoute);
+app.use('/static', staticRoute);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

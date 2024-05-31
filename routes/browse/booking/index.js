@@ -10,16 +10,16 @@ router_booking.use(express.static(path.join(__dirname, 'public/browse/booking'))
 router_booking.use(express.urlencoded({ extended: true }));
 
 router_booking.get('/', async (req, res) => {
+  let {bookingid,customerid,bookingdate,bookingtype,totaladult,totalchild,roomid,checkin,checkout,numofchild,numofadult,page,searchQuery} = req.query;
   let url = req.originalUrl;
   let parts = url.split("&page");
   let urlBeforePage = parts[0];
-  const searchQuery = req.query.search;
-  const page = req.query.page ? parseInt(req.query.page) : 0;
+  console.log("Boooking ID: ",bookingid);
+  page = page ? parseInt(page) : 0;
   const limit = 10;
   const offset = page * limit;
-  console.log("Search query: ",req.query.bookingID);
   try {
-    const data = await bookingModel.getBooking(searchQuery, limit, offset);
+    const data = await bookingModel.getBooking(bookingid,customerid,bookingdate,bookingtype,totaladult,totalchild,roomid,checkin,checkout,numofchild,numofadult,page,searchQuery, limit, offset);
     console.log("Url: ",urlBeforePage);
     console.log("page: ",page)
     res.render('browse/booking/index.ejs', { data, page, urlBeforePage, searchQuery});
