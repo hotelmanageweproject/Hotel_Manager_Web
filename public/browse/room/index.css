@@ -1219,7 +1219,7 @@ flex-basis: 70%; /* Cố định chiều rộng ban đầu là 70% của hàng *
 .table-pagination2 {
   margin-top: 0; /* Loại bỏ khoảng cách trên của table pagination */
   margin-left: 0; /* Đẩy pagination sát vào sidebar */
-  width: 1263px; /* Chiều rộng của pagination kéo dài hết phía bên phải */
+  width: 1265px; /* Chiều rộng của pagination kéo dài hết phía bên phải */
   padding: 10px 0; /* Thêm padding nếu cần */
   display: flex;
   justify-content: space-between;
