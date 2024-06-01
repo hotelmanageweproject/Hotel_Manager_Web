@@ -51,6 +51,8 @@ const addStaff = (staffID,departmentID, personalID, firstName, lastName, birthda
         INSERT INTO staff (staffID,departmentID, personalID, firstName, lastName, birthday, gender, email, phone, address, currentSal, startDate, endDate)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
       `;
+      // ADD staff: INPUT (ALL Varchar) : staffID,departmentID, personalID, firstName, lastName, birthday, gender, email, phone, address, currentSal, startDate, endDate
+    // OUTPUT: firstName + lastName vừa in sẽ được trả về 
       const values = [staffID,departmentID, personalID, firstName, lastName, birthday, gender, email, phone, address, currentSal, startDate, endDate];
       db.query(query, values, (err, result) => {
         if (err) {
@@ -68,6 +70,8 @@ const addStaff = (staffID,departmentID, personalID, firstName, lastName, birthda
 const deleteStaff = (staffID) => {
   return new Promise((resolve, reject) => {
     const query = `DELETE FROM staff WHERE staffID = $1`;
+    // Xóa staff: INPUT (staffID) : staffID
+    // OUTPUT: staffID vừa xóa sẽ được trả về
     db.query(query, [staffID], (err, result) => {
           if (err) {
               console.error('Error executing query', err.stack);
@@ -91,6 +95,10 @@ const updateStaff = (staffID, { departmentID, personalID, firstName, lastName, b
       }
       if (updates.length > 0) {
         const query = `UPDATE staff SET ${updates.join(', ')} WHERE staffid = '${staffID}'`;
+        // UPDATE staffs: INPUT (staffID,departmentID, personalID, firstName, lastName, birthday, gender, email, phone, address, currentSal, startDate, endDate)
+      // Thực hiện cập nhật thông tin nhân viên có staffid với các cột có chứa thông tin ở input (Tóm lại giá trị nào khác '' hoặc null thì sửa)
+      // Nếu function trong sql làm được thì tốt không được thì thôi, phần này skip
+      // OUTPUT: staffid vừa cập nhật sẽ được trả về
         db.query(query, (err, result) => {
           if (err) {
           console.error('Error executing query', err.stack);

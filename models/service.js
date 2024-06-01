@@ -38,13 +38,18 @@ const getService = async (serviceid, servicename, note, departmentid, department
 };
 
 // Query thêm dữ liệu
-const addService = (serviceID, name, departmentID, note) => {
+const addService = (serviceid, servicename, departmentid, note, departmentname, manager, description) => {
     return new Promise((resolve, reject) => {
-      const query = `
-        INSERT INTO services (serviceID, name, departmentID, note)
-        VALUES ($1, $2, $3, $4)
-      `;
-      const values = [serviceID, name, departmentID, note];
+      let query = ``;
+      if (serviceid !== undefined && servicename !== undefined && departmentid !== undefined)  {
+         query = '';
+        // ADD vào bảng services: INPUT (ALL Varchar)  : serviceID, servicename, departmentID, note  Thêm vào bảng services
+        // OUTPUT: serviceID vừa thêm sẽ được trả về 
+      } else if (serviceid === undefined && departmentid !== undefined && departmentname !== undefined && manager !== undefined && description !== undefined){
+        query = ``;
+        // ADD vào bảng department: INPUT (ALL Varchar) : departmentID, departmentname, manager, description
+        // OUTPUT: serviceID vừa thêm sẽ được trả về
+      }
       db.query(query, values, (err, result) => {
         if (err) {
           console.error('Error executing query', err.stack);
@@ -58,9 +63,18 @@ const addService = (serviceID, name, departmentID, note) => {
   };
 
 // Query xóa dữ liệu
-const deleteService = (serviceID) => {
+const deleteService = (serviceid, departmentid) => {
   return new Promise((resolve, reject) => {
-    const query = `DELETE FROM services WHERE serviceID = $1`;
+    let query = '';
+    if (serviceid !== undefined && departmentid === undefined) {
+      query = `DELETE FROM services WHERE serviceid = $1`;
+      // Xóa dữ liệu trong bảng services: INPUT: serviceID
+      // OUTPUT: serviceID vừa xóa sẽ được trả về (Có hoặc không)
+    } else if (departmentid !== undefined && serviceid === undefined) {
+      // Xóa dữ liệu trong bảng departments: INPUT: departmentID
+      // OUTPUT: departmentID vừa xóa sẽ được trả về (Có hoặc không)
+      query = `DELETE FROM departments WHERE departmentid = $1`;
+    }
     db.query(query, [serviceID], (err, result) => {
           if (err) {
               console.error('Error executing query', err.stack);
@@ -75,6 +89,16 @@ const deleteService = (serviceID) => {
 // Query cập nhật dữ liệu
 const updateService = (serviceID, { name, departmentID, note}) => {
     return new Promise((resolve, reject) => {
+      let query = '';
+      if (serviceID !== undefined && departmentname === undefined && manager === undefined && description === undefined) {
+        query = '';
+        // Cập nhật dữ liệu trong bảng services: INPUT: serviceID, servicename, departmentID, note
+         // OUTPUT: serviceID vừa cập nhật sẽ được trả về
+      } else if (serviceID === undefined && departmentID !== undefined && departmentname !== undefined && manager !== undefined && description !== undefined) {
+        query = '';
+        // Cập nhật dữ liệu trong bảng departments: INPUT: departmentID, departmentname, manager, description
+        // OUTPUT: departmentID vừa cập nhật sẽ được trả về
+      }
       const fields = { name, departmentID, note };
       const updates = [];
       for (let key in fields) {
@@ -83,7 +107,7 @@ const updateService = (serviceID, { name, departmentID, note}) => {
         }
       }
       if (updates.length > 0) {
-        const query = `UPDATE services SET ${updates.join(', ')} WHERE serviceID = '${serviceID}'`;
+        query = `UPDATE services SET ${updates.join(', ')} WHERE serviceID = '${serviceID}'`;
         db.query(query, (err, result) => {
           if (err) {
           console.error('Error executing query', err.stack);

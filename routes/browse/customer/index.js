@@ -34,7 +34,6 @@ router_cus.get('/', async (req, res) => {
         }
       }
     }
-    console.log("data: ",data);
     res.render('browse/customer/index.ejs', {data, page, urlBeforePage, search});
   } catch (err) {
     console.error(err);
@@ -43,11 +42,10 @@ router_cus.get('/', async (req, res) => {
 });
 
 router_cus.post('/addCustomer', async (req, res) => {
-  const {customerid, rankid, personalid, firstname, lastname, birthday, gender, email, phone, address} = req.body;
-  console.log("Add customer: ",req.body);
+  const {customerid, personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank} = req.body;
   try {
-    await customerModel.addCustomer(customerid, rankid, personalid, firstname, lastname, birthday, gender, email, phone, address);
-    res.redirect('/browse/customer');
+    await customerModel.addCustomer(customerid, personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank);
+    res.redirect(`/browse/customer?success=true&customerid=${customerid}`);  
   } catch (err) {
     console.error('Error adding customer', err);
     res.status(500).send('Error adding customer');
@@ -56,21 +54,21 @@ router_cus.post('/addCustomer', async (req, res) => {
 
 router_cus.post('/deleteCustomer', async (req, res) => {
   const {customerid} = req.body;
-  console.log("Delete customer: ",req.body);
   try {
+    console.log("Delete customer: ",customerid);
     await customerModel.deleteCustomer(customerid);
     res.redirect('/browse/customer');
   } catch (err) {
     console.error('Error deleting customer', err);
-    res.status(500).send('Error deleting customer');
+    res.status(500).send('Error deleting customer ' + err);
   }
 });
 
 router_cus.post('/updateCustomer', async (req, res) => {
-  const { customerid, rankid, personalid, firstName, lastName, birthday, gender, email, phone, address} = req.body;
+  const {customerid, personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank} = req.body;
   console.log("Update customer: ",req.body);
   try {
-    await customerModel.updateCustomer(customerid, { rankid, personalid, firstName, lastName, birthday, gender, email, phone, address});
+    await customerModel.updateCustomer(customerid, {personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank});
     res.redirect('/browse/customer');
   } catch (err) {
     console.error('Error update customer', err);

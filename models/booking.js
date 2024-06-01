@@ -46,10 +46,16 @@ const getBooking = async (bookingid,customerid,bookingdate,bookingtype,totaladul
 // Query thêm dữ liệu
 const addBooking = (bookingID, customerID, bookingDate, bookingType, totalAdult, totalChild) => {
     return new Promise((resolve, reject) => {
-      const query = `
-        INSERT INTO Booking (bookingID, customerID, bookingDate, bookingType, totalAdult, totalChild)
-        VALUES ($1, $2, $3, $4, $5, $6)
-      `;
+      if (roomid === undefined) {
+        const query = `INSERT INTO Booking (bookingID, customerID, bookingDate, bookingType, totalAdult, totalChild) VALUES ($1, $2, $3, $4, $5, $6)`;
+        // ADD Booking vào bảng booking: INPUT (ALL Varchar)  : bookingID, customerID, bookingDate, bookingType, totalAdult, totalChild
+        // OUTPUT: bookingID vừa thêm sẽ được trả về
+      } else if (roomid !== undefined && bookingID !== undefined){
+        const query = `INSERT INTO Booking (bookingID, customerID, bookingDate, bookingType, totalAdult, totalChild) VALUES ($1, $2, $3, $4, $5, $6)`;
+        // ADD vào bảng booking_room: INPUT (ALL Varchar) : bookingID, roomID, checkIn, checkOut, numOfAdult, numOfChild
+        // OUTPUT: bookingID và roomID vừa thêm sẽ được trả về
+        // 1 Thắc mắc nhỏ nếu bookingID đó đã tồn tại phòng đó thì sao ? Và có thao tác nào để kiểm tra hiện tại không có bookingID nào khác dùng roomID đó không ?
+      }
       const values = [bookingID, customerID, bookingDate, bookingType, totalAdult, totalChild];
       db.query(query, values, (err, result) => {
         if (err) {
@@ -67,7 +73,17 @@ const addBooking = (bookingID, customerID, bookingDate, bookingType, totalAdult,
 const deleteBooking = (bookingID) => {
   return new Promise((resolve, reject) => {
     const query = `DELETE FROM Booking WHERE bookingID = $1`;
-    db.query(query, [bookingID], (err, result) => {
+    if (roomid === undefined) {
+      const query = `DELETE FROM booking WHERE bookingID = $1`;
+      // DELETE Booking: INPUT (bookingID) : Thực hiện xoá bản ghi có bookingID ở bảng booking và toàn bộ bản ghi ở bản booking_room có bookingID đó
+      // OUTPUT : bookingID vừa xoá sẽ được trả về (Có hoặc không)
+    } else if (roomid !== undefined && bookingID !== undefined){
+      // DELETE Booking: INPUT (bookingID, roomID) : Thực hiện xoá bản ghi có bookingID và roomID ở bảng booking_room
+      // OUTPUT : bookingID và roomID vừa xoá sẽ được trả về (Có hoặc không)
+      const query = `DELETE FROM Booking WHERE bookingID = $1`;
+    }
+    
+    db.query(query, [bookingID,roomID], (err, result) => {
           if (err) {
               console.error('Error executing query', err.stack);
               reject(err);
@@ -81,6 +97,17 @@ const deleteBooking = (bookingID) => {
 // Query cập nhật dữ liệu
 const updateBooking = (bookingID, { customerID, bookingDate, bookingType, totalAdult, totalChild}) => {
     return new Promise((resolve, reject) => {
+      let query = '';
+      if (roomid === undefined) {
+         query = `UPDATE Booking_Room SET roomID = $1, checkIn = $2, checkOut = $3, numOfAdult = $4, numOfChild = $5 WHERE bookingID = $6`;
+        // UPDATE Booking: INPUT (ALL Varchar) : bookingID, customerID, bookingDate, bookingType, totalAdult, totalChild
+        // Lưu ý chỉ những giá trị nào khác null hoặc '' mới thực hiện thay đổi Nếu không được thì skip
+        // OUTPUT: bookingID vừa cập nhật sẽ được trả về (Có hoặc không)
+      } else if (roomid !== undefined && bookingID !== undefined){
+        query = `UPDATE Booking SET customerID = $1, bookingDate = $2, bookingType = $3, totalAdult = $4, totalChild = $5 WHERE bookingID = $6`;
+        // UPDATE booking_room: INPUT (ALL Varchar) : bookingID, roomID, checkIn, checkOut, numOfAdult, numOfChild
+        // OUTPUT: bookingID và roomID vừa cập nhật sẽ được trả về (Có hoặc không)
+      }
       const fields = { customerID, bookingDate, bookingType, totalAdult, totalChild };
       const updates = [];
       for (let key in fields) {

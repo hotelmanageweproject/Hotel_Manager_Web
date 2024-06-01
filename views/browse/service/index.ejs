@@ -246,11 +246,11 @@
         <form class="popup-form" action="./addService" method="post">
           <input type="text" name="serviceid" placeholder="Service ID">
           <input type="text" name="servicename" placeholder="Service Name">
-          <input type="text" name="description" placeholder="Description">
+          <input type="text" name="note" placeholder="Note">
           <input type="text" name="departmentid" placeholder="Department ID">
           <input type="text" name="departmentname" placeholder="Department Name">
           <input type="text" name="manager" placeholder="Manager">
-          <input type="text" name="note" placeholder="Note">
+          <input type="text" name="description" placeholder="Description">
         <div type="submit" class="submit-button">Submit</div>
       </form>
       </div>
@@ -261,11 +261,11 @@
         <form class="popup-form" action="./updateService" method="post">
           <input type="text" name="serviceid" placeholder="Service ID">
             <input type="text" name="servicename" placeholder="Service Name">
-            <input type="text" name="description" placeholder="Description">
+            <input type="text" name="note" placeholder="Note">
             <input type="text" name="departmentid" placeholder="Department ID">
             <input type="text" name="departmentname" placeholder="Department Name">
             <input type="text" name="manager" placeholder="Manager">
-            <input type="text" name="note" placeholder="Note">
+            <input type="text" name="description" placeholder="Description">
           <div type="submit" class="submit-button">Submit</div>
         </form>
       </div>
@@ -274,7 +274,8 @@
       <div class="popup-content">
         <span class="close delete-close">&times;</span>
         <form class="popup-form" action="./deleteService" method="post">
-          <input type="text" placeholder="Service ID">
+          <input type="text" name = "serviceid" placeholder="Service ID">
+          <input type="text" name = "departmentid" placeholder="Department ID">
           <div type="submit" class="submit-button">Delete</div>
         </form>
       </div>

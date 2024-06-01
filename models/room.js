@@ -41,13 +41,23 @@ join roomtype rt on rt.roomtypeid = r.roomtype
 };
 
 // Query thêm dữ liệu
-const addRoom = (roomID, roomType, status) => {
+const addRoom = (roomid, roomtype, status, name, pricepernight, maxadult, maxchild, bookingid, serviceid) => {
     return new Promise((resolve, reject) => {
-      const query = `
-        INSERT INTO rooms (roomID, roomType, status)
-        VALUES ($1, $2, $3)
-      `;
-      const values = [roomID, roomType, status];
+      let query = '';
+      if (roomid !== undefined && roomtype !== undefined && status !== undefined)  {
+        query = ``;
+        // ADD vào bảng rooms: INPUT (ALL Varchar)  : roomID, roomType, status Thêm vào bảng rooms
+        // OUTPUT: roomID vừa thêm sẽ được trả về
+      } else if (roomid === undefined && roomtype !== undefined && name !== undefined && pricepernight !== undefined && maxadult !== undefined && maxchild !== undefined){
+        query = ``;
+        // ADD vào bảng roomtype: INPUT (ALL Varchar) : roomtype, name, pricepernight, maxadult, maxchild
+        // OUTPUT: roomtype vừa thêm sẽ được trả về
+      } else if (roomid !== undefined && bookingid !== undefined && serviceid !== undefined){
+        query = ``;
+        // ADD vào bảng room_service: INPUT (ALL Varchar) : roomid, bookingid, serviceid. DÙng roomid và bookingid xác định bkID rồi thực hiện thêm serviceid vào bkID ở bảng room_service
+        // OUTPUT: bookingid , roomid, serviceid vừa thêm sẽ được trả về
+      }
+      const values = [roomid, roomtype, status, name, pricepernight, maxadult, maxchild, bookingid, serviceid];
       db.query(query, values, (err, result) => {
         if (err) {
           console.error('Error executing query', err.stack);
@@ -61,10 +71,19 @@ const addRoom = (roomID, roomType, status) => {
   };
 
 // Query xóa dữ liệu
-const deleteRoom = (roomID) => {
+const deleteRoom = (roomid,serviceid) => {
   return new Promise((resolve, reject) => {
-    const query = `DELETE FROM rooms WHERE roomID = $1`;
-    db.query(query, [roomID], (err, result) => {
+    let query = ``;
+    if (serviceid === undefined && roomid !== undefined) {
+        query = ``;
+        // DELETE bảng rooms: INPUT (roomID) : Thực hiện xoá bản ghi có roomID ở bảng rooms
+        // OUTPUT : roomID vừa xoá sẽ được trả về (Có hoặc không)
+    } else if (serviceid !== undefined && roomid !== undefined){
+        query = ``;
+        // DELETE bảng room_service: INPUT (roomID, serviceID) : Thực hiện xoá bản ghi có roomID và serviceID ở bảng room_service
+        // OUTPUT : roomID và serviceID vừa xoá sẽ được trả về (Có hoặc không)
+    }
+    db.query(query, [roomid, serviceid], (err, result) => {
           if (err) {
               console.error('Error executing query', err.stack);
               reject(err);
@@ -76,9 +95,23 @@ const deleteRoom = (roomID) => {
   });
 };
 // Query cập nhật dữ liệu
-const updateRoom = (roomID, { roomType, status}) => {
+const updateRoom = (roomid, roomtype, status, name , pricepernight, maxadult, maxchild, bookingid, serviceid) => {
     return new Promise((resolve, reject) => {
-      const fields = { roomType, status };
+      let query = '';
+      if (roomid !== undefined && (status !== undefined || roomtype !== undefined)) {
+        query = ``;
+        // UPDATE bảng rooms: INPUT (ALL Varchar) : roomID, roomType, status
+        // OUTPUT: roomID vừa thêm sẽ được trả về
+      } else if (roomid === undefined && roomtype !== undefined){
+        query = ``;
+        // UPDATE bảng roomtype: INPUT (ALL Varchar) : roomtype, name, pricepernight, maxadult, maxchild
+        // OUTPUT: roomtype vừa thêm sẽ được trả về
+      } else if (roomid !== undefined && roomtype === undefined && bookingid !== undefined && serviceid !== undefined){
+        query = ``;
+        // UPDATE bảng room_service: INPUT (ALL Varchar) : roomid, bookingid, serviceid. DÙng roomid và bookingid xác định bkID rồi thực hiện thêm serviceid vào bkID ở bảng room_service
+        // OUTPUT: bookingid , roomid, serviceid vừa thêm sẽ được trả về
+      }
+      const fields = { roomtype, status };
       const updates = [];
       for (let key in fields) {
         if (fields[key] !== undefined && fields[key] !== '') {
@@ -86,7 +119,7 @@ const updateRoom = (roomID, { roomType, status}) => {
         }
       }
       if (updates.length > 0) {
-        const query = `UPDATE rooms SET ${updates.join(', ')} WHERE roomid = '${roomID}'`;
+        query = `UPDATE rooms SET ${updates.join(', ')} WHERE roomid = '${roomID}'`;
         db.query(query, (err, result) => {
           if (err) {
           console.error('Error executing query', err.stack);

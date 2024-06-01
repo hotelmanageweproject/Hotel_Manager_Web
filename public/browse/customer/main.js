@@ -206,3 +206,14 @@ function showDetailsPopup(data) {
   
     overlay.style.display = 'block';
   }
+
+  // Trong file JavaScript trên trang client
+window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const customerid = urlParams.get('customerid');
+    if (success === 'true') {
+      alert(`Customer added successfully, Customer ID: ${customerid}`);
+    }
+  });
+  
