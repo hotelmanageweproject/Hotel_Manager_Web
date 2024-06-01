@@ -31,7 +31,7 @@ function goToHomePage() {
     var elements = document.getElementsByClassName("menu-item1");
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener("click", function () {
-            window.location.href = "/";
+            window.location.href = "/HomePage/index.html";
         });
     }
 }
@@ -41,7 +41,7 @@ function goToBrowseHomePage() {
     var elements = document.getElementsByClassName("menu-item2");
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener("click", function () {
-            window.location.href = "/browse";
+            window.location.href = "/BrowseHomePage/index.html";
         });
     }
 }
@@ -51,7 +51,7 @@ function goToStaticHomePage() {
     var elements = document.getElementsByClassName("menu-item3");
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener("click", function () {
-            window.location.href = "/static";
+            window.location.href = "/StaticHomePage/index.html";
         });
     }
 }
@@ -272,11 +272,6 @@ document.querySelector('.search2').addEventListener('keydown', function(event) {
     }
 });
 
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-      document.getElementById('TotalBillPopup').style.display = 'flex';
-    }
-}
 function showPopupSearch() {
     document.getElementById('TotalBillPopup').style.display = 'flex';
     document.getElementById('overlay').style.display = 'block'; // Show the overlay if it exists

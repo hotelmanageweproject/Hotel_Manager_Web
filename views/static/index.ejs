@@ -60,7 +60,8 @@
           <img class="search-icon2" alt="" src="/img/search.png" onclick="showPopupSearch()" />
           <input class="search2" placeholder="Check total payment for customers" type="text"/>
         </div>
-
+      
+      <div class="hotel-statistic-ranking-container">
         <div class="Hotel-statistic-ranking">
           <div class="hotel-statistic-header">
             <span class="hotel-statistic-title">HOTEL STATISTIC</span>
@@ -97,7 +98,65 @@
             <img class="info-icon" src="/img/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticRoom')" />
           </div>
         </div>
-
+        <div class="ranking-service">
+          <div class="ranking-service-header">
+            <span class="ranking-service-title">RANKING SERVICE</span>
+            <img class="info-icon" src="/img/info.png" alt="Info Icon" onclick="showPopup('RankingServiceInfo')" />
+          </div>
+          <table class="ranking-service-table">
+            <tr>
+              <td>1. Spa</td>
+              <td>234</td>
+            </tr>
+            <tr>
+              <td>2. Laundry</td>
+              <td>196</td>
+            </tr>
+            <tr>
+              <td>3. Massage</td>
+              <td>123</td>
+            </tr>
+            <tr>
+              <td>4. Buffet breakfast</td>
+              <td>99</td>
+            </tr>
+            <tr>
+              <td>5. Pool</td>
+              <td>98</td>
+            </tr>
+          </table>
+        </div>
+        <div class="ranking-service">
+          <div class="ranking-service-header">
+            <span class="ranking-service-title">RANKING CUSTOMERS</span>
+            <img class="info-icon" src="/img/info.png" alt="Info Icon" onclick="showPopup('RankingCustomersInfo')" />
+          </div>
+          <table class="ranking-service-table">
+            <tr>
+              <td>1. John Doe</td>
+              <td>15</td>
+              </tr>
+            </tr>
+            <tr>
+              <td>2. Jane Smith</td>
+              <td>12</td>
+            </tr>
+            <tr>
+              <td>3. Alice Johnson</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td>4. Robert Brown</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td>5. Emily Davis</td>
+              <td>7</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="hotel-statistic-ranking-container">
         <div class="chart-container">
           <div class="chart-header">
             <span class="chart-title">REVENUE</span>
@@ -116,6 +175,38 @@
             </div>
           </div>
           <canvas id="myChart"></canvas>
+        </div>
+
+        <div class="ranking-service">
+          <div class="ranking-service-header">
+            <span class="ranking-service-title">RANKING EMPLOYEE</span>
+            <img class="info-icon" src="/img/info.png" alt="Info Icon" onclick="showPopup('RankingEmployeesInfo')" />
+          </div>
+          <table class="ranking-service-table">
+            <tr>
+              <td>1. John Doe</td>
+              <td>15</td>
+              </tr>
+            </tr>
+            <tr>
+              <td>2. Jane Smith</td>
+              <td>12</td>
+            </tr>
+            <tr>
+              <td>3. Alice Johnson</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td>4. Robert Brown</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td>5. Emily Davis</td>
+              <td>7</td>
+            </tr>
+          </table>
+        </div>
+      </div>
       </section>
     </form>
 
@@ -164,16 +255,70 @@
           <span class="close" onclick="closePopup()">&times;</span>
         </div>
         <div class="popup-body">
-          <!-- Nội dung khác có thể thêm vào đây -->
+          <div class="popup-column">
+           
+          </div>
+          <div class="popup-column">
+            
+          </div>
         </div>
-        <hr>
         <div class="popup-footer">
           <span>Total amount:</span>
           <span id="total-amount-value" class="total-amount-value">0</span>
         </div>
       </div>
     </div>
-    <input class="search2" type="text" placeholder="Search..." onkeypress="handleKeyPress(event)">
+
+    <div id="RankingServiceInfo" class="popup large-popup popup-total-bill">
+      <div class="HS-popup-content">
+        <div class="popup-header">
+          <span>All Ranking Service</span>
+          <span class="close" onclick="closePopup()">&times;</span>
+        </div>
+        <div class="popup-body">
+          <div class="popup-column">
+            
+          </div>
+          <div class="popup-column">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="RankingCustomersInfo" class="popup large-popup popup-total-bill">
+      <div class="HS-popup-content">
+        <div class="popup-header">
+          <span>All Ranking Customers</span>
+          <span class="close" onclick="closePopup()">&times;</span>
+        </div>
+        <div class="popup-body">
+          <div class="popup-column">
+            
+          </div>
+          <div class="popup-column">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="RankingEmployeesInfo" class="popup large-popup popup-total-bill">
+      <div class="HS-popup-content">
+        <div class="popup-header">
+          <span>All Ranking Employees</span>
+          <span class="close" onclick="closePopup()">&times;</span>
+        </div>
+        <div class="popup-body">
+          <div class="popup-column">
+            
+          </div>
+          <div class="popup-column">
+            
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="main.js"></script>
   </body>
 </html>
