@@ -31,7 +31,7 @@ function goToHomePage() {
     var elements = document.getElementsByClassName("menu-item1");
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener("click", function () {
-            window.location.href = "/HomePage/index.html";
+            window.location.href = "/";
         });
     }
 }
@@ -41,7 +41,7 @@ function goToBrowseHomePage() {
     var elements = document.getElementsByClassName("menu-item2");
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener("click", function () {
-            window.location.href = "/BrowseHomePage/index.html";
+            window.location.href = "/browse";
         });
     }
 }
@@ -51,7 +51,7 @@ function goToStaticHomePage() {
     var elements = document.getElementsByClassName("menu-item3");
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener("click", function () {
-            window.location.href = "/StaticHomePage/index.html";
+            window.location.href = "/static";
         });
     }
 }
