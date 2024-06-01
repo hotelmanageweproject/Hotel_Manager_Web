@@ -272,11 +272,6 @@ document.querySelector('.search2').addEventListener('keydown', function(event) {
     }
 });
 
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-      document.getElementById('TotalBillPopup').style.display = 'flex';
-    }
-}
 function showPopupSearch() {
     document.getElementById('TotalBillPopup').style.display = 'flex';
     document.getElementById('overlay').style.display = 'block'; // Show the overlay if it exists
