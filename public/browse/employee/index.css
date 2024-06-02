@@ -1248,7 +1248,7 @@ flex-basis: 70%; /* Cố định chiều rộng ban đầu là 70% của hàng *
   gap: var(--gap-9xs);
   line-height: normal;
   letter-spacing: normal;
-  height: calc(100vh + 1200px); /* Chiều cao của trang trừ đi chiều cao của pagination */
+  height: calc(100vh + 1000px); /* Chiều cao của trang trừ đi chiều cao của pagination */
 }
 
 .content-container {
@@ -1368,6 +1368,8 @@ table input[type="text"] {
   width: 400px; /* Tăng chiều rộng của popup */
   max-width: 90%; /* Đảm bảo popup không vượt quá chiều rộng của màn hình */
   box-sizing: border-box; /* Đảm bảo padding không làm tăng chiều rộng tổng thể */
+  height: 400px;
+  overflow-y: auto; /* Enables vertical scrolling if content overflows */
 }
 
 .document-popup-content {

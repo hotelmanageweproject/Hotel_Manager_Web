@@ -1368,6 +1368,8 @@ table input[type="text"] {
   width: 400px; /* Tăng chiều rộng của popup */
   max-width: 90%; /* Đảm bảo popup không vượt quá chiều rộng của màn hình */
   box-sizing: border-box; /* Đảm bảo padding không làm tăng chiều rộng tổng thể */
+  height: 400px;
+  overflow-y: auto; /* Enables vertical scrolling if content overflows */
 }
 
 .document-popup-content {
