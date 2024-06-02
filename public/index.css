@@ -214,14 +214,6 @@
   color: #101828;
   font-family: var(--text-xs-medium);
 }
-.frame-child {
-  align-self: stretch;
-  height: 814px;
-  position: relative;
-  background-color: rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  margin-top: -7px;
-}
 .card-header-parent {
   align-self: stretch;
   flex-direction: column;
@@ -285,4 +277,24 @@
     font-size: var(--small-text-size);
     line-height: 24px;
   }
+}
+
+.content body {
+  font-family: Inter;
+  line-height: 1.6;
+  margin: 20px;
+}
+.content h1, h2, h3 {
+  color: #333;
+}
+.content ul, ol {
+  margin: 20px;
+  padding: 0 20px;
+}
+.content a {
+  color: #0066cc;
+  text-decoration: none;
+}
+.content a:hover {
+  text-decoration: underline;
 }
