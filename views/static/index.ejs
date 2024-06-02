@@ -56,10 +56,13 @@
             </div>
           </header>
         </div>
+      <div class="hotel-statistic-ranking-container">  
         <div class="input2">
           <img class="search-icon2" alt="" src="/img/search.png" onclick="showPopupSearch()" />
           <input class="search2" placeholder="Check total payment for customers" type="text"/>
         </div>
+        <div class="payment-button" onclick="showPopup('PaymentPopup')">Payment</div>
+      </div>
       
       <div class="hotel-statistic-ranking-container">
         <div class="Hotel-statistic-ranking">
@@ -319,6 +322,37 @@
         </div>
       </div>
     </div>
+
+    <div id="PaymentPopup" class="popup large-popup popup-total-bill">
+      <div class="HS-popup-content">
+        <div class="popup-header">
+          <span>Payment</span>
+          <span class="close" onclick="closePopup()">&times;</span>
+        </div>
+        <div class="popup-body">
+          <div class="popup-column">
+            <p>Booking ID:</p>
+            <p>Total Amount:</p>
+            <p>Additional Charge:</p>
+            <p>Payment Method:</p>
+            <p>Payment Date:</p>
+            <p>Payment Status:</p>
+            <p>Note:</p>
+          </div>
+          <div class="popup-column">
+            <input type="text" id="bookingid" class="input-style">
+            <input type="text" id="totalamount" class="input-style">
+            <input type="text" id="additionalcharge" class="input-style">
+            <input type="text" id="paymentmethod" class="input-style">
+            <input type="text" id="paymentdate" class="input-style">
+            <input type="text" id="paymentstatus" class="input-style">
+            <input type="text" id="note" class="input-style">
+          </div>
+        </div>
+        <button type="submit" class="submit">Submit</button>
+      </div>
+    </div>
+
     <script src="main.js"></script>
   </body>
 </html>

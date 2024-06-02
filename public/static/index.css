@@ -612,9 +612,20 @@
 }
 
 .popup-total-bill .popup-column {
+  display: flex;
+  flex-direction: column;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
-
+.input-style {
+  margin: 10px 0;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
 
 .popup-total-bill .popup-footer {
   display: flex;
@@ -684,3 +695,40 @@
   margin-left: 50px; /* Khoảng cách giữa các phần tử */
 }
 
+.payment-button {
+  background-color: #ff5a5f;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: 16px;
+}
+
+.payment-button:hover {
+  background-color: #ff787d;
+}
+
+.submit {
+  background-color: #4CAF50; /* Màu nền */
+  color: white; /* Màu chữ */
+  border: none; /* Bỏ viền */
+  border-radius: 5px; /* Bo tròn góc */
+  padding: 10px 20px; /* Khoảng cách bên trong */
+  font-size: 16px; /* Kích thước chữ */
+  cursor: pointer; /* Con trỏ chuột */
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+}
+
+.submit:hover {
+  background-color: #45a049; /* Màu nền khi hover */
+}
+
+.submit:active {
+  background-color: #3e8e41; /* Màu nền khi nhấn */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Đổ bóng khi nhấn */
+  transform: translateY(2px); /* Hiệu ứng nhấn */
+}
