@@ -1220,10 +1220,10 @@ flex-basis: 70%; /* Cố định chiều rộng ban đầu là 70% của hàng *
   margin-top: 0; /* Loại bỏ khoảng cách trên của table pagination */
   margin-left: 0; /* Đẩy pagination sát vào sidebar */
   width: 1265px; /* Chiều rộng của pagination kéo dài hết phía bên phải */
-  padding: 10px 0; /* Thêm padding nếu cần */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 60px;
 }
 
 .browse-element-page2 {
@@ -1265,8 +1265,10 @@ table {
 
 th, td {
   border: 1px solid #ddd; /* Border cho th và td */
-  padding: 8px; /* Padding cho th và td */
+  padding: 12px; /* Tăng padding cho th và td */
   text-align: left; /* Căn lề trái cho nội dung */
+  white-space: nowrap; /* Ngăn chặn việc xuống dòng */
+  line-height: 1.5; /* Tăng chiều cao của các ô */
 }
 
 th {
@@ -1277,11 +1279,13 @@ th {
 tr:hover {
   background-color: #f5f5f5; /* Màu nền khi hover vào một hàng */
 }
+
 table input[type="text"] {
   width: 100%;
-  padding: 6px;
+  padding: 10px; /* Tăng padding cho input */
   box-sizing: border-box;
   border: 1px solid #ddd;
+  white-space: nowrap; /* Ngăn chặn việc xuống dòng */
 }
 
 @media screen and (max-width: 825px) {
