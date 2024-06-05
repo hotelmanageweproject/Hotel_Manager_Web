@@ -1369,7 +1369,7 @@ table input[type="text"] {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 400px; /* Tăng chiều rộng của popup */
+  width: 700px; /* Tăng chiều rộng của popup */
   max-width: 90%; /* Đảm bảo popup không vượt quá chiều rộng của màn hình */
   box-sizing: border-box; /* Đảm bảo padding không làm tăng chiều rộng tổng thể */
   height: 400px;
