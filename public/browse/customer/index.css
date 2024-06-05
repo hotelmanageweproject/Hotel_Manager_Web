@@ -440,7 +440,7 @@
   gap: var(--gap-3xs);
 }
 .vector-icon {
-  width: 16.7px;
+  width: 20px;
   height: 20px;
   position: relative;
 }
@@ -465,14 +465,14 @@
 .frame-group {
   cursor: pointer;
   border: 1px solid var(--color-black);
-  padding: var(--padding-5xs) 41px;
+  padding: var(--padding-5xs) var(--padding-4xl);
   background-color: transparent;
   border-radius: var(--br-xl);
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 9.9px;
+  gap: var(--gap-3xs);
 }
 .vector-icon1 {
   width: 20px;
@@ -500,7 +500,7 @@
 .frame-container {
   cursor: pointer;
   border: 1px solid var(--color-black);
-  padding: var(--padding-5xs) 34px;
+  padding: var(--padding-5xs) var(--padding-4xl);
   background-color: transparent;
   border-radius: var(--br-xl);
   display: flex;
@@ -535,7 +535,7 @@
 .frame-button {
   cursor: pointer;
   border: 1px solid var(--color-black);
-  padding: var(--padding-5xs) 32px;
+  padding: var(--padding-5xs) var(--padding-4xl);
   background-color: transparent;
   border-radius: var(--br-xl);
   display: flex;
@@ -545,7 +545,7 @@
   gap: var(--gap-3xs);
 }
 .icon-employee-group-solid {
-  width: 20.6px;
+  width: 20px;
   height: 20px;
   position: relative;
 }
@@ -573,7 +573,10 @@
   padding: var(--padding-5xs) var(--padding-4xl);
   background-color: transparent;
   border-radius: var(--br-xl);
+  display: flex;
   flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: var(--gap-3xs);
 }
 .browse-element-page,
@@ -1219,11 +1222,11 @@ flex-basis: 70%; /* Cố định chiều rộng ban đầu là 70% của hàng *
 .table-pagination2 {
   margin-top: 0; /* Loại bỏ khoảng cách trên của table pagination */
   margin-left: 0; /* Đẩy pagination sát vào sidebar */
-  width: 1265px; /* Chiều rộng của pagination kéo dài hết phía bên phải */
-  padding: 10px 0; /* Thêm padding nếu cần */
+  width: 1259px; /* Chiều rộng của pagination kéo dài hết phía bên phải */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 60px;
 }
 
 .browse-element-page2 {
@@ -1248,7 +1251,7 @@ flex-basis: 70%; /* Cố định chiều rộng ban đầu là 70% của hàng *
   gap: var(--gap-9xs);
   line-height: normal;
   letter-spacing: normal;
-  height: calc(100vh + 1000px); /* Chiều cao của trang trừ đi chiều cao của pagination */
+  height: calc(100vh + 320px); /* Chiều cao của trang trừ đi chiều cao của pagination */
 }
 
 .content-container {
@@ -1261,27 +1264,40 @@ flex-basis: 70%; /* Cố định chiều rộng ban đầu là 70% của hàng *
 table {
   width: 100%; /* Chiều rộng bảng */
   border-collapse: collapse; /* Loại bỏ khoảng cách giữa các border */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Thêm bóng cho bảng */
+  margin-left: 3px ; 
 }
 
 th, td {
-  border: 1px solid #ddd; /* Border cho th và td */
-  padding: 8px; /* Padding cho th và td */
+  border: 1px solid #4E545C; /* Border cho th và td */
+  padding: 15px; /* Tăng padding cho th và td */
   text-align: left; /* Căn lề trái cho nội dung */
+  white-space: nowrap; /* Ngăn chặn việc xuống dòng */
+  line-height: 1.8; /* Tăng chiều cao của các ô */
+  vertical-align: middle; /* Căn giữa nội dung theo chiều dọc */
 }
 
 th {
-  background-color: #CCCCCC; /* Màu nền cho header */
-  color: #333; /* Màu chữ cho header */
+  background-color:  #000401; /* Màu nền nhẹ hơn cho header */
+  color: white; /* Màu chữ cho header */
+  font-size: 16px; /* Tăng kích thước font cho header */
+}
+
+tr:nth-child(odd) {
+  background-color: #fafafa; /* Màu nền cho các hàng lẻ */
 }
 
 tr:hover {
-  background-color: #f5f5f5; /* Màu nền khi hover vào một hàng */
+  background-color: #D1D0D0; /* Màu nền khi hover vào một hàng */
+  cursor: pointer; /* Thay đổi con trỏ khi hover */
 }
+
 table input[type="text"] {
   width: 100%;
-  padding: 6px;
+  padding: 5px; /* Tăng padding cho input */
   box-sizing: border-box;
   border: 1px solid #ddd;
+  white-space: nowrap; /* Ngăn chặn việc xuống dòng */
 }
 
 @media screen and (max-width: 825px) {
@@ -1365,7 +1381,7 @@ table input[type="text"] {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 400px; /* Tăng chiều rộng của popup */
+  width: 700px; /* Tăng chiều rộng của popup */
   max-width: 90%; /* Đảm bảo popup không vượt quá chiều rộng của màn hình */
   box-sizing: border-box; /* Đảm bảo padding không làm tăng chiều rộng tổng thể */
   height: 400px;
