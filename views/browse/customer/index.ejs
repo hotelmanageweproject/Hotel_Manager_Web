@@ -182,7 +182,7 @@
                         <div class="content-wrapper">
                           <%= row[header] %>
                           <% if (index === headers.length - 1) { %>
-                            <img class="document-icon" src="/img/3doc.png" alt="Document" onclick="showDetailsPopup('<%= encodeURIComponent(JSON.stringify(row)) %>')">
+                            <img class="document-icon" src="/img/3doc.png" alt="Document" onclick="showDetailsPopup('<%= row['customerid']%>')">  
                           <% } %>
                         </div>
                       </td>
@@ -253,7 +253,7 @@
       <div class="popup-content">
         <span class="close">&times;</span>
         <form class="popup-form" action="./addCustomer" method="post">
-          <input type="text" name="customerid" placeholder="Customer_id">
+          <input type="text" name="rankid" placeholder="Rank_id">
           <input type="text" name="personalid" placeholder="Personal_id">
           <input type="text" name="firstname" placeholder="First_name">
           <input type="text" name="lastname" placeholder="Last_name">
@@ -262,7 +262,6 @@
           <input type="text" name="email" placeholder="Email">
           <input type="text" name="phone" placeholder="Phone">
           <input type="text" name="address" placeholder="Address">
-          <input type="text" name="namerank" placeholder="Rank">
           <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
