@@ -41,11 +41,24 @@ router_cus.get('/', async (req, res) => {
   }
 });
 
-router_cus.post('/addCustomer', async (req, res) => {
-  const {customerid, personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank} = req.body;
+router_cus.get('/api/customer-details/:customerid', async (req, res) => {
+  const customerid = req.params.customerid;
+  console.log("Kick: " + customerid);
   try {
-    await customerModel.addCustomer(customerid, personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank);
-    res.redirect(`/browse/customer?success=true&customerid=${customerid}`);  
+      const details = await customerModel.getCustomerDetails(customerid);
+      console.log(details);
+      res.json(details);
+  } catch (error) {
+      console.error('Error fetching customer details', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+router_cus.post('/addCustomer', async (req, res) => {
+  const {rankid, personalid, firstname, lastname, birthdate, gender, email, phone, address} = req.body;
+  try {
+    const customerid = await customerModel.addCustomer(rankid, personalid, firstname, lastname, birthdate, gender, email, phone, address);
+    res.redirect(`/browse/customer?success=trueadd&customerid=${customerid}`);  
   } catch (err) {
     console.error('Error adding customer', err);
     res.status(500).send('Error adding customer');
@@ -53,11 +66,11 @@ router_cus.post('/addCustomer', async (req, res) => {
 });
 
 router_cus.post('/deleteCustomer', async (req, res) => {
-  const {customerid} = req.body;
+  const {customerid,personalid} = req.body;
   try {
     console.log("Delete customer: ",customerid);
-    await customerModel.deleteCustomer(customerid);
-    res.redirect('/browse/customer');
+    const customerid2 = await customerModel.deleteCustomer(customerid,personalid);
+    res.redirect(`/browse/customer?success=truedel&customerid=${customerid2}`);
   } catch (err) {
     console.error('Error deleting customer', err);
     res.status(500).send('Error deleting customer ' + err);

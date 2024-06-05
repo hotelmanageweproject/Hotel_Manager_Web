@@ -180,29 +180,43 @@ window.onclick = function(event) {
 }
 
 function showDetailsPopup(customerid) {
-    const rowData = JSON.parse(decodeURIComponent(data));
-    const overlay = document.getElementById('documentDetailsPopupOverlay');
-    const popup = document.getElementById('documentDetailsPopup');
-    const content = popup.querySelector('.document-popup-content');
-    
-    content.innerHTML = '';
-  
-    fetch(`/get-customer-details?customerid=${customerid}`)
+    console.log("Kick: " + customerid);
+    fetch(`/browse/customer/api/customer-details/${customerid}`)
     .then(response => response.json())
     .then(data => {
-        const popupInfo = document.getElementById('popupInfo');
-        popupInfo.innerHTML = `
-            <p>Booking ID: ${data.bookingid}</p>
-            <p>Room ID: ${data.roomid}</p>
-            <p>Discount: ${data.discount}</p>
-            <p>Note: ${data.note}</p>
-        `;
-        document.getElementById('detailsPopup').style.display = 'block';
+        const overlay = document.getElementById('documentDetailsPopupOverlay');
+        const popup = document.getElementById('documentDetailsPopup');
+        const content = popup.querySelector('.document-popup-content');
+        
+        content.innerHTML = ''; // Xóa nội dung cũ
+        console.log(data);
+
+        data.forEach(detail => {
+            if (!detail.bookingid || !detail.roomid) {
+                content.innerHTML += '<div>Không có thông tin đặt phòng hoặc phòng.</div>';
+            } else {
+                const bookingRow = document.createElement('div');
+                bookingRow.className = 'row';
+                bookingRow.innerHTML = `<div class="key">Booking ID:</div><div class="value">${detail.bookingid}</div>`;
+
+                const roomRow = document.createElement('div');
+                roomRow.className = 'row';
+                roomRow.innerHTML = `<div class="key">Room ID:</div><div class="value">${detail.roomid}</div>`;
+
+                content.appendChild(bookingRow);
+                content.appendChild(roomRow);
+            }
+        });
+
+        overlay.style.display = 'block'; // Hiển thị popup
     })
-    .catch(error => console.error('Error:', error));
-  
-    overlay.style.display = 'block';
-  }
+    .catch(error => {
+        console.error('Error fetching customer details:', error);
+        const content = document.getElementById('documentDetailsPopup').querySelector('.document-popup-content');
+        content.innerHTML = '<div>Lỗi khi tải thông tin khách hàng.</div>';
+    });
+}
+
 
   // Trong file JavaScript trên trang client
 window.addEventListener('load', () => {

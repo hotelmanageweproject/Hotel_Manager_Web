@@ -1,6 +1,22 @@
 // bookingModel.js
 import db from '../config/db.js'; // Đảm bảo rằng bạn đã import db từ file đúng
 
+const getCustomerDetails = async(customerid) => {
+  const query = `SELECT Booking.bookingID,
+  booking_rooms.roomID,
+  Customer_Ranking.discount
+FROM Customers
+JOIN Booking ON Customers.customerId = Booking.customerId
+JOIN booking_rooms ON Booking.bookingID = booking_rooms.bookingID
+JOIN Customer_Ranking ON Customers.RankId = Customer_Ranking.RankId
+WHERE Customers.customerId = $1;
+`;
+  const values = [customerid];
+  console.log("customerid:",customerid);
+  const result = await db.query(query, values);
+
+  return result.rows;
+};
 // Query hiển thị dữ liệu ra màn hình
 const getCustomers = async (customerid, personalid, firstname, lastname, birthday, gender, email, phone, address, rank, search, limit, offset) => {
   let whereConditions = [];
@@ -160,4 +176,5 @@ export default {
     deleteCustomer,
     updateCustomer,
     addCustomer,
+    getCustomerDetails,
 };
