@@ -987,7 +987,6 @@ position: relative;
 .browse-element-page2,
 .button92 {
   background-color: var(--white);
-  overflow: hidden;
 }
 .button92 {
   position: absolute;
@@ -1297,6 +1296,7 @@ table input[type="text"] {
   padding: 5px; /* Tăng padding cho input */
   box-sizing: border-box;
   border: 1px solid #ddd;
+  height: 30px;
   white-space: nowrap; /* Ngăn chặn việc xuống dòng */
 }
 
@@ -1339,11 +1339,6 @@ table input[type="text"] {
 /* Hiệu ứng hover cho viển của nút */
 .button-5 .button-base2:hover {
   border-color: #007BFF; /* Màu viền khi hover */
-}
-
-.control-panel {
-  display: flex;
-  align-items: center;
 }
 
 .date-picker {
@@ -1422,3 +1417,24 @@ table input[type="text"] {
 .document-close:focus {
   color: black;
 }
+
+
+.dropdown-content {
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 100%; /* Đặt ngay dưới button92 */
+  left: 0;
+  border-radius: 5px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #D1D0D0}
