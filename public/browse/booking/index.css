@@ -1336,11 +1336,6 @@ table input[type="text"] {
   margin-left: 8px; /* Khoảng cách giữa văn bản và hình ảnh */
 }
 
-/* Hiệu ứng hover cho viển của nút */
-.button-5 .button-base2:hover {
-  border-color: #007BFF; /* Màu viền khi hover */
-}
-
 .date-picker {
   margin-left: 390px; 
   display: flex;
