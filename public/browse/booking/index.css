@@ -440,7 +440,7 @@
   gap: var(--gap-3xs);
 }
 .vector-icon {
-  width: 16.7px;
+  width: 20px;
   height: 20px;
   position: relative;
 }
@@ -465,14 +465,14 @@
 .frame-group {
   cursor: pointer;
   border: 1px solid var(--color-black);
-  padding: var(--padding-5xs) 41px;
+  padding: var(--padding-5xs) var(--padding-4xl);
   background-color: transparent;
   border-radius: var(--br-xl);
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 9.9px;
+  gap: var(--gap-3xs);
 }
 .vector-icon1 {
   width: 20px;
@@ -500,7 +500,7 @@
 .frame-container {
   cursor: pointer;
   border: 1px solid var(--color-black);
-  padding: var(--padding-5xs) 34px;
+  padding: var(--padding-5xs) var(--padding-4xl);
   background-color: transparent;
   border-radius: var(--br-xl);
   display: flex;
@@ -535,7 +535,7 @@
 .frame-button {
   cursor: pointer;
   border: 1px solid var(--color-black);
-  padding: var(--padding-5xs) 32px;
+  padding: var(--padding-5xs) var(--padding-4xl);
   background-color: transparent;
   border-radius: var(--br-xl);
   display: flex;
@@ -545,7 +545,7 @@
   gap: var(--gap-3xs);
 }
 .icon-employee-group-solid {
-  width: 20.6px;
+  width: 20px;
   height: 20px;
   position: relative;
 }
@@ -573,7 +573,10 @@
   padding: var(--padding-5xs) var(--padding-4xl);
   background-color: transparent;
   border-radius: var(--br-xl);
+  display: flex;
   flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: var(--gap-3xs);
 }
 .browse-element-page,

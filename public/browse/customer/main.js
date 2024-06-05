@@ -18,10 +18,13 @@ function changeColor() {
         var elements = document.getElementsByClassName(className);
         for (var i = 0; i < elements.length; i++) {
             elements[i].addEventListener("mouseover", function () {
-                this.style.backgroundColor = "lightgrey";
+                this.style.backgroundColor = "#f0f0f0";
+                this.style.transform = "scale(1.1)"; // Thêm hiệu ứng phóng to
+                this.style.transition = "transform 0.3s ease"; // Thêm hiệu ứng chuyển đổi mượt mà
             });
             elements[i].addEventListener("mouseout", function () {
                 this.style.backgroundColor = "white";
+                this.style.transform = "scale(1)"; // Trả lại kích thước ban đầu
             });
         }
     });
@@ -206,14 +209,3 @@ function showDetailsPopup(data) {
   
     overlay.style.display = 'block';
   }
-
-  // Trong file JavaScript trên trang client
-window.addEventListener('load', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const success = urlParams.get('success');
-    const customerid = urlParams.get('customerid');
-    if (success === 'true') {
-      alert(`Customer added successfully, Customer ID: ${customerid}`);
-    }
-  });
-  
