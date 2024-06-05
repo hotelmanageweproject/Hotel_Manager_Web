@@ -179,7 +179,7 @@ window.onclick = function(event) {
   }
 }
 
-function showDetailsPopup(data) {
+function showDetailsPopup(customerid) {
     const rowData = JSON.parse(decodeURIComponent(data));
     const overlay = document.getElementById('documentDetailsPopupOverlay');
     const popup = document.getElementById('documentDetailsPopup');
@@ -187,22 +187,19 @@ function showDetailsPopup(data) {
     
     content.innerHTML = '';
   
-    Object.keys(rowData).forEach(key => {
-      const row = document.createElement('div');
-      row.className = 'row';
-  
-      const keyElement = document.createElement('div');
-      keyElement.className = 'key';
-      keyElement.textContent = key;
-  
-      const valueElement = document.createElement('div');
-      valueElement.className = 'value';
-      valueElement.textContent = rowData[key];
-  
-      row.appendChild(keyElement);
-      row.appendChild(valueElement);
-      content.appendChild(row);
-    });
+    fetch(`/get-customer-details?customerid=${customerid}`)
+    .then(response => response.json())
+    .then(data => {
+        const popupInfo = document.getElementById('popupInfo');
+        popupInfo.innerHTML = `
+            <p>Booking ID: ${data.bookingid}</p>
+            <p>Room ID: ${data.roomid}</p>
+            <p>Discount: ${data.discount}</p>
+            <p>Note: ${data.note}</p>
+        `;
+        document.getElementById('detailsPopup').style.display = 'block';
+    })
+    .catch(error => console.error('Error:', error));
   
     overlay.style.display = 'block';
   }
@@ -212,8 +209,13 @@ window.addEventListener('load', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const success = urlParams.get('success');
     const customerid = urlParams.get('customerid');
-    if (success === 'true') {
+    if (success === 'trueadd' && customerid > 0) {
       alert(`Customer added successfully, Customer ID: ${customerid}`);
+    } else if (success === 'trueadd' && customerid == 0) {
+      alert(`Customer is already existed, please try again!`);
+    };
+    if (success === 'truedel') {
+      alert(`Customer deleted successfully, Customer ID: ${customerid}`);
     }
   });
   
