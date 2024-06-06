@@ -235,16 +235,23 @@
       <div class="popup-content">
         <span class="close">&times;</span>
         <form class="popup-form" action="./addRoom" method="post">
-          <input type="text" name="new_rmservice" placeholder="New Room ID">
+          <input type="text" name="roomid" placeholder="New Room ID">
           <input type="text" name="roomtype" placeholder="Room Type">
-          <input type="text" name="status" placeholder="Status">
+          <select name="status">
+            <option value="">Select Status</option>
+            <option value="Available">Available</option>
+            <option value="Maintenance">Maintenance</option>
+          </select>  
           <input type="text" name="name" placeholder="Room Type Name">
           <input type="text" name="pricepernight" placeholder="Price Per Night">
           <input type="text" name="maxadult" placeholder="Max Adult">
           <input type="text" name="maxchild" placeholder="Max Child">
           <input type="text" name="bookingid" placeholder="Booking ID">
           <input type="text" name="serviceid" placeholder="Service ID">
-          <div type="submit" class="submit-button">Submit</div>
+          <input type="text" name="total_in" placeholder="Total In">
+          <input type="text" name="date" placeholder="Date of service">
+          <input type="text" name="staffid" placeholder="staffid">
+          <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
     </div>
@@ -252,19 +259,36 @@
       <div class="popup-content">
         <span class="close update-close">&times;</span>
         <form class="popup-form" action="./updateRoom" method="post">
-          <input type="text" name="roomid" placeholder="Room ID">
+          <input type="text" name="roomid" placeholder="New Room ID">
           <input type="text" name="roomtype" placeholder="Room Type">
-          <input type="text" name="status" placeholder="Status">
+          <select name="status">
+            <option value="">Select Status</option>
+            <option value="Available">Available</option>
+            <option value="Maintenance">Maintenance</option>
+          </select>          
           <input type="text" name="name" placeholder="Room Type Name">
           <input type="text" name="pricepernight" placeholder="Price Per Night">
           <input type="text" name="maxadult" placeholder="Max Adult">
           <input type="text" name="maxchild" placeholder="Max Child">
-          <input type="text" name="bookingid" placeholder="Booking ID">
-          <input type="text" list="serviceid" name="serviceid" id="serviceid" placeholder="Service ID">
-          <datalist id="serviceid">
-            <!--Viết câu truy vấn kiểm tra các service id từ room id ở đây để hiện thị dropdown-->
-          </datalist>
-          <div type="submit" class="submit-button">Submit</div>
+          <input type="text" name="receiptid" placeholder="Receipt ID">
+          <select name="serviceid">
+            <option value="">Select Service</option>
+            <option value="1">Giặt ủi</option>
+            <option value="2">Bữa ăn sáng Buffet</option>
+            <option value="3">Spa gội đầu dưỡng sinh</option>
+            <option value="4">Massage</option>
+            <option value="5">Sauna(Tắm hơi)</option>
+            <option value="6">Jacuzzi(Tắm bể sục)</option>
+            <option value="7">Nhà hàng</option>
+            <option value="8">Thuê xe</option>
+            <option value="9">Dịch vụ đưa đón sân bay</option>
+            <option value="10">Bơi bể chung</option>
+            <option value="11">Gym</option>
+          </select>
+          <input type="text" name="total_in" placeholder="Total In">
+          <input type="text" name="date" placeholder="Date of service">
+          <input type="text" name="staffid" placeholder="staffid">
+          <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
     </div>
@@ -272,9 +296,10 @@
       <div class="popup-content">
         <span class="close delete-close">&times;</span>
         <form class="popup-form" action="./deleteRoom" method="post">
+          <input type="text" name="roomtypeid" placeholder="Room Type ID">
           <input type="text" name="roomid" placeholder="Room ID">
-          <input type="text" name="delete_rmservice" placeholder="Service ID">
-          <div type="submit" class="submit-button">Delete</div>
+          <input type="text" name="receiptid" placeholder="Receipt ID">
+          <button type="submit" class="submit-button">Delete</button>
         </form>
       </div>
     </div>

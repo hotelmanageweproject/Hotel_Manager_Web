@@ -26,12 +26,25 @@ router_room.get('/', async (req, res) => {
   }
 });
 
+router_room.get('/api/room-details/:roomid', async (req, res) => {
+  const roomid = req.params.roomid;
+  console.log("Kick: " + roomid);
+  try {
+      const details = await roomModel.getRoomDetails(roomid);
+      console.log(details);
+      res.json(details);
+  } catch (error) {
+      console.error('Error fetching customer details', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 router_room.post('/addRoom', async (req, res) => {
-  const {roomID, roomType, status} = req.body;
+  const {roomid, roomtype, status, name, pricepernight, maxadult, maxchild, bookingid, serviceid,total_in,date,staffid} = req.body;
   console.log("Add room: ",req.body);
   try {
-    await roomModel.addRoom(roomID, roomType, status);
-    res.redirect('/browse/room');
+    const roomid1 = await roomModel.addRoom(roomid, roomtype, status, name, pricepernight, maxadult, maxchild, bookingid, serviceid,total_in,date,staffid);
+    res.redirect(`/browse/room?success=trueadd&roomid=${roomid1}`);  
   } catch (err) {
     console.error('Error adding room', err);
     res.status(500).send('Error adding room');
@@ -39,11 +52,11 @@ router_room.post('/addRoom', async (req, res) => {
 });
 
 router_room.post('/deleteRoom',async (req, res) => {
-  const {roomID} = req.body;
+  const {roomtypeid,roomid,receiptid} = req.body;
   console.log("Delete room: ",req.body);
   try {
-    await roomModel.deleteRoom(roomID);
-    res.redirect('/browse/room');
+    const roomid2 = await roomModel.deleteRoom(roomtypeid,roomid,receiptid);
+    res.redirect(`/browse/room?success=truedel&roomid=${roomid2}`);
   } catch (err) {
     console.error('Error deleting room', err);
     res.status(500).send('Error deleting room');
@@ -51,10 +64,10 @@ router_room.post('/deleteRoom',async (req, res) => {
 });
 
 router_room.post('/updateRoom', async (req, res) => {
-  const {roomID, roomType, status} = req.body;
+  const {roomid, roomtype, status, name, pricepernight, maxadult, maxchild, receiptid, serviceid,total_in,date,staffid} = req.body;
   console.log("Update room: ",req.body);
   try {
-    await roomModel.updateRoom(roomID, {roomType, status});
+    await roomModel.updateRoom(roomid, roomtype, status, name, pricepernight, maxadult, maxchild, receiptid, serviceid,total_in,date,staffid);
     res.redirect('/browse/room');
   } catch (err) {
     console.error('Error update room', err);

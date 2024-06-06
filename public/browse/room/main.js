@@ -183,8 +183,7 @@ window.onclick = function(event) {
 }
 
 function showDetailsPopup(roomid) {
-    console.log("Kick: " + customerid);
-    fetch(`/browse/customer/api/customer-details/${roomid}`)
+    fetch(`/browse/room/api/room-details/${roomid}`)
     .then(response => response.json())
     .then(data => {
         const overlay = document.getElementById('documentDetailsPopupOverlay');
@@ -195,19 +194,46 @@ function showDetailsPopup(roomid) {
         console.log(data);
 
         data.forEach(detail => {
-            if (!detail.serviceid) {
-                content.innerHTML += '<div>Không có thông tin đặt phòng hoặc phòng.</div>';
+            if (!detail.receiptid) {
+                content.innerHTML += '<div>Không có thông tin sử dụng dịch vụ.</div>';
             } else {
-                const serviceRow = document.createElement('div');
-                serviceRow.className = 'row';
-                bookingRow.innerHTML = `<div class="key">Service ID:</div><div class="value">${detail.bookingid}</div>`;
+                const receiptRow = document.createElement('div');
+                receiptRow.className = 'row';
+                receiptRow.innerHTML = `<div class="key">Receipt ID:</div><div class="value">${detail.receiptid}</div>`;
 
-                const roomRow = document.createElement('div');
-                roomRow.className = 'row';
-                roomRow.innerHTML = `<div class="key">Room ID:</div><div class="value">${detail.roomid}</div>`;
+                const bkidRow = document.createElement('div');
+                bkidRow.className = 'row';
+                bkidRow.innerHTML = `<div class="key">Booking Room ID:</div><div class="value">${detail.bkid}</div>`;
 
+                const serviceidRow = document.createElement('div');
+                serviceidRow.className = 'row';
+                serviceidRow.innerHTML = `<div class="key">Service Name:</div><div class="value">${detail.servicename}</div>`;
+
+                const totalRow = document.createElement('div');
+                totalRow.className = 'row';
+                totalRow.innerHTML = `<div class="key">Amount:</div><div class="value">${detail.total}</div>`;
+
+                const dateRow = document.createElement('div');
+                dateRow.className = 'row';
+                dateRow.innerHTML = `<div class="key">Date of service:</div><div class="value">${detail.date}</div>`;
+
+                const staffRow = document.createElement('div');
+                staffRow.className = 'row';
+                staffRow.innerHTML = `<div class="key">Staff :</div><div class="value">${detail.staffid}</div>`;
+
+                const bookingRow = document.createElement('div');
+                bookingRow.className = 'row';
+                bookingRow.innerHTML = `<div class="key">Booking ID:</div><div class="value">${detail.bookingid}</div>`;
+                
+                content.innerHTML += '<br> <div>--------------------------------------</div>';
+                content.appendChild(receiptRow);
+                content.appendChild(bkidRow);
+                content.appendChild(serviceidRow);
+                content.appendChild(totalRow);
+                content.appendChild(dateRow);
+                content.appendChild(staffRow);
                 content.appendChild(bookingRow);
-                content.appendChild(roomRow);
+            
             }
         });
 
@@ -216,6 +242,20 @@ function showDetailsPopup(roomid) {
     .catch(error => {
         console.error('Error fetching customer details:', error);
         const content = document.getElementById('documentDetailsPopup').querySelector('.document-popup-content');
-        content.innerHTML = '<div>Lỗi khi tải thông tin khách hàng.</div>';
+        content.innerHTML = '<div>Lỗi khi tải thông tin phòng</div>';
     });
 }
+
+window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const roomid = urlParams.get('roomid');
+    if (success === 'trueadd' && roomid > 0) {
+      alert(`Room added successfully, Room ID: ${roomid}`);
+    } else if (success === 'trueadd' && roomid == 0) {
+      alert(`Room is already existed, please try again!`);
+    };
+    if (success === 'truedel') {
+      alert(`Room deleted successfully, Room ID: ${roomid}`);
+    }
+  });
