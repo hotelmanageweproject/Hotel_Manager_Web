@@ -241,17 +241,30 @@
         <form class="popup-form" action="./addRoom" method="post">
           <input type="text" name="roomid" placeholder="New Room ID">
           <input type="text" name="roomtype" placeholder="Room Type">
-          <select name="status">
+          <select name="status" class="select-style" placeholder="Select Status">
             <option value="">Select Status</option>
-            <option value="Available">Available</option>
-            <option value="Maintenance">Maintenance</option>
-          </select>  
+            <option value="available">Available</option>
+            <option value="maintenance">Maintenance</option>
+          </select>     
           <input type="text" name="name" placeholder="Room Type Name">
           <input type="text" name="pricepernight" placeholder="Price Per Night">
           <input type="text" name="maxadult" placeholder="Max Adult">
           <input type="text" name="maxchild" placeholder="Max Child">
           <input type="text" name="bookingid" placeholder="Booking ID">
-          <input type="text" name="serviceid" placeholder="Service ID">
+          <select name="serviceid" class="select-style" placeholder="Select Service ID">
+            <option value="">Select Service ID</option>
+            <option value="1">Giặt ủi</option>
+            <option value="2">Bữa ăn sáng buffet</option>
+            <option value="3">Spa gội đầu dưỡng sinh</option>
+            <option value="4">Massage</option>
+            <option value="5">Sauna(Tắm hơi)</option>
+            <option value="6">Jacuzzi(Tắm bể sục)</option>
+            <option value="7">Nhà hàng</option>
+            <option value="8">Thuê xe</option>
+            <option value="9">Dịch vụ đưa đón sân bay</option>
+            <option value="10">Bơi bể chung</option>
+            <option value="11">Gym</option>
+          </select>
           <input type="text" name="total_in" placeholder="Total In">
           <input type="text" name="date" placeholder="Date of service">
           <input type="text" name="staffid" placeholder="staffid">
@@ -265,20 +278,20 @@
         <form class="popup-form" action="./updateRoom" method="post">
           <input type="text" name="roomid" placeholder="New Room ID">
           <input type="text" name="roomtype" placeholder="Room Type">
-          <select name="status">
+          <select name="status" class="select-style" placeholder="Select Status">
             <option value="">Select Status</option>
-            <option value="Available">Available</option>
-            <option value="Maintenance">Maintenance</option>
-          </select>          
+            <option value="available">Available</option>
+            <option value="maintenance">Maintenance</option>
+          </select>         
           <input type="text" name="name" placeholder="Room Type Name">
           <input type="text" name="pricepernight" placeholder="Price Per Night">
           <input type="text" name="maxadult" placeholder="Max Adult">
           <input type="text" name="maxchild" placeholder="Max Child">
           <input type="text" name="receiptid" placeholder="Receipt ID">
-          <select name="serviceid">
-            <option value="">Select Service</option>
+          <select name="serviceid" class="select-style" placeholder="Select Service ID">
+            <option value="">Select Service ID</option>
             <option value="1">Giặt ủi</option>
-            <option value="2">Bữa ăn sáng Buffet</option>
+            <option value="2">Bữa ăn sáng buffet</option>
             <option value="3">Spa gội đầu dưỡng sinh</option>
             <option value="4">Massage</option>
             <option value="5">Sauna(Tắm hơi)</option>
