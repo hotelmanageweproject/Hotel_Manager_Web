@@ -792,8 +792,7 @@ position: relative;
   bottom: auto; /* Loại bỏ thuộc tính bottom */
   left: auto; /* Đặt lại left */
   right: auto; /* Đặt lại right */
-  backdrop-filter: blur(8px);
-  background-color: rgba(244, 247, 252, 0.75);
+  background-color: rgba(244, 247, 252, 0.8);
   width: calc(100% - 250px); /* Giả sử sidebar có chiều rộng 250px */
   display: flex;
   flex-direction: row;
@@ -829,12 +828,12 @@ position: relative;
   cursor: pointer;
   border: 0;
   padding: var(--padding-7xs) 9px var(--padding-7xs) var(--padding-xs);
-  background-color: var(--blue-500);
+  background-color: #000000;
   position: absolute;
   top: 206px;
   right: 24px;
-  box-shadow: 0 1px 0#4b85fa inset, 0 1px 1px rgba(0, 0, 0, 0.14),
-    0 0 0 1px #2264e6, 0 2px 5px rgba(34, 100, 230, 0.12);
+  box-shadow: 0 1px 0#606060 inset, 0 1px 1px #606060,
+    0 0 0 1px #606060, 0 2px 5px #606060;
   border-radius: var(--br-7xs);
   overflow: hidden;
   display: flex;
@@ -846,7 +845,7 @@ position: relative;
 .button32:hover,
 .button52:hover,
 .button72:hover {
-  background-color: var(--color-dodgerblue);
+  background-color: #606060;
 }
 .add-icon12 {
   height: 16px;
@@ -872,12 +871,12 @@ position: relative;
   cursor: pointer;
   border: 0;
   padding: var(--padding-7xs) 11px;
-  background-color: var(--blue-500);
+  background-color: #000000;
   position: absolute;
   top: 206px;
   right: 117px;
-  box-shadow: 0 1px 0#4b85fa inset, 0 1px 1px rgba(0, 0, 0, 0.14),
-    0 0 0 1px #2264e6, 0 2px 5px rgba(34, 100, 230, 0.12);
+  box-shadow: 0 1px 0#606060 inset, 0 1px 1px #606060,
+    0 0 0 1px #606060, 0 2px 5px #606060;
   border-radius: var(--br-7xs);
   width: 70px;
   overflow: hidden;
@@ -912,12 +911,12 @@ position: relative;
   cursor: pointer;
   border: 0;
   padding: var(--padding-7xs) var(--padding-xs);
-  background-color: var(--blue-500);
+  background-color: #000000;
   position: absolute;
   top: 206px;
   right: 205px;
-  box-shadow: 0 1px 0#4b85fa inset, 0 1px 1px rgba(0, 0, 0, 0.14),
-    0 0 0 1px #2264e6, 0 2px 5px rgba(34, 100, 230, 0.12);
+  box-shadow: 0 1px 0#606060 inset, 0 1px 1px #606060,
+    0 0 0 1px #606060, 0 2px 5px #606060;
   border-radius: var(--br-7xs);
   width: 55px;
   overflow: hidden;
@@ -1433,3 +1432,5 @@ table input[type="text"] {
 }
 
 .dropdown-content a:hover {background-color: #D1D0D0}
+
+
