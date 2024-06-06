@@ -57,21 +57,21 @@
           </header>
         </div>
       <div class="hotel-statistic-ranking-container">  
-        <div class="input2">
+        <div class="input2 buzz">
           <img class="search-icon2" alt="" src="/img/searchicon.gif" onclick="showPopupSearch()" />
           <input class="search2" placeholder="Check total payment for customers" type="text"/>
         </div>
-        <div class="payment-button" onclick="showPopup('PaymentPopup')">Payment</div>
+        <div class="payment-button buzz" onclick="showPopup('PaymentPopup')">Payment</div>
       </div>
       
       <div class="hotel-statistic-ranking-container">
         <div class="Hotel-statistic-ranking">
           <div class="hotel-statistic-header">
-            <span class="hotel-statistic-title">HOTEL STATISTIC</span>
+            <span class="hotel-statistic-title">HOTEL STATISTIC<img class="rankingicon" src="/img/staticicon.gif"/></span>
             <div class="hotel-statistic-year-selector">
-              <button type="button" onclick="changeYear2(-1)">&#9664;</button>
+              <button type="button" onclick="changeYear2(-1)"><img src="/img/arrow-left.png" alt="Previous Year"></button>
               <span id="hotel-statistic-year">2024</span>
-              <button type="button" onclick="changeYear2(1)">&#9654;</button>
+              <button type="button" onclick="changeYear2(1)"><img src="/img/arrow-right.png" alt="Next Year"></button>
             </div>
             <div class="hotel-statistic-date-selector">
               <select id="hotel-statistic-date-selector" onchange="updateHotelStatistic(this.value)">
@@ -83,28 +83,28 @@
             </div>
           </div>
           <div class="statistic-item">
-            <img class="icon" src="/img/icon_booking.png" alt="Bookings Icon" />
+            <img class="icon" src="/img/bookingicon.gif" alt="Bookings Icon" />
             <span class="label">Bookings</span>
             <span class="value bookings"></span>
-            <img class="info-icon" src="/img/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticBooking')" />
+            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('HotelStatisticBooking')" />
           </div>
           <div class="statistic-item">
-            <img class="icon" src="/img/icon _person.png" alt="Customers Icon" />
+            <img class="icon" src="/img/customericon.gif" alt="Customers Icon" />
             <span class="label">Customers</span>
             <span class="value customers"></span>
-            <img class="info-icon" src="/img/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticCustomer')" />
+            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('HotelStatisticCustomer')" />
           </div>
           <div class="statistic-item">
-            <img class="icon" src="/img/icon_room.png" alt="Rooms Icon" />
+            <img class="icon" src="/img/roomicon.gif" alt="Rooms Icon" />
             <span class="label">Rooms</span>
             <span class="value rooms"></span>
-            <img class="info-icon" src="/img/info.png" alt="Info Icon" onclick="showPopup('HotelStatisticRoom')" />
+            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('HotelStatisticRoom')" />
           </div>
         </div>
         <div class="ranking-service">
           <div class="ranking-service-header">
-            <span class="ranking-service-title">RANKING SERVICE</span>
-            <img class="info-icon" src="/img/info.png" alt="Info Icon" onclick="showPopup('RankingServiceInfo')" />
+            <span class="ranking-service-title">RANKING SERVICES<img class="rankingicon" src="/img/best-value.gif"/></span>
+            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('RankingServiceInfo')" />
           </div>
           <table class="ranking-service-table">
             <tr>
@@ -133,11 +133,11 @@
       <div class="hotel-statistic-ranking-container">
         <div class="chart-container">
           <div class="chart-header">
-            <span class="chart-title">REVENUE</span>
+            <span class="chart-title">REVENUE<img class="rankingicon" src="/img/revenueicon.gif"/></span>
             <div class="chart-year-selector">
-              <button type="button" onclick="changeYear1(-1)">&#9664;</button>
+              <button type="button" onclick="changeYear1(-1)"><img src="/img/arrow-left.png" alt="Previous Year"></button>
               <span id="chart-year">2024</span>
-              <button type="button" onclick="changeYear1(1)">&#9654;</button>
+              <button type="button" onclick="changeYear1(1)"><img src="/img/arrow-right.png" alt="Next Year"></button>
             </div>
             <div class="chart-date-selector">
               <select id="chart-date-selector" onchange="updateChart(this.value)">
@@ -152,8 +152,8 @@
         </div>
         <div class="ranking-service">
           <div class="ranking-service-header">
-            <span class="ranking-service-title">RANKING CUSTOMERS</span>
-            <img class="info-icon" src="/img/info.png" alt="Info Icon" onclick="showPopup('RankingCustomersInfo')" />
+            <span class="ranking-service-title">TOP CUSTOMERS<img class="rankingicon" src="/img/ratingsicon.gif"/></span>
+            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('RankingCustomersInfo')" />
           </div>
           <table class="ranking-service-table">
             <tr>

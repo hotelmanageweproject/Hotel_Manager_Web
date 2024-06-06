@@ -289,7 +289,7 @@
 
 .chart-container {
   width: 600px;
-  height: 300px;
+  height: 320px;
   margin: 20px auto;
   padding: 20px;
   border: 1px solid #ddd;
@@ -297,6 +297,10 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   margin-left: 42px; 
+  transition: border 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
+}
+.chart-container:hover {
+  border: 1px solid #000; /* Hiển thị viền khi di chuột */
 }
 
 #myChart {
@@ -386,6 +390,10 @@
   margin: 20px auto;
   font-family: 'Inter', sans-serif;
   margin-left: 42px;
+  transition: border 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
+}
+.Hotel-statistic-ranking:hover {
+  border: 1px solid #000; /* Hiển thị viền khi di chuột */
 }
 
 .hotel-statistic-header {
@@ -459,8 +467,8 @@
 }
 
 .info-icon {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   margin-left: 10px;
 }
 
@@ -586,7 +594,7 @@
   align-items: center;
   width: 100%;
   padding: 10px;
-  border-bottom: 1px solid black; /* Black line under the header */
+  border-bottom: 1px solid #ccc; /* Black line under the header */
 }
 
 
@@ -633,7 +641,7 @@
   align-items: center;
   width: 100%;
   padding: 10px;
-  border-top: 1px solid black; /* Black line above the footer */
+  border-top: 1px solid #ccc; /* Black line above the footer */
 }
 
 .popup-footer {
@@ -642,7 +650,7 @@
   align-items: center;
   width: 100%;
   padding: 10px;
-  border-top: 1px solid black; /* Black line above the footer */
+  border-top: 1px solid #ccc; /* Black line above the footer */
 }
 
 .total-amount-value {
@@ -650,18 +658,22 @@
 }
 
 .ranking-service {
-  border: 1px solid #000;
+  border: 1px solid #ccc;
   border-radius: 10px;
   padding: 10px;
   width: 300px;
   margin-left: 750px;
+  transition: border 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
+}
+.ranking-service:hover {
+  border: 1px solid #000; /* Hiển thị viền khi di chuột */
 }
 
 .ranking-service-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #ccc;
   padding-bottom: 5px;
   margin-bottom: 10px;
 }
@@ -732,3 +744,48 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Đổ bóng khi nhấn */
   transform: translateY(2px); /* Hiệu ứng nhấn */
 }
+
+@keyframes buzz {
+  10% {
+    transform: translateX(2px) rotate(1deg);
+  }
+  20% {
+    transform: translateX(-2px) rotate(-1deg);
+  }
+  30% {
+    transform: translateX(2px) rotate(1deg);
+  }
+  40% {
+    transform: translateX(-2px) rotate(-1deg);
+  }
+  50% {
+    transform: translateX(1px) rotate(0.5deg);
+  }
+  60% {
+    transform: translateX(-1px) rotate(-0.5deg);
+  }
+  70% {
+    transform: translateX(1px) rotate(0.5deg);
+  }
+  80% {
+    transform: translateX(-1px) rotate(-0.5deg);
+  }
+  90% {
+    transform: translateX(0.5px) rotate(0.25deg);
+  }
+  100% {
+    transform: translateX(-0.5px) rotate(-0.25deg);
+  }
+}
+
+.buzz:hover {
+  animation: buzz 0.75s linear;
+}
+
+.rankingicon {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
+
+

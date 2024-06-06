@@ -13,7 +13,7 @@ function updateDate() {
 
 //function to change color of class when hover and back to normal when mouse leave
 function changeColor() {
-    var classes = ["menu-item1", "menu-item2", "menu-item3", "frame-parent", "frame-group", "frame-container", "frame-button", "frame-parent1"];
+    var classes = ["menu-item1", "menu-item2", "menu-item3", "frame-parent", "frame-group", "frame-container", "frame-button", "frame-parent1", "button92", "button-5","button-01"];
     classes.forEach(function(className) {
         var elements = document.getElementsByClassName(className);
         for (var i = 0; i < elements.length; i++) {
@@ -208,4 +208,27 @@ function showDetailsPopup(data) {
     });
   
     overlay.style.display = 'block';
+}
+
+function toggleDropdown() {
+    var dropdown = document.getElementById("dropdownMenu");
+    dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
   }
+  
+  function sort(order) {
+    console.log("Sorting: " + order);
+    // Thêm logic sắp xếp tại đây
+    toggleDropdown(); // Đóng dropdown sau khi chọn
+  }
+function closeDropdown() {
+    var dropdown = document.getElementById("dropdownMenu");
+    dropdown.style.display = "none";
+}
+  
+document.addEventListener("click", function(event) {
+    var dropdown = document.getElementById("dropdownMenu");
+    var button = document.querySelector(".button92");
+    if (!button.contains(event.target)) {
+      closeDropdown();
+    }
+});
