@@ -297,6 +297,10 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   margin-left: 42px; 
+  transition: border 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
+}
+.chart-container:hover {
+  border: 1px solid #000; /* Hiển thị viền khi di chuột */
 }
 
 #myChart {
@@ -386,6 +390,10 @@
   margin: 20px auto;
   font-family: 'Inter', sans-serif;
   margin-left: 42px;
+  transition: border 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
+}
+.Hotel-statistic-ranking:hover {
+  border: 1px solid #000; /* Hiển thị viền khi di chuột */
 }
 
 .hotel-statistic-header {
@@ -655,6 +663,10 @@
   padding: 10px;
   width: 300px;
   margin-left: 750px;
+  transition: border 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
+}
+.ranking-service:hover {
+  border: 1px solid #000; /* Hiển thị viền khi di chuột */
 }
 
 .ranking-service-header {
