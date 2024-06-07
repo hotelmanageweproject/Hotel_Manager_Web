@@ -222,24 +222,24 @@ function showDetailsPopup(customerid) {
 
 
   // Trong file JavaScript trên trang client
-window.addEventListener('load', () => {
+  window.addEventListener('load', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const success = urlParams.get('success');
     const customerid = urlParams.get('customerid');
     if (success === 'trueadd' && customerid > 0) {
-      alert(`Customer added successfully, Customer ID: ${customerid}`);
+      Swal.fire('Success!', `Customer added successfully, Customer ID: ${customerid}`, 'success');
     } else if (success === 'trueadd' && customerid == 0) {
-      alert(`Customer is already existed, please try again!`);
-    };
+      Swal.fire('Warning!', 'Customer is already existed, please try again!', 'warning');
+    }
     if (success === 'truedel') {
-      alert(`Customer deleted successfully, Customer ID: ${customerid}`);
+      Swal.fire('Deleted!', `Customer deleted successfully, Customer ID: ${customerid}`, 'success');
     }
     if (success === 'trueupdate' && customerid > 0) {
-      alert(`Customer updated successfully, Customer ID: ${customerid}`);
+      Swal.fire('Updated!', `Customer updated successfully, Customer ID: ${customerid}`, 'success');
     } else if (success === 'trueupdate' && customerid == 0) {
-        alert(`Customer is not existed, please try again!`);
+        Swal.fire('Error!', 'Customer is not existed, please try again!', 'error');
     }
-  });
+});
 
   function sort(order) {
     console.log("Sorting order:", order); // Thêm dòng này để kiểm tra

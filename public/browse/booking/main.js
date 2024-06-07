@@ -256,27 +256,27 @@ window.addEventListener('load', () => {
     const bookingid = urlParams.get('bookingid');
     const roomid = urlParams.get('roomid');
     if (success === 'trueadd' && bookingid > 0) {
-      alert(`Booking added successfully, Booking ID: ${bookingid}`);
+      Swal.fire('Success!', `Booking added successfully, Booking ID: ${bookingid}`, 'success');
     } else if (success === 'trueadd' && roomid > 0) {
-      alert(`Booking room added successfully, Booking ID: ${bookingid} Room ID: ${roomid}`); 
+      Swal.fire('Success!', `Booking room added successfully, Booking ID: ${bookingid} Room ID: ${roomid}`, 'success');
     } else if (success === 'trueadd' && bookingid == 0) {
-      alert(`Booking is already existed, please try again!`);
-    };
+      Swal.fire('Warning!', 'Booking is already existed, please try again!', 'warning');
+    }
     if (success === 'truedel' && bookingid > 0) {
-      alert(`Booking deleted successfully,Booking ID: ${bookingid}`);
+      Swal.fire('Deleted!', `Booking deleted successfully, Booking ID: ${bookingid}`, 'success');
     } else if (success === 'truedel' && roomid > 0) {
-        alert(`Booking room deleted successfully,Booking ID: ${bookingid} Room ID: ${roomid}`);
+      Swal.fire('Deleted!', `Booking room deleted successfully, Booking ID: ${bookingid} Room ID: ${roomid}`, 'success');
     } else if (success === 'truedel' && bookingid == 0) {
-        alert(`Booking is not existed, please try again!`);
+      Swal.fire('Error!', 'Booking is not existed, please try again!', 'error');
     }
     if (success === 'trueupdate' && bookingid > 0) {
-      alert(`Booking updated successfully, Booking ID: ${bookingid}`);
+      Swal.fire('Updated!', `Booking updated successfully, Booking ID: ${bookingid}`, 'success');
     } else if (success === 'trueupdate' && roomid > 0) {
-        alert(`Booking room updated successfully,Booking ID: ${bookingid} Room ID: ${roomid}`);
+      Swal.fire('Updated!', `Booking room updated successfully, Booking ID: ${bookingid} Room ID: ${roomid}`, 'success');
     } else if (success === 'trueupdate' && bookingid == 0) {
-        alert(`Booking is not existed, please try again!`);
+      Swal.fire('Error!', 'Booking is not existed, please try again!', 'error');
     }
-  });
+});
 
   function sort(order) {
     console.log("Sorting order:", order); // Thêm dòng này để kiểm tra
