@@ -254,23 +254,23 @@ window.addEventListener('load', () => {
     const receiptid = urlParams.get('receiptid');
 
     if (success === 'trueadd' && roomid > 0) {
-      alert(`Room added successfully, Room ID: ${roomid}`);
+      Swal.fire('Success!', `Room added successfully, Room ID: ${roomid}`, 'success');
     } else if (success === 'trueadd' && roomid == 0) {
-      alert(`Room is already existed, please try again!`);
-    };
-    if (success === 'truedel') {
-      alert(`Room deleted successfully, Room ID: ${roomid}`);
-    } 
-    if (success === 'trueupdate' && roomid > 0) {
-      alert(`Room updated successfully, Room ID: ${roomid}`);
-    } else if (success === 'trueupdate' && roomtype > 0) {
-        alert(`Room updated successfully, Room Type ID: ${roomtype}`);
-    } else if (success === 'trueupdate' && receiptid > 0) {
-        alert(`Room updated successfully, Receipt ID: ${receiptid}`);
-    } else if (success === 'trueupdate' && roomid == 0) {
-        alert('Room is not existed, please try again!');
+      Swal.fire('Warning!', 'Room is already existed, please try again!', 'warning');
     }
-  });
+    if (success === 'truedel') {
+      Swal.fire('Deleted!', `Room deleted successfully, Room ID: ${roomid}`, 'success');
+    }
+    if (success === 'trueupdate' && roomid > 0) {
+      Swal.fire('Updated!', `Room updated successfully, Room ID: ${roomid}`, 'success');
+    } else if (success === 'trueupdate' && roomtype > 0) {
+        Swal.fire('Updated!', `Room updated successfully, Room Type ID: ${roomtype}`, 'success');
+    } else if (success === 'trueupdate' && receiptid > 0) {
+        Swal.fire('Updated!', `Room updated successfully, Receipt ID: ${receiptid}`, 'success');
+    } else if (success === 'trueupdate' && roomid == 0) {
+        Swal.fire('Error!', 'Room is not existed, please try again!', 'error');
+    }
+});
 
 function sort(order) {
     console.log("Sorting order:", order); // Thêm dòng này để kiểm tra
