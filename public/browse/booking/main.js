@@ -182,9 +182,9 @@ window.onclick = function(event) {
   }
 }
 
-function showDetailsPopup(roomid) {
-    console.log("Kick: " + roomid);
-    fetch(`/browse/room/api/room-details/${roomid}`)
+function showDetailsPopup(bookingid) {
+    console.log("Kick: " + bookingid);
+    fetch(`/browse/booking/api/booking-details/${bookingid}`)
     .then(response => response.json())
     .then(data => {
         const overlay = document.getElementById('documentDetailsPopupOverlay');
@@ -195,27 +195,97 @@ function showDetailsPopup(roomid) {
         console.log(data);
 
         data.forEach(detail => {
-            if (!detail.bookingid || !detail.roomid) {
+            if (!detail.bookingid || !detail.paymentid) {
                 content.innerHTML += '<div>Không có thông tin đặt phòng hoặc phòng.</div>';
             } else {
-                const bookingRow = document.createElement('div');
-                bookingRow.className = 'row';
-                bookingRow.innerHTML = `<div class="key">Booking ID:</div><div class="value">${detail.bookingid}</div>`;
+                const paymentRow = document.createElement('div');
+                paymentRow.className = 'row';
+                paymentRow.innerHTML = `<div class="key">Payment ID:</div><div class="value">${detail.paymentid}</div>`;
 
-                const roomRow = document.createElement('div');
-                roomRow.className = 'row';
-                roomRow.innerHTML = `<div class="key">Room ID:</div><div class="value">${detail.roomid}</div>`;
+                const discountRow = document.createElement('div');
+                discountRow.className = 'row';
+                discountRow.innerHTML = `<div class="key">Discount:</div><div class="value">${detail.discount}</div>`;
 
-                content.appendChild(bookingRow);
-                content.appendChild(roomRow);
+                const totalRow = document.createElement('div');
+                totalRow.className = 'row';
+                totalRow.innerHTML = `<div class="key">Total Amount:</div><div class="value">${detail.totalamount}</div>`;
+
+                const addchargeRow = document.createElement('div');
+                addchargeRow.className = 'row';
+                addchargeRow.innerHTML = `<div class="key">Additional Charge:</div><div class="value">${detail.additionalcharge}</div>`;
+
+                const paymentmethodRow = document.createElement('div');
+                paymentmethodRow.className = 'row';
+                paymentmethodRow.innerHTML = `<div class="key">Payment Method:</div><div class="value">${detail.paymentmethod}</div>`;
+
+                const paymentdateRow = document.createElement('div');
+                paymentdateRow.className = 'row';
+                paymentdateRow.innerHTML = `<div class="key">Payment Date:</div><div class="value">${detail.paymentdate}</div>`;
+
+                const paymentstatusRow = document.createElement('div');
+                paymentstatusRow.className = 'row';
+                paymentstatusRow.innerHTML = `<div class="key">Payment Status:</div><div class="value">${detail.paymentstatus}</div>`;
+
+                const noteRow = document.createElement('div');
+                noteRow.className = 'row';
+                noteRow.innerHTML = `<div class="key">Note:</div><div class="value">${detail.note}</div>`;
+
+                content.appendChild(paymentRow);
+                content.appendChild(discountRow);
+                content.appendChild(totalRow);
+                content.appendChild(addchargeRow);
+                content.appendChild(paymentmethodRow);
+                content.appendChild(paymentdateRow);
+                content.appendChild(paymentstatusRow);
+                content.appendChild(noteRow);
             }
         });
 
         overlay.style.display = 'block'; // Hiển thị popup
     })
     .catch(error => {
-        console.error('Error fetching customer details:', error);
+        console.error('Error fetching booking details:', error);
         const content = document.getElementById('documentDetailsPopup').querySelector('.document-popup-content');
-        content.innerHTML = '<div>Lỗi khi tải thông tin khách hàng.</div>';
+        content.innerHTML = '<div>Lỗi khi tải thông tin đơn.</div>';
     });
 }
+
+window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const bookingid = urlParams.get('bookingid');
+    const roomid = urlParams.get('roomid');
+    if (success === 'trueadd' && bookingid > 0) {
+      alert(`Booking added successfully, Booking ID: ${bookingid}`);
+    } else if (success === 'trueadd' && roomid > 0) {
+      alert(`Booking room added successfully, Booking ID: ${bookingid} Room ID: ${roomid}`); 
+    } else if (success === 'trueadd' && bookingid == 0) {
+      alert(`Booking is already existed, please try again!`);
+    };
+    if (success === 'truedel' && bookingid > 0) {
+      alert(`Booking deleted successfully,Booking ID: ${bookingid}`);
+    } else if (success === 'truedel' && roomid > 0) {
+        alert(`Booking room deleted successfully,Booking ID: ${bookingid} Room ID: ${roomid}`);
+    } else if (success === 'truedel' && bookingid == 0) {
+        alert(`Booking is not existed, please try again!`);
+    }
+    if (success === 'trueupdate' && bookingid > 0) {
+      alert(`Booking updated successfully, Booking ID: ${bookingid}`);
+    } else if (success === 'trueupdate' && roomid > 0) {
+        alert(`Booking room updated successfully,Booking ID: ${bookingid} Room ID: ${roomid}`);
+    } else if (success === 'trueupdate' && bookingid == 0) {
+        alert(`Booking is not existed, please try again!`);
+    }
+  });
+
+  function sort(order) {
+    console.log("Sorting order:", order); // Thêm dòng này để kiểm tra
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('sort', order);
+    window.location.search = urlParams.toString();
+  }
+
+  function toggleDropdown() {
+    var dropdown = document.getElementById("dropdownMenu");
+    dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+  }

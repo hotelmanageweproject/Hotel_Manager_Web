@@ -167,7 +167,11 @@ const updateCustomer = (customerid, { personalid, firstname, lastname, birthdate
           reject(err);
         } else {
           console.log('Customer updated successfully');
-          resolve(result);
+          if (result.rowCount === 0) {
+            resolve(0);
+          } else {
+            resolve(customerid);
+          }
         }
       });
     }

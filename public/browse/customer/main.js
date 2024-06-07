@@ -234,6 +234,11 @@ window.addEventListener('load', () => {
     if (success === 'truedel') {
       alert(`Customer deleted successfully, Customer ID: ${customerid}`);
     }
+    if (success === 'trueupdate' && customerid > 0) {
+      alert(`Customer updated successfully, Customer ID: ${customerid}`);
+    } else if (success === 'trueupdate' && customerid == 0) {
+        alert(`Customer is not existed, please try again!`);
+    }
   });
 
   function sort(order) {

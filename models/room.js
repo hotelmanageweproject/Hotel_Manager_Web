@@ -178,7 +178,15 @@ const updateRoom = (roomid, roomtype, status, name, pricepernight, maxadult, max
         reject(err);
       } else {
         console.log('Room updated successfully');
-        resolve(result);
+        if (roomid !== '' && roomtype === '' && receiptid === '') {
+          resolve(roomid);
+        } else if (roomtype !== '') {
+          resolve(roomtype);
+        } else if (receiptid !== '') {
+          resolve(receiptid);
+        } else if (result.rowCount === 0){
+          resolve(0);
+        }
       }
     });
   });

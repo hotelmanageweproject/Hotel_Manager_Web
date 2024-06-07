@@ -81,8 +81,8 @@ router_cus.post('/updateCustomer', async (req, res) => {
   const {customerid, personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank} = req.body;
   console.log("Update customer: ",req.body);
   try {
-    await customerModel.updateCustomer(customerid, {personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank});
-    res.redirect('/browse/customer');
+    const customerid3 = await customerModel.updateCustomer(customerid, {personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank});
+    res.redirect(`/browse/customer?success=trueupdate&customerid=${customerid3}`);
   } catch (err) {
     console.error('Error update customer', err);
     res.status(500).send('Error updating customer');

@@ -250,6 +250,9 @@ window.addEventListener('load', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const success = urlParams.get('success');
     const roomid = urlParams.get('roomid');
+    const roomtype = urlParams.get('roomtype');
+    const receiptid = urlParams.get('receiptid');
+
     if (success === 'trueadd' && roomid > 0) {
       alert(`Room added successfully, Room ID: ${roomid}`);
     } else if (success === 'trueadd' && roomid == 0) {
@@ -257,6 +260,15 @@ window.addEventListener('load', () => {
     };
     if (success === 'truedel') {
       alert(`Room deleted successfully, Room ID: ${roomid}`);
+    } 
+    if (success === 'trueupdate' && roomid > 0) {
+      alert(`Room updated successfully, Room ID: ${roomid}`);
+    } else if (success === 'trueupdate' && roomtype > 0) {
+        alert(`Room updated successfully, Room Type ID: ${roomtype}`);
+    } else if (success === 'trueupdate' && receiptid > 0) {
+        alert(`Room updated successfully, Receipt ID: ${receiptid}`);
+    } else if (success === 'trueupdate' && roomid == 0) {
+        alert('Room is not existed, please try again!');
     }
   });
 

@@ -67,8 +67,16 @@ router_room.post('/updateRoom', async (req, res) => {
   const {roomid, roomtype, status, name, pricepernight, maxadult, maxchild, receiptid, serviceid,total_in,date,staffid} = req.body;
   console.log("Update room: ",req.body);
   try {
-    await roomModel.updateRoom(roomid, roomtype, status, name, pricepernight, maxadult, maxchild, receiptid, serviceid,total_in,date,staffid);
-    res.redirect('/browse/room');
+    const roomid3 = await roomModel.updateRoom(roomid, roomtype, status, name, pricepernight, maxadult, maxchild, receiptid, serviceid,total_in,date,staffid);
+    if (roomid !== '') {
+      res.redirect(`/browse/room?success=trueupdate&roomid=${roomid3}`);
+    } else if (roomtype !== '') {
+      res.redirect(`/browse/room?success=trueupdate&roomtype=${roomid3}`);
+    } else if (receiptid !== '') {
+      res.redirect(`/browse/room?success=trueupdate&receiptid=${roomid3}`);
+    } else if (roomid3 === 0){
+      res.redirect(`/browse/room?success=trueupdate&roomid=${roomid3}`);
+    }
   } catch (err) {
     console.error('Error update room', err);
     res.status(500).send('Error updating room');

@@ -173,7 +173,7 @@
                         <div class="content-wrapper">
                           <%= row[header] %>
                           <% if (index === headers.length - 1) { %>
-                            <img class="document-icon" src="/img/3doc.png" alt="Document" onclick="showDetailsPopup('<%= row['roomid']%>')">
+                            <img class="document-icon" src="/img/3doc.png" alt="Document" onclick="showDetailsPopup('<%= row['bookingid']%>')">
                           <% } %>
                         </div>
                       </td>
@@ -243,8 +243,8 @@
     <div id="addPopup" class="popup">
       <div class="popup-content">
         <span class="close add-close">&times;</span>
-        <form class="popup-form" action="./addBooking">
-          <input type="text" name="new_booking" placeholder="New Booking ID">
+        <form class="popup-form" action="./addBooking" method="post">
+          <input type="text" name="bookingid" placeholder="New Booking ID">
           <input type="text" name="customerid" placeholder="Customer ID">
           <input type="text" name="bookingdate" placeholder="Booking Date">
           <input type="text" name="bookingtype" placeholder="Booking Type">
@@ -257,65 +257,62 @@
             <div class="input-group">
               <label for="add-check-in-date" class="date-label">Check-in Date:</label>
               <div class="date-time-group">
-                <input type="date" id="add-check-in-date" class="input-style">
+                <input type="date" id="add-check-in-date" name= "checkin" class="input-style">
                 <!--<input type="time" id="add-check-in-time" class="input-style">-->
               </div>
             </div>
             <div class="input-group">
               <label for="add-check-out-date" class="date-label">Check-out Date:</label>
               <div class="date-time-group">
-                <input type="date" id="add-check-out-date" class="input-style">
+                <input type="date" id="add-check-out-date" name= "checkout" class="input-style">
                 <!--<input type="time" id="add-check-out-time" class="input-style">-->
               </div>
             </div>
           </div>
-          <div type="submit" class="submit-button">Submit</div>
+          <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
     </div>
     <div id="updatePopup" class="popup">
       <div class="popup-content">
         <span class="close update-close">&times;</span>
-        <form class="popup-form" action="./updateBooking">
-          <input type="text" name="bookingid" placeholder="Booking ID">
+        <form class="popup-form" action="./updateBooking" method="post">
+          <input type="text" name="bookingid" placeholder="New Booking ID">
           <input type="text" name="customerid" placeholder="Customer ID">
           <input type="text" name="bookingdate" placeholder="Booking Date">
           <input type="text" name="bookingtype" placeholder="Booking Type">
           <input type="text" name="totaladult" placeholder="Total Adult">
           <input type="text" name="totalchild" placeholder="Total Child">
-          <input type="text" list="roomid" name="roomid" id="roomid" placeholder="Room ID">
-          <datalist id="roomid">
-            <!--Viết câu truy vấn kiểm tra các room id từ booking id ở đây để hiện thị dropdown-->
-          </datalist>
+          <input type="text" name="roomid" placeholder="Room ID">
           <input type="text" name="numofchild" placeholder="Num of child">
           <input type="text" name="numofadult" placeholder="Num of adult">
           <div class="input-groups-container">
             <div class="input-group">
-              <label for="update-check-in-date" class="date-label">Check-in Date:</label>
+              <label for="add-check-in-date" class="date-label">Check-in Date:</label>
               <div class="date-time-group">
-                <input type="date" id="update-check-in-date" class="input-style">
-                <!--<input type="time" id="update-check-in-time" class="input-style">-->
+                <input type="date" id="add-check-in-date" name= "checkin" class="input-style">
+                <!--<input type="time" id="add-check-in-time" class="input-style">-->
               </div>
             </div>
             <div class="input-group">
-              <label for="update-check-out-date" class="date-label">Check-out Date:</label>
+              <label for="add-check-out-date" class="date-label">Check-out Date:</label>
               <div class="date-time-group">
-                <input type="date" id="update-check-out-date" class="input-style">
-                <!--<input type="time" id="update-check-out-time" class="input-style">-->
+                <input type="date" id="add-check-out-date" name= "checkout" class="input-style">
+                <!--<input type="time" id="add-check-out-time" class="input-style">-->
               </div>
             </div>
           </div>
-          <div type="submit" class="submit-button">Submit</div>
+          <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
     </div>
     <div id="deletePopup" class="popup">
       <div class="popup-content">
         <span class="close delete-close">&times;</span>
-        <form class="popup-form" action="./deleteBooking">
-          <input type="text" name="delete_booking"placeholder="Booking ID">
-          <input type="text" name="delete_bkrooms" placeholder="Room ID">
-          <div type="submit" class="submit-button">Delete</div>
+        <form class="popup-form" action="./deleteBooking" method="post">
+          <input type="text" name="bookingid"placeholder="Booking ID">
+          <input type="text" name="roomid" placeholder="Room ID">
+          <button type="submit" class="submit-button">Delete</button>
         </form>
       </div>
     </div>
