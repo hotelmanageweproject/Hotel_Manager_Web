@@ -10,7 +10,7 @@ router_room.use(express.static(path.join(__dirname, 'public/browse/room')));
 router_room.use(express.urlencoded({ extended: true }));
 
 router_room.get('/', async (req, res) => {
-  let {roomid, status, roomtype, pricepernight, maxadult, maxchild, roomstate,page,search} = req.query;
+  let {roomid, status, roomtype, pricepernight, maxadult, maxchild, roomstate, page, search, sort} = req.query;
   let url = req.originalUrl;
   let parts = url.split("&page");
   let urlBeforePage = parts[0]; 
@@ -18,8 +18,8 @@ router_room.get('/', async (req, res) => {
   const limit = 10;
   const offset = page * limit;
   try {
-    const data = await roomModel.getRoom(roomid, roomtype, status, pricepernight, maxadult, maxchild, roomstate,search, limit, offset);
-    res.render('browse/room/index.ejs', { data, page, urlBeforePage, search});
+    const data = await roomModel.getRoom(roomid, roomtype, status, pricepernight, maxadult, maxchild, roomstate, search, limit, offset, sort);
+    res.render('browse/room/index.ejs', { data, page, urlBeforePage, search, sort });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');

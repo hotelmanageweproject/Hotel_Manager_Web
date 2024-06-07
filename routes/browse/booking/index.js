@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import bookingModel from '../../../models/booking.js';
+import moment from 'moment';
 
 const router_booking = express.Router();
 router_booking.use(express.static(path.join(__dirname, 'public/browse/booking')));
@@ -19,6 +20,11 @@ router_booking.get('/', async (req, res) => {
   const offset = page * limit;
   try {
     const data = await bookingModel.getBooking(bookingid,customerid,bookingdate,bookingtype,totaladult,totalchild,roomid,checkin,checkout,numofchild,numofadult,page,searchQuery, limit, offset);
+    data.forEach(booking => {
+      booking.bookingdate = moment(booking.bookingdate).format('ddd MMM DD YYYY');
+      booking.checkin = moment(booking.checkin).format('ddd MMM DD YYYY');
+      booking.checkout = moment(booking.checkout).format('ddd MMM DD YYYY');
+    });
     console.log("Url: ",urlBeforePage);
     console.log("page: ",page)
     res.render('browse/booking/index.ejs', { data, page, urlBeforePage, searchQuery});

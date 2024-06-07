@@ -13,7 +13,7 @@ router_cus.use(express.urlencoded({ extended: true }));
 
 
 router_cus.get('/', async (req, res) => {
-  let {customerid,personalid,firstname,lastname,birthday,gender,email,phone,address,rank,page,search} = req.query;
+  let {customerid,personalid,firstname,lastname,birthday,gender,email,phone,address,rank,page,search, sort} = req.query;
   let url = req.originalUrl;
   let parts = url.split("&page");
   let urlBeforePage = parts[0]; // "/browse/customer/?date=&search=&customer_id=&cccd_passport=&first_name=&last_name=&birthday=&gender=&email=&phone=&address="
@@ -21,7 +21,7 @@ router_cus.get('/', async (req, res) => {
   const limit = 10;
   const offset = page * limit;
   try {
-    const data = await customerModel.getCustomers(customerid,personalid,firstname,lastname,birthday,gender,email,phone,address,rank,search, limit, offset);
+    const data = await customerModel.getCustomers(customerid,personalid,firstname,lastname,birthday,gender,email,phone,address,rank,search, limit, offset, sort);
     for (let obj of data) {
       for (let key in obj) {
         if (typeof obj[key] === 'string') {

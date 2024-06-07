@@ -18,7 +18,7 @@ WHERE Customers.customerId = $1;
   return result.rows;
 };
 // Query hiển thị dữ liệu ra màn hình
-const getCustomers = async (customerid, personalid, firstname, lastname, birthday, gender, email, phone, address, rank, search, limit, offset) => {
+const getCustomers = async (customerid, personalid, firstname, lastname, birthday, gender, email, phone, address, rank, search, limit, offset,sort) => {
   let whereConditions = [];
   let params = [];
   let paramIndex = 1;
@@ -92,8 +92,12 @@ const getCustomers = async (customerid, personalid, firstname, lastname, birthda
   if (whereConditions.length > 0) {
     query += 'WHERE ' + whereConditions.join(' AND ') + ' ';
   }
-
-  query += `ORDER BY c.customerid ASC LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
+  if (sort === 'AtoZ') {
+    query += `ORDER BY c.customerid ASC `;
+  } else if (sort === 'ZtoA') {
+    query += `ORDER BY c.customerid DESC `;
+  } 
+  query += `LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
   params.push(limit, offset);
 
   const result = await db.query(query, params);

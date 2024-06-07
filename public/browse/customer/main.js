@@ -235,4 +235,15 @@ window.addEventListener('load', () => {
       alert(`Customer deleted successfully, Customer ID: ${customerid}`);
     }
   });
-  
+
+  function sort(order) {
+    console.log("Sorting order:", order); // Thêm dòng này để kiểm tra
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('sort', order);
+    window.location.search = urlParams.toString();
+  }
+
+  function toggleDropdown() {
+    var dropdown = document.getElementById("dropdownMenu");
+    dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+  }

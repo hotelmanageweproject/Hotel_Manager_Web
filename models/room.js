@@ -2,7 +2,7 @@
 import db from '../config/db.js'; // Đảm bảo rằng bạn đã import db từ file đúng
 
 // Query hiển thị dữ liệu ra màn hình
-const getRoom = async (roomid, roomtype, status, pricepernight, maxadult, maxchild, roomstate,search, limit, offset) => {
+const getRoom = async (roomid, roomtype, status, pricepernight, maxadult, maxchild, roomstate,search, limit, offset, sort) => {
   let whereConditions = [];
   let query = '';
   console.log(status);
@@ -32,8 +32,13 @@ join roomtype rt on rt.roomtypeid = r.roomtype
   if (whereConditions.length > 0) {
     query += 'WHERE ' + whereConditions.join(' AND ') + ' ';
   }
-  
-  query += `ORDER BY r.roomid ASC LIMIT ${limit} OFFSET ${offset}`;
+
+  if (sort === 'AtoZ') {
+    query += `ORDER BY r.roomid ASC `;
+  } else if (sort === 'ZtoA') {
+    query += `ORDER BY r.roomid DESC `;
+  } 
+  query += `LIMIT ${limit} OFFSET ${offset}`;
   };
   console.log(query);
   const result = await db.query(query);
@@ -41,12 +46,16 @@ join roomtype rt on rt.roomtypeid = r.roomtype
 };
 
 const getRoomDetails = async(roomid) => {
-  const query = `SELECT rs.receiptid, rs.bkid, s.name AS servicename, rs.total, rs.date, rs.staffid, b.bookingID
+  const query = `WITH subquery AS(
+	SELECT bkid, bookingid, roomid, checkin, checkout
+	FROM booking_rooms 
+	WHERE roomid = $1 AND current_date BETWEEN checkin and checkout
+)
+SELECT rs.receiptid, rs.bkid, sq.bookingid, sq.roomid, s.serviceid, s.name AS servicename, rs.total, rs.date , rs.staffid
 FROM room_service rs
-JOIN booking_rooms b ON rs.bkID = b.bkID
-JOIN Rooms r ON b.roomID = r.roomID
-JOIN services s ON rs.serviceid = s.serviceid
-WHERE (CURRENT_DATE BETWEEN b.checkin AND b.checkout) AND r.roomID = $1;
+JOIN subquery sq ON sq.bkid = rs.bkid
+JOIN services s ON s.serviceid = rs.serviceid
+Where rs.date <= current_date;;
 `;
   const values = [roomid];
   console.log("roomid:",roomid);
