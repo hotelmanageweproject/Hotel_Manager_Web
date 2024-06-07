@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap"
     />
   </head>
-  <body onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage(); showPopup(); handleFileUpload(); handleFileDownload(); showDetailsPopup(); toggleDropdown(); closeDropdown()">
+  <body onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage(); showPopup(); handleFileUpload(); handleFileDownload(); showDetailsPopup(); toggleDropdown(); closeDropdown();sort()">
     <form class="browse-element-page">
       <div class="sidebar">
         <div class="title-wrapper">
@@ -175,7 +175,7 @@
                         <div class="content-wrapper">
                           <%= row[header] %>
                           <% if (index === headers.length - 1) { %>
-                            <img class="document-icon" src="/img/3doc.png" alt="Document" onclick="showDetailsPopup('<%= encodeURIComponent(JSON.stringify(row)) %>')">
+                            <img class="document-icon" src="/img/3doc.png" alt="Document" onclick="showDetailsPopup('<%= row['staffid']%>')">
                           <% } %>
                         </div>
                       </td>
@@ -246,43 +246,7 @@
       <div class="popup-content">
         <span class="close">&times;</span>
         <form class="popup-form" action="./addEmployee" method="post">
-          <input type="text" name="new_staff" placeholder="New Staff ID">
-          <input type="text" name="departmentname" placeholder="Department ID">
-          <input type="text" name="personalid" placeholder="Personal ID">
-          <input type="text" name="firstname" placeholder="First Name">
-          <input type="text" name="lastname" placeholder="Last Name">
-          <input type="text" name="birthday" placeholder="Birthday">
-          <input type="text" name="gender" placeholder="Gender">
-          <input type="text" name="email" placeholder="Email">
-          <input type="text" name="phone" placeholder="Phone">
-          <input type="text" name="address" placeholder="Address">
-          <input type="text" name="currentsal" placeholder="Current Salary">
-          <div class="input-groups-container">
-            <div class="input-group">
-              <label for="add-start-date" class="date-label">Start Date:</label>
-              <div class="date-time-group">
-                <input type="date" id="add-start-date" class="input-style">
-                <input type="time" id="add-start-time" class="input-style">
-              </div>
-            </div>
-            <div class="input-group">
-              <label for="add-end-date" class="date-label">End Date:</label>
-              <div class="date-time-group">
-                <input type="date" id="add-end-date" class="input-style">
-                <input type="time" id="add-end-time" class="input-style">
-              </div>
-            </div>
-          </div>
-          <button type="submit" class="submit-button">Submit</button>
-        </form>
-      </div>
-    </div>
-    <div id="updatePopup" class="popup">
-      <div class="popup-content">
-        <span class="close update-close">&times;</span>
-        <form class="popup-form" action="./updateEmployee" method="post">
-          <input type="text" name="staffid" placeholder="Staff ID">
-          <input type="text" name="departmentname" placeholder="Department ID">
+          <input type="text" name="departmentid" placeholder="Department ID">
           <input type="text" name="personalid" placeholder="Personal ID">
           <input type="text" name="firstname" placeholder="First Name">
           <input type="text" name="lastname" placeholder="Last Name">
@@ -296,19 +260,50 @@
             <div class="input-group">
               <label for="update-start-date" class="date-label">Start Date:</label>
               <div class="date-time-group">
-                <input type="date" id="update-start-date" class="input-style">
-                <input type="time" id="update-start-time" class="input-style">
+                <input type="date" id="update-start-date" class="input-style" name="startdate">
               </div>
             </div>
             <div class="input-group">
               <label for="update-end-date" class="date-label">End Date:</label>
               <div class="date-time-group">
-                <input type="date" id="update-end-date" class="input-style">
-                <input type="time" id="update-end-time" class="input-style">
+                <input type="date" id="update-end-date" class="input-style" name="enddate">
               </div>
             </div>
           </div>
-          <div type="submit" class="submit-button">Submit</div>
+          <button type="submit" class="submit-button">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div id="updatePopup" class="popup">
+      <div class="popup-content">
+        <span class="close update-close">&times;</span>
+        <form class="popup-form" action="./updateEmployee" method="post">
+          <input type="text" name="staffid" placeholder="Staff ID">
+          <input type="text" name="departmentid" placeholder="Department ID">
+          <input type="text" name="personalid" placeholder="Personal ID">
+          <input type="text" name="firstname" placeholder="First Name">
+          <input type="text" name="lastname" placeholder="Last Name">
+          <input type="text" name="birthday" placeholder="Birthday">
+          <input type="text" name="gender" placeholder="Gender">
+          <input type="text" name="email" placeholder="Email">
+          <input type="text" name="phone" placeholder="Phone">
+          <input type="text" name="address" placeholder="Address">
+          <input type="text" name="currentsal" placeholder="Current Salary">
+          <div class="input-groups-container">
+            <div class="input-group">
+              <label for="update-start-date" class="date-label">Start Date:</label>
+              <div class="date-time-group">
+                <input type="date" id="update-start-date" class="input-style" name="startdate">
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="update-end-date" class="date-label">End Date:</label>
+              <div class="date-time-group">
+                <input type="date" id="update-end-date" class="input-style" name="enddate">
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
     </div>
@@ -316,8 +311,8 @@
       <div class="popup-content">
         <span class="close delete-close">&times;</span>
         <form class="popup-form" action="./deleteEmployee" method="post">
-          <input type="text" name="delete_staff" placeholder="Staff ID">
-          <div type="submit" class="submit-button">Delete</div>
+          <input type="text" name="staffid" placeholder="Staff ID">
+          <button type="submit" class="submit-button">Delete</button>
         </form>
       </div>
     </div>

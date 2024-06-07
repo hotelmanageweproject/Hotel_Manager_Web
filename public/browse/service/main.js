@@ -182,33 +182,127 @@ window.onclick = function(event) {
   }
 }
 
-function showDetailsPopup(data) {
-    const rowData = JSON.parse(decodeURIComponent(data));
-    const overlay = document.getElementById('documentDetailsPopupOverlay');
-    const popup = document.getElementById('documentDetailsPopup');
-    const content = popup.querySelector('.document-popup-content');
-    
-    content.innerHTML = '';
-  
-    Object.keys(rowData).forEach(key => {
-      const row = document.createElement('div');
-      row.className = 'row';
-  
-      const keyElement = document.createElement('div');
-      keyElement.className = 'key';
-      keyElement.textContent = key;
-  
-      const valueElement = document.createElement('div');
-      valueElement.className = 'value';
-      valueElement.textContent = rowData[key];
-  
-      row.appendChild(keyElement);
-      row.appendChild(valueElement);
-      content.appendChild(row);
+function showDetailsPopup(serviceid) {
+    fetch(`/browse/service/api/service-details/${serviceid}`)
+    .then(response => response.json())
+    .then(data => {
+        const overlay = document.getElementById('documentDetailsPopupOverlay');
+        const popup = document.getElementById('documentDetailsPopup');
+        const content = popup.querySelector('.document-popup-content');
+        
+        content.innerHTML = ''; // Xóa nội dung cũ
+
+        data.forEach(detail => {
+            if (!detail.managerid) {
+                content.innerHTML += '<div>Không có thông tin quản lí.</div>';
+            } else {
+                const serviceidRow = document.createElement('div');
+                serviceidRow.className = 'row'
+                serviceidRow.innerHTML = `<div class="key">Service ID:</div><div class="value">${detail.serviceid}</div>`;
+
+                const manageridRow = document.createElement('div');
+                manageridRow.className = 'row'
+                manageridRow.innerHTML = `<div class="key">Manager ID:</div><div class="value">${detail.managerid}</div>`;
+
+                const departmentidRow = document.createElement('div');
+                departmentidRow.className = 'row'
+                departmentidRow.innerHTML = `<div class="key">Department ID:</div><div class="value">${detail.departmentid}</div>`;
+
+                const personalidRow = document.createElement('div');
+                personalidRow.className = 'row'
+                personalidRow.innerHTML = `<div class="key">Personal ID:</div><div class="value">${detail.personalid}</div>`;
+
+                const firstnameRow = document.createElement('div');
+                firstnameRow.className = 'row'
+                firstnameRow.innerHTML = `<div class="key">First Name:</div><div class="value">${detail.firstname}</div>`;
+
+                const lastnameRow = document.createElement('div');
+                lastnameRow.className = 'row'
+                lastnameRow.innerHTML = `<div class="key">Last Name:</div><div class="value">${detail.lastname}</div>`;
+
+                const birthdateRow = document.createElement('div');
+                birthdateRow.className = 'row'
+                birthdateRow.innerHTML = `<div class="key">Birthdate:</div><div class="value">${detail.birthdate}</div>`;
+
+                const genderRow = document.createElement('div');
+                genderRow.className = 'row'
+                genderRow.innerHTML = `<div class="key">Gender:</div><div class="value">${detail.gender}</div>`;
+
+                const emailRow = document.createElement('div');
+                emailRow.className = 'row'
+                emailRow.innerHTML = `<div class="key">Email:</div><div class="value">${detail.email}</div>`;
+
+                const phoneRow = document.createElement('div');
+                phoneRow.className = 'row'
+                phoneRow.innerHTML = `<div class="key">Phone:</div><div class="value">${detail.phone}</div>`;
+
+                const addressRow = document.createElement('div');
+                addressRow.className = 'row'
+                addressRow.innerHTML = `<div class="key">Address:</div><div class="value">${detail.address}</div>`;
+
+                const currentsalRow = document.createElement('div');
+                currentsalRow.className = 'row'
+                currentsalRow.innerHTML = `<div class="key">Current Salary:</div><div class="value">${detail.currentsal}</div>`;
+
+                const startdateRow = document.createElement('div');
+                startdateRow.className = 'row'
+                startdateRow.innerHTML = `<div class="key">Start Date:</div><div class="value">${detail.startdate}</div>`;
+
+                const enddateRow = document.createElement('div');
+                enddateRow.className = 'row'
+                enddateRow.innerHTML = `<div class="key">End Date:</div><div class="value">${detail.enddate}</div>`;
+
+                content.appendChild(serviceidRow);
+                content.appendChild(manageridRow);
+                content.appendChild(departmentidRow);
+                content.appendChild(personalidRow);
+                content.appendChild(firstnameRow);
+                content.appendChild(lastnameRow);
+                content.appendChild(birthdateRow);
+                content.appendChild(genderRow);
+                content.appendChild(emailRow);
+                content.appendChild(phoneRow);
+                content.appendChild(addressRow);
+                content.appendChild(currentsalRow);
+                content.appendChild(startdateRow);
+                content.appendChild(enddateRow);            
+            }
+        });
+
+        overlay.style.display = 'block'; // Hiển thị popup
+    })
+    .catch(error => {
+        console.error('Error fetching customer details:', error);
+        const content = document.getElementById('documentDetailsPopup').querySelector('.document-popup-content');
+        content.innerHTML = '<div>Lỗi khi tải thông tin phòng</div>';
     });
-  
-    overlay.style.display = 'block';
 }
+window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const serviceid = urlParams.get('serviceid');
+    const departmentid1 = urlParams.get('departmentid1');
+
+    if (success === 'trueadd' && serviceid > 0) {
+      alert(`Service added successfully, Service ID: ${serviceid}`);
+    } else if (success === 'trueadd' && roomid == 0) {
+      alert(`Service is already existed, please try again!`);
+    } 
+    // Đoạn này không xử lí được việc thêm phòng thành công vì bảng serviceid không tồn tại departmentid mới thì phải làm thế nào 
+
+    if (success === 'truedel') {
+      alert(`Service deleted successfully, Service ID: ${serviceid}`);
+    } 
+    // Đoạn trên cũng không xử lí được việc xoá departmentid vì không có serviceid tương ứng
+
+   if (success === 'trueupdate' && serviceid > 0) {
+      alert(`Service updated successfully, Service ID: ${serviceid}`);
+    } else if (success === 'trueupdate' && departmentid1 > 0) {
+        alert(`Service updated successfully, Department ID: ${departmentid1}`);
+    } else if (success === 'trueupdate' && serviceid == 0 && departmentid1 == 0) {
+        alert(`Service is not existed, please try again!`);
+    }
+  });
 
 function toggleDropdown() {
     var dropdown = document.getElementById("dropdownMenu");
@@ -216,10 +310,12 @@ function toggleDropdown() {
   }
   
   function sort(order) {
-    console.log("Sorting: " + order);
-    // Thêm logic sắp xếp tại đây
-    toggleDropdown(); // Đóng dropdown sau khi chọn
+    console.log("Sorting order:", order); // Thêm dòng này để kiểm tra
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('sort', order);
+    window.location.search = urlParams.toString();
   }
+
 function closeDropdown() {
     var dropdown = document.getElementById("dropdownMenu");
     dropdown.style.display = "none";

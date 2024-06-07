@@ -2,7 +2,7 @@
 import db from '../config/db.js'; // Đảm bảo rằng bạn đã import db từ file đúng
 
 // Query hiển thị dữ liệu ra màn hình
-const getService = async (serviceid, servicename, note, departmentid, departmentname, manager, description,search, limit, offset) => {
+const getService = async (serviceid, servicename, note, departmentid, departmentname, manager, description,search, limit, offset,sort) => {
   let whereConditions = [];
   let query = '';
   if (serviceid) whereConditions.push(`s.serviceid = ${serviceid}`);
@@ -29,7 +29,12 @@ const getService = async (serviceid, servicename, note, departmentid, department
   if (whereConditions.length > 0) {
     query += 'WHERE ' + whereConditions.join(' AND ') + ' ';
   }
-  query += `ORDER BY s.serviceid ASC LIMIT ${limit} OFFSET ${offset}`;
+  if (sort === 'AtoZ') {
+    query += `ORDER BY s.serviceid ASC `;
+  } else if (sort === 'ZtoA') {
+    query += `ORDER BY s.serviceid DESC `;
+  } 
+  query += `LIMIT ${limit} OFFSET ${offset}`;
   };
   console.log(query);
   
@@ -37,93 +42,129 @@ const getService = async (serviceid, servicename, note, departmentid, department
   return result.rows;
 };
 
+const getServiceDetails = async(serviceid) => {
+  const query = `SELECT sv.serviceid ,s.staffid AS managerid, s.departmentid, s.personalid, s.firstname, s.lastname, s.birthdate, s.gender, s.email, s.phone, s.address, s.currentsal, s.startdate, s.enddate
+FROM staff s
+JOIN departments dpt ON dpt.manager = s.staffid
+JOIN services sv ON sv.departmentid = dpt.departmentid
+WHERE sv.serviceid = $1::bigint;
+`;
+  const values = [serviceid];
+  const result = await db.query(query, values);
+  return result.rows;
+};
+
 // Query thêm dữ liệu
-const addService = (serviceid, servicename, departmentid, note, departmentname, manager, description) => {
-    return new Promise((resolve, reject) => {
+const addService = (serviceid, servicename, departmentid, note, departmentname,manager, description) => {
+  return new Promise((resolve, reject) => {
       let query = ``;
-      if (serviceid !== undefined && servicename !== undefined && departmentid !== undefined)  {
-         query = '';
-        // ADD vào bảng services: INPUT (ALL Varchar)  : serviceID, servicename, departmentID, note  Thêm vào bảng services
-        // OUTPUT: serviceID vừa thêm sẽ được trả về 
-      } else if (serviceid === undefined && departmentid !== undefined && departmentname !== undefined && manager !== undefined && description !== undefined){
-        query = ``;
-        // ADD vào bảng department: INPUT (ALL Varchar) : departmentID, departmentname, manager, description
-        // OUTPUT: serviceID vừa thêm sẽ được trả về
+      let values = [];
+      if (serviceid && servicename && departmentid) {
+          query = `INSERT INTO services (serviceid, name, departmentid, note) VALUES ($1, $2, $3, $4) RETURNING serviceid`;
+          values = [serviceid, servicename, departmentid, note];
+      } else if (!serviceid && departmentid && departmentname && manager) {
+          query = `INSERT INTO departments (departmentid, name, manager, description) VALUES ($1, $2, $3::bigint, $4) RETURNING departmentid`;
+          values = [departmentid, departmentname, manager, description];
+      } else {
+          return reject(new Error('Invalid input parameters'));
       }
+
       db.query(query, values, (err, result) => {
-        if (err) {
-          console.error('Error executing query', err.stack);
-          reject(err);
-        } else {
-          console.log('Service added successfully');
-          resolve(result);
-        }
+          if (err) {
+              console.error('Error executing query', err.stack);
+              return reject(err);
+          } else {
+              console.log('Query executed successfully');
+              console.log(result);
+              if (result.rows.length > 0) {
+                  resolve(result.rows[0].serviceid || result.rows[0].departmentid);
+              } else {
+                  reject(new Error('No rows returned'));
+              }
+          }
       });
-    });
-  };
+  });
+};
 
 // Query xóa dữ liệu
 const deleteService = (serviceid, departmentid) => {
   return new Promise((resolve, reject) => {
     let query = '';
-    if (serviceid !== undefined && departmentid === undefined) {
-      query = `DELETE FROM services WHERE serviceid = $1`;
+    let values = [];
+    if (serviceid !== '' && departmentid === '') {
+      query = `DELETE FROM services WHERE serviceid = $1 RETURNING serviceid`;
+      values = [serviceid];
       // Xóa dữ liệu trong bảng services: INPUT: serviceID
       // OUTPUT: serviceID vừa xóa sẽ được trả về (Có hoặc không)
-    } else if (departmentid !== undefined && serviceid === undefined) {
+    } else if (departmentid !== '' && serviceid === '') {
+      query = `DELETE FROM departments WHERE departmentid = $1 RETURNING departmentid`;
+      values = [departmentid];
       // Xóa dữ liệu trong bảng departments: INPUT: departmentID
       // OUTPUT: departmentID vừa xóa sẽ được trả về (Có hoặc không)
-      query = `DELETE FROM departments WHERE departmentid = $1`;
     }
-    db.query(query, [serviceID], (err, result) => {
+    db.query(query, values, (err, result) => {
           if (err) {
               console.error('Error executing query', err.stack);
               reject(err);
           } else {
               console.log('Service deleted successfully');
-              resolve(result);
+              if (result.rows.length > 0) {
+                resolve(result.rows[0].serviceid || result.rows[0].departmentid);
+              } else {
+                reject(new Error('No rows returned'));
+              }
           }
       });
   });
 };
 // Query cập nhật dữ liệu
-const updateService = (serviceID, { name, departmentID, note}) => {
-    return new Promise((resolve, reject) => {
+const updateService = (serviceid, servicename, note, departmentid, departmentname, manager, description) => {
+  return new Promise((resolve, reject) => {
       let query = '';
-      if (serviceID !== undefined && departmentname === undefined && manager === undefined && description === undefined) {
-        query = '';
-        // Cập nhật dữ liệu trong bảng services: INPUT: serviceID, servicename, departmentID, note
-         // OUTPUT: serviceID vừa cập nhật sẽ được trả về
-      } else if (serviceID === undefined && departmentID !== undefined && departmentname !== undefined && manager !== undefined && description !== undefined) {
-        query = '';
-        // Cập nhật dữ liệu trong bảng departments: INPUT: departmentID, departmentname, manager, description
-        // OUTPUT: departmentID vừa cập nhật sẽ được trả về
-      }
-      const fields = { name, departmentID, note };
-      const updates = [];
+      const fields = { name: servicename, note, manager, description };
+      let updates = [];
+      
       for (let key in fields) {
-        if (fields[key] !== undefined && fields[key] !== '') {
-          updates.push(`${key} = '${fields[key]}'`);
-        }
-      }
-      if (updates.length > 0) {
-        query = `UPDATE services SET ${updates.join(', ')} WHERE serviceID = '${serviceID}'`;
-        db.query(query, (err, result) => {
-          if (err) {
-          console.error('Error executing query', err.stack);
-          reject(err);
-          } else {
-          console.log('Service updated successfully');
-          resolve(result);
+          if (fields[key] !== undefined && fields[key] !== '') {
+              updates.push(`${key} = '${fields[key]}'`);
           }
-        });
       }
-    });
-  };
+      
+      if (serviceid !== '' && departmentname === '' && manager === '' && description === '') {
+          query = `UPDATE services SET ${updates.join(', ')} WHERE serviceid = ${serviceid} RETURNING serviceid`;
+          // Cập nhật dữ liệu trong bảng services: INPUT: serviceID, servicename, departmentID, note
+          // OUTPUT: serviceID vừa cập nhật sẽ được trả về
+      } else if (serviceid === '' && departmentid !== '' && (departmentname !== '' || manager !== '' || description !== '')) {
+          // Thay đổi departmentname thành name trong truy vấn
+          if (departmentname !== '') {
+              updates.push(`name = '${departmentname}'`);
+          }
+          query = `UPDATE departments SET ${updates.join(', ')} WHERE departmentid = '${departmentid}' RETURNING departmentid`;
+          // Cập nhật dữ liệu trong bảng departments: INPUT: departmentID, departmentname, manager, description
+          // OUTPUT: departmentID vừa cập nhật sẽ được trả về
+      }
+      
+      console.log(query);
+      db.query(query, (err, result) => {
+          if (err) {
+              console.error('Error executing query', err.stack);
+              reject(err);
+          } else {
+              console.log('Service updated successfully');
+              if (result.rows.length > 0) {
+                resolve(result.rows[0].serviceid || result.rows[0].departmentid);
+              } else {
+                reject(new Error('No rows returned'));
+              }
+          }
+      });
+  });
+}
 // Export module
 export default {
     getService,
     deleteService,
     updateService,
     addService,
+    getServiceDetails
 };

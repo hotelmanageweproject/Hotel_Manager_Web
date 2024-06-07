@@ -182,43 +182,89 @@ window.onclick = function(event) {
   }
 }
 
-function showDetailsPopup(data) {
-    const rowData = JSON.parse(decodeURIComponent(data));
-    const overlay = document.getElementById('documentDetailsPopupOverlay');
-    const popup = document.getElementById('documentDetailsPopup');
-    const content = popup.querySelector('.document-popup-content');
-    
-    content.innerHTML = '';
-  
-    Object.keys(rowData).forEach(key => {
-      const row = document.createElement('div');
-      row.className = 'row';
-  
-      const keyElement = document.createElement('div');
-      keyElement.className = 'key';
-      keyElement.textContent = key;
-  
-      const valueElement = document.createElement('div');
-      valueElement.className = 'value';
-      valueElement.textContent = rowData[key];
-  
-      row.appendChild(keyElement);
-      row.appendChild(valueElement);
-      content.appendChild(row);
+function showDetailsPopup(staffid) {
+    fetch(`/browse/employee/api/staff-details/${staffid}`)
+    .then(response => response.json())
+    .then(data => {
+        const overlay = document.getElementById('documentDetailsPopupOverlay');
+        const popup = document.getElementById('documentDetailsPopup');
+        const content = popup.querySelector('.document-popup-content');
+        
+        content.innerHTML = ''; // Xóa nội dung cũ
+        console.log(data);
+
+        data.forEach(detail => {
+            if (!detail.departmentid) {
+                content.innerHTML += '<div>Không có thông tin phòng ban</div>';
+            } else {
+                const staffidRow = document.createElement('div');
+                staffidRow.className = 'row';
+                staffidRow.innerHTML = `<div class="key">Staff ID:</div><div class="value">${detail.staffid}</div>`;
+
+                const departmentidRow = document.createElement('div');
+                departmentidRow.className = 'row';
+                departmentidRow.innerHTML = `<div class="key">Department ID:</div><div class="value">${detail.departmentid}</div>`;
+
+                const departmentnameRow = document.createElement('div');
+                departmentnameRow.className = 'row';
+                departmentnameRow.innerHTML = `<div class="key">Department Name:</div><div class="value">${detail.name}</div>`;
+
+                const managerRow = document.createElement('div');
+                managerRow.className = 'row';
+                managerRow.innerHTML = `<div class="key">Manager:</div><div class="value">${detail.manager}</div>`;
+
+                const descriptionRow = document.createElement('div');
+                descriptionRow.className = 'row';
+                descriptionRow.innerHTML = `<div class="key">Description:</div><div class="value">${detail.description}</div>`;
+
+                content.appendChild(staffidRow);
+                content.appendChild(departmentidRow);
+                content.appendChild(departmentnameRow);
+                content.appendChild(managerRow);
+                content.appendChild(descriptionRow);
+            }
+        });
+
+        overlay.style.display = 'block'; // Hiển thị popup
+    })
+    .catch(error => {
+        console.error('Error fetching customer details:', error);
+        const content = document.getElementById('documentDetailsPopup').querySelector('.document-popup-content');
+        content.innerHTML = '<div>Lỗi khi tải thông tin khách hàng.</div>';
     });
-  
-    overlay.style.display = 'block';
 }
+  
+window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const staffid = urlParams.get('staffid');
+    if (success === 'trueadd' && staffid > 0) {
+      alert(`Staff added successfully, Staff ID: ${staffid}`);
+    } else if (success === 'trueadd' && staffid == 0) {
+      alert(`Staff is already existed, please try again!`);
+    };
+    if (success === 'truedel' && staffid > 0) {
+      alert(`Staff deleted successfully, Staff ID: ${staffid}`);
+    } else if (success === 'truedel' && staffid == 0) {
+        alert(`Staff is not existed, please try again!`);
+        }
+    if (success === 'trueupdate' && staffid > 0) {
+      alert(`Staff updated successfully, Staff ID: ${staffid}`);
+    } else if (success === 'trueupdate' && staffid == 0) {
+        alert(`Staff is not existed, please try again!`);
+    }
+  });
 
 function toggleDropdown() {
     var dropdown = document.getElementById("dropdownMenu");
     dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
   }
   
-  function sort(order) {
-    console.log("Sorting: " + order);
-    // Thêm logic sắp xếp tại đây
-    toggleDropdown(); // Đóng dropdown sau khi chọn
+ function sort(order) {
+    console.log("Sorting order:", order); // Thêm dòng này để kiểm tra
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('sort', order);
+    window.location.search = urlParams.toString();
   }
 function closeDropdown() {
     var dropdown = document.getElementById("dropdownMenu");

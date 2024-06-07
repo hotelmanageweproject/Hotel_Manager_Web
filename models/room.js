@@ -66,7 +66,6 @@ Where rs.date <= current_date;;
 // Query thêm dữ liệu
 const addRoom = (roomid, roomtype, status, name, pricepernight, maxadult, maxchild, bookingid, serviceid,total_in,date,staffid) => {
   return new Promise((resolve, reject) => {
-    console.log(roomid, roomtype, status, name, pricepernight, maxadult, maxchild, bookingid, serviceid,total_in,date,staffid);
     let query = '';
     let values = [];
     if (roomid !== '' && roomtype !== '' && status !== '')  {

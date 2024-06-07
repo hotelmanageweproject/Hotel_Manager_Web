@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap"
     />
   </head>
-  <body onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage(); showPopup(); handleFileUpload(); handleFileDownload(); showDetailsPopup(); toggleDropdown(); closeDropdown()">
+  <body onload="getCurrentDate(); updateDate(); changeColor(); goToHomePage(); goToBrowseHomePage(); goToStaticHomePage(); goToSearchCustomerPage(); goToSearchRoomPage(); goToSearchBookingPage(); goToSearchServicePage(); goToSearchEmployeePage(); showPopup(); handleFileUpload(); handleFileDownload(); showDetailsPopup(); toggleDropdown(); closeDropdown(); sort">
     <form class="browse-element-page">
       <div class="sidebar">
         <div class="title-wrapper">
@@ -169,7 +169,7 @@
                         <div class="content-wrapper">
                           <%= row[header] %>
                           <% if (index === headers.length - 1) { %>
-                            <img class="document-icon" src="/img/3doc.png" alt="Document" onclick="showDetailsPopup('<%= encodeURIComponent(JSON.stringify(row)) %>')">
+                            <img class="document-icon" src="/img/3doc.png" alt="Document" onclick="showDetailsPopup('<%= row['serviceid']%>')">
                           <% } %>
                         </div>
                       </td>
@@ -243,11 +243,11 @@
           <input type="text" name="serviceid" placeholder="Service ID">
           <input type="text" name="servicename" placeholder="Service Name">
           <input type="text" name="note" placeholder="Note">
-          <input type="text" name="departmentid" placeholder="Department ID">
+          <input type="text" name="departmentid"  placeholder="Department ID">
           <input type="text" name="departmentname" placeholder="Department Name">
           <input type="text" name="manager" placeholder="Manager">
           <input type="text" name="description" placeholder="Description">
-        <div type="submit" class="submit-button">Submit</div>
+        <button type="submit" class="submit-button">Submit</button>
       </form>
       </div>
     </div>
@@ -262,7 +262,7 @@
             <input type="text" name="departmentname" placeholder="Department Name">
             <input type="text" name="manager" placeholder="Manager">
             <input type="text" name="description" placeholder="Description">
-          <div type="submit" class="submit-button">Submit</div>
+          <button type="submit" class="submit-button">Submit</button>
         </form>
       </div>
     </div>
@@ -272,7 +272,7 @@
         <form class="popup-form" action="./deleteService" method="post">
           <input type="text" name = "serviceid" placeholder="Service ID">
           <input type="text" name = "departmentid" placeholder="Department ID">
-          <div type="submit" class="submit-button">Delete</div>
+          <button type="submit" class="submit-button">Delete</button>
         </form>
       </div>
     </div>

@@ -1469,3 +1469,23 @@ table input[type="text"] {
 .buzz:hover {
   animation: buzz 0.75s linear;
 }
+
+.select-style {
+  font-family: inherit;
+  flex: 1; /* Each input takes equal width */
+  padding: 8px;
+  margin: 10px 5px; /* Increased spacing between inputs */
+  border: 2px solid #ccc; /* Thicker border */
+  box-sizing: border-box;
+  border-radius: 10px; /* Rounded corners */
+}
+
+.select-style {
+  font-family: inherit;
+  flex: 1; /* Each input takes equal width */
+  padding: 8px;
+  margin: 10px 5px; /* Increased spacing between inputs */
+  border: 2px solid #ccc; /* Thicker border */
+  box-sizing: border-box;
+  border-radius: 10px; /* Rounded corners */
+}

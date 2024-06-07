@@ -2,7 +2,7 @@
 import db from '../config/db.js'; // Đảm bảo rằng bạn đã import db từ file đúng
 
 // Query hiển thị dữ liệu ra màn hình
-const getStaff = async (staffid, departmentname, personalid, firstname, lastname, birthday, gender, email, phone, address,currentsal, startdate, enddate,search, limit, offset) => {
+const getStaff = async (staffid, departmentname, personalid, firstname, lastname, birthday, gender, email, phone, address,currentsal, startdate, enddate,search, limit, offset,sort) => {
   let whereConditions = [];
   let query = '';
   if (staffid) whereConditions.push(`e.staffid = ${staffid}`);
@@ -37,30 +37,46 @@ const getStaff = async (staffid, departmentname, personalid, firstname, lastname
     query += 'WHERE ' + whereConditions.join(' AND ') + ' ';
   }
   
-  query += `ORDER BY e.staffid ASC LIMIT ${limit} OFFSET ${offset}`;
-  };
+  if (sort === 'AtoZ') {
+    query += `ORDER BY e.staffid ASC `;
+  } else if (sort === 'ZtoA') {
+    query += `ORDER BY e.staffid DESC `;
+  } 
+  query += `LIMIT ${limit} OFFSET ${offset}`;  
+};
   console.log(query);
   const result = await db.query(query);
   return result.rows;
 };
 
+const getStaffDetails = async(staffid) => {
+  const query = `SELECT s.staffid ,dpt.*
+FROM staff s, departments dpt
+WHERE s.departmentid = dpt.departmentid AND s.staffid = $1::bigint
+`;
+  const values = [staffid];
+  const result = await db.query(query, values);
+  return result.rows;
+};
 // Query thêm dữ liệu
-const addStaff = (staffID,departmentID, personalID, firstName, lastName, birthday, gender, email, phone, address, currentSal, startDate, endDate) => {
+const addStaff = (departmentid, personalid, firstname, lastname, birthday, gender, email, phone, address, currentsal, startdate, enddate) => {
     return new Promise((resolve, reject) => {
+      if (enddate === '' || enddate === null) enddate = null;
       const query = `
-        INSERT INTO staff (staffID,departmentID, personalID, firstName, lastName, birthday, gender, email, phone, address, currentSal, startDate, endDate)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+        INSERT INTO staff (departmentID, personalID, firstName, lastName, birthdate, gender, email, phone, address, currentSal, startDate, endDate)
+        VALUES ($1, $2, $3, $4, $5::date, $6, $7, $8, $9, $10, $11::date, $12::date)
+        RETURNING staffid
       `;
       // ADD staff: INPUT (ALL Varchar) : staffID,departmentID, personalID, firstName, lastName, birthday, gender, email, phone, address, currentSal, startDate, endDate
     // OUTPUT: firstName + lastName vừa in sẽ được trả về 
-      const values = [staffID,departmentID, personalID, firstName, lastName, birthday, gender, email, phone, address, currentSal, startDate, endDate];
+      const values = [departmentid, personalid, firstname, lastname, birthday, gender, email, phone, address, currentsal, startdate, enddate];
       db.query(query, values, (err, result) => {
         if (err) {
           console.error('Error executing query', err.stack);
           reject(err);
         } else {
           console.log('Staff added successfully');
-          resolve(result);
+          resolve(result.rows[0].staffid);
         }
       });
     });
@@ -69,7 +85,7 @@ const addStaff = (staffID,departmentID, personalID, firstName, lastName, birthda
 // Query xóa dữ liệu
 const deleteStaff = (staffID) => {
   return new Promise((resolve, reject) => {
-    const query = `DELETE FROM staff WHERE staffID = $1`;
+    const query = `DELETE FROM staff WHERE staffID = $1 RETURNING staffID`;
     // Xóa staff: INPUT (staffID) : staffID
     // OUTPUT: staffID vừa xóa sẽ được trả về
     db.query(query, [staffID], (err, result) => {
@@ -78,15 +94,15 @@ const deleteStaff = (staffID) => {
               reject(err);
           } else {
               console.log('Staff deleted successfully');
-              resolve(result);
+              resolve(staffID);
           }
       });
   });
 };
 // Query cập nhật dữ liệu
-const updateStaff = (staffID, { departmentID, personalID, firstName, lastName, birthday, gender, email, phone, address, currentSal, startDate, endDate}) => {
+const updateStaff = (staffid, departmentid, personalid, firstname, lastname, birthday, gender, email, phone, address, currentsal, startdate, enddate) => {
     return new Promise((resolve, reject) => {
-      const fields = {departmentID, personalID, firstName, lastName, birthday, gender, email, phone, address, currentSal, startDate, endDate };
+      const fields = {departmentid, personalid, firstname, lastname, birthdate : birthday, gender, email, phone, address, currentsal, startdate, enddate };
       const updates = [];
       for (let key in fields) {
         if (fields[key] !== undefined && fields[key] !== '') {
@@ -94,7 +110,7 @@ const updateStaff = (staffID, { departmentID, personalID, firstName, lastName, b
         }
       }
       if (updates.length > 0) {
-        const query = `UPDATE staff SET ${updates.join(', ')} WHERE staffid = '${staffID}'`;
+        const query = `UPDATE staff SET ${updates.join(', ')} WHERE staffid = '${staffid}'`;
         // UPDATE staffs: INPUT (staffID,departmentID, personalID, firstName, lastName, birthday, gender, email, phone, address, currentSal, startDate, endDate)
       // Thực hiện cập nhật thông tin nhân viên có staffid với các cột có chứa thông tin ở input (Tóm lại giá trị nào khác '' hoặc null thì sửa)
       // Nếu function trong sql làm được thì tốt không được thì thôi, phần này skip
@@ -105,15 +121,18 @@ const updateStaff = (staffID, { departmentID, personalID, firstName, lastName, b
           reject(err);
           } else {
           console.log('Staff updated successfully');
-          resolve(result);
+          resolve(staffid);
           }
         });
       }
     });
   };
+
+
 // Export module
 export default {
     getStaff,
+    getStaffDetails,
     deleteStaff,
     updateStaff,
     addStaff,
