@@ -4,21 +4,25 @@ import db from '../config/db.js'; // Đảm bảo rằng bạn đã import db t�
 const getCustomerDetails = async(customerid) => {
   const query = `SELECT Booking.bookingID,
   booking_rooms.roomID,
-  Customer_Ranking.discount
+  booking_rooms.checkin,
+  booking_rooms.checkout,
+  Customer_Ranking.discount,
+  roomType.pricepernight
 FROM Customers
 JOIN Booking ON Customers.customerId = Booking.customerId
 JOIN booking_rooms ON Booking.bookingID = booking_rooms.bookingID
 JOIN Customer_Ranking ON Customers.RankId = Customer_Ranking.RankId
-WHERE Customers.customerId = $1;
+JOIN Rooms ON booking_rooms.roomID = Rooms.roomID
+JOIn RoomType ON Rooms.roomType = RoomType.roomTypeid
+WHERE Customers.customerId = $1
+ORDER BY booking.bookingdate DESC;
 `;
   const values = [customerid];
-  console.log("customerid:",customerid);
   const result = await db.query(query, values);
-
   return result.rows;
 };
 // Query hiển thị dữ liệu ra màn hình
-const getCustomers = async (customerid, personalid, firstname, lastname, birthday, gender, email, phone, address, rank, search, limit, offset,sort) => {
+const getCustomers = async (customerid, personalid, firstname, lastname, birthday, gender, email, phone, address, rank, search, limit, offset, sort) => {
   let whereConditions = [];
   let params = [];
   let paramIndex = 1;
@@ -29,18 +33,18 @@ const getCustomers = async (customerid, personalid, firstname, lastname, birthda
     paramIndex++;
   }
   if (personalid) {
-    whereConditions.push(`c.personalid LIKE $${paramIndex}`);
-    params.push(`%${personalid}%`);
+    whereConditions.push(`c.personalid = $${paramIndex}`);
+    params.push(personalid);
     paramIndex++;
   }
   if (firstname) {
-    whereConditions.push(`c.firstname LIKE $${paramIndex}`);
-    params.push(`%${firstname}%`);
+    whereConditions.push(`c.firstname = $${paramIndex}`);
+    params.push(firstname);
     paramIndex++;
   }
   if (lastname) {
-    whereConditions.push(`c.lastname LIKE $${paramIndex}`);
-    params.push(`%${lastname}%`);
+    whereConditions.push(`c.lastname = $${paramIndex}`);
+    params.push(lastname);
     paramIndex++;
   }
   if (birthday) {
@@ -49,28 +53,28 @@ const getCustomers = async (customerid, personalid, firstname, lastname, birthda
     paramIndex++;
   }
   if (gender) {
-    whereConditions.push(`c.gender LIKE $${paramIndex}`);
-    params.push(`%${gender}%`);
+    whereConditions.push(`c.gender = $${paramIndex}`);
+    params.push(gender);
     paramIndex++;
   }
   if (email) {
-    whereConditions.push(`c.email LIKE $${paramIndex}`);
-    params.push(`%${email}%`);
+    whereConditions.push(`c.email = $${paramIndex}`);
+    params.push(email);
     paramIndex++;
   }
   if (phone) {
-    whereConditions.push(`c.phone LIKE $${paramIndex}`);
-    params.push(`%${phone}%`);
+    whereConditions.push(`c.phone = $${paramIndex}`);
+    params.push(phone);
     paramIndex++;
   }
   if (address) {
-    whereConditions.push(`c.address LIKE $${paramIndex}`);
-    params.push(`%${address}%`);
+    whereConditions.push(`c.address = $${paramIndex}`);
+    params.push(address);
     paramIndex++;
   }
   if (rank) {
-    whereConditions.push(`cr.namerank LIKE $${paramIndex}`);
-    params.push(`%${rank}%`);
+    whereConditions.push(`cr.namerank = $${paramIndex}`);
+    params.push(rank);
     paramIndex++;
   }
 

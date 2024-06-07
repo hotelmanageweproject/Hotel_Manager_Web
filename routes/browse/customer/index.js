@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import customerModel from '../../../models/customer.js';
-
+import moment from 'moment';
 
 
 const router_cus = express.Router();
@@ -46,6 +46,10 @@ router_cus.get('/api/customer-details/:customerid', async (req, res) => {
   console.log("Kick: " + customerid);
   try {
       const details = await customerModel.getCustomerDetails(customerid);
+      details.forEach(i => {
+        i.checkin = moment(i.checkin).format('YYYY-MM-DD');
+        i.checkout = moment(i.checkout).format('YYYY-MM-DD');
+      });
       console.log(details);
       res.json(details);
   } catch (error) {

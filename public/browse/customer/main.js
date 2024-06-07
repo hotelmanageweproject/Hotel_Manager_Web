@@ -193,11 +193,51 @@ function showDetailsPopup(customerid) {
         
         content.innerHTML = ''; // Xóa nội dung cũ
         console.log(data);
+        
+        if (data.length > 0) {
+            const discountRow = document.createElement('div');
+            discountRow.className = 'row';
+            discountRow.innerHTML = `<div class="key">Discount:</div><div class="value">${data[0].discount}%</div>`;
+            content.appendChild(discountRow);
+        }
+        const separator = document.createElement('p');
+        separator.innerHTML = '------------------------------------------------------------------------';
+        content.appendChild(separator);
+        // Tạo một đối tượng để lưu trữ tổng số tiền cho mỗi bookingid
+        const bookingTotals = {};
+        let currentBookingId = null;
 
-        data.forEach(detail => {
+        data.forEach((detail, index) => {
             if (!detail.bookingid || !detail.roomid) {
                 content.innerHTML += '<div>Không có thông tin đặt phòng hoặc phòng.</div>';
             } else {
+                const checkinDate = new Date(detail.checkin);
+                const checkoutDate = new Date(detail.checkout);
+                const timeDiff = Math.abs(checkoutDate - checkinDate);
+                const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1; // Số ngày
+                const totalAmount = daysDiff * detail.pricepernight;
+
+                // Tính tổng số tiền cho mỗi bookingid
+                if (!bookingTotals[detail.bookingid]) {
+                    bookingTotals[detail.bookingid] = 0;
+                }
+                bookingTotals[detail.bookingid] += totalAmount;
+
+                // Kiểm tra nếu bookingid thay đổi
+                if (currentBookingId !== null && currentBookingId !== detail.bookingid) {
+                    const totalRow = document.createElement('div');
+                    totalRow.className = 'row';
+                    totalRow.innerHTML = `<div class="key">Total for Booking ID ${currentBookingId}:</div><div class="value">${bookingTotals[currentBookingId].toLocaleString('vi-VN')} VND</div>`;
+                    content.appendChild(totalRow);
+
+                    // Thêm dấu phân tách giữa các bookingid khác nhau
+                    const separator = document.createElement('p');
+                    separator.innerHTML = '------------------------------------------------------------------------';
+                    content.appendChild(separator);
+                }
+
+                currentBookingId = detail.bookingid;
+
                 const bookingRow = document.createElement('div');
                 bookingRow.className = 'row';
                 bookingRow.innerHTML = `<div class="key">Booking ID:</div><div class="value">${detail.bookingid}</div>`;
@@ -206,8 +246,35 @@ function showDetailsPopup(customerid) {
                 roomRow.className = 'row';
                 roomRow.innerHTML = `<div class="key">Room ID:</div><div class="value">${detail.roomid}</div>`;
 
+                const priceRow = document.createElement('div');
+                priceRow.className = 'row';
+                priceRow.innerHTML = `<div class="key">Price Per Night:</div><div class="value">${detail.pricepernight.toLocaleString('vi-VN')} VND</div>`;
+
+                const checkinRow = document.createElement('div');
+                checkinRow.className = 'row';
+                checkinRow.innerHTML = `<div class="key">Check-in:</div><div class="value">${detail.checkin}</div>`;
+
+                const checkoutRow = document.createElement('div');
+                checkoutRow.className = 'row';
+                checkoutRow.innerHTML = `<div class="key">Check-out:</div><div class="value">${detail.checkout}</div>`;
+
                 content.appendChild(bookingRow);
                 content.appendChild(roomRow);
+                content.appendChild(priceRow);
+                content.appendChild(checkinRow);
+                content.appendChild(checkoutRow);
+
+                // Thêm xuống dòng giữa các roomid trong cùng một bookingid
+                const br = document.createElement('br');
+                content.appendChild(br);
+
+                // Nếu đây là phần tử cuối cùng, hiển thị tổng số tiền cho bookingid hiện tại
+                if (index === data.length - 1) {
+                    const totalRow = document.createElement('div');
+                    totalRow.className = 'row';
+                    totalRow.innerHTML = `<div class="key">Total for Booking ID ${currentBookingId}:</div><div class="value">${bookingTotals[currentBookingId].toLocaleString('vi-VN')} VND</div>`;
+                    content.appendChild(totalRow);
+                }
             }
         });
 
@@ -219,7 +286,6 @@ function showDetailsPopup(customerid) {
         content.innerHTML = '<div>Lỗi khi tải thông tin khách hàng.</div>';
     });
 }
-
 
   // Trong file JavaScript trên trang client
   window.addEventListener('load', () => {

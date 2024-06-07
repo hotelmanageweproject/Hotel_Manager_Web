@@ -148,7 +148,7 @@ const updateRoom = (roomid, roomtype, status, name, pricepernight, maxadult, max
       }
       query = `UPDATE roomtype SET ${updates.join(', ')} WHERE roomtypeid = $${updates.length + 1}`;
       values.push(roomtype);
-    } else if (roomid === '' && roomtype === '' && receiptid !== '' && serviceid !== '' && total_in === '' && date === '' && staffid === ''){
+    } else if (roomid === '' && roomtype === '' && receiptid !== '' && (serviceid !== '' || total_in !== '' || date !== '' || staffid !== '')){
       const fields = {serviceid, total_in, date, staffid };
       const updates = [];
       for (let key in fields) {
@@ -159,18 +159,8 @@ const updateRoom = (roomid, roomtype, status, name, pricepernight, maxadult, max
       }
       query = `UPDATE room_service SET ${updates.join(', ')} WHERE receiptid = $${updates.length + 1}`;
       values.push(receiptid);
-    } else if (roomid === '' && roomtype === '' && receiptid !== '' && serviceid === '' && (total_in !== '' || date !== '' || staffid !== '')){
-      const fields = {total_in, date, staffid };
-      const updates = [];
-      for (let key in fields) {
-        if (fields[key] !== '') {
-          updates.push(`${key} = $${updates.length + 1}`);
-          values.push(fields[key]);
-        }
-      }
-      query = `UPDATE room_service SET ${updates.join(', ')} WHERE receiptid = $${updates.length + 1}`;
-      values.push(receiptid);
     } 
+    
     db.query(query, values, (err, result) => {
       if (err) {
         console.error('Error executing query', err.stack);

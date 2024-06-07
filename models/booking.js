@@ -64,7 +64,8 @@ const addBooking = (bookingid, customerid, bookingdate, bookingtype, totaladult,
         // OUTPUT: bookingID vừa thêm sẽ được trả về
       } else if (new_bkrooms !== '' && bookingid !== ''){
         query = `SELECT new_bkrooms($1::bigint, $2, $3::date, $4::date, $5::int , $6::int)`; // Thêm dữ liệu vào bảng booking_room
-        values = [bookingid, new_bkrooms,  checkin, checkout ,numofchild, numofadult]
+        values = [bookingid, new_bkrooms,  checkin, checkout ,numofadult, numofchild]
+        console.log(values);
         // ADD v��o bảng booking_room: INPUT (ALL Varchar) : bookingID, roomID, checkIn, checkOut, numOfAdult, numOfChild
         // OUTPUT: bookingID và roomID vừa thêm sẽ được trả về
         // 1 Thắc mắc nhỏ nếu bookingID đó đã tồn tại phòng đó thì sao ? Và có thao tác nào để kiểm tra hiện tại không có bookingID nào khác dùng roomID đó không ?
