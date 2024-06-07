@@ -284,25 +284,21 @@ window.addEventListener('load', () => {
     const departmentid1 = urlParams.get('departmentid1');
 
     if (success === 'trueadd' && serviceid > 0) {
-      alert(`Service added successfully, Service ID: ${serviceid}`);
-    } else if (success === 'trueadd' && roomid == 0) {
-      alert(`Service is already existed, please try again!`);
+      Swal.fire('Success!', `Service added successfully, Service ID: ${serviceid}`, 'success');
+    } else if (success === 'trueadd' && serviceid == 0) {
+      Swal.fire('Warning!', 'Service is already existed, please try again!', 'warning');
     } 
-    // Đoạn này không xử lí được việc thêm phòng thành công vì bảng serviceid không tồn tại departmentid mới thì phải làm thế nào 
-
     if (success === 'truedel') {
-      alert(`Service deleted successfully, Service ID: ${serviceid}`);
+      Swal.fire('Deleted!', `Service deleted successfully, Service ID: ${serviceid}`, 'success');
     } 
-    // Đoạn trên cũng không xử lí được việc xoá departmentid vì không có serviceid tương ứng
-
-   if (success === 'trueupdate' && serviceid > 0) {
-      alert(`Service updated successfully, Service ID: ${serviceid}`);
+    if (success === 'trueupdate' && serviceid > 0) {
+      Swal.fire('Updated!', `Service updated successfully, Service ID: ${serviceid}`, 'success');
     } else if (success === 'trueupdate' && departmentid1 > 0) {
-        alert(`Service updated successfully, Department ID: ${departmentid1}`);
+        Swal.fire('Updated!', `Service updated successfully, Department ID: ${departmentid1}`, 'success');
     } else if (success === 'trueupdate' && serviceid == 0 && departmentid1 == 0) {
-        alert(`Service is not existed, please try again!`);
+        Swal.fire('Error!', 'Service is not existed, please try again!', 'error');
     }
-  });
+});
 
 function toggleDropdown() {
     var dropdown = document.getElementById("dropdownMenu");
