@@ -239,22 +239,21 @@ window.addEventListener('load', () => {
     const success = urlParams.get('success');
     const staffid = urlParams.get('staffid');
     if (success === 'trueadd' && staffid > 0) {
-      alert(`Staff added successfully, Staff ID: ${staffid}`);
+      Swal.fire('Success!', `Staff added successfully, Staff ID: ${staffid}`, 'success');
     } else if (success === 'trueadd' && staffid == 0) {
-      alert(`Staff is already existed, please try again!`);
-    };
-    if (success === 'truedel' && staffid > 0) {
-      alert(`Staff deleted successfully, Staff ID: ${staffid}`);
-    } else if (success === 'truedel' && staffid == 0) {
-        alert(`Staff is not existed, please try again!`);
-        }
-    if (success === 'trueupdate' && staffid > 0) {
-      alert(`Staff updated successfully, Staff ID: ${staffid}`);
-    } else if (success === 'trueupdate' && staffid == 0) {
-        alert(`Staff is not existed, please try again!`);
+      Swal.fire('Warning!', 'Staff is already existed, please try again!', 'warning');
     }
-  });
-
+    if (success === 'truedel' && staffid > 0) {
+      Swal.fire('Deleted!', `Staff deleted successfully, Staff ID: ${staffid}`, 'success');
+    } else if (success === 'truedel' && staffid == 0) {
+        Swal.fire('Error!', 'Staff is not existed, please try again!', 'error');
+    }
+    if (success === 'trueupdate' && staffid > 0) {
+      Swal.fire('Updated!', `Staff updated successfully, Staff ID: ${staffid}`, 'success');
+    } else if (success === 'trueupdate' && staffid == 0) {
+        Swal.fire('Error!', 'Staff is not existed, please try again!', 'error');
+    }
+});
 function toggleDropdown() {
     var dropdown = document.getElementById("dropdownMenu");
     dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
