@@ -11,34 +11,36 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
-  <body onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart(); closePopup();fetchServiceRanking();fetchCustomerRanking()">
+  <body
+    onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart(); closePopup();fetchServiceRanking();fetchCustomerRanking()"
+  >
     <form class="home-page">
-        <div class="sidebar">
+      <div class="sidebar">
         <div class="title-wrapper">
-            <div class="title">Administration web</div>
+          <div class="title">Administration web</div>
         </div>
         <div class="menu-item-parent">
-            <div class="menu-item">
+          <div class="menu-item">
             <div class="functions">Functions</div>
+          </div>
+          <div class="functionframe">
+            <div class="menu-item1">
+              <img class="home-icon" alt="" src="/img/homeicon.gif" />
+
+              <div class="home">Home</div>
             </div>
-            <div class="functionframe">
-              <div class="menu-item1">
-                <img class="home-icon" alt="" src="/img/homeicon.gif" />
-  
-                <div class="home">Home</div>
-              </div>
-              <div class="menu-item2">
-                <img class="search-icon" alt="" src="/img/searchicon.gif" />
-  
-                <div class="browse">Browse</div>
-              </div>
-              <div class="menu-item3">
-                <img class="radio-icon" alt="" src="/img/statisticicon.gif" />
-                <div class="static" >Statistic</div>
-              </div>
+            <div class="menu-item2">
+              <img class="search-icon" alt="" src="/img/searchicon.gif" />
+
+              <div class="browse">Browse</div>
             </div>
+            <div class="menu-item3">
+              <img class="radio-icon" alt="" src="/img/statisticicon.gif" />
+              <div class="static">Statistic</div>
+            </div>
+          </div>
         </div>
-        </div>
+      </div>
       <section class="home-page-inner">
         <div class="card-header-parent">
           <header class="card-header">
@@ -48,7 +50,9 @@
                   <div class="text">Welcome back, Admin</div>
                   <div class="badge">
                     <div class="badge-base">
-                      <div class="text1">Date: <span id="current-date"></span></div>
+                      <div class="text1">
+                        Date: <span id="current-date"></span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -154,7 +158,12 @@
           <span>Booking</span>
           <span class="close" onclick="closePopup()">&times;</span>
         </div>
-        <input type="date" id="HS-booking-date" class="input-style" onchange="updateValue('bookings', this.value)">
+        <input
+          type="date"
+          id="HS-booking-date"
+          class="input-style"
+          onchange="updateValue('bookings', this.value)"
+        />
         <div id="booking-value-display"></div>
       </div>
     </div>
@@ -165,7 +174,12 @@
           <span>Customer</span>
           <span class="close" onclick="closePopup()">&times;</span>
         </div>
-        <input type="date" id="HS-customer-date" class="input-style" onchange="updateValue('customers', this.value)">
+        <input
+          type="date"
+          id="HS-customer-date"
+          class="input-style"
+          onchange="updateValue('customers', this.value)"
+        />
         <div id="customer-value-display"></div>
       </div>
     </div>
@@ -176,12 +190,21 @@
           <span>Room</span>
           <span class="close" onclick="closePopup()">&times;</span>
         </div>
-        <input type="date" id="HS-room-date" class="input-style" onchange="updateValue('rooms', this.value)">
+        <input
+          type="date"
+          id="HS-room-date"
+          class="input-style"
+          onchange="updateValue('rooms', this.value)"
+        />
         <div id="room-value-display"></div>
       </div>
     </div>
 
-    <div id="TotalBillPopup" class="popup large-popup popup-total-bill" style="display: none;">
+    <div
+      id="TotalBillPopup"
+      class="popup large-popup popup-total-bill"
+      style="display: none"
+    >
       <div class="HS-popup-content">
         <div class="popup-header">
           <div class="total-bill-container">
@@ -224,12 +247,8 @@
           <span class="close" onclick="closePopup()">&times;</span>
         </div>
         <div class="popup-body">
-          <div class="popup-column">
-            
-          </div>
-          <div class="popup-column">
-            
-          </div>
+          <div class="popup-column"></div>
+          <div class="popup-column"></div>
         </div>
       </div>
     </div>
@@ -241,22 +260,18 @@
           <span class="close" onclick="closePopup()">&times;</span>
         </div>
         <div class="popup-body">
-          <div class="popup-column">
-            
-          </div>
-          <div class="popup-column">
-            
-          </div>
+          <div class="popup-column"></div>
+          <div class="popup-column"></div>
         </div>
       </div>
     </div>
     <form action="addPayment" method="post">
-    <div id="PaymentPopup" class="popup large-popup popup-total-bill">
-      <div class="HS-popup-content">
-        <div class="popup-header">
-          <span>Payment</span>
-          <span class="close" onclick="closePopup()">&times;</span>
-        </div>
+      <div id="PaymentPopup" class="popup large-popup popup-total-bill">
+        <div class="HS-popup-content">
+          <div class="popup-header">
+            <span>Payment</span>
+            <span class="close" onclick="closePopup()">&times;</span>
+          </div>
 
         <div class="popup-body">
           <div class="popup-column">
@@ -296,12 +311,10 @@
             <input type="date" id="paymentdate" name = "paymentdate" class="input-style">
             <input type="text" id="note" name = "note" class="input-style">
           </div>
+          <button type="submit" class="submit">Submit</button>
         </div>
-        <button type="submit" class="submit">Submit</button>
-
       </div>
-    </div>
-  </form>
+    </form>
     <script src="main.js"></script>
   </body>
 </html>

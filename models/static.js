@@ -1,30 +1,53 @@
-import db from '../config/db.js'; // Đảm bảo rằng bạn đã import db từ file đúng
+import db from "../config/db.js"; // Đảm bảo rằng bạn đã import db từ file đúng
 
-const addPayment = (bookingid, totalamount, additionalcharge, paymentmethod, paymentdate, note) => {
+const addPayment = (
+  bookingid,
+  totalamount,
+  additionalcharge,
+  paymentmethod,
+  paymentdate,
+  note
+) => {
   return new Promise((resolve, reject) => {
-    let query = '';
+    let query = "";
     let values = [];
-    const fields = { totalamount, additionalcharge, paymentmethod, paymentdate, note }; // Loại bỏ paymentstatus khỏi fields
+    const fields = {
+      totalamount,
+      additionalcharge,
+      paymentmethod,
+      paymentdate,
+      note,
+    }; // Loại bỏ paymentstatus khỏi fields
     const updates = [];
     for (let key in fields) {
-      if (fields[key] !== undefined && fields[key] !== null && fields[key] !== '') {
+      if (
+        fields[key] !== undefined &&
+        fields[key] !== null &&
+        fields[key] !== ""
+      ) {
         updates.push(`${key} = '${fields[key]}'`);
       }
     }
     updates.push(`paymentstatus = 'paid'`); // Thêm paymentstatus = 'paid' vào cuối
-    query = `UPDATE payment SET ${updates.join(', ')} WHERE bookingid = $1::bigint`;
+    query = `UPDATE payment SET ${updates.join(
+      ", "
+    )} WHERE bookingid = $1::bigint`;
     console.log(query);
     values = [bookingid];
     db.query(query, values, (err, result) => {
       if (err) {
-        console.error('Error executing query', err.stack);
+        console.error("Error executing query", err.stack);
         reject(err);
       } else {
-        console.log('Payment updated successfully');
-        if (result.rowCount !== 0 && result.rowCount !== null && result.rowCount !== '0') {
+        console.log("Payment updated successfully");
+        if (
+          result.rowCount !== 0 &&
+          result.rowCount !== null &&
+          result.rowCount !== "0"
+        ) {
           resolve(1);
         } else {
-          console.log('Booking not found');
+          console.log("Booking not found");
           resolve(0);
         }
       }
@@ -32,31 +55,31 @@ const addPayment = (bookingid, totalamount, additionalcharge, paymentmethod, pay
   });
 };
 const getPaymentByBookingId = (bookingid) => {
-    return new Promise((resolve, reject) => {
-      const query = `SELECT payment.*, customers.personalid 
+  return new Promise((resolve, reject) => {
+    const query = `SELECT payment.*, customers.personalid 
       FROM payment 
       JOIN booking ON payment.bookingid = booking.bookingid
       JOIN customers ON booking.customerid = customers.customerid
       WHERE payment.bookingid = $1`;
-      const values = [bookingid];
-      db.query(query, values, (err, result) => {
-        if (err) {
-          console.error('Error executing query', err.stack);
-          reject(err);
+    const values = [bookingid];
+    db.query(query, values, (err, result) => {
+      if (err) {
+        console.error("Error executing query", err.stack);
+        reject(err);
+      } else {
+        if (result.rowCount > 0) {
+          resolve(result.rows[0]);
         } else {
-          if (result.rowCount > 0) {
-            resolve(result.rows[0]);
-          } else {
-            resolve(null);
-          }
+          resolve(null);
         }
-      });
+      }
     });
-  };
+  });
+};
 
-  const getServiceRanking = () => {
-    return new Promise((resolve, reject) => {
-      const query = `
+const getServiceRanking = () => {
+  return new Promise((resolve, reject) => {
+    const query = `
         WITH subquery AS (
           SELECT rs.serviceid, count(rs.receiptid) AS numofreceipt
           FROM room_service rs
@@ -68,19 +91,19 @@ const getPaymentByBookingId = (bookingid) => {
         JOIN services s ON s.serviceid = sqr.serviceid
         LIMIT 5;
       `;
-      db.query(query, (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result.rows);
-        }
-      });
+    db.query(query, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result.rows);
+      }
     });
-  };
+  });
+};
 
-  const getCustomerRanking = () => {
-    return new Promise((resolve, reject) => {
-      const query = `
+const getCustomerRanking = () => {
+  return new Promise((resolve, reject) => {
+    const query = `
         WITH subquery AS (
           SELECT bk.customerid, count(bk.bookingid) AS numofbooking
           FROM booking bk
@@ -92,19 +115,19 @@ const getPaymentByBookingId = (bookingid) => {
         JOIN customers c ON c.customerid = sqr.customerid
         LIMIT 5;
       `;
-      db.query(query, (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result.rows);
-        }
-      });
+    db.query(query, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result.rows);
+      }
     });
-  };
+  });
+};
 
-  const getServiceRankingFull = () => {
-    return new Promise((resolve, reject) => {
-      const query = `
+const getServiceRankingFull = () => {
+  return new Promise((resolve, reject) => {
+    const query = `
         WITH subquery AS (
           SELECT rs.serviceid, count(rs.receiptid) AS numofreceipt
           FROM room_service rs
@@ -115,19 +138,19 @@ const getPaymentByBookingId = (bookingid) => {
         FROM subquery sqr
         JOIN services s ON s.serviceid = sqr.serviceid;
       `;
-      db.query(query, (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result.rows);
-        }
-      });
+    db.query(query, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result.rows);
+      }
     });
-  };
+  });
+};
 
-  const getCustomerRankingFull = () => {
-    return new Promise((resolve, reject) => {
-      const query = `
+const getCustomerRankingFull = () => {
+  return new Promise((resolve, reject) => {
+    const query = `
         WITH subquery AS (
           SELECT bk.customerid, count(bk.bookingid) AS numofbooking
           FROM booking bk
@@ -138,20 +161,20 @@ const getPaymentByBookingId = (bookingid) => {
         FROM subquery sqr
         JOIN customers c ON c.customerid = sqr.customerid;
       `;
-      db.query(query, (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result.rows);
-        }
-      });
+    db.query(query, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result.rows);
+      }
     });
-  };
+  });
+};
 export default {
   addPayment,
   getPaymentByBookingId,
   getServiceRanking,
   getCustomerRanking,
   getServiceRankingFull,
-  getCustomerRankingFull
+  getCustomerRankingFull,
 };
