@@ -278,62 +278,79 @@ function showDetailsPopup(serviceid) {
     });
 }
 window.addEventListener('load', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const success = urlParams.get('success');
-    const serviceid = urlParams.get('serviceid');
-    const departmentid = urlParams.get('departmentid1');
-    const err = urlParams.get('err');
-    if (success === 'trueadd' && serviceid !== null && departmentid === null) {
-      Swal.fire('Success!', `Service added successfully, Service ID: ${serviceid}`, 'success');
-    } 
-    else if (success === 'trueadd' && serviceid === null && departmentid !== null) {
-      Swal.fire('Success!', `Department added successfully, Department ID: ${departmentid}`, 'success').then(() => {
-      window.location.href = '/browse/service';});
-    } 
+  const urlParams = new URLSearchParams(window.location.search);
+  const success = urlParams.get('success');
+  const serviceid = urlParams.get('serviceid');
+  const departmentid = urlParams.get('departmentid1');
+  const err = urlParams.get('err');
 
-    if (success === 'falseadd') {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          html: decodeURIComponent(err) + '<br>Please try again!'
-        }).then(() => {
-          // Dẫn link về /browse/room
-          window.location.href = '/browse/service';
-        });
-    }
+  if (success === 'trueadd' && serviceid !== null && departmentid === null) {
+    Swal.fire('Success!', `Service added successfully, Service ID: ${serviceid}`, 'success');
+  } 
+  else if (success === 'trueadd' && serviceid === null && departmentid !== null) {
+    Swal.fire('Success!', `Department added successfully, Department ID: ${departmentid}`, 'success').then(() => {
+      window.location.href = '/browse/service';
+    });
+  } 
 
-    if (success === 'truedel' && serviceid !== null && departmentid === null) {
-        Swal.fire('Deleted!', `Service deleted successfully, Service ID: ${serviceid}`, 'success');
-    } else if (success === 'truedel' && serviceid === null && departmentid !== null) {
-      Swal.fire('Success!', `Department deleted successfully, Department ID: ${departmentid}`, 'success').then(() => {
-      window.location.href = '/browse/service';});
-    } 
-    if (success === 'falsedel') {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          html: decodeURIComponent(err) + '<br>Please try again!'
-        }).then(() => {
-          // Dẫn link về /browse/room
+  if (success === 'falseadd') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        html: decodeURIComponent(err) + '<br>Please try again!'
+      }).then(() => {
+        window.location.href = '/browse/service';
+      });
+  }
+
+  if (success === 'truedel') {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (serviceid !== null && departmentid === null) {
+            Swal.fire('Deleted!', `Service deleted successfully, Service ID: ${serviceid}`, 'success').then(() => {
+              window.location.href = '/browse/service';
+            });
+          } else if (serviceid === null && departmentid !== null) {
+            Swal.fire('Success!', `Department deleted successfully, Department ID: ${departmentid}`, 'success').then(() => {
+              window.location.href = '/browse/service';
+            });
+          }
+        }
+      });
+  } 
+  if (success === 'falsedel') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        html: decodeURIComponent(err) + '<br>Please try again!'
+      }).then(() => {
+        window.location.href = '/browse/service';
+      });
+  }
+  if (success === 'trueupdate' && serviceid !== null && departmentid === null) {
+    Swal.fire('Updated!', `Service updated successfully, Service ID: ${serviceid}`, 'success');
+  } else if (success === 'trueupdate' && serviceid === null && departmentid !== null) {
+      Swal.fire('Updated!', `Department updated successfully, Department ID: ${departmentid}`, 'success').then(() => {
           window.location.href = '/browse/service';
-        });
-    }
-    if (success === 'trueupdate' && serviceid !== null && departmentid === null) {
-      Swal.fire('Updated!', `Service updated successfully, Service ID: ${serviceid}`, 'success');
-    } else if (success === 'trueupdate' && serviceid === null && departmentid !== null) {
-        Swal.fire('Updated!', `Department updated successfully, Department ID: ${departmentid}`, 'success').then(() => {
-            window.location.href = '/browse/service';});
-    } 
-    if (success === 'falseupdate') {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          html: decodeURIComponent(err) + '<br>Please try again!'
-        }).then(() => {
-          // Dẫn link về /browse/room
-          window.location.href = '/browse/service';
-        });
-    }
+      });
+  } 
+  if (success === 'falseupdate') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        html: decodeURIComponent(err) + '<br>Please try again!'
+      }).then(() => {
+        window.location.href = '/browse/service';
+      });
+  }
 });
 
 function toggleDropdown() {

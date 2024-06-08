@@ -253,6 +253,7 @@ window.addEventListener('load', () => {
     const roomtype = urlParams.get('roomtype');
     const receiptid = urlParams.get('receiptid');
     const err = urlParams.get('err');
+
     // Xử lí lỗi khi add ở room
     if (success === 'falseadd') {
         Swal.fire({
@@ -260,7 +261,6 @@ window.addEventListener('load', () => {
           title: 'Error!',
           html: decodeURIComponent(err) + '<br>Room ID or Room Type is already existed, please try again!'
         }).then(() => {
-          // Dẫn link về /browse/room
           window.location.href = '/browse/room';
         });
     }
@@ -270,11 +270,9 @@ window.addEventListener('load', () => {
             title: 'Error add room service!',
             html:  'Hãy kiểm tra lại bookingID và roomID đã chính xác chưa!'
           }).then(() => {
-            // Dẫn link về /browse/room
             window.location.href = '/browse/room';
           });    
     }
-    // Xử lí khi thành công
     if (success === 'trueadd' && roomid !== '') {
       Swal.fire('Success!', `Added successfully, ID: ${roomid}`, 'success');
     } 
@@ -286,17 +284,30 @@ window.addEventListener('load', () => {
           title: 'Error!',
           html: decodeURIComponent(err) + '<br>Có vẻ bạn nhập ID không tồn tại, Please try again!'
         }).then(() => {
-          // Dẫn link về /browse/room
           window.location.href = '/browse/room';
         });
     }
     // Xử lí khi xoá thành công
-    if (success === 'truedel' && roomid !== '0' && roomtype === null && receiptid === null) {
-      Swal.fire('Deleted!', `Room deleted successfully,Room ID: ${roomid}`, 'success');
-    } else if (success === 'truedel' && roomtype !== '0' && roomid === null && receiptid === null) {
-        Swal.fire('Deleted!', `Room Type deleted successfully, Room Type Name: ${roomtype}`, 'success');
-    } else if (success === 'truedel' && receiptid !== '0' && roomid === null && roomtype === null) {
-        Swal.fire('Deleted!', `Room Service deleted successfully, Receipt ID: ${receiptid}`, 'success');
+    if (success === 'truedel') {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            if (roomid !== '0' && roomtype === null && receiptid === null) {
+              Swal.fire('Deleted!', `Room deleted successfully, Room ID: ${roomid}`, 'success');
+            } else if (roomtype !== '0' && roomid === null && receiptid === null) {
+              Swal.fire('Deleted!', `Room Type deleted successfully, Room Type Name: ${roomtype}`, 'success');
+            } else if (receiptid !== '0' && roomid === null && roomtype === null) {
+              Swal.fire('Deleted!', `Room Service deleted successfully, Receipt ID: ${receiptid}`, 'success');
+            }
+          }
+        });
     }
     
     // Xử lí khi update không thành công
@@ -306,7 +317,6 @@ window.addEventListener('load', () => {
             title: 'Error!',
             html: decodeURIComponent(err) + '<br>Please try again!'
           }).then(() => {
-            // Dẫn link về /browse/room
             window.location.href = '/browse/room';
           });    
     }
