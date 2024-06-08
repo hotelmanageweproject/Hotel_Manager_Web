@@ -271,7 +271,7 @@ function closePopup() {
 document.querySelector('.search2').addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
       event.preventDefault();
-      showPopup('TotalBillPopup');
+      fetchPaymentData();  // Gọi hàm này để kiểm tra và hiển thị popup nếu có dữ liệu
     }
 });
 
@@ -286,10 +286,7 @@ document.querySelector('.search2').addEventListener('input', function() {
   });
   
   //Dropdown cho method thanh toán
-  document.querySelector('.dropdown-selected').addEventListener('click', function() {
-    const options = this.nextElementSibling;
-    options.style.display = options.style.display === 'block' ? 'none' : 'block';
-  });
+
   
   document.querySelectorAll('.option').forEach(option => {
     option.addEventListener('click', function() {
@@ -335,3 +332,61 @@ document.getElementById('additionalcharge').addEventListener('input', function(e
       e.target.value = '0 VND';
     }
   });
+
+  function fetchPaymentData() {
+    const bookingid = document.getElementById('bookingidInput').value;
+    if (!bookingid) {
+      console.log("No booking ID provided.");
+      return; // Thoát khỏi hàm nếu không có booking ID
+    }
+    fetch(`/static/searchPayment?bookingid=${bookingid}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error);
+        } else {
+          const formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+          });
+  
+          document.getElementById('display-bookingid').textContent = data.bookingid || 'N/A';
+          document.getElementById('display-customerid').textContent = data.personalid || 'N/A';
+          document.getElementById('display-paymentmethod').textContent = data.paymentmethod || 'N/A';
+          document.getElementById('display-paymentdate').textContent = data.paymentdate || 'N/A';
+          document.getElementById('display-note').textContent = data.note || 'N/A';
+          document.getElementById('display-additionalcharge').textContent = data.additionalcharge ? formatter.format(data.additionalcharge) : 'N/A';
+          document.getElementById('display-discount').textContent = data.discount ? data.discount + '%' : 'N/A';
+          document.getElementById('total-amount-value').textContent = data.totalamount ? formatter.format(data.totalamount) : 'N/A';
+  
+          document.getElementById('TotalBillPopup').style.display = 'flex';
+          document.getElementById('overlay').style.display = 'block';
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while fetching payment details.');
+      });
+  }
+
+  function fetchServiceRanking() {
+    fetch('/static/serviceRanking')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('.ranking-service-table tbody');
+        tableBody.innerHTML = ''; // Xóa nội dung cũ
+        data.forEach((service, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${index + 1}. ${service.servicename}</td>
+            <td>${service.numofreceipt}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while fetching service ranking.');
+      });
+  }
+   
