@@ -11,34 +11,36 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
-  <body onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart(); closePopup();fetchServiceRanking();fetchCustomerRanking()">
+  <body
+    onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart(); closePopup();fetchServiceRanking();fetchCustomerRanking()"
+  >
     <form class="home-page">
-        <div class="sidebar">
+      <div class="sidebar">
         <div class="title-wrapper">
-            <div class="title">Administration web</div>
+          <div class="title">Administration web</div>
         </div>
         <div class="menu-item-parent">
-            <div class="menu-item">
+          <div class="menu-item">
             <div class="functions">Functions</div>
+          </div>
+          <div class="functionframe">
+            <div class="menu-item1">
+              <img class="home-icon" alt="" src="/img/homeicon.gif" />
+
+              <div class="home">Home</div>
             </div>
-            <div class="functionframe">
-              <div class="menu-item1">
-                <img class="home-icon" alt="" src="/img/homeicon.gif" />
-  
-                <div class="home">Home</div>
-              </div>
-              <div class="menu-item2">
-                <img class="search-icon" alt="" src="/img/searchicon.gif" />
-  
-                <div class="browse">Browse</div>
-              </div>
-              <div class="menu-item3">
-                <img class="radio-icon" alt="" src="/img/statisticicon.gif" />
-                <div class="static" >Statistic</div>
-              </div>
+            <div class="menu-item2">
+              <img class="search-icon" alt="" src="/img/searchicon.gif" />
+
+              <div class="browse">Browse</div>
             </div>
+            <div class="menu-item3">
+              <img class="radio-icon" alt="" src="/img/statisticicon.gif" />
+              <div class="static">Statistic</div>
+            </div>
+          </div>
         </div>
-        </div>
+      </div>
       <section class="home-page-inner">
         <div class="card-header-parent">
           <header class="card-header">
@@ -48,7 +50,9 @@
                   <div class="text">Welcome back, Admin</div>
                   <div class="badge">
                     <div class="badge-base">
-                      <div class="text1">Date: <span id="current-date"></span></div>
+                      <div class="text1">
+                        Date: <span id="current-date"></span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -56,95 +60,166 @@
             </div>
           </header>
         </div>
-      <div class="hotel-statistic-ranking-container">  
-        <div class="input2 buzz">
-          <img class="search-icon2" alt="" src="/img/searchicon.gif" onclick="fetchPaymentData()" />
-          <input class="search2" id="bookingidInput" placeholder="Check bill for Booking ID" type="text"/>  
-        </div>
-        <div class="payment-button buzz" onclick="showPopup('PaymentPopup')"><img class="rankingicon" src="/img/paymenticon.gif">Add Payment</div>
-      </div>
-      
-      <div class="hotel-statistic-ranking-container">
-        <div class="Hotel-statistic-ranking">
-          <div class="hotel-statistic-header">
-            <span class="hotel-statistic-title">HOTEL STATISTIC<img class="rankingicon" src="/img/staticicon.gif"/></span>
-            <div class="hotel-statistic-year-selector">
-              <button type="button" onclick="changeYear2(-1)"><img src="/img/arrow-left.png" alt="Previous Year"></button>
-              <span id="hotel-statistic-year">2024</span>
-              <button type="button" onclick="changeYear2(1)"><img src="/img/arrow-right.png" alt="Next Year"></button>
-            </div>
-            <div class="hotel-statistic-date-selector">
-              <select id="hotel-statistic-date-selector" onchange="updateHotelStatistic(this.value)">
-                <option value="today">Today</option>
-                <option value="week">Week</option>
-                <option value="month">Month</option>
-                <option value="year">Year</option>
-              </select>
-            </div>
+        <div class="hotel-statistic-ranking-container">
+          <div class="input2 buzz">
+            <img
+              class="search-icon2"
+              alt=""
+              src="/img/searchicon.gif"
+              onclick="fetchPaymentData()"
+            />
+            <input
+              class="search2"
+              id="bookingidInput"
+              placeholder="Check bill for Booking ID"
+              type="text"
+            />
           </div>
-          <div class="statistic-item">
-            <img class="icon" src="/img/bookingicon.gif" alt="Bookings Icon" />
-            <span class="label">Bookings</span>
-            <span class="value bookings"></span>
-            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('HotelStatisticBooking')" />
-          </div>
-          <div class="statistic-item">
-            <img class="icon" src="/img/customericon.gif" alt="Customers Icon" />
-            <span class="label">Customers</span>
-            <span class="value customers"></span>
-            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('HotelStatisticCustomer')" />
-          </div>
-          <div class="statistic-item">
-            <img class="icon" src="/img/roomicon.gif" alt="Rooms Icon" />
-            <span class="label">Rooms</span>
-            <span class="value rooms"></span>
-            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('HotelStatisticRoom')" />
+          <div class="payment-button buzz" onclick="showPopup('PaymentPopup')">
+            <img class="rankingicon" src="/img/paymenticon.gif" />Add Payment
           </div>
         </div>
-        <div class="ranking-service">
-          <div class="ranking-service-header">
-            <span class="ranking-service-title">RANKING SERVICES<img class="rankingicon" src="/img/best-value.gif"/></span>
-            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="fetchServiceRankingFull()" />
-          </div>
-          <table class="ranking-service-table">
-            <tbody>
-              <!-- Nội dung sẽ được cập nhật bởi JavaScript -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="hotel-statistic-ranking-container">
-        <div class="chart-container">
-          <div class="chart-header">
-            <span class="chart-title">REVENUE<img class="rankingicon" src="/img/revenueicon.gif"/></span>
-            <div class="chart-year-selector">
-              <button type="button" onclick="changeYear1(-1)"><img src="/img/arrow-left.png" alt="Previous Year"></button>
-              <span id="chart-year">2024</span>
-              <button type="button" onclick="changeYear1(1)"><img src="/img/arrow-right.png" alt="Next Year"></button>
-            </div>
-            <div class="chart-date-selector">
-              <select id="chart-date-selector" onchange="updateChart(this.value)">
-                <option value="today">Today</option>
-                <option value="week">Week</option>
-                <option value="month">Month</option>
-                <option value="year">Year</option>
-              </select>
-            </div>
-          </div>
-          <canvas id="myChart"></canvas>
-        </div>
-        <div class="ranking-service">
-          <div class="ranking-service-header">
-            <span class="ranking-service-title">TOP CUSTOMERS<img class="rankingicon" src="/img/ratingsicon.gif"/></span>
-            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="fetchCustomerRankingFull()" />
-          </div>
-          <table class="ranking-customer-table">
-           <tbody>
 
-           </tbody>
-          </table>
+        <div class="hotel-statistic-ranking-container">
+          <div class="Hotel-statistic-ranking">
+            <div class="hotel-statistic-header">
+              <span class="hotel-statistic-title"
+                >HOTEL STATISTIC<img
+                  class="rankingicon"
+                  src="/img/staticicon.gif"
+              /></span>
+              <div class="hotel-statistic-year-selector">
+                <button type="button" onclick="changeYear2(-1)">
+                  <img src="/img/arrow-left.png" alt="Previous Year" />
+                </button>
+                <span id="hotel-statistic-year">2024</span>
+                <button type="button" onclick="changeYear2(1)">
+                  <img src="/img/arrow-right.png" alt="Next Year" />
+                </button>
+              </div>
+              <div class="hotel-statistic-date-selector">
+                <select
+                  id="hotel-statistic-date-selector"
+                  onchange="updateHotelStatistic(this.value)"
+                >
+                  <option value="today">Today</option>
+                  <option value="week">Week</option>
+                  <option value="month">Month</option>
+                  <option value="year">Year</option>
+                </select>
+              </div>
+            </div>
+            <div class="statistic-item">
+              <img
+                class="icon"
+                src="/img/bookingicon.gif"
+                alt="Bookings Icon"
+              />
+              <span class="label">Bookings</span>
+              <span class="value bookings"></span>
+              <img
+                class="info-icon"
+                src="/img/infoicon.gif"
+                alt="Info Icon"
+                onclick="showPopup('HotelStatisticBooking')"
+              />
+            </div>
+            <div class="statistic-item">
+              <img
+                class="icon"
+                src="/img/customericon.gif"
+                alt="Customers Icon"
+              />
+              <span class="label">Customers</span>
+              <span class="value customers"></span>
+              <img
+                class="info-icon"
+                src="/img/infoicon.gif"
+                alt="Info Icon"
+                onclick="showPopup('HotelStatisticCustomer')"
+              />
+            </div>
+            <div class="statistic-item">
+              <img class="icon" src="/img/roomicon.gif" alt="Rooms Icon" />
+              <span class="label">Rooms</span>
+              <span class="value rooms"></span>
+              <img
+                class="info-icon"
+                src="/img/infoicon.gif"
+                alt="Info Icon"
+                onclick="showPopup('HotelStatisticRoom')"
+              />
+            </div>
+          </div>
+          <div class="ranking-service">
+            <div class="ranking-service-header">
+              <span class="ranking-service-title"
+                >RANKING SERVICES<img
+                  class="rankingicon"
+                  src="/img/best-value.gif"
+              /></span>
+              <img
+                class="info-icon"
+                src="/img/infoicon.gif"
+                alt="Info Icon"
+                onclick="fetchServiceRankingFull()"
+              />
+            </div>
+            <table class="ranking-service-table">
+              <tbody>
+                <!-- Nội dung sẽ được cập nhật bởi JavaScript -->
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+        <div class="hotel-statistic-ranking-container">
+          <div class="chart-container">
+            <div class="chart-header">
+              <span class="chart-title"
+                >REVENUE<img class="rankingicon" src="/img/revenueicon.gif"
+              /></span>
+              <div class="chart-year-selector">
+                <button type="button" onclick="changeYear1(-1)">
+                  <img src="/img/arrow-left.png" alt="Previous Year" />
+                </button>
+                <span id="chart-year">2024</span>
+                <button type="button" onclick="changeYear1(1)">
+                  <img src="/img/arrow-right.png" alt="Next Year" />
+                </button>
+              </div>
+              <div class="chart-date-selector">
+                <select
+                  id="chart-date-selector"
+                  onchange="updateChart(this.value)"
+                >
+                  <option value="today">Today</option>
+                  <option value="week">Week</option>
+                  <option value="month">Month</option>
+                  <option value="year">Year</option>
+                </select>
+              </div>
+            </div>
+            <canvas id="myChart"></canvas>
+          </div>
+          <div class="ranking-service">
+            <div class="ranking-service-header">
+              <span class="ranking-service-title"
+                >TOP CUSTOMERS<img
+                  class="rankingicon"
+                  src="/img/ratingsicon.gif"
+              /></span>
+              <img
+                class="info-icon"
+                src="/img/infoicon.gif"
+                alt="Info Icon"
+                onclick="fetchCustomerRankingFull()"
+              />
+            </div>
+            <table class="ranking-customer-table">
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
       </section>
     </form>
 
@@ -156,7 +231,12 @@
           <span>Booking</span>
           <span class="close" onclick="closePopup()">&times;</span>
         </div>
-        <input type="date" id="HS-booking-date" class="input-style" onchange="updateValue('bookings', this.value)">
+        <input
+          type="date"
+          id="HS-booking-date"
+          class="input-style"
+          onchange="updateValue('bookings', this.value)"
+        />
         <div id="booking-value-display"></div>
       </div>
     </div>
@@ -167,7 +247,12 @@
           <span>Customer</span>
           <span class="close" onclick="closePopup()">&times;</span>
         </div>
-        <input type="date" id="HS-customer-date" class="input-style" onchange="updateValue('customers', this.value)">
+        <input
+          type="date"
+          id="HS-customer-date"
+          class="input-style"
+          onchange="updateValue('customers', this.value)"
+        />
         <div id="customer-value-display"></div>
       </div>
     </div>
@@ -178,12 +263,21 @@
           <span>Room</span>
           <span class="close" onclick="closePopup()">&times;</span>
         </div>
-        <input type="date" id="HS-room-date" class="input-style" onchange="updateValue('rooms', this.value)">
+        <input
+          type="date"
+          id="HS-room-date"
+          class="input-style"
+          onchange="updateValue('rooms', this.value)"
+        />
         <div id="room-value-display"></div>
       </div>
     </div>
 
-    <div id="TotalBillPopup" class="popup large-popup popup-total-bill" style="display: none;">
+    <div
+      id="TotalBillPopup"
+      class="popup large-popup popup-total-bill"
+      style="display: none"
+    >
       <div class="HS-popup-content">
         <div class="popup-header">
           <div class="total-bill-container">
@@ -226,12 +320,8 @@
           <span class="close" onclick="closePopup()">&times;</span>
         </div>
         <div class="popup-body">
-          <div class="popup-column">
-            
-          </div>
-          <div class="popup-column">
-            
-          </div>
+          <div class="popup-column"></div>
+          <div class="popup-column"></div>
         </div>
       </div>
     </div>
@@ -243,53 +333,72 @@
           <span class="close" onclick="closePopup()">&times;</span>
         </div>
         <div class="popup-body">
-          <div class="popup-column">
-            
-          </div>
-          <div class="popup-column">
-            
-          </div>
+          <div class="popup-column"></div>
+          <div class="popup-column"></div>
         </div>
       </div>
     </div>
     <form action="addPayment" method="post">
-    <div id="PaymentPopup" class="popup large-popup popup-total-bill">
-      <div class="HS-popup-content">
-        <div class="popup-header">
-          <span>Payment</span>
-          <span class="close" onclick="closePopup()">&times;</span>
-        </div>
-
-        <div class="popup-body">
-          <div class="popup-column">
-            <p>Booking ID:</p>
-            <p>Total Amount of Booking ID:</p>
-            <p>Additional Charge:</p>
-            <p>Payment Method:</p>
-            <p>Payment Date:</p>
-            <p>Note:</p>
+      <div id="PaymentPopup" class="popup large-popup popup-total-bill">
+        <div class="HS-popup-content">
+          <div class="popup-header">
+            <span>Payment</span>
+            <span class="close" onclick="closePopup()">&times;</span>
           </div>
-          <div class="popup-column">
-            <input type="text" id="bookingid" name = "bookingid" class="input-style">
-            <input type="text" id="totalamountofbookingid" name = "totalamount" class="input-style" >
-            <input type="text" id="additionalcharge" name = "additionalcharge" class="input-style" >
-            <select id="paymentmethod" name="paymentmethod" class="input-style">
-              <option value="">Select Method</option>
-              <option value="visa">Visa</option>
-              <option value="mastercard">Mastercard</option>
-              <option value="paypal">Paypal</option>
-              <option value="banktransfer">Bank Transfer</option>
-              <option value="cash">Cash</option>
-            </select>
-            <input type="date" id="paymentdate" name = "paymentdate" class="input-style">
-            <input type="text" id="note" name = "note" class="input-style">
-          </div>
-        </div>
-        <button type="submit" class="submit">Submit</button>
 
+          <div class="popup-body">
+            <div class="popup-column">
+              <p>Booking ID:</p>
+              <p>Total Amount of Booking ID:</p>
+              <p>Additional Charge:</p>
+              <p>Payment Method:</p>
+              <p>Payment Date:</p>
+              <p>Note:</p>
+            </div>
+            <div class="popup-column">
+              <input
+                type="text"
+                id="bookingid"
+                name="bookingid"
+                class="input-style"
+              />
+              <input
+                type="text"
+                id="totalamountofbookingid"
+                name="totalamount"
+                class="input-style"
+              />
+              <input
+                type="text"
+                id="additionalcharge"
+                name="additionalcharge"
+                class="input-style"
+              />
+              <select
+                id="paymentmethod"
+                name="paymentmethod"
+                class="input-style"
+              >
+                <option value="">Select Method</option>
+                <option value="visa">Visa</option>
+                <option value="mastercard">Mastercard</option>
+                <option value="paypal">Paypal</option>
+                <option value="banktransfer">Bank Transfer</option>
+                <option value="cash">Cash</option>
+              </select>
+              <input
+                type="date"
+                id="paymentdate"
+                name="paymentdate"
+                class="input-style"
+              />
+              <input type="text" id="note" name="note" class="input-style" />
+            </div>
+          </div>
+          <button type="submit" class="submit">Submit</button>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
     <script src="main.js"></script>
   </body>
 </html>
