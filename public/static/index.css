@@ -708,19 +708,25 @@
 }
 
 .payment-button {
-  background-color: #ff5a5f;
-  color: white;
-  border: none;
+  background-color: white;
+  color: #000;
+  border: 1px solid #000;
   border-radius: 10px;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   margin-left: 10px;
   margin-top: 16px;
+  display: flex; /* Sử dụng flexbox để căn chỉnh */
+  align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.payment-button img {
+  margin-right: 10px; /* Khoảng cách giữa hình ảnh và văn bản */
 }
 
 .payment-button:hover {
-  background-color: #ff787d;
+  background-color: #f0f0f0;
 }
 
 .submit {
