@@ -708,23 +708,29 @@
 }
 
 .payment-button {
-  background-color: #ff5a5f;
-  color: white;
-  border: none;
+  background-color: white;
+  color: #000;
+  border: 1px solid #000;
   border-radius: 10px;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   margin-left: 10px;
   margin-top: 16px;
+  display: flex; /* Sử dụng flexbox để căn chỉnh */
+  align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.payment-button img {
+  margin-right: 10px; /* Khoảng cách giữa hình ảnh và văn bản */
 }
 
 .payment-button:hover {
-  background-color: #ff787d;
+  background-color: #f0f0f0;
 }
 
 .submit {
-  background-color: #4CAF50; /* Màu nền */
+  background-color: #ff0000; /* Đổi màu nền thành màu đỏ */
   color: white; /* Màu chữ */
   border: none; /* Bỏ viền */
   border-radius: 5px; /* Bo tròn góc */
@@ -733,53 +739,26 @@
   cursor: pointer; /* Con trỏ chuột */
   transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+  margin-bottom: 20px; /* Cách phần dưới của popup 20px */
 }
 
 .submit:hover {
-  background-color: #45a049; /* Màu nền khi hover */
+  background-color: #e60000; /* Màu nền khi hover */
 }
 
 .submit:active {
-  background-color: #3e8e41; /* Màu nền khi nhấn */
+  background-color: #cc0000; /* Màu nền khi nhấn */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Đổ bóng khi nhấn */
   transform: translateY(2px); /* Hiệu ứng nhấn */
 }
 
-@keyframes buzz {
-  10% {
-    transform: translateX(2px) rotate(1deg);
-  }
-  20% {
-    transform: translateX(-2px) rotate(-1deg);
-  }
-  30% {
-    transform: translateX(2px) rotate(1deg);
-  }
-  40% {
-    transform: translateX(-2px) rotate(-1deg);
-  }
-  50% {
-    transform: translateX(1px) rotate(0.5deg);
-  }
-  60% {
-    transform: translateX(-1px) rotate(-0.5deg);
-  }
-  70% {
-    transform: translateX(1px) rotate(0.5deg);
-  }
-  80% {
-    transform: translateX(-1px) rotate(-0.5deg);
-  }
-  90% {
-    transform: translateX(0.5px) rotate(0.25deg);
-  }
-  100% {
-    transform: translateX(-0.5px) rotate(-0.25deg);
-  }
+.buzz {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .buzz:hover {
-  animation: buzz 0.75s linear;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Đổ bóng khi hover */
+  transform: translateY(-4px); /* Tạo hiệu ứng nổi lên một chút */
 }
 
 .rankingicon {
@@ -788,4 +767,53 @@
   margin-left: 5px;
 }
 
+.custom-dropdown {
+  position: relative;
+  margin: 10px 0;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-family: 'Inter';
+}
 
+.dropdown-selected {
+  padding: 10px;
+  cursor: pointer;
+  display: flex; /* Ensure it can contain flex items */
+  align-items: center; /* Align items vertically */
+}
+
+.dropdown-selected img {
+  margin-right: 10px;
+  width: 20px;  /* Set the width of the image */
+  height: 20px; /* Set the height of the image */
+}
+
+.dropdown-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 1000;
+}
+
+.option {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.option img {
+  margin-right: 10px;
+  width: 20px;  /* Set the width of the image */
+  height: 20px; /* Set the height of the image */
+}
+
+.option:hover {
+  background-color: #f1f1f1;
+}
