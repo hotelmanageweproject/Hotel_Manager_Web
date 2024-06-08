@@ -227,7 +227,7 @@ function showDetailsPopup(customerid) {
                 if (currentBookingId !== null && currentBookingId !== detail.bookingid) {
                     const totalRow = document.createElement('div');
                     totalRow.className = 'row';
-                    totalRow.innerHTML = `<div class="key">Total for Booking ID ${currentBookingId}:</div><div class="value">${bookingTotals[currentBookingId].toLocaleString('vi-VN')} VND</div>`;
+                    totalRow.innerHTML = `<div class="key">Total amount of Booking ID ${currentBookingId}:</div><div class="value">${bookingTotals[currentBookingId].toLocaleString('vi-VN')} VND</div>`;
                     content.appendChild(totalRow);
 
                     // Thêm dấu phân tách giữa các bookingid khác nhau

@@ -284,3 +284,54 @@ document.querySelector('.search2').addEventListener('input', function() {
     const inputValue = this.value;
     document.getElementById('total-bill-value').textContent = inputValue;
   });
+  
+  //Dropdown cho method thanh toán
+  document.querySelector('.dropdown-selected').addEventListener('click', function() {
+    const options = this.nextElementSibling;
+    options.style.display = options.style.display === 'block' ? 'none' : 'block';
+  });
+  
+  document.querySelectorAll('.option').forEach(option => {
+    option.addEventListener('click', function() {
+      const selected = document.querySelector('.dropdown-selected');
+      selected.textContent = this.textContent;
+      selected.prepend(this.querySelector('img').cloneNode(true));
+      this.parentNode.style.display = 'none';
+    });
+  });
+
+  //nhập vào VND cho totalamountofbookingid
+  document.getElementById('totalamountofbookingid').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, ''); // Loại bỏ tất cả các k tự không phải số
+    value = new Intl.NumberFormat('vi-VN').format(value); // Định dạng số theo kiểu Việt Nam
+    e.target.value = value + ' VND'; // Thêm đơn vị tiền tệ
+  });
+  
+  document.getElementById('totalamountofbookingid').addEventListener('focus', function(e) {
+    if (e.target.value === '0 VND') {
+      e.target.value = '';
+    }
+  });
+  document.getElementById('totalamountofbookingid').addEventListener('blur', function(e) {
+    if (e.target.value === '') {
+      e.target.value = '0 VND';
+    }
+  });
+
+  // Nhập vào VND cho additionalcharge
+document.getElementById('additionalcharge').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, ''); // Loại bỏ tất cả các ký tự không phải số
+    value = new Intl.NumberFormat('vi-VN').format(value); // Định dạng số theo kiểu Việt Nam
+    e.target.value = value + ' VND'; // Thêm đơn vị tiền tệ
+  });
+  
+  document.getElementById('additionalcharge').addEventListener('focus', function(e) {
+    if (e.target.value === '0 VND') {
+      e.target.value = '';
+    }
+  });
+  document.getElementById('additionalcharge').addEventListener('blur', function(e) {
+    if (e.target.value === '') {
+      e.target.value = '0 VND';
+    }
+  });

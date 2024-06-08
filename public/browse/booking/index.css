@@ -1433,39 +1433,11 @@ table input[type="text"] {
 
 .dropdown-content a:hover {background-color: #D1D0D0}
 
-@keyframes buzz {
-  10% {
-    transform: translateX(2px) rotate(1deg);
-  }
-  20% {
-    transform: translateX(-2px) rotate(-1deg);
-  }
-  30% {
-    transform: translateX(2px) rotate(1deg);
-  }
-  40% {
-    transform: translateX(-2px) rotate(-1deg);
-  }
-  50% {
-    transform: translateX(1px) rotate(0.5deg);
-  }
-  60% {
-    transform: translateX(-1px) rotate(-0.5deg);
-  }
-  70% {
-    transform: translateX(1px) rotate(0.5deg);
-  }
-  80% {
-    transform: translateX(-1px) rotate(-0.5deg);
-  }
-  90% {
-    transform: translateX(0.5px) rotate(0.25deg);
-  }
-  100% {
-    transform: translateX(-0.5px) rotate(-0.25deg);
-  }
+.buzz {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .buzz:hover {
-  animation: buzz 0.75s linear;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Đổ bóng khi hover */
+  transform: translateY(-4px); /* Tạo hiệu ứng nổi lên một chút */
 }

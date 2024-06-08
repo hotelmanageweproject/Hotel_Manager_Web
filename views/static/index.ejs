@@ -59,9 +59,9 @@
       <div class="hotel-statistic-ranking-container">  
         <div class="input2 buzz">
           <img class="search-icon2" alt="" src="/img/searchicon.gif" onclick="showPopupSearch()" />
-          <input class="search2" placeholder="Check total payment for customers" type="text"/>
+          <input class="search2" placeholder="Check bill for Booking ID" type="text"/>
         </div>
-        <div class="payment-button buzz" onclick="showPopup('PaymentPopup')">Payment</div>
+        <div class="payment-button buzz" onclick="showPopup('PaymentPopup')">Add Payment</div>
       </div>
       
       <div class="hotel-statistic-ranking-container">
@@ -222,17 +222,31 @@
       <div class="HS-popup-content">
         <div class="popup-header">
           <div class="total-bill-container">
-            <span>Total Bill:</span>
+            <span>Total Bill: Booking ID #</span>
             <span id="total-bill-value"></span>
           </div>
           <span class="close" onclick="closePopup()">&times;</span>
         </div>
         <div class="popup-body">
           <div class="popup-column">
-           
+            <p>Booking ID:</p>
+            <p>Customer ID:</p>
+            <p>Payment Method:</p>
+            <p>Payment Date:</p>
+            <p>Note:</p>
+            <p>Total Amount of Booking ID:</p>
+            <p>Additional Charge:</p>
+            <p>Discount:</p>
           </div>
           <div class="popup-column">
-            
+            <p id="display-bookingid"></p>
+            <p id="display-customerid"></p>
+            <p id="display-paymentmethod"></p>
+            <p id="display-paymentdate"></p>
+            <p id="display-note"></p>
+            <p id="display-totalamountofbookingid"></p>
+            <p id="display-additionalcharge"></p>
+            <p id="display-discount"></p>
           </div>
         </div>
         <div class="popup-footer">
@@ -285,20 +299,37 @@
         <div class="popup-body">
           <div class="popup-column">
             <p>Booking ID:</p>
-            <p>Total Amount:</p>
+            <p>Total Amount of Booking ID:</p>
             <p>Additional Charge:</p>
             <p>Payment Method:</p>
             <p>Payment Date:</p>
-            <p>Payment Status:</p>
             <p>Note:</p>
           </div>
           <div class="popup-column">
             <input type="text" id="bookingid" class="input-style">
-            <input type="text" id="totalamount" class="input-style">
-            <input type="text" id="additionalcharge" class="input-style">
-            <input type="text" id="paymentmethod" class="input-style">
-            <input type="text" id="paymentdate" class="input-style">
-            <input type="text" id="paymentstatus" class="input-style">
+            <input type="text" id="totalamountofbookingid" class="input-style" value="0 VND">
+            <input type="text" id="additionalcharge" class="input-style" value="0 VND">
+            <div class="custom-dropdown" id="paymentmethod">
+              <div class="dropdown-selected">Select Method</div>
+              <div class="dropdown-options">
+                <div class="option" data-value="visa">
+                  <img src="/img/visaicon.png" alt="Visa"> Visa
+                </div>
+                <div class="option" data-value="mastercard">
+                  <img src="/img/mastercardicon.png" alt="Mastercard"> Mastercard
+                </div>
+                <div class="option" data-value="paypal">
+                  <img src="/img/paypalicon.png" alt="Paypal"> Paypal
+                </div>
+                <div class="option" data-value="banktransfer">
+                  <img src="/img/banktransfericon.png" alt="Bank Transfer"> Bank Transfer
+                </div>
+                <div class="option" data-value="cash">
+                  <img src="/img/cashicon.png" alt="Cash"> Cash
+                </div>
+              </div>
+            </div>
+            <input type="date" id="paymentdate" class="input-style">
             <input type="text" id="note" class="input-style">
           </div>
         </div>
