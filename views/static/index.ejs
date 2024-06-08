@@ -10,6 +10,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
   </head>
   <body onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart(); closePopup()">
     <form class="home-page">
@@ -69,9 +71,7 @@
           <div class="hotel-statistic-header">
             <span class="hotel-statistic-title">HOTEL STATISTIC<img class="rankingicon" src="/img/staticicon.gif"/></span>
             <div class="hotel-statistic-year-selector">
-              <button type="button" onclick="changeYear2(-1)"><img src="/img/arrow-left.png" alt="Previous Year"></button>
-              <span id="hotel-statistic-year">2024</span>
-              <button type="button" onclick="changeYear2(1)"><img src="/img/arrow-right.png" alt="Next Year"></button>
+              <input type="date" id="HS-date-selector" name="chartDate">
             </div>
             <div class="hotel-statistic-date-selector">
               <select id="hotel-statistic-date-selector" onchange="updateHotelStatistic(this.value)">
@@ -297,14 +297,28 @@
             <input type="text" id="bookingid" name = "bookingid" class="input-style">
             <input type="text" id="totalamountofbookingid" name = "totalamount" class="input-style" >
             <input type="text" id="additionalcharge" name = "additionalcharge" class="input-style" >
-            <select id="paymentmethod" name="paymentmethod" class="input-style">
-              <option value="">Select Method</option>
-              <option value="visa">Visa</option>
-              <option value="mastercard">Mastercard</option>
-              <option value="paypal">Paypal</option>
-              <option value="banktransfer">Bank Transfer</option>
-              <option value="cash">Cash</option>
-            </select>
+            <div id="payment-method-options" class="payment-method-options">
+              <button type="button" class="payment-option" value="visa">
+                <img src="/img/visaicon.png" alt="Visa">
+                <span class="tooltip">Visa</span>
+              </button>
+              <button type="button" class="payment-option" value="mastercard">
+                <img src="/img/mastercardicon.png" alt="Mastercard">
+                <span class="tooltip">Mastercard</span>
+              </button>
+              <button type="button" class="payment-option" value="paypal">
+                <img src="/img/paypalicon.png" alt="Paypal">
+                <span class="tooltip">Paypal</span>
+              </button>
+              <button type="button" class="payment-option" value="banktransfer">
+                <img src="/img/banktransfericon.png" alt="Bank Transfer">
+                <span class="tooltip">Bank Transfer</span>
+              </button>
+              <button type="button" class="payment-option" value="cash">
+                <img src="/img/cashicon.png" alt="Cash">
+                <span class="tooltip">Cash</span>
+              </button>
+            </div>
             <input type="date" id="paymentdate" name = "paymentdate" class="input-style">
             <input type="text" id="note" name = "note" class="input-style">
           </div>
