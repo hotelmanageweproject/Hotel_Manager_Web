@@ -293,21 +293,35 @@ function showDetailsPopup(customerid) {
     const success = urlParams.get('success');
     const customerid = urlParams.get('customerid');
     const err = urlParams.get('err');
+
     if (success === 'trueadd' && customerid !== '0') {
       Swal.fire('Success!', `Customer added successfully, Customer ID: ${customerid}`, 'success');
     }
     if (success === 'falseadd' || (success === 'trueadd' && customerid === '0')) {
-      Swal.fire('Warning!',decodeURIComponent(err) + 'Customer is already existed, please try again!', 'error').then(() => {
+      Swal.fire('Warning!', decodeURIComponent(err) + ' Customer is already existed, please try again!', 'error').then(() => {
         window.location.href = '/browse/customer';
       });
     }
 
-
     if (success === 'truedel' && customerid !== '0') {
-      Swal.fire('Deleted!', `Customer deleted successfully, Customer ID: ${customerid}`, 'success');
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire('Deleted!', `Customer deleted successfully, Customer ID: ${customerid}`, 'success').then(() => {
+            window.location.href = '/browse/customer';
+          });
+        }
+      });
     } 
     if (success === 'falsedel' || (success === 'truedel' && customerid === '0')) {
-      Swal.fire('Error!',decodeURIComponent(err) + 'Customer is not existed, please try again!', 'error').then(() => {
+      Swal.fire('Error!', decodeURIComponent(err) + ' Customer is not existed, please try again!', 'error').then(() => {
         window.location.href = '/browse/customer';
       });
     }
@@ -317,7 +331,7 @@ function showDetailsPopup(customerid) {
     } 
     
     if (success === 'falseupdate' || (success === 'trueupdate' && customerid === '0')) {
-        Swal.fire('Error!',decodeURIComponent(err) + 'Customer is not existed, please try again!', 'error').then(() => {
+        Swal.fire('Error!', decodeURIComponent(err) + ' Customer is not existed, please try again!', 'error').then(() => {
             window.location.href = '/browse/customer';
         });
     }

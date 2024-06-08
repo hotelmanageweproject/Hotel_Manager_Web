@@ -244,15 +244,29 @@ window.addEventListener('load', () => {
       Swal.fire('Success!', `Staff added successfully, Staff ID: ${staffid}`, 'success');
     } 
     if (success === 'falseadd' || (success === 'trueadd' && staffid === '0')) {
-        Swal.fire('Warning!',decodeURIComponent(err) + '<br>Staff is already existed, please try again!', 'error').then(() => {
+        Swal.fire('Warning!', decodeURIComponent(err) + '<br>Staff is already existed, please try again!', 'error').then(() => {
           window.location.href = '/browse/employee';
         });
     }
     if (success === 'truedel' && staffid !== '0') {
-      Swal.fire('Deleted!', `Staff deleted successfully, Staff ID: ${staffid}`, 'success');
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire('Deleted!', `Staff deleted successfully, Staff ID: ${staffid}`, 'success').then(() => {
+            window.location.href = '/browse/employee';
+          });
+        }
+      });
     } 
     if (success === 'falsedel' || (success === 'truedel' && staffid === '0')) {
-        Swal.fire('Warning!',decodeURIComponent(err) + '<br>Staff is already existed, please try again!', 'error').then(() => {
+        Swal.fire('Warning!', decodeURIComponent(err) + '<br>Staff is not existed, please try again!', 'error').then(() => {
           window.location.href = '/browse/employee';
         });
     }
@@ -260,11 +274,12 @@ window.addEventListener('load', () => {
       Swal.fire('Updated!', `Staff updated successfully, Staff ID: ${staffid}`, 'success');
     }
     if (success === 'falseupdate' || (success === 'trueupdate' && staffid === '0')) {
-        Swal.fire('Warning!',decodeURIComponent(err) + '<br>Staff is already existed, please try again!', 'error').then(() => {
+        Swal.fire('Warning!', decodeURIComponent(err) + '<br>Staff is already existed, please try again!', 'error').then(() => {
           window.location.href = '/browse/employee';
         });
     }
 });
+
 function toggleDropdown() {
     var dropdown = document.getElementById("dropdownMenu");
     dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
