@@ -170,6 +170,59 @@ const getCustomerRankingFull = () => {
     });
   });
 };
+
+const getHotelStatistic = (period, date) => {
+    return new Promise((resolve, reject) => {
+      let query = '';
+      switch (period) {
+        case 'today':
+          query = `
+          SELECT 
+          (SELECT count(b.bookingid) FROM booking b WHERE b.bookingdate = $1) AS bookings,
+          (SELECT SUM(b.totaladult) + SUM(b.totalchild) AS total_customer FROM booking b WHERE b.bookingdate = $1) AS customers,
+          (SELECT count(br.roomid) FROM booking_rooms br WHERE $1 BETWEEN br.checkin AND br.checkout) AS rooms
+          `;
+          break;
+        case 'week':
+          query = `
+          SELECT 
+          (SELECT COUNT(*) FROM booking WHERE bookingdate BETWEEN $1::date - INTERVAL '6 days' AND $1::date) AS bookings,
+          (SELECT COUNT(DISTINCT customerid) FROM booking WHERE bookingdate BETWEEN $1::date - INTERVAL '6 days' AND $1::date) AS customers,
+          (SELECT COUNT(DISTINCT roomid) FROM booking_rooms WHERE $1::date BETWEEN checkin AND checkout) AS rooms
+          `;
+          break;
+        case 'month':
+          query = `
+          SELECT 
+          (SELECT COUNT(*) FROM booking WHERE date_trunc('month', bookingdate) = date_trunc('month', $1::date)) AS bookings,
+          (SELECT COUNT(DISTINCT customerid) FROM booking WHERE date_trunc('month', bookingdate) = date_trunc('month', $1::date)) AS customers,
+          (SELECT COUNT(DISTINCT roomid) FROM booking_rooms WHERE $1::date BETWEEN checkin AND checkout) AS rooms
+          `;
+          break;
+        case 'year':
+          query = `
+          SELECT 
+          (SELECT COUNT(*) FROM booking WHERE date_trunc('year', bookingdate) = date_trunc('year', $1::date)) AS bookings,
+          (SELECT COUNT(DISTINCT customerid) FROM booking WHERE date_trunc('year', bookingdate) = date_trunc('year', $1::date)) AS customers,
+          (SELECT COUNT(DISTINCT roomid) FROM booking_rooms WHERE $1::date BETWEEN checkin AND checkout) AS rooms
+          `;
+          break;
+        default:
+          reject(new Error('Invalid period'));
+          return;
+      }
+  
+      db.query(query, [date], (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result.rows[0]);
+        }
+      });
+    });
+  };
+
+  
 export default {
   addPayment,
   getPaymentByBookingId,
@@ -177,4 +230,5 @@ export default {
   getCustomerRanking,
   getServiceRankingFull,
   getCustomerRankingFull,
+  getHotelStatistic
 };

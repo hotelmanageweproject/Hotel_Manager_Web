@@ -77,6 +77,7 @@
             </div>
             <div class="hotel-statistic-date-selector">
               <select id="hotel-statistic-date-selector" onchange="updateHotelStatistic(this.value)">
+                <option value="">Select</option>
                 <option value="today">Today</option>
                 <option value="week">Week</option>
                 <option value="month">Month</option>
@@ -272,49 +273,52 @@
             <span>Payment</span>
             <span class="close" onclick="closePopup()">&times;</span>
           </div>
-
-        <div class="popup-body">
-          <div class="popup-column">
-            <p>Booking ID:</p>
-            <p>Total Amount of Booking ID:</p>
-            <p>Additional Charge:</p>
-            <p>Payment Method:</p>
-            <p>Payment Date:</p>
-            <p>Note:</p>
-          </div>
-          <div class="popup-column">
-            <input type="text" id="bookingid" name = "bookingid" class="input-style">
-            <input type="text" id="totalamountofbookingid" name = "totalamount" class="input-style" >
-            <input type="text" id="additionalcharge" name = "additionalcharge" class="input-style" >
-            <div id="payment-method-options" class="payment-method-options">
-              <button type="button" class="payment-option" value="visa">
-                <img src="/img/visaicon.png" alt="Visa">
-                <span class="tooltip">Visa</span>
-              </button>
-              <button type="button" class="payment-option" value="mastercard">
-                <img src="/img/mastercardicon.png" alt="Mastercard">
-                <span class="tooltip">Mastercard</span>
-              </button>
-              <button type="button" class="payment-option" value="paypal">
-                <img src="/img/paypalicon.png" alt="Paypal">
-                <span class="tooltip">Paypal</span>
-              </button>
-              <button type="button" class="payment-option" value="banktransfer">
-                <img src="/img/banktransfericon.png" alt="Bank Transfer">
-                <span class="tooltip">Bank Transfer</span>
-              </button>
-              <button type="button" class="payment-option" value="cash">
-                <img src="/img/cashicon.png" alt="Cash">
-                <span class="tooltip">Cash</span>
-              </button>
+    
+          <div class="popup-body">
+            <div class="popup-column">
+              <p>Booking ID:</p>
+              <p>Total Amount of Booking ID:</p>
+              <p>Additional Charge:</p>
+              <p>Payment Method:</p>
+              <p>Payment Date:</p>
+              <p>Note:</p>
             </div>
-            <input type="date" id="paymentdate" name = "paymentdate" class="input-style">
-            <input type="text" id="note" name = "note" class="input-style">
+            <div class="popup-column">
+              <input type="text" id="bookingid" name="bookingid" class="input-style">
+              <input type="text" id="totalamountofbookingid" name="totalamount" class="input-style">
+              <input type="text" id="additionalcharge" name="additionalcharge" class="input-style">
+              <div id="payment-method-options" class="payment-method-options">
+                <button type="button" class="payment-option" value="visa">
+                  <img src="/img/visaicon.png" alt="Visa">
+                  <span class="tooltip">Visa</span>
+                </button>
+                <button type="button" class="payment-option" value="mastercard">
+                  <img src="/img/mastercardicon.png" alt="Mastercard">
+                  <span class="tooltip">Mastercard</span>
+                </button>
+                <button type="button" class="payment-option" value="paypal">
+                  <img src="/img/paypalicon.png" alt="Paypal">
+                  <span class="tooltip">Paypal</span>
+                </button>
+                <button type="button" class="payment-option" value="banktransfer">
+                  <img src="/img/banktransfericon.png" alt="Bank Transfer">
+                  <span class="tooltip">Bank Transfer</span>
+                </button>
+                <button type="button" class="payment-option" value="cash">
+                  <img src="/img/cashicon.png" alt="Cash">
+                  <span class="tooltip">Cash</span>
+                </button>
+              </div>
+              <input type="hidden" id="paymentmethod" name="paymentmethod" class="input-style">
+              <input type="date" id="paymentdate" name="paymentdate" class="input-style">
+              <input type="text" id="note" name="note" class="input-style">
+            </div>
           </div>
+          <button type="submit" class="submit">Submit</button>
         </div>
-        <button type="submit" class="submit">Submit</button>
       </div>
     </form>
     <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

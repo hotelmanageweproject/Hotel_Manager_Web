@@ -5,6 +5,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import staticModel from '../../models/static.js';
 import { format } from 'date-fns'; // Import hàm format từ date-fns
+import { getRevenueData } from '../../models/chart.js';
 
 const router = express.Router();
 router.use(express.static(path.join(__dirname, 'public/static')));
@@ -65,6 +66,27 @@ router.get('/serviceRanking', async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   });
+
+  router.get('/hotelStatistic', async (req, res) => {
+    const { period, date } = req.query;
+    try {
+      const statistic = await staticModel.getHotelStatistic(period, date);
+      res.json(statistic);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  router.get('/chart-data', async (req, res) => {
+    const { period } = req.query;
+    try {
+      const data = await getRevenueData(period);
+      res.json(data);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  });
+
 router.post('/addPayment',async (req, res) => {
   let { bookingid, totalamount,additionalcharge, paymentmethod, paymentdate, note} = req.body;
   
