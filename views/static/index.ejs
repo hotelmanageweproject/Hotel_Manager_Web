@@ -13,7 +13,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
   </head>
-  <body onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart(); closePopup()">
+  <body onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart(); closePopup();fetchServiceRanking();fetchCustomerRanking()">
     <form class="home-page">
         <div class="sidebar">
         <div class="title-wrapper">
@@ -104,15 +104,9 @@
         <div class="ranking-service">
           <div class="ranking-service-header">
             <span class="ranking-service-title">RANKING SERVICES<img class="rankingicon" src="/img/best-value.gif"/></span>
-            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('RankingServiceInfo')" />
+            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="fetchServiceRankingFull()" />
           </div>
           <table class="ranking-service-table">
-            <thead>
-              <tr>
-                <th>Service</th>
-                <th>Number of Receipts</th>
-              </tr>
-            </thead>
             <tbody>
               <!-- Nội dung sẽ được cập nhật bởi JavaScript -->
             </tbody>
@@ -142,30 +136,12 @@
         <div class="ranking-service">
           <div class="ranking-service-header">
             <span class="ranking-service-title">TOP CUSTOMERS<img class="rankingicon" src="/img/ratingsicon.gif"/></span>
-            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('RankingCustomersInfo')" />
+            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="fetchCustomerRankingFull()" />
           </div>
-          <table class="ranking-service-table">
-            <tr>
-              <td>1. John Doe</td>
-              <td>15</td>
-              </tr>
-            </tr>
-            <tr>
-              <td>2. Jane Smith</td>
-              <td>12</td>
-            </tr>
-            <tr>
-              <td>3. Alice Johnson</td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <td>4. Robert Brown</td>
-              <td>8</td>
-            </tr>
-            <tr>
-              <td>5. Emily Davis</td>
-              <td>7</td>
-            </tr>
+          <table class="ranking-customer-table">
+           <tbody>
+
+           </tbody>
           </table>
         </div>
       </div>

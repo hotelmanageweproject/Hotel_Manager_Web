@@ -38,6 +38,33 @@ router.get('/serviceRanking', async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   });
+
+  router.get('/customerRanking', async (req, res) => {
+    try {
+      const ranking = await staticModel.getCustomerRanking();
+      res.json(ranking);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  router.get('/serviceRankingFull', async (req, res) => {
+    try {
+      const ranking = await staticModel.getServiceRankingFull();
+      res.json(ranking);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  router.get('/customerRankingFull', async (req, res) => {
+    try {
+      const ranking = await staticModel.getCustomerRankingFull();
+      res.json(ranking);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
 router.post('/addPayment',async (req, res) => {
   let { bookingid, totalamount,additionalcharge, paymentmethod, paymentdate, note} = req.body;
   

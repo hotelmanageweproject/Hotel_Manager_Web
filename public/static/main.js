@@ -389,14 +389,4 @@ document.getElementById('additionalcharge').addEventListener('input', function(e
         alert('An error occurred while fetching service ranking.');
       });
   }
-  
-  document.querySelectorAll('.payment-option').forEach(button => {
-    button.addEventListener('click', function() {
-      // Xóa class 'selected' khỏi tất cả các nút
-      document.querySelectorAll('.payment-option').forEach(btn => {
-        btn.classList.remove('selected');
-      });
-      // Thêm class 'selected' vào nút được nhấp
-      this.classList.add('selected');
-    });
-  });
+   
