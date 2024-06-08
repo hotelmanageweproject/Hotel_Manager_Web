@@ -116,7 +116,7 @@ const addCustomer = (rankid, personalid, firstname, lastname, birthdate, gender,
     db.query(query, values, (err, result) => {
       if (err) {
         console.error('Error executing query', err.stack);
-        reject(err);
+        reject(err.detail);
       } else {
         console.log('Customer added successfully');
         resolve(result.rows[0].custadded_out);
@@ -159,7 +159,6 @@ const updateCustomer = (customerid, { personalid, firstname, lastname, birthdate
       updates.push(`rankid = (SELECT rankid FROM customer_ranking WHERE namerank = '${namerank}')`);
     }
 
-    if (updates.length > 0) {
       const query = `UPDATE customers SET ${updates.join(', ')} WHERE customerid = $1`;
       // UPDATE customers: INPUT (customerid, personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank )
       // Thực hiện cập nhật thông tin khách hàng có customerid với các cột có chứa thông tin ở input (Tóm lại giá trị nào khác '' hoặc null thì sửa)
@@ -178,8 +177,7 @@ const updateCustomer = (customerid, { personalid, firstname, lastname, birthdate
           }
         }
       });
-    }
-  });
+    });
 };
 
 // Export module

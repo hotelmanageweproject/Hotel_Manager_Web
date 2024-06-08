@@ -65,7 +65,7 @@ router_cus.post('/addCustomer', async (req, res) => {
     res.redirect(`/browse/customer?success=trueadd&customerid=${customerid}`);  
   } catch (err) {
     console.error('Error adding customer', err);
-    res.status(500).send('Error adding customer');
+    res.redirect(`/browse/customer?success=falseadd&err=${encodeURIComponent(err)}`);
   }
 });
 
@@ -77,7 +77,7 @@ router_cus.post('/deleteCustomer', async (req, res) => {
     res.redirect(`/browse/customer?success=truedel&customerid=${customerid2}`);
   } catch (err) {
     console.error('Error deleting customer', err);
-    res.status(500).send('Error deleting customer ' + err);
+    res.redirect(`/browse/customer?success=falsedel&err=${encodeURIComponent(err)}`);
   }
 });
 
@@ -89,7 +89,7 @@ router_cus.post('/updateCustomer', async (req, res) => {
     res.redirect(`/browse/customer?success=trueupdate&customerid=${customerid3}`);
   } catch (err) {
     console.error('Error update customer', err);
-    res.status(500).send('Error updating customer');
+    res.redirect(`/browse/customer?success=falseupdate&err=${encodeURIComponent(err)}`);
   }
 });
 

@@ -255,26 +255,64 @@ window.addEventListener('load', () => {
     const success = urlParams.get('success');
     const bookingid = urlParams.get('bookingid');
     const roomid = urlParams.get('roomid');
-    if (success === 'trueadd' && bookingid > 0) {
+    const err = urlParams.get('err');
+    if (success === 'trueadd' && bookingid !== 0 && roomid === 0) {
       Swal.fire('Success!', `Booking added successfully, Booking ID: ${bookingid}`, 'success');
-    } else if (success === 'trueadd' && roomid > 0) {
-      Swal.fire('Success!', `Booking room added successfully, Booking ID: ${bookingid} Room ID: ${roomid}`, 'success');
-    } else if (success === 'trueadd' && bookingid == 0) {
-      Swal.fire('Warning!', 'Booking is already existed, please try again!', 'warning');
-    }
-    if (success === 'truedel' && bookingid > 0) {
+    } else if (success === 'trueadd' && roomid !== 0) {
+      Swal.fire('Success!', `Added new Room successfully, Booking ID: ${bookingid}`, 'success');
+    } 
+    if (success === 'falseadd' && err !== null) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        html: decodeURIComponent(err) + '<br>Please try again!'
+      }).then(() => {
+        // Dẫn link về /browse/room
+        window.location.href = '/browse/booking';
+      });
+  }
+  if (success === 'falseadd' && bookingid == 0 && roomid == 0) {
+      Swal.fire('Error!', 'Booking is not existed, please try again!', 'error');
+  }
+    
+    if (success === 'truedel' && bookingid !== 0 && roomid === null) {
       Swal.fire('Deleted!', `Booking deleted successfully, Booking ID: ${bookingid}`, 'success');
-    } else if (success === 'truedel' && roomid > 0) {
+    } else if (success === 'truedel' && roomid !== 0 && bookingid !== 0) {
       Swal.fire('Deleted!', `Booking room deleted successfully, Booking ID: ${bookingid} Room ID: ${roomid}`, 'success');
-    } else if (success === 'truedel' && bookingid == 0) {
-      Swal.fire('Error!', 'Booking is not existed, please try again!', 'error');
+    } 
+
+
+    if (success === 'falsedel' && err !== null) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        html: decodeURIComponent(err) + '<br>Please try again!'
+      }).then(() => {
+        // Dẫn link về /browse/room
+        window.location.href = '/browse/booking';
+      });
     }
-    if (success === 'trueupdate' && bookingid > 0) {
+    if (success === 'falsedel' && bookingid == 0 && roomid == 0) {
+      Swal.fire('Error!', 'Booking ID or Room ID is not existed, please try again!', 'error');
+    }
+
+    if (success === 'trueupdate' && bookingid !== 0 && roomid === null) {
       Swal.fire('Updated!', `Booking updated successfully, Booking ID: ${bookingid}`, 'success');
-    } else if (success === 'trueupdate' && roomid > 0) {
+    } else if (success === 'trueupdate' && roomid !== 0 && bookingid !== 0) {
       Swal.fire('Updated!', `Booking room updated successfully, Booking ID: ${bookingid} Room ID: ${roomid}`, 'success');
-    } else if (success === 'trueupdate' && bookingid == 0) {
-      Swal.fire('Error!', 'Booking is not existed, please try again!', 'error');
+    } 
+    if (success === 'falseupdate' && err !== null) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        html: decodeURIComponent(err) + '<br>Please try again!'
+      }).then(() => {
+        // Dẫn link về /browse/room
+        window.location.href = '/browse/booking';
+      });
+    }
+    if (success === 'falseupdate' && bookingid == 0 && roomid == 0) {
+      Swal.fire('Error!', 'Booking ID or Room ID is not existed, please try again!', 'error');
     }
 });
 

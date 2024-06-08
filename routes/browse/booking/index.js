@@ -48,15 +48,15 @@ router_booking.post('/addBooking', async (req, res) => {
   const {bookingid, customerid, bookingdate, bookingtype, totaladult, totalchild, new_bkrooms,numofchild,numofadult,checkin, checkout} = req.body;
   try {
     const booking1 = await bookingModel.addBooking(bookingid, customerid, bookingdate, bookingtype, totaladult, totalchild, new_bkrooms,numofchild,numofadult,checkin, checkout);
-    if (booking1 === 1) {
-      res.redirect(`/browse/booking?success=trueadd&bookingid=${bookingid}&roomid=${new_bkrooms}`);
+    if (new_bkrooms === '' && bookingid === '') {
+      res.redirect(`/browse/booking?success=trueadd&bookingid=${booking1}`);
     } else if (booking1 === 2) {
       res.redirect(`/browse/booking?success=trueadd&bookingid=${bookingid}`);
     }  else if (booking1 === 0){
-      res.redirect(`/browse/booking?success=trueadd&bookingid=0&roomid=0`);
+      res.redirect(`/browse/booking?success=falseadd&bookingid=0&roomid=0`);
     }  } catch (err) {
+      res.redirect(`/browse/booking?success=falseadd&err=${encodeURIComponent(err)}`);
     console.error('Error adding booking', err);
-    res.status(500).send('Error adding booking');
   }
 });
 
@@ -65,15 +65,15 @@ router_booking.post('/deleteBooking',async (req, res) => {
   try {
     const booking2 = await bookingModel.deleteBooking(bookingid,roomid);
     if (booking2 === 1) {
-      res.redirect(`/browse/booking?success=truedel&bookingid=${bookingid}&roomid=${roomid}`);
-    } else if (booking2 === 2) {
       res.redirect(`/browse/booking?success=truedel&bookingid=${bookingid}`);
+    } else if (booking2 === 2) {
+      res.redirect(`/browse/booking?success=truedel&bookingid=${bookingid}&roomid=${roomid}`);
     }  else if (booking2 === 0){
-      res.redirect(`/browse/booking?success=truedel&bookingid=0&roomid=0`);
+      res.redirect(`/browse/booking?success=falsedel&bookingid=0&roomid=0`);
     }
   } catch (err) {
+    res.redirect(`/browse/booking?success=falsedel&err=${encodeURIComponent(err)}`);
     console.error('Error deleting booking', err);
-    res.status(500).send('Error deleting booking');
   }
 });
 
@@ -81,16 +81,16 @@ router_booking.post('/updateBooking', async (req, res) => {
   const {bookingid, customerid, bookingdate, bookingtype, totaladult, totalchild, roomid, numofchild, numofadult, checkin, checkout} = req.body;
   try {
     const booking3 = await bookingModel.updateBooking(bookingid, customerid, bookingdate, bookingtype, totaladult, totalchild, roomid, numofchild, numofadult, checkin, checkout);
-    if (booking3 === 1) {
+    if (booking3 === 2) {
       res.redirect(`/browse/booking?success=trueupdate&bookingid=${bookingid}&roomid=${roomid}`);
-    } else if (booking3 === 2) {
+    } else if (booking3 === 1) {
       res.redirect(`/browse/booking?success=trueupdate&bookingid=${bookingid}`);
     }  else if (booking3 === 0){
-      res.redirect(`/browse/booking?success=trueupdate&bookingid=0&roomid=0`);
+      res.redirect(`/browse/booking?success=falseupdate&bookingid=0&roomid=0`);
     }
   } catch (err) {
+    res.redirect(`/browse/booking?success=falseupdate&err=${encodeURIComponent(err)}`);
     console.error('Error update booking', err);
-    res.status(500).send('Error updating booking');
   }
 });
 

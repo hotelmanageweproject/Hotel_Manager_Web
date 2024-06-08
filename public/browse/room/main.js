@@ -252,23 +252,71 @@ window.addEventListener('load', () => {
     const roomid = urlParams.get('roomid');
     const roomtype = urlParams.get('roomtype');
     const receiptid = urlParams.get('receiptid');
+    const err = urlParams.get('err');
+    // Xử lí lỗi khi add ở room
+    if (success === 'falseadd') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          html: decodeURIComponent(err) + '<br>Room ID or Room Type is already existed, please try again!'
+        }).then(() => {
+          // Dẫn link về /browse/room
+          window.location.href = '/browse/room';
+        });
+    }
+    if (success === 'trueadd' && roomid == 0) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error add room service!',
+            html:  'Hãy kiểm tra lại bookingID và roomID đã chính xác chưa!'
+          }).then(() => {
+            // Dẫn link về /browse/room
+            window.location.href = '/browse/room';
+          });    
+    }
+    // Xử lí khi thành công
+    if (success === 'trueadd' && roomid !== '') {
+      Swal.fire('Success!', `Added successfully, ID: ${roomid}`, 'success');
+    } 
 
-    if (success === 'trueadd' && roomid > 0) {
-      Swal.fire('Success!', `Room added successfully, Room ID: ${roomid}`, 'success');
-    } else if (success === 'trueadd' && roomid == 0) {
-      Swal.fire('Warning!', 'Room is already existed, please try again!', 'warning');
+    // Xử lí khi xoá không thành công
+    if (success === 'falsedel') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          html: decodeURIComponent(err) + '<br>Có vẻ bạn nhập ID không tồn tại, Please try again!'
+        }).then(() => {
+          // Dẫn link về /browse/room
+          window.location.href = '/browse/room';
+        });
     }
-    if (success === 'truedel') {
-      Swal.fire('Deleted!', `Room deleted successfully, Room ID: ${roomid}`, 'success');
+    // Xử lí khi xoá thành công
+    if (success === 'truedel' && roomid !== '0' && roomtype === null && receiptid === null) {
+      Swal.fire('Deleted!', `Room deleted successfully,Room ID: ${roomid}`, 'success');
+    } else if (success === 'truedel' && roomtype !== '0' && roomid === null && receiptid === null) {
+        Swal.fire('Deleted!', `Room Type deleted successfully, Room Type Name: ${roomtype}`, 'success');
+    } else if (success === 'truedel' && receiptid !== '0' && roomid === null && roomtype === null) {
+        Swal.fire('Deleted!', `Room Service deleted successfully, Receipt ID: ${receiptid}`, 'success');
     }
-    if (success === 'trueupdate' && roomid > 0) {
+    
+    // Xử lí khi update không thành công
+    if (success === 'falseupdate') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            html: decodeURIComponent(err) + '<br>Please try again!'
+          }).then(() => {
+            // Dẫn link về /browse/room
+            window.location.href = '/browse/room';
+          });    
+    }
+    // Xử lí khi update thành công
+    if (success === 'trueupdate' && roomid !== '0' && roomid !== null && roomtype === null && receiptid === null) {
       Swal.fire('Updated!', `Room updated successfully, Room ID: ${roomid}`, 'success');
-    } else if (success === 'trueupdate' && roomtype > 0) {
-        Swal.fire('Updated!', `Room updated successfully, Room Type ID: ${roomtype}`, 'success');
-    } else if (success === 'trueupdate' && receiptid > 0) {
-        Swal.fire('Updated!', `Room updated successfully, Receipt ID: ${receiptid}`, 'success');
-    } else if (success === 'trueupdate' && roomid == 0) {
-        Swal.fire('Error!', 'Room is not existed, please try again!', 'error');
+    } else if (success === 'trueupdate' && roomtype !== null && roomid === null && receiptid === null) {
+        Swal.fire('Updated!', `Room Type updated successfully, Room Type Name: ${roomtype}`, 'success');
+    } else if (success === 'trueupdate' && receiptid !== null && roomid === null && roomtype === null) {
+        Swal.fire('Updated!', `Room Service updated successfully, Receipt ID: ${receiptid}`, 'success');
     }
 });
 

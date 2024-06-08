@@ -40,14 +40,14 @@ router_room.get('/api/room-details/:roomid', async (req, res) => {
 });
 
 router_room.post('/addRoom', async (req, res) => {
-  const {roomid, roomtype, status, name, pricepernight, maxadult, maxchild, bookingid, serviceid,total_in,date,staffid} = req.body;
-  console.log("Add room: ",req.body);
+  const { roomid, roomtype, status, name, pricepernight, maxadult, maxchild, bookingid, serviceid, total_in, date, staffid } = req.body;
+  console.log("Add room: ", req.body);
   try {
-    const roomid1 = await roomModel.addRoom(roomid, roomtype, status, name, pricepernight, maxadult, maxchild, bookingid, serviceid,total_in,date,staffid);
-    res.redirect(`/browse/room?success=trueadd&roomid=${roomid1}`);  
+    const roomid1 = await roomModel.addRoom(roomid, roomtype, status, name, pricepernight, maxadult, maxchild, bookingid, serviceid, total_in, date, staffid);
+    res.redirect(`/browse/room?success=trueadd&roomid=${roomid1}`);
   } catch (err) {
     console.error('Error adding room', err);
-    res.status(500).send('Error adding room');
+    res.redirect(`/browse/room?success=falseadd&err=${encodeURIComponent(err)}`);
   }
 });
 
@@ -56,10 +56,18 @@ router_room.post('/deleteRoom',async (req, res) => {
   console.log("Delete room: ",req.body);
   try {
     const roomid2 = await roomModel.deleteRoom(roomtypeid,roomid,receiptid);
-    res.redirect(`/browse/room?success=truedel&roomid=${roomid2}`);
+    if (roomid !== '' && roomid2 !== 0) {
+      res.redirect(`/browse/room?success=truedel&roomid=${roomid2}`);
+    } else if (roomtypeid !== '' && roomid2 !== 0) {
+      res.redirect(`/browse/room?success=truedel&roomtype=${roomid2}`);
+    } else if (receiptid !== '' && roomid2 !== 0) {
+      res.redirect(`/browse/room?success=truedel&receiptid=${roomid2}`);
+    } else if (roomid2 === 0){
+      res.redirect(`/browse/room?success=falsedel&roomid=${roomid2}`);
+    }  
   } catch (err) {
     console.error('Error deleting room', err);
-    res.status(500).send('Error deleting room');
+    res.redirect(`/browse/room?success=falsedel&err=${encodeURIComponent(err)}`);
   }
 });
 
@@ -68,18 +76,18 @@ router_room.post('/updateRoom', async (req, res) => {
   console.log("Update room: ",req.body);
   try {
     const roomid3 = await roomModel.updateRoom(roomid, roomtype, status, name, pricepernight, maxadult, maxchild, receiptid, serviceid,total_in,date,staffid);
-    if (roomid !== '') {
+    if (roomid !== '' && roomid3 !== 0) {
       res.redirect(`/browse/room?success=trueupdate&roomid=${roomid3}`);
-    } else if (roomtype !== '') {
+    } else if (roomtype !== '' && roomid3 !== 0) {
       res.redirect(`/browse/room?success=trueupdate&roomtype=${roomid3}`);
-    } else if (receiptid !== '') {
+    } else if (receiptid !== '' && roomid3 !== 0) {
       res.redirect(`/browse/room?success=trueupdate&receiptid=${roomid3}`);
     } else if (roomid3 === 0){
-      res.redirect(`/browse/room?success=trueupdate&roomid=${roomid3}`);
+      res.redirect(`/browse/room?success=falseupdate&roomid=${roomid3}`);
     }
   } catch (err) {
     console.error('Error update room', err);
-    res.status(500).send('Error updating room');
+    res.redirect(`/browse/room?success=falseupdate&err=${encodeURIComponent(err)}`);
   }
 });
 

@@ -51,8 +51,8 @@ router_service.post('/addService', async (req, res) => {
       res.redirect(`/browse/service?success=trueadd&departmentid1=${service1}`);
     }
   } catch (err) {
+    res.redirect(`/browse/service?success=falseadd&err=${err}`);
     console.error('Error adding service', err);
-    res.status(500).send('Error adding service');
   }
 });
 
@@ -61,13 +61,13 @@ router_service.post('/deleteService',async (req, res) => {
   try {
     const service2 = await serviceModel.deleteService(serviceid,departmentid);
     if (serviceid != '') {
-      res.redirect(`/browse/service?success=truedel&serviceid=${service2}`);
+      res.redirect(`/browse/service?success=truedel&serviceid=${serviceid}`);
     } else {
-      res.redirect(`/browse/service?success=truedel&departmentid1=${service2}`);
+      res.redirect(`/browse/service?success=truedel&departmentid1=${departmentid}`);
     }
   } catch (err) {
+    res.redirect(`/browse/service?success=falsedel&err=${err}`);
     console.error('Error deleting service', err);
-    res.status(500).send('Error deleting service');
   }
 });
 
@@ -82,8 +82,8 @@ router_service.post('/updateService', async (req, res) => {
       res.redirect(`/browse/service?success=trueupdate&departmentid1=${service3}`);
     }
   } catch (err) {
+    res.redirect(`/browse/service?success=falseupdate&err=${err}`);
     console.error('Error update service', err);
-    res.status(500).send('Error updating service');
   }
 });
 

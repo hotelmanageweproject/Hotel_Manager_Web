@@ -281,22 +281,58 @@ window.addEventListener('load', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const success = urlParams.get('success');
     const serviceid = urlParams.get('serviceid');
-    const departmentid1 = urlParams.get('departmentid1');
-
-    if (success === 'trueadd' && serviceid > 0) {
+    const departmentid = urlParams.get('departmentid1');
+    const err = urlParams.get('err');
+    if (success === 'trueadd' && serviceid !== null && departmentid === null) {
       Swal.fire('Success!', `Service added successfully, Service ID: ${serviceid}`, 'success');
-    } else if (success === 'trueadd' && serviceid == 0) {
-      Swal.fire('Warning!', 'Service is already existed, please try again!', 'warning');
     } 
-    if (success === 'truedel') {
-      Swal.fire('Deleted!', `Service deleted successfully, Service ID: ${serviceid}`, 'success');
+    else if (success === 'trueadd' && serviceid === null && departmentid !== null) {
+      Swal.fire('Success!', `Department added successfully, Department ID: ${departmentid}`, 'success').then(() => {
+      window.location.href = '/browse/service';});
     } 
-    if (success === 'trueupdate' && serviceid > 0) {
+
+    if (success === 'falseadd') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          html: decodeURIComponent(err) + '<br>Please try again!'
+        }).then(() => {
+          // Dẫn link về /browse/room
+          window.location.href = '/browse/service';
+        });
+    }
+
+    if (success === 'truedel' && serviceid !== null && departmentid === null) {
+        Swal.fire('Deleted!', `Service deleted successfully, Service ID: ${serviceid}`, 'success');
+    } else if (success === 'truedel' && serviceid === null && departmentid !== null) {
+      Swal.fire('Success!', `Department deleted successfully, Department ID: ${departmentid}`, 'success').then(() => {
+      window.location.href = '/browse/service';});
+    } 
+    if (success === 'falsedel') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          html: decodeURIComponent(err) + '<br>Please try again!'
+        }).then(() => {
+          // Dẫn link về /browse/room
+          window.location.href = '/browse/service';
+        });
+    }
+    if (success === 'trueupdate' && serviceid !== null && departmentid === null) {
       Swal.fire('Updated!', `Service updated successfully, Service ID: ${serviceid}`, 'success');
-    } else if (success === 'trueupdate' && departmentid1 > 0) {
-        Swal.fire('Updated!', `Service updated successfully, Department ID: ${departmentid1}`, 'success');
-    } else if (success === 'trueupdate' && serviceid == 0 && departmentid1 == 0) {
-        Swal.fire('Error!', 'Service is not existed, please try again!', 'error');
+    } else if (success === 'trueupdate' && serviceid === null && departmentid !== null) {
+        Swal.fire('Updated!', `Department updated successfully, Department ID: ${departmentid}`, 'success').then(() => {
+            window.location.href = '/browse/service';});
+    } 
+    if (success === 'falseupdate') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          html: decodeURIComponent(err) + '<br>Please try again!'
+        }).then(() => {
+          // Dẫn link về /browse/room
+          window.location.href = '/browse/service';
+        });
     }
 });
 

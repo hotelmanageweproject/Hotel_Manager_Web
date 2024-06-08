@@ -69,22 +69,30 @@ const addRoom = (roomid, roomtype, status, name, pricepernight, maxadult, maxchi
     let query = '';
     let values = [];
     if (roomid !== '' && roomtype !== '' && status !== '')  {
-      query = `INSERT INTO rooms (roomid, roomtype, status) VALUES ($1, $2, $3)`;
+      query = `INSERT INTO rooms (roomid, roomtype, status) VALUES ($1, $2, $3) RETURNING roomid`;
       values = [roomid, roomtype, status];
     } else if (roomid === '' && roomtype !== '' && name !== '' && pricepernight !== '' && maxadult !== '' && maxchild !== ''){
-      query = `INSERT INTO roomtype (roomtypeid, name, pricepernight, maxadult, maxchild) VALUES ($1::bigint, $2, $3::bigint, $4::int, $5::int)`;
+      query = `INSERT INTO roomtype (roomtypeid, name, pricepernight, maxadult, maxchild) VALUES ($1::bigint, $2, $3::bigint, $4::int, $5::int) RETURNING name`;
       values = [roomtype, name, pricepernight, maxadult, maxchild];
-    } else if (roomid !== '' && bookingid !== '' && serviceid !== ''){
+    } else if (roomid !== '' && roomtype === '' && bookingid !== '' && serviceid !== ''){
       query = `SELECT new_rmservice($1, $2, $3, $4, $5, $6)`;
       values = [bookingid, roomid, serviceid, total_in, date, staffid];
     }
     db.query(query, values, (err, result) => {
       if (err) {
-        console.error('Error executing query', err.stack);
-        reject(err);
+       // console.error('Error executing query', err.stack);
+        reject(err.detail);
       } else {
         console.log('Room added successfully');
-        resolve(roomid);
+        if (roomid !== '' && roomtype !== '' && status !== '') {
+          resolve(result.rows[0].roomid);
+        } else if (roomid === '' && roomtype !== '') {
+          resolve(result.rows[0].name);
+        } else if (bookingid !== '' && roomid !== '' && serviceid !== '' && result.rows[0].new_rmservice !== '(,,,,)') {
+          resolve(roomid);
+        } else if (result.rows[0].new_rmservice === '(,,,,)'){
+          resolve(0);
+        }
       }
     });
   });
@@ -97,15 +105,15 @@ const deleteRoom = (roomtypeid,roomid,receiptid) => {
     let query = ``;
     let values = [];
     if (roomtypeid !== '' && roomid === '' && receiptid === '') {
-        query = `Delete from roomtype where roomtypeid = $1::bigint`;
+        query = `Delete from roomtype where roomtypeid = $1::bigint RETURNING name`;
         values = [roomtypeid];
         // DELETE bảng rooms: INPUT (roomID) : Thực hiện xoá bản ghi có roomID ở bảng rooms
         // OUTPUT : roomID vừa xoá sẽ được trả về (Có hoặc không)
     } else if (roomtypeid === '' && roomid !== '' && receiptid === '') {
-        query = `Delete from rooms where roomid = $1`;
+        query = `Delete from rooms where roomid = $1 RETURNING roomid`;
         values = [roomid];
     } else if (roomtypeid === '' && roomid === '' && receiptid !== '') {
-        query = `Delete from room_service where receiptid = $1`;
+        query = `Delete from room_service where receiptid = $1 RETURNING receiptid`;
         values = [receiptid];
         // DELETE bảng room_service: INPUT (roomID, serviceID) : Thực hiện xoá bản ghi có roomID và serviceID ở bảng room_service
         // OUTPUT : roomID và serviceID vừa xoá sẽ được trả về (Có hoặc không)
@@ -113,11 +121,20 @@ const deleteRoom = (roomtypeid,roomid,receiptid) => {
     db.query(query, values, (err, result) => {
           if (err) {
               console.error('Error executing query', err.stack);
-              reject(err);
+              reject(err.detail);
           } else {
               console.log('Room, room type or reciept deleted successfully');
-              resolve(roomid);
+              console.log(result);
+              if (roomtypeid !== '' && roomid === '' && receiptid === '' && result.rowCount !== 0) {
+                resolve(result.rows[0].name);
+            } else if (roomtypeid === '' && roomid !== '' && receiptid === '' && result.rowCount !== 0) {
+                resolve(result.rows[0].roomid);
+            } else if (roomtypeid === '' && roomid === '' && receiptid !== '' && result.rowCount !== 0) {
+              resolve(receiptid);
+            } else if (result.rowCount === 0){
+              resolve(0);
             }
+          }
       });
   });
 };
@@ -135,7 +152,7 @@ const updateRoom = (roomid, roomtype, status, name, pricepernight, maxadult, max
           values.push(fields[key]);
         }
       }
-      query = `UPDATE rooms SET ${updates.join(', ')} WHERE roomid = $${updates.length + 1}`;
+      query = `UPDATE rooms SET ${updates.join(', ')} WHERE roomid = $${updates.length + 1} RETURNING roomid`;
       values.push(roomid);
     } else if (roomid === '' && roomtype !== ''){
       const fields = { name, pricepernight, maxadult, maxchild };
@@ -146,7 +163,7 @@ const updateRoom = (roomid, roomtype, status, name, pricepernight, maxadult, max
           values.push(fields[key]);
         }
       }
-      query = `UPDATE roomtype SET ${updates.join(', ')} WHERE roomtypeid = $${updates.length + 1}`;
+      query = `UPDATE roomtype SET ${updates.join(', ')} WHERE roomtypeid = $${updates.length + 1} RETURNING name`;
       values.push(roomtype);
     } else if (roomid === '' && roomtype === '' && receiptid !== '' && (serviceid !== '' || total_in !== '' || date !== '' || staffid !== '')){
       const fields = {serviceid, total_in, date, staffid };
@@ -157,23 +174,24 @@ const updateRoom = (roomid, roomtype, status, name, pricepernight, maxadult, max
           values.push(fields[key]);
         }
       }
-      query = `UPDATE room_service SET ${updates.join(', ')} WHERE receiptid = $${updates.length + 1}`;
+      query = `UPDATE room_service SET ${updates.join(', ')} WHERE receiptid = $${updates.length + 1} RETURNING receiptid`;
       values.push(receiptid);
     } 
     
     db.query(query, values, (err, result) => {
       if (err) {
         console.error('Error executing query', err.stack);
-        reject(err);
+        reject(err.detail);
       } else {
         console.log('Room updated successfully');
-        if (roomid !== '' && roomtype === '' && receiptid === '') {
-          resolve(roomid);
-        } else if (roomtype !== '') {
-          resolve(roomtype);
-        } else if (receiptid !== '') {
-          resolve(receiptid);
-        } else if (result.rowCount === 0){
+        console.log(result);
+        if (roomtype !== '' && roomid === '' && receiptid === '' && result.rowCount !== null && result.rowCount !== 0) {
+          resolve(result.rows[0].name);
+        } else if (roomid !== '' && receiptid === '' && result.rowCount !== 0 && result.rowCount !== null) {
+          resolve(result.rows[0].roomid);
+        } else if (receiptid !== '' && roomid === '' && roomtype === '' && result.rowCount !== null && result.rowCount !== 0) {
+          resolve(result.rows[0].receiptid);
+        } else if (result.rowCount === null || result.rowCount === 0){
           resolve(0);
         }
       }

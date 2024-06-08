@@ -238,20 +238,31 @@ window.addEventListener('load', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const success = urlParams.get('success');
     const staffid = urlParams.get('staffid');
-    if (success === 'trueadd' && staffid > 0) {
+    const err = urlParams.get('err');
+
+    if (success === 'trueadd' && staffid !== '0') {
       Swal.fire('Success!', `Staff added successfully, Staff ID: ${staffid}`, 'success');
-    } else if (success === 'trueadd' && staffid == 0) {
-      Swal.fire('Warning!', 'Staff is already existed, please try again!', 'warning');
+    } 
+    if (success === 'falseadd' || (success === 'trueadd' && staffid === '0')) {
+        Swal.fire('Warning!',decodeURIComponent(err) + '<br>Staff is already existed, please try again!', 'error').then(() => {
+          window.location.href = '/browse/employee';
+        });
     }
-    if (success === 'truedel' && staffid > 0) {
+    if (success === 'truedel' && staffid !== '0') {
       Swal.fire('Deleted!', `Staff deleted successfully, Staff ID: ${staffid}`, 'success');
-    } else if (success === 'truedel' && staffid == 0) {
-        Swal.fire('Error!', 'Staff is not existed, please try again!', 'error');
+    } 
+    if (success === 'falsedel' || (success === 'truedel' && staffid === '0')) {
+        Swal.fire('Warning!',decodeURIComponent(err) + '<br>Staff is already existed, please try again!', 'error').then(() => {
+          window.location.href = '/browse/employee';
+        });
     }
-    if (success === 'trueupdate' && staffid > 0) {
+    if (success === 'trueupdate' && staffid !== '0') {
       Swal.fire('Updated!', `Staff updated successfully, Staff ID: ${staffid}`, 'success');
-    } else if (success === 'trueupdate' && staffid == 0) {
-        Swal.fire('Error!', 'Staff is not existed, please try again!', 'error');
+    }
+    if (success === 'falseupdate' || (success === 'trueupdate' && staffid === '0')) {
+        Swal.fire('Warning!',decodeURIComponent(err) + '<br>Staff is already existed, please try again!', 'error').then(() => {
+          window.location.href = '/browse/employee';
+        });
     }
 });
 function toggleDropdown() {

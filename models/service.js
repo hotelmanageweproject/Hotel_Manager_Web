@@ -55,7 +55,7 @@ WHERE sv.serviceid = $1::bigint;
 };
 
 // Query thêm dữ liệu
-const addService = (serviceid, servicename, departmentid, note, departmentname,manager, description) => {
+const addService = (serviceid, servicename, note, departmentid, departmentname,manager, description) => {
   return new Promise((resolve, reject) => {
       let query = ``;
       let values = [];
@@ -79,7 +79,7 @@ const addService = (serviceid, servicename, departmentid, note, departmentname,m
               if (result.rows.length > 0) {
                   resolve(result.rows[0].serviceid || result.rows[0].departmentid);
               } else {
-                  reject(new Error('No rows returned'));
+                  reject(new Error('It seems the value you entered does not exist.'));
               }
           }
       });
@@ -111,7 +111,7 @@ const deleteService = (serviceid, departmentid) => {
               if (result.rows.length > 0) {
                 resolve(result.rows[0].serviceid || result.rows[0].departmentid);
               } else {
-                reject(new Error('No rows returned'));
+                reject(new Error('It seems the value you entered does not exist.'));
               }
           }
       });
@@ -121,7 +121,21 @@ const deleteService = (serviceid, departmentid) => {
 const updateService = (serviceid, servicename, note, departmentid, departmentname, manager, description) => {
   return new Promise((resolve, reject) => {
       let query = '';
-      const fields = { name: servicename, note, manager, description };
+      if (serviceid !== '' && departmentname === '' && manager === '' && description === '') {
+        const fields = { name: servicename, note, manager, description, departmentid };
+        let updates = [];
+        
+        for (let key in fields) {
+            if (fields[key] !== undefined && fields[key] !== '') {
+                updates.push(`${key} = '${fields[key]}'`);
+            }
+        }
+          query = `UPDATE services SET ${updates.join(', ')} WHERE serviceid = ${serviceid} RETURNING serviceid`;
+          // Cập nhật dữ liệu trong bảng services: INPUT: serviceID, servicename, departmentID, note
+          // OUTPUT: serviceID vừa cập nhật sẽ được trả về
+      } else if (serviceid === '' && departmentid !== '' && (departmentname !== '' || manager !== '' || description !== '')) {
+          // Thay đổi departmentname thành name trong truy vấn
+          const fields = { name: departmentname, note, manager, description };
       let updates = [];
       
       for (let key in fields) {
@@ -129,16 +143,7 @@ const updateService = (serviceid, servicename, note, departmentid, departmentnam
               updates.push(`${key} = '${fields[key]}'`);
           }
       }
-      
-      if (serviceid !== '' && departmentname === '' && manager === '' && description === '') {
-          query = `UPDATE services SET ${updates.join(', ')} WHERE serviceid = ${serviceid} RETURNING serviceid`;
-          // Cập nhật dữ liệu trong bảng services: INPUT: serviceID, servicename, departmentID, note
-          // OUTPUT: serviceID vừa cập nhật sẽ được trả về
-      } else if (serviceid === '' && departmentid !== '' && (departmentname !== '' || manager !== '' || description !== '')) {
-          // Thay đổi departmentname thành name trong truy vấn
-          if (departmentname !== '') {
-              updates.push(`name = '${departmentname}'`);
-          }
+        
           query = `UPDATE departments SET ${updates.join(', ')} WHERE departmentid = '${departmentid}' RETURNING departmentid`;
           // Cập nhật dữ liệu trong bảng departments: INPUT: departmentID, departmentname, manager, description
           // OUTPUT: departmentID vừa cập nhật sẽ được trả về
@@ -154,7 +159,7 @@ const updateService = (serviceid, servicename, note, departmentid, departmentnam
               if (result.rows.length > 0) {
                 resolve(result.rows[0].serviceid || result.rows[0].departmentid);
               } else {
-                reject(new Error('No rows returned'));
+                reject(new Error('It seems the value you entered does not exist.'));
               }
           }
       });

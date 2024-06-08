@@ -66,8 +66,8 @@ router_employee.post('/addEmployee', async (req, res) => {
     const staffid = await employeeModel.addStaff(departmentid, personalid, firstname, lastname, birthday, gender, email, phone, address, currentsal, startdate, enddate);
     res.redirect(`/browse/employee?success=trueadd&staffid=${staffid}`);  
   } catch (err) {
+    res.redirect(`/browse/employee?success=falseadd&err=${err}`);  
     console.error('Error adding staff', err);
-    res.status(500).send('Error adding staff');
   }
 });
 
@@ -77,9 +77,9 @@ router_employee.post('/deleteEmployee',async (req, res) => {
   try {
     const staffid2 = await employeeModel.deleteStaff(staffid);
     res.redirect(`/browse/employee?success=truedel&staffid=${staffid2}`);
-  } catch (err) {
+  } catch (err) {    
+    res.redirect(`/browse/employee?success=falsedel&err=${err}`);
     console.error('Error deleting staff', err);
-    res.status(500).send('Error deleting staff');
   }
 });
 
@@ -90,8 +90,8 @@ router_employee.post('/updateEmployee', async (req, res) => {
     const staffid3 = await employeeModel.updateStaff(staffid,departmentid, personalid, firstname, lastname, birthday, gender, email, phone, address, currentsal, startdate, enddate);
     res.redirect(`/browse/employee?success=trueupdate&staffid=${staffid3}`);
   } catch (err) {
+    res.redirect(`/browse/employee?success=falseupdate&err=${err}`);
     console.error('Error update employee', err);
-    res.status(500).send('Error updating employee');
   }
 });
 

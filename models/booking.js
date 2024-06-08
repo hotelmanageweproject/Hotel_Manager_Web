@@ -66,22 +66,24 @@ const addBooking = (bookingid, customerid, bookingdate, bookingtype, totaladult,
         query = `SELECT new_bkrooms($1::bigint, $2, $3::date, $4::date, $5::int , $6::int)`; // Thêm dữ liệu vào bảng booking_room
         values = [bookingid, new_bkrooms,  checkin, checkout ,numofadult, numofchild]
         console.log(values);
-        // ADD v��o bảng booking_room: INPUT (ALL Varchar) : bookingID, roomID, checkIn, checkOut, numOfAdult, numOfChild
+        // ADD vào bảng booking_room: INPUT (ALL Varchar) : bookingID, roomID, checkIn, checkOut, numOfAdult, numOfChild
         // OUTPUT: bookingID và roomID vừa thêm sẽ được trả về
         // 1 Thắc mắc nhỏ nếu bookingID đó đã tồn tại phòng đó thì sao ? Và có thao tác nào để kiểm tra hiện tại không có bookingID nào khác dùng roomID đó không ?
       }
       db.query(query, values, (err, result) => {
+        console.log(result);
         if (err) {
           console.error('Error executing query', err.stack);
           reject(err);
         } else {
           console.log('Booking added successfully');
-          if (result.rowCount > 0) {
-            if (new_bkrooms !== '') {
-              resolve(1);
-            } else {
+          if (result.rowCount !== 0 || result.rowCount !== null || result.rowCount !== '0') {
+            if (new_bkrooms === '' && bookingid === '') {
+              resolve(result.rows[0].new_booking);
+            } else if (new_bkrooms !== '' && bookingid !== '') {
               resolve(2);
-            } } else {
+            } 
+          } else {
               resolve(0);
             }
         }
@@ -107,20 +109,32 @@ const deleteBooking = (bookingid,roomid) => {
     }
     
     db.query(query, values, (err, result) => {
-          if (err) {
-              console.error('Error executing query', err.stack);
-              reject(err);
-          } else {
-              console.log('Booking deleted successfully');
-              if (result.rowCount > 0) {
-                if (roomid !== '') {
-                  resolve(1);
-                } else {
-                  resolve(2);
-                } } else {
-                  resolve(0);
-                }
+      if (err) {
+        console.error('Error executing query', err.stack);
+        reject(err);
+      } else {
+        console.log('Booking deleted successfully');
+        
+        if (result.rowCount !== 0 && result.rowCount !== null && result.rowCount !== '0' ) {
+          if (roomid === '' && bookingid !== '') {
+            if (result.rows[0].delete_booking[0] !== '0') {
+            resolve(1);
+            } else {
+              resolve(0);
+            }
+          } 
+          if (roomid !== '' && bookingid !== '') {
+            if (result.rows[0].delete_bkrooms !== '(,,)') {
+            resolve(2);
+            } else {
+              resolve(0);
+            }
+          } 
+        } else {
+          console.log('Booking not found');
+            resolve(0);
           }
+      }
       });
   });
 };
@@ -157,14 +171,20 @@ const updateBooking = (bookingid, customerid, bookingdate, bookingtype, totaladu
         reject(err);
       } else {
         console.log('Booking updated successfully');
-        if (result.rowCount > 0) {
-        if (roomid !== '') {
-          resolve(1);
-        } else {
-          resolve(2);
-        } } else {
-          resolve(0);
-        }
+        if (result.rowCount !== 0 && result.rowCount !== null && result.rowCount !== '0' ) {
+          if (roomid === '' && bookingid !== '') {
+            
+            resolve(1);
+            } 
+         
+          if (roomid !== '' && bookingid !== '') {
+            resolve(2);
+            }
+          } 
+          else {
+          console.log('Booking not found');
+            resolve(0);
+          }
       }
     });
   });

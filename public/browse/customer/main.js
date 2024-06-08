@@ -292,18 +292,34 @@ function showDetailsPopup(customerid) {
     const urlParams = new URLSearchParams(window.location.search);
     const success = urlParams.get('success');
     const customerid = urlParams.get('customerid');
-    if (success === 'trueadd' && customerid > 0) {
+    const err = urlParams.get('err');
+    if (success === 'trueadd' && customerid !== '0') {
       Swal.fire('Success!', `Customer added successfully, Customer ID: ${customerid}`, 'success');
-    } else if (success === 'trueadd' && customerid == 0) {
-      Swal.fire('Warning!', 'Customer is already existed, please try again!', 'warning');
     }
-    if (success === 'truedel') {
+    if (success === 'falseadd' || (success === 'trueadd' && customerid === '0')) {
+      Swal.fire('Warning!',decodeURIComponent(err) + 'Customer is already existed, please try again!', 'error').then(() => {
+        window.location.href = '/browse/customer';
+      });
+    }
+
+
+    if (success === 'truedel' && customerid !== '0') {
       Swal.fire('Deleted!', `Customer deleted successfully, Customer ID: ${customerid}`, 'success');
+    } 
+    if (success === 'falsedel' || (success === 'truedel' && customerid === '0')) {
+      Swal.fire('Error!',decodeURIComponent(err) + 'Customer is not existed, please try again!', 'error').then(() => {
+        window.location.href = '/browse/customer';
+      });
     }
-    if (success === 'trueupdate' && customerid > 0) {
+
+    if (success === 'trueupdate' && customerid !== '0') {
       Swal.fire('Updated!', `Customer updated successfully, Customer ID: ${customerid}`, 'success');
-    } else if (success === 'trueupdate' && customerid == 0) {
-        Swal.fire('Error!', 'Customer is not existed, please try again!', 'error');
+    } 
+    
+    if (success === 'falseupdate' || (success === 'trueupdate' && customerid === '0')) {
+        Swal.fire('Error!',decodeURIComponent(err) + 'Customer is not existed, please try again!', 'error').then(() => {
+            window.location.href = '/browse/customer';
+        });
     }
 });
 

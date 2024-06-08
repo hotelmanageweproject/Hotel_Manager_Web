@@ -76,9 +76,12 @@ const addStaff = (departmentid, personalid, firstname, lastname, birthday, gende
           reject(err);
         } else {
           console.log('Staff added successfully');
-          resolve(result.rows[0].staffid);
-        }
-      });
+          if (result.rows.length > 0) {
+            resolve(result.rows[0].staffid);
+          } else {
+            reject(new Error('It seems the value you entered does not exist.'));
+          }
+    }});
     });
   };
 
@@ -94,7 +97,11 @@ const deleteStaff = (staffID) => {
               reject(err);
           } else {
               console.log('Staff deleted successfully');
-              resolve(staffID);
+              if (result.rows.length > 0) {
+                resolve(staffID);
+              } else {
+                reject(new Error('It seems the value you entered does not exist.'));
+              }
           }
       });
   });
@@ -109,22 +116,23 @@ const updateStaff = (staffid, departmentid, personalid, firstname, lastname, bir
           updates.push(`${key} = '${fields[key]}'`);
         }
       }
-      if (updates.length > 0) {
+    //  if (updates.length > 0) {
         const query = `UPDATE staff SET ${updates.join(', ')} WHERE staffid = '${staffid}'`;
-        // UPDATE staffs: INPUT (staffID,departmentID, personalID, firstName, lastName, birthday, gender, email, phone, address, currentSal, startDate, endDate)
-      // Thực hiện cập nhật thông tin nhân viên có staffid với các cột có chứa thông tin ở input (Tóm lại giá trị nào khác '' hoặc null thì sửa)
-      // Nếu function trong sql làm được thì tốt không được thì thôi, phần này skip
-      // OUTPUT: staffid vừa cập nhật sẽ được trả về
+
         db.query(query, (err, result) => {
           if (err) {
           console.error('Error executing query', err.stack);
           reject(err);
           } else {
           console.log('Staff updated successfully');
-          resolve(staffid);
+          if (result.rows.length > 0) {
+            resolve(staffid);
+          } else {
+            reject(new Error('It seems the value you entered does not exist.'));
+          }          
           }
         });
-      }
+      
     });
   };
 
