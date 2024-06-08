@@ -690,7 +690,14 @@
 .ranking-service-table td {
   padding: 5px 0;
 }
+.ranking-customer-table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
+.ranking-customer-table td {
+  padding: 5px 0;
+}
 .hotel-statistic-ranking-container {
   display: flex;
   justify-content: space-between; /* Đảm bảo khoảng cách giữa các phần tử */

@@ -77,8 +77,81 @@ const getPaymentByBookingId = (bookingid) => {
       });
     });
   };
+
+  const getCustomerRanking = () => {
+    return new Promise((resolve, reject) => {
+      const query = `
+        WITH subquery AS (
+          SELECT bk.customerid, count(bk.bookingid) AS numofbooking
+          FROM booking bk
+          WHERE bk.bookingdate BETWEEN current_date - INTERVAL '1 year' AND current_date
+          GROUP BY bk.customerid
+        )
+        SELECT c.personalid, c.firstname || ' ' || c.lastname AS customername, sqr.numofbooking, RANK() OVER (ORDER BY sqr.numofbooking DESC) ranking
+        FROM subquery sqr
+        JOIN customers c ON c.customerid = sqr.customerid
+        LIMIT 5;
+      `;
+      db.query(query, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result.rows);
+        }
+      });
+    });
+  };
+
+  const getServiceRankingFull = () => {
+    return new Promise((resolve, reject) => {
+      const query = `
+        WITH subquery AS (
+          SELECT rs.serviceid, count(rs.receiptid) AS numofreceipt
+          FROM room_service rs
+          WHERE rs.date BETWEEN current_date - INTERVAL '1 year' AND current_date
+          GROUP BY rs.serviceid
+        )
+        SELECT s.name AS servicename, sqr.numofreceipt, RANK() OVER (ORDER BY sqr.numofreceipt DESC) ranking
+        FROM subquery sqr
+        JOIN services s ON s.serviceid = sqr.serviceid;
+      `;
+      db.query(query, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result.rows);
+        }
+      });
+    });
+  };
+
+  const getCustomerRankingFull = () => {
+    return new Promise((resolve, reject) => {
+      const query = `
+        WITH subquery AS (
+          SELECT bk.customerid, count(bk.bookingid) AS numofbooking
+          FROM booking bk
+          WHERE bk.bookingdate BETWEEN current_date - INTERVAL '1 year' AND current_date
+          GROUP BY bk.customerid
+        )
+        SELECT c.personalid, c.firstname || ' ' || c.lastname AS customername, sqr.numofbooking, RANK() OVER (ORDER BY sqr.numofbooking DESC) ranking
+        FROM subquery sqr
+        JOIN customers c ON c.customerid = sqr.customerid;
+      `;
+      db.query(query, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result.rows);
+        }
+      });
+    });
+  };
 export default {
   addPayment,
   getPaymentByBookingId,
-  getServiceRanking
+  getServiceRanking,
+  getCustomerRanking,
+  getServiceRankingFull,
+  getCustomerRankingFull
 };

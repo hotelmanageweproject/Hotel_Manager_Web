@@ -389,4 +389,66 @@ document.getElementById('additionalcharge').addEventListener('input', function(e
         alert('An error occurred while fetching service ranking.');
       });
   }
-   
+
+  function fetchCustomerRanking() {
+    fetch('/static/customerRanking')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('.ranking-customer-table tbody');
+        tableBody.innerHTML = ''; // Xóa nội dung cũ
+        data.forEach((customer, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${index + 1}. ${customer.customername} (${customer.personalid})</td>
+            <td>${customer.numofbooking}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while fetching customer ranking.');
+      });
+  }
+
+  function fetchServiceRankingFull() {
+    fetch('/static/serviceRankingFull')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#RankingServiceInfo .popup-body .popup-column');
+        tableBody.innerHTML = ''; // Xóa nội dung cũ
+        data.forEach((service, index) => {
+          const row = document.createElement('div');
+          row.innerHTML = `
+            <p>${index + 1}. ${service.servicename} - ${service.numofreceipt} receipts</p>
+          `;
+          tableBody.appendChild(row);
+        });
+        showPopup('RankingServiceInfo');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while fetching service ranking.');
+      });
+  }
+
+  function fetchCustomerRankingFull() {
+    fetch('/static/customerRankingFull')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#RankingCustomersInfo .popup-body .popup-column');
+        tableBody.innerHTML = ''; // Xóa nội dung cũ
+        data.forEach((customer, index) => {
+          const row = document.createElement('div');
+          row.innerHTML = `
+            <p>${index + 1}. ${customer.customername} (${customer.personalid}) - ${customer.numofbooking} bookings</p>
+          `;
+          tableBody.appendChild(row);
+        });
+        showPopup('RankingCustomersInfo');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while fetching customer ranking.');
+      });
+  }
