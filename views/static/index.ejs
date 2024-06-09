@@ -61,15 +61,34 @@
             </div>
           </header>
         </div>
-      <div class="hotel-statistic-ranking-container">  
+      
         <div class="input2 buzz">
           <img class="search-icon2" alt="" src="/img/searchicon.gif" onclick="fetchPaymentData()" />
           <input class="search2" id="bookingidInput" placeholder="Check bill for Booking ID" type="text"/>  
         </div>
+
         <div class="payment-button buzz" onclick="showPopup('PaymentPopup')"><img class="rankingicon" src="/img/paymenticon.gif">Add Payment</div>
-      </div>
-      
-      <div class="hotel-statistic-ranking-container">
+    
+        <div class="chart-container">
+          <div class="chart-header">
+            <span class="chart-title">REVENUE<img class="rankingicon" src="/img/revenueicon.gif"/></span>
+            <div class="chart-year-selector">
+              <button type="button" onclick="changeYear1(-1)"><img src="/img/arrow-left.png" alt="Previous Year"></button>
+              <span id="chart-year">2024</span>
+              <button type="button" onclick="changeYear1(1)"><img src="/img/arrow-right.png" alt="Next Year"></button>
+            </div>
+            <div class="chart-date-selector">
+              <select id="chart-date-selector" onchange="updateChart(this.value)">
+                <option value="today">Today</option>
+                <option value="week">Week</option>
+                <option value="month">Month</option>
+                <option value="year">Year</option>
+              </select>
+            </div>
+          </div>
+          <canvas id="myChart"></canvas>
+        </div>
+
         <div class="Hotel-statistic-ranking">
           <div class="hotel-statistic-header">
             <span class="hotel-statistic-title">HOTEL STATISTIC<img class="rankingicon" src="/img/staticicon.gif"/></span>
@@ -78,7 +97,6 @@
             </div>
             <div class="hotel-statistic-date-selector">
               <select id="hotel-statistic-date-selector" onchange="updateHotelStatistic(this.value)">
-                <option value="">Select</option>
                 <option value="today">Today</option>
                 <option value="week">Week</option>
                 <option value="month">Month</option>
@@ -105,17 +123,7 @@
             <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('HotelStatisticRoom')" />
           </div>
         </div>
-        <div class="ranking-service">
-          <div class="ranking-service-header">
-            <span class="ranking-service-title">RANKING SERVICES<img class="rankingicon" src="/img/best-value.gif"/></span>
-            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="fetchServiceRankingFull()" />
-          </div>
-          <table class="ranking-service-table">
-            <tbody>
-              <!-- Nội dung sẽ được cập nhật bởi JavaScript -->
-            </tbody>
-          </table>
-        </div>
+
         <div class="ranking-service">
           <div class="ranking-service-header">
             <span class="ranking-service-title">TOP CUSTOMERS<img class="rankingicon" src="/img/ratingsicon.gif"/></span>
@@ -127,28 +135,20 @@
            </tbody>
           </table>
         </div>
-      </div>
-      <div class="hotel-statistic-ranking-container">
-        <div class="chart-container">
-          <div class="chart-header">
-            <span class="chart-title">REVENUE<img class="rankingicon" src="/img/revenueicon.gif"/></span>
-            <div class="chart-year-selector">
-              <button type="button" onclick="changeYear1(-1)"><img src="/img/arrow-left.png" alt="Previous Year"></button>
-              <span id="chart-year">2024</span>
-              <button type="button" onclick="changeYear1(1)"><img src="/img/arrow-right.png" alt="Next Year"></button>
+     
+        <div class="hotel-statistic-ranking-container">
+          <div class="chart-container">
+            <div class="chart-header">
+              <span class="chart-title">AVERAGE LENGTH OF STAY<img class="rankingicon" src="/img/lengthofstayicon.gif"/></span>
+              <div class="LOS-chart-year-selector">
+                <button type="button" onclick="changeYear3(-1)"><img src="/img/arrow-left.png" alt="Previous Year"></button>
+                <span id="length-of-stay-chart-year">2024</span>
+                <button type="button" onclick="changeYear3(1)"><img src="/img/arrow-right.png" alt="Next Year"></button>
+              </div>
             </div>
-            <div class="chart-date-selector">
-              <select id="chart-date-selector" onchange="updateChart(this.value)">
-                <option value="today">Today</option>
-                <option value="week">Week</option>
-                <option value="month">Month</option>
-                <option value="year">Year</option>
-              </select>
-            </div>
+            <canvas id="lengthOfStayChart"></canvas>
           </div>
-          <canvas id="myChart"></canvas>
         </div>
-
         <div class="occupancy-chart-container">
           <div class="occupancy-chart-header">
             <span class="occupancy-chart-title">OCCUPANCY RATE<img class="occupancy-rankingicon" src="/img/occupancyicon.gif"/></span>
@@ -168,8 +168,17 @@
           </div>
           <canvas id="occupancyChart"></canvas>
         </div>
-      </div>
-
+        <div class="ranking-service1">
+          <div class="ranking-service-header">
+            <span class="ranking-service-title">RANKING SERVICES<img class="rankingicon" src="/img/best-value.gif"/></span>
+            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="fetchServiceRankingFull()" />
+          </div>
+          <table class="ranking-service-table">
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      
       </section>
     </form>
 

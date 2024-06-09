@@ -85,6 +85,16 @@ function changeYear2(direction) {
   );
 }
 
+function changeYear3(direction) {
+  const yearElement = document.getElementById("length-of-stay-chart-year");
+  let currentYear = parseInt(yearElement.textContent);
+  currentYear += direction;
+  yearElement.textContent = currentYear;
+  updateHotelStatistic(
+    document.getElementById("LOS-chart-year-selector").value
+  );
+}
+
 var myChart;
 
 function initializeChart() {
@@ -693,3 +703,56 @@ document.querySelectorAll('.payment-option').forEach(button => {
   document.addEventListener('DOMContentLoaded', function() {
     initializeOccupancyChart();
   });
+
+  function updateLengthOfStayChart(selectedYear) {
+    const ctx = document.getElementById('lengthOfStayChart').getContext('2d');
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const data = fetchLengthOfStayData(selectedYear);
+
+    if (window.lengthOfStayChartInstance) {
+        window.lengthOfStayChartInstance.destroy();
+    }
+
+    window.lengthOfStayChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: months,
+            datasets: [{
+                label: 'Average Length of Stay (days)',
+                data: data,
+                backgroundColor: '#A2D9D9',
+                borderColor: '#A2D9D9',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+function fetchLengthOfStayData(year) {
+    const dataByYear = {
+        2023: [3, 2.5, 3.2, 3.5, 3, 4, 4.5, 4, 3.5, 3.2, 2.8, 3],
+        2024: [2.8, 3, 3.1, 3.6, 3.8, 4.2, 4.6, 4.1, 3.7, 3.3, 3, 2.9],
+        2025: [3, 3.2, 3.4, 3.6, 3.8, 4, 4.2, 4, 3.8, 3.6, 3.4, 3.2]
+    };
+    return dataByYear[year] || dataByYear[new Date().getFullYear()];
+}
+
+function changeYear3(change) {
+    const yearSpan = document.getElementById('length-of-stay-chart-year');
+    let currentYear = parseInt(yearSpan.innerText);
+    currentYear += change;
+    yearSpan.innerText = currentYear;
+    updateLengthOfStayChart(currentYear);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const currentYear = parseInt(document.getElementById('length-of-stay-chart-year').innerText);
+    updateLengthOfStayChart(currentYear);
+}); 

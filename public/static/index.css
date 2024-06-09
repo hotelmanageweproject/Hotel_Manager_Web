@@ -386,10 +386,11 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
-  width: 600px;
+  width: 400px;
   margin: 20px auto;
   font-family: 'Inter', sans-serif;
-  margin-left: 42px;
+  margin-left: 700px;
+  margin-top: -382px;
   transition: border 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
 }
 .Hotel-statistic-ranking:hover {
@@ -662,7 +663,9 @@
   border-radius: 10px;
   padding: 10px;
   width: 300px;
-  margin-left: 750px;
+  margin-left: 1155px;
+  margin-top: -250px;
+  margin-right: 100px;
   transition: border 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
 }
 .ranking-service:hover {
@@ -698,20 +701,29 @@
 .ranking-customer-table td {
   padding: 5px 0;
 }
+.ranking-service1 {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  width: 300px;
+  margin-left: 1155px;
+  margin-top: -420px;
+  margin-right: 100px;
+  transition: border 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
+}
+.ranking-service1:hover {
+  border: 1px solid #000; /* Hiển thị viền khi di chuột */
+}
+
 .hotel-statistic-ranking-container {
   display: flex;
   justify-content: space-between; /* Đảm bảo khoảng cách giữa các phần tử */
-  align-items: flex-start; /* Căn chỉnh các phần tử con theo chiều dọc */
+  align-items: flex-start; /* Căn chỉnh các phần tử con theo chiều dọc, bắt đầu từ mép trên cùng */
 }
 
 .hotel-statistic {
   flex: 1; /* Chiếm toàn bộ không gian còn lại */
   margin-right: 50px; /* Khoảng cách giữa các phần tử */
-}
-
-.ranking-service {
-  width: 400px; /* Đặt kích thước cố định cho ranking service */
-  margin-left: 50px; /* Khoảng cách giữa các phần tử */
 }
 
 .payment-button {
@@ -722,8 +734,8 @@
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  margin-left: 10px;
-  margin-top: 16px;
+  margin-left: 400px;
+  margin-top: -38px;
   display: flex; /* Sử dụng flexbox để căn chỉnh */
   align-items: center; /* Căn giữa theo chiều dọc */
 }
@@ -826,13 +838,14 @@
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 400px; /* Fixed width */
-  height: 500px; /* Fixed height */
+  width: 420px; /* Fixed width */
+  height: 510px; /* Fixed height */
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 1px solid #ccc;
-  margin-left: 50px;
+  margin-left: 700px;
+  margin-top: -515px;
 }
 
 /* Header styling for the occupancy chart */
@@ -882,7 +895,7 @@
 .occupancy-chart-date-selector select {
   padding: 3px 5px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: none;
   font-size: 14px;
 }
 
@@ -895,3 +908,31 @@
 .occupancy-chart-container:hover {
   border: 1px solid #000; /* Hiển thị viền khi di chuột */
 }
+
+.LOS-chart-year-selector button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.LOS-chart-year-selector img {
+  width: 16px;
+  height: 16px;
+}
+
+.LOS-chart-year-selector span {
+  margin: 0 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Date selector styling */
+.LOS-chart-date-selector select {
+  padding: 3px 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+
+
