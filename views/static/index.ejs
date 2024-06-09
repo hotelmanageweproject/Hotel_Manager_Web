@@ -10,9 +10,10 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
   </head>
   <body
-    onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart(); closePopup();fetchServiceRanking();fetchCustomerRanking();initializeChart()"
+    onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart(); closePopup();fetchServiceRanking();fetchCustomerRanking();initializeChart();initializeOccupancyChart()"
   >
     <form class="home-page">
       <div class="sidebar">
@@ -115,6 +116,17 @@
             </tbody>
           </table>
         </div>
+        <div class="ranking-service">
+          <div class="ranking-service-header">
+            <span class="ranking-service-title">TOP CUSTOMERS<img class="rankingicon" src="/img/ratingsicon.gif"/></span>
+            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="fetchCustomerRankingFull()" />
+          </div>
+          <table class="ranking-customer-table">
+           <tbody>
+
+           </tbody>
+          </table>
+        </div>
       </div>
       <div class="hotel-statistic-ranking-container">
         <div class="chart-container">
@@ -136,18 +148,28 @@
           </div>
           <canvas id="myChart"></canvas>
         </div>
-        <div class="ranking-service">
-          <div class="ranking-service-header">
-            <span class="ranking-service-title">TOP CUSTOMERS<img class="rankingicon" src="/img/ratingsicon.gif"/></span>
-            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="fetchCustomerRankingFull()" />
-          </div>
-          <table class="ranking-customer-table">
-           <tbody>
 
-           </tbody>
-          </table>
+        <div class="occupancy-chart-container">
+          <div class="occupancy-chart-header">
+            <span class="occupancy-chart-title">OCCUPANCY RATE<img class="occupancy-rankingicon" src="/img/occupancyicon.gif"/></span>
+            <div class="occupancy-chart-year-selector">
+              <button type="button" onclick="changeYear2(-1)"><img src="/img/arrow-left.png" alt="Previous Year"></button>
+              <span id="occupancy-chart-year">2024</span>
+              <button type="button" onclick="changeYear2(1)"><img src="/img/arrow-right.png" alt="Next Year"></button>
+            </div>
+            <div class="occupancy-chart-date-selector">
+              <select id="occupancy-chart-date-selector" onchange="updateOccupancyChart(this.value)">
+                <option value="today">Today</option>
+                <option value="week">Week</option>
+                <option value="month">Month</option>
+                <option value="year">Year</option>
+              </select>
+            </div>
+          </div>
+          <canvas id="occupancyChart"></canvas>
         </div>
       </div>
+
       </section>
     </form>
 

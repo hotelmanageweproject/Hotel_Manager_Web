@@ -76,12 +76,12 @@ function changeYear1(direction) {
   updateChart(document.getElementById("chart-date-selector").value);
 }
 function changeYear2(direction) {
-  const yearElement = document.getElementById("hotel-statistic-year");
+  const yearElement = document.getElementById("occupancy-chart-year");
   let currentYear = parseInt(yearElement.textContent);
   currentYear += direction;
   yearElement.textContent = currentYear;
   updateHotelStatistic(
-    document.getElementById("hotel-statistic-date-selector").value
+    document.getElementById("occupancy-chart-year-selector").value
   );
 }
 
@@ -151,16 +151,16 @@ function updateChart(selectedValue) {
             {
               label: "Today",
               data: data.map(function(item) { return item.totalamount; }),
-              borderColor: "blue",
-              backgroundColor: "rgba(0, 0, 255, 0.1)",
+              borderColor: "green",
+              backgroundColor: "#BDE2B9",
               fill: true,
               tension: 0.4,
             },
             {
               label: "Yesterday",
               data: data.map(function(item) { return item.totalamount; }),
-              borderColor: "red",
-              backgroundColor: "rgba(255, 0, 0, 0.1)",
+              borderColor: "purple",
+              backgroundColor: "#B2B0EA",
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -190,8 +190,8 @@ function updateChart(selectedValue) {
             {
               label: "This Week",
               data: thisWeekAmounts,
-              borderColor: "blue",
-              backgroundColor: "rgba(0, 0, 255, 0.1)",
+              borderColor: "green",
+              backgroundColor: "#BDE2B9",
               fill: true,
               tension: 0.4,
               paymentDates: thisWeekDates // Lưu trữ ngày thanh toán cho mỗi điểm
@@ -199,8 +199,8 @@ function updateChart(selectedValue) {
             {
               label: "Last Week",
               data: lastWeekAmounts,
-              borderColor: "red",
-              backgroundColor: "rgba(255, 0, 0, 0.1)",
+              borderColor: "purple",
+              backgroundColor: "#B2B0EA",
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -238,16 +238,16 @@ function updateChart(selectedValue) {
             {
               label: "This Month",
               data: thisMonthAmounts,
-              borderColor: "blue",
-              backgroundColor: "rgba(0, 0, 255, 0.1)",
+              borderColor: "green",
+              backgroundColor: "#BDE2B9",
               fill: true,
               tension: 0.4,
             },
             {
               label: "Last Month",
               data: lastMonthAmounts,
-              borderColor: "red",
-              backgroundColor: "rgba(255, 0, 0, 0.1)",
+              borderColor: "purple",
+              backgroundColor: "#B2B0EA",
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -281,16 +281,16 @@ function updateChart(selectedValue) {
             {
               label: "This Year",
               data: thisYearAmounts,
-              borderColor: "blue",
-              backgroundColor: "rgba(0, 0, 255, 0.1)",
+              borderColor: "green",
+              backgroundColor: "#BDE2B9",
               fill: true,
               tension: 0.4,
             },
             {
               label: "Last Year",
               data: lastYearAmounts,
-              borderColor: "red",
-              backgroundColor: "rgba(255, 0, 0, 0.1)",
+              borderColor: "purple",
+              backgroundColor: "#B2B0EA",
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -621,4 +621,75 @@ document.querySelectorAll('.payment-option').forEach(button => {
       document.querySelectorAll('.payment-option').forEach(btn => btn.classList.remove('selected'));
       this.classList.add('selected');
     });
+  });
+
+  var occupancyChart; // Biến toàn cục
+
+  function initializeOccupancyChart() {
+    const ctx = document.getElementById('occupancyChart').getContext('2d');
+    occupancyChart = new Chart(ctx, { // Sử dụng biến toàn cục
+      type: 'pie',
+      data: {
+        labels: ['Occupied', 'Available'],
+        datasets: [{
+          label: 'Room Occupancy',
+          data: [75, 25], // Giả sử 75% phòng đã được thuê và 25% còn trống
+          backgroundColor: [
+            '#8BC1F7',
+            '#F4B678'
+          ],
+          borderColor: [
+            '#8BC1F7',
+            '#F4B678'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false, // Đảm bảo biểu đồ không bị méo
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+          },
+          datalabels: {
+            formatter: (value, ctx) => {
+              let sum = 0;
+              let dataArr = ctx.chart.data.datasets[0].data;
+              dataArr.map(data => {
+                sum += data;
+              });
+              let percentage = (value * 100 / sum).toFixed(2) + "%";
+              return percentage;
+            },
+            color: '#000',
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  }
+  
+  function updateOccupancyChart(timeframe) {
+    // Giả sử bạn có một API hoặc một cách nào đó để lấy dữ liệu dựa trên timeframe
+    // Dưới đây là dữ liệu giả định
+    var data = [75, 25]; // Mặc định
+    if (timeframe === 'week') {
+      data = [70, 30];
+    } else if (timeframe === 'month') {
+      data = [60, 40];
+    } else if (timeframe === 'year') {
+      data = [50, 50];
+    }
+  
+    occupancyChart.data.datasets[0].data = data;
+    occupancyChart.update();
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeOccupancyChart();
   });

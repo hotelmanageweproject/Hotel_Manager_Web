@@ -818,3 +818,80 @@
 #HS-date-selector:hover {
   border: 1px solid #000; /* Hiển thị viền khi di chuột */
 }
+
+/* Container for the occupancy chart */
+.occupancy-chart-container {
+  margin: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 400px; /* Fixed width */
+  height: 500px; /* Fixed height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  margin-left: 50px;
+}
+
+/* Header styling for the occupancy chart */
+.occupancy-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+/* Title styling for the occupancy chart */
+.occupancy-chart-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+/* Icon next to the chart title */
+.occupancy-rankingicon {
+  margin-left: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Year selector styling */
+.occupancy-chart-year-selector button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.occupancy-chart-year-selector img {
+  width: 16px;
+  height: 16px;
+}
+
+.occupancy-chart-year-selector span {
+  margin: 0 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Date selector styling */
+.occupancy-chart-date-selector select {
+  padding: 3px 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Canvas styling */
+#occupancyChart {
+  width: 50%; /* Set width to fit within the container */
+  height: 50%; /* Adjust height to fit within the container, accounting for header */
+}
+
+.occupancy-chart-container:hover {
+  border: 1px solid #000; /* Hiển thị viền khi di chuột */
+}
