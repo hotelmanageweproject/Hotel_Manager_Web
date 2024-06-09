@@ -85,203 +85,276 @@ function changeYear2(direction) {
   );
 }
 
-let myChart;
+var myChart;
 
 function initializeChart() {
-    const ctx = document.getElementById("myChart").getContext("2d");
-    myChart = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: [], // Khởi tạo trống
-        datasets: [], // Khởi tạo trống
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: true,
-            position: "bottom",
-          },
-          tooltip: {
-            callbacks: {
-              label: function (context) {
-                let label = context.dataset.label || "";
-                if (label) {
-                  label += ": ";
-                }
-                if (context.parsed.y !== null) {
-                  label += new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(context.parsed.y);
-                }
-                return label;
-              },
-            },
-          },
+  var ctx = document.getElementById("myChart").getContext("2d");
+  myChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: [], // Khởi tạo trống
+      datasets: [], // Khởi tạo trống
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: "bottom",
         },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              callback: function (value) {
-                return value / 1000 + "k" + " VNĐ ";
-              },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              var label = context.dataset.label || "";
+              if (label) {
+                label += ": ";
+              }
+              if (context.parsed.y !== null) {
+                label += new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(context.parsed.y);
+              }
+              return label;
             },
           },
         },
       },
-    });
-  
-    // Initialize the chart with the default selection
-    updateChart(document.getElementById("chart-date-selector").value);
-  }
-  function updateChart(selectedValue) {
-    fetch(`/api/chart-data?period=${selectedValue}`)
-      .then(response => response.json())
-      .then(data => {
-        let labels = [];
-        let datasets = [];
-  
-        switch (selectedValue) {
-          case "today":
-            labels = data.map(item => new Date(item.paymentdate).toLocaleDateString("en-GB", {
-              day: "2-digit",
-              month: "2-digit"
-            }));
-            datasets = [
-              {
-                label: "Today",
-                data: data.map(item => item.totalamount),
-                borderColor: "blue",
-                backgroundColor: "rgba(0, 0, 255, 0.1)",
-                fill: true,
-                tension: 0.4,
-              },
-              {
-                label: "Yesterday",
-                data: data.map(item => item.totalamount),
-                borderColor: "red",
-                backgroundColor: "rgba(255, 0, 0, 0.1)",
-                fill: true,
-                borderDash: [5, 5],
-                tension: 0.4,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: function (value) {
+              return value / 1000000 + "M" + " VNĐ";
             },
-        ];
-        break;
-      case "week":
-        labels = data.map(item => new Date(item.paymentdate).toLocaleDateString("en-GB", {
-          day: "2-digit",
-          month: "2-digit"
-        }));
-        datasets = [
-          {
-            label: "This Week",
-            data: data.slice(-7).map(item => item.totalamount),
-            borderColor: "blue",
-            backgroundColor: "rgba(0, 0, 255, 0.1)",
-            fill: true,
-            tension: 0.4,
           },
-          {
-            label: "Last Week",
-            data: data.slice(0, 7).map(item => item.totalamount),
-            borderColor: "red",
-            backgroundColor: "rgba(255, 0, 0, 0.1)",
-            fill: true,
-            borderDash: [5, 5],
-            tension: 0.4,
-          },
-        ];
-        break;
-      case "month":
-        labels = data.map(item => new Date(item.paymentdate).toLocaleDateString("en-GB", {
-          day: "2-digit",
-          month: "2-digit"
-        }));
-        datasets = [
-          {
-            label: "This Month",
-            data: data.slice(-new Date().getDate()).map(item => item.totalamount),
-            borderColor: "blue",
-            backgroundColor: "rgba(0, 0, 255, 0.1)",
-            fill: true,
-            tension: 0.4,
-          },
-          {
-            label: "Last Month",
-            data: data.slice(0, new Date().getDate()).map(item => item.totalamount),
-            borderColor: "red",
-            backgroundColor: "rgba(255, 0, 0, 0.1)",
-            fill: true,
-            borderDash: [5, 5],
-            tension: 0.4,
-          },
-        ];
-        break;
-      case "year":
-        labels = data.map(item => new Date(item.month).toLocaleDateString("en-GB", {
-          month: "2-digit",
-          year: "numeric"
-        }));
-        datasets = [
-          {
-            label: "This Year",
-            data: data.slice(-12).map(item => item.totalamount),
-            borderColor: "blue",
-            backgroundColor: "rgba(0, 0, 255, 0.1)",
-            fill: true,
-            tension: 0.4,
-          },
-          {
-            label: "Last Year",
-            data: data.slice(0, 12).map(item => item.totalamount),
-            borderColor: "red",
-            backgroundColor: "rgba(255, 0, 0, 0.1)",
-            fill: true,
-            borderDash: [5, 5],
-            tension: 0.4,
-          },
-        ];
-        break;
-      default:
-        console.error("Invalid selection");
-        return;
-    }
+        },
+      },
+    },
+  });
 
-    myChart.data.labels = labels;
-    myChart.data.datasets = datasets;
-    myChart.update();
-  })
-  .catch(error => console.error('Error fetching chart data:', error));
+  // Initialize the chart with the default selection
+  updateChart(document.getElementById("chart-date-selector").value);
 }
 
-    function updateHotelStatistic(period) {
-        
-        const dateInput = document.getElementById('HS-date-selector').value;
-        if (!dateInput) {
-          //alert('Please select a date.');
-          Swal.fire('Error!', 'Please select a date.', 'error');
-          return;
-        }
-        fetch(`/static/hotelStatistic?period=${period}&date=${dateInput}`)
-          .then(response => response.json())
-          .then(data => {
-            if (data.error) {
-              //alert(data.error);
-              Swal.fire('Error!', data.error, 'error');
-            } else {
-              document.querySelector('.value.bookings').textContent = data.bookings || '0';
-              document.querySelector('.value.customers').textContent = data.customers || '0';
-              document.querySelector('.value.rooms').textContent = data.rooms || '0';
+function updateChart(selectedValue) {
+  fetch(`/static/chart-data?period=${selectedValue}`)
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+      var labels = [];
+      var datasets = [];
+
+      switch (selectedValue) {
+        case "today":
+          labels = data.map(function(item) { return new Date(item.paymentdate).toLocaleDateString("en-GB", { day: "2-digit", month: "2-digit" }); });
+          datasets = [
+            {
+              label: "Today",
+              data: data.map(function(item) { return item.totalamount; }),
+              borderColor: "blue",
+              backgroundColor: "rgba(0, 0, 255, 0.1)",
+              fill: true,
+              tension: 0.4,
+            },
+            {
+              label: "Yesterday",
+              data: data.map(function(item) { return item.totalamount; }),
+              borderColor: "red",
+              backgroundColor: "rgba(255, 0, 0, 0.1)",
+              fill: true,
+              borderDash: [5, 5],
+              tension: 0.4,
+            },
+          ];
+          break;
+        case "week":
+          labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+          var thisWeekAmounts = Array(7).fill(0);
+          var lastWeekAmounts = Array(7).fill(0);
+          var thisWeekDates = Array(7).fill('');
+          var lastWeekDates = Array(7).fill('');
+
+          data.forEach(item => {
+            const dayIndex = new Date(item.paymentdate).getDay() - 1; // getDay() trả về 0 cho Chủ Nhật, 1 cho Thứ Hai, ...
+            const formattedDate = new Date(item.paymentdate).toLocaleDateString("en-GB", { day: "2-digit", month: "2-digit", year: "numeric" });
+            if (item.week_type === 'this_week') {
+              thisWeekAmounts[dayIndex] = item.totalamount;
+              thisWeekDates[dayIndex] = formattedDate;
+            } else if (item.week_type === 'last_week') {
+              lastWeekAmounts[dayIndex] = item.totalamount;
+              lastWeekDates[dayIndex] = formattedDate;
             }
-          })
-          .catch(error => {
-            console.error('Error:', error);
-            //alert('An error occurred while fetching hotel statistics.');
-            Swal.fire('Error!', 'An error occurred while fetching hotel statistics.', 'error');
           });
+
+          datasets = [
+            {
+              label: "This Week",
+              data: thisWeekAmounts,
+              borderColor: "blue",
+              backgroundColor: "rgba(0, 0, 255, 0.1)",
+              fill: true,
+              tension: 0.4,
+              paymentDates: thisWeekDates // Lưu trữ ngày thanh toán cho mỗi điểm
+            },
+            {
+              label: "Last Week",
+              data: lastWeekAmounts,
+              borderColor: "red",
+              backgroundColor: "rgba(255, 0, 0, 0.1)",
+              fill: true,
+              borderDash: [5, 5],
+              tension: 0.4,
+              paymentDates: lastWeekDates // Lưu trữ ngày thanh toán cho mỗi điểm
+            }
+          ];
+          break;
+        case "month":
+          // Sắp xếp dữ liệu theo ngày để đảm bảo thứ tự
+          data.sort((a, b) => new Date(a.paymentdate) - new Date(b.paymentdate));
+          
+          // Tạo nhãn cho các ngày trong tháng
+          const daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+          labels = Array.from({ length: daysInMonth }, (_, i) => (i + 1).toString().padStart(2, '0'));
+
+          // Tách dữ liệu cho tháng này và tháng trước
+          const thisMonthData = data.filter(item => new Date(item.paymentdate).getMonth() === new Date().getMonth());
+          const lastMonthData = data.filter(item => new Date(item.paymentdate).getMonth() === new Date().getMonth() - 1);
+
+          // Tạo mảng dữ liệu cho tháng này và tháng trước
+          const thisMonthAmounts = Array(daysInMonth).fill(0);
+          const lastMonthAmounts = Array(daysInMonth).fill(0);
+
+          thisMonthData.forEach(item => {
+            const day = new Date(item.paymentdate).getDate() - 1;
+            thisMonthAmounts[day] = item.totalamount;
+          });
+
+          lastMonthData.forEach(item => {
+            const day = new Date(item.paymentdate).getDate() - 1;
+            lastMonthAmounts[day] = item.totalamount;
+          });
+
+          datasets = [
+            {
+              label: "This Month",
+              data: thisMonthAmounts,
+              borderColor: "blue",
+              backgroundColor: "rgba(0, 0, 255, 0.1)",
+              fill: true,
+              tension: 0.4,
+            },
+            {
+              label: "Last Month",
+              data: lastMonthAmounts,
+              borderColor: "red",
+              backgroundColor: "rgba(255, 0, 0, 0.1)",
+              fill: true,
+              borderDash: [5, 5],
+              tension: 0.4,
+            },
+          ];
+          break;
+        case "year":
+          // Tạo nhãn cho các tháng trong năm
+          labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+          // Tạo mảng dữ liệu cho các tháng trong năm
+          const thisYearAmounts = Array(12).fill(0);
+          const lastYearAmounts = Array(12).fill(0);
+
+          // Tách dữ liệu cho năm nay và năm ngoái
+          const thisYearData = data.filter(item => new Date(item.month).getFullYear() === new Date().getFullYear());
+          const lastYearData = data.filter(item => new Date(item.month).getFullYear() === new Date().getFullYear() - 1);
+
+          // Điều chỉnh dữ liệu doanh thu tăng lên một tháng
+          thisYearData.forEach(item => {
+            const month = (new Date(item.month).getUTCMonth() + 1) % 12;
+            thisYearAmounts[month] = item.totalamount;
+          });
+
+          lastYearData.forEach(item => {
+            const month = (new Date(item.month).getUTCMonth() + 1) % 12;
+            lastYearAmounts[month] = item.totalamount;
+          });
+
+          datasets = [
+            {
+              label: "This Year",
+              data: thisYearAmounts,
+              borderColor: "blue",
+              backgroundColor: "rgba(0, 0, 255, 0.1)",
+              fill: true,
+              tension: 0.4,
+            },
+            {
+              label: "Last Year",
+              data: lastYearAmounts,
+              borderColor: "red",
+              backgroundColor: "rgba(255, 0, 0, 0.1)",
+              fill: true,
+              borderDash: [5, 5],
+              tension: 0.4,
+            }
+          ];
+          break;
+        default:
+          console.error("Invalid selection");
+          return;
       }
+
+      myChart.data.labels = labels;
+      myChart.data.datasets = datasets;
+      myChart.options = {
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem, data) {
+              var label = data.datasets[tooltipItem.datasetIndex].label || '';
+              var amount = tooltipItem.yLabel;
+              var date = data.datasets[tooltipItem.datasetIndex].paymentDates ? data.datasets[tooltipItem.datasetIndex].paymentDates[tooltipItem.index] : '';
+              return `${label}: ${amount} on ${date}`;
+            }
+          }
+        }
+      };
+      myChart.update();
+    })
+    .catch(function(error) {
+      console.error('Error fetching chart data:', error);
+    });
+}
+
+function dateTruncWeek(date, offset = 0) {
+  const day = date.getDay();
+  const diff = date.getDate() - day + (day === 0 ? -6 : 1) + offset; // Điều chỉnh để Thứ Hai là ngày đầu tuần
+  console.log(diff);
+  return new Date(date.setDate(diff));
+}
+function updateHotelStatistic(period) {
+    
+    const dateInput = document.getElementById('HS-date-selector').value;
+    if (!dateInput) {
+      //alert('Please select a date.');
+      Swal.fire('Error!', 'Please select a date.', 'error');
+      return;
+    }
+    fetch(`/static/hotelStatistic?period=${period}&date=${dateInput}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          //alert(data.error);
+          Swal.fire('Error!', data.error, 'error');
+        } else {
+          document.querySelector('.value.bookings').textContent = data.bookings || '0';
+          document.querySelector('.value.customers').textContent = data.customers || '0';
+          document.querySelector('.value.rooms').textContent = data.rooms || '0';
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        //alert('An error occurred while fetching hotel statistics.');
+        Swal.fire('Error!', 'An error occurred while fetching hotel statistics.', 'error');
+      });
+  }
 
 
 function showPopup(popupId) {

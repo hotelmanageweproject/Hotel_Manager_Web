@@ -221,8 +221,77 @@ const getHotelStatistic = (period, date) => {
       });
     });
   };
-
+  const getRevenueData = (period) => {
+    return new Promise((resolve, reject) => {
+      let query = '';
+      switch (period) {
+        case 'today':
+          query = `
+            SELECT p.paymentdate, SUM(p.totalamount) as totalamount
+            FROM payment p
+            WHERE p.paymentdate BETWEEN current_date - INTERVAL '1 day' AND current_date
+            AND p.paymentstatus = 'paid'
+            GROUP BY p.paymentdate
+            ORDER BY p.paymentdate;
+          `;
+          break;
+        case 'week':
+          query = `
+          WITH this_week AS (
+            SELECT p.paymentdate AT TIME ZONE 'UTC' AT TIME ZONE 'UTC+7' as paymentdate, SUM(p.totalamount) as totalamount, 'this_week' as week_type
+            FROM payment p
+            WHERE p.paymentdate >= date_trunc('week', current_date) AND p.paymentdate < date_trunc('week', current_date) + INTERVAL '7 days'
+            AND p.paymentstatus = 'paid'
+            GROUP BY p.paymentdate
+          ),
+          last_week AS (
+            SELECT p.paymentdate AT TIME ZONE 'UTC' AT TIME ZONE 'UTC+7' as paymentdate, SUM(p.totalamount) as totalamount, 'last_week' as week_type
+            FROM payment p
+            WHERE p.paymentdate >= date_trunc('week', current_date) - INTERVAL '7 days' AND p.paymentdate < date_trunc('week', current_date)
+            AND p.paymentstatus = 'paid'
+            GROUP BY p.paymentdate
+          )
+          SELECT * FROM this_week
+          UNION ALL
+          SELECT * FROM last_week
+          ORDER BY paymentdate;
+          `;
+          break;
+        case 'month':
+          query = `
+            SELECT p.paymentdate AT TIME ZONE 'UTC' AT TIME ZONE 'UTC+7' as paymentdate, SUM(p.totalamount) as totalamount
+            FROM payment p
+            WHERE p.paymentdate BETWEEN date_trunc('month', current_date) - INTERVAL '1 month' AND current_date
+            AND p.paymentstatus = 'paid'
+            GROUP BY p.paymentdate
+            ORDER BY p.paymentdate;
+          `;
+          break;
+        case 'year':
+          query = `
+            SELECT date_trunc('month', p.paymentdate AT TIME ZONE 'UTC' AT TIME ZONE 'UTC+7') as month, SUM(p.totalamount) as totalamount
+            FROM payment p
+            WHERE p.paymentdate BETWEEN current_date - INTERVAL '1 year' AND current_date
+            AND p.paymentstatus = 'paid'
+            GROUP BY month
+            ORDER BY month;
+          `;
+          break;
+        default:
+          reject(new Error('Invalid period'));
+          return;
+      }
   
+      db.query(query, (err, result) => {
+        if (err) {
+          console.error("Error executing query", err.stack);
+          reject(err);
+        } else {
+          resolve(result.rows);
+        }
+      });
+    });
+  };
 export default {
   addPayment,
   getPaymentByBookingId,
@@ -230,5 +299,7 @@ export default {
   getCustomerRanking,
   getServiceRankingFull,
   getCustomerRankingFull,
-  getHotelStatistic
+  getHotelStatistic,
+  getRevenueData
 };
+

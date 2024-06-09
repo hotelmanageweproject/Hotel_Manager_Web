@@ -4,8 +4,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import staticModel from '../../models/static.js';
-import { format } from 'date-fns'; // Import hàm format từ date-fns
-import { getRevenueData } from '../../models/chart.js';
+import { format, addHours } from 'date-fns'; // Import hàm format và addHours từ date-fns
+
 
 const router = express.Router();
 router.use(express.static(path.join(__dirname, 'public/static')));
@@ -80,12 +80,15 @@ router.get('/serviceRanking', async (req, res) => {
   router.get('/chart-data', async (req, res) => {
     const { period } = req.query;
     try {
-      const data = await getRevenueData(period);
+      const data = await staticModel.getRevenueData(period);
+      // Điều chỉnh múi giờ của dữ liệu sang UTC+7
+    console.log(data);
       res.json(data);
     } catch (error) {
       res.status(500).send(error.message);
     }
   });
+  
 
 router.post('/addPayment',async (req, res) => {
   let { bookingid, totalamount,additionalcharge, paymentmethod, paymentdate, note} = req.body;
