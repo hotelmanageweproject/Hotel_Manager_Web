@@ -335,11 +335,25 @@ window.addEventListener('load', () => {
         window.location.href = '/browse/service';
       });
   }
-  if (success === 'trueupdate' && serviceid !== null && departmentid === null) {
-    Swal.fire('Updated!', `Service updated successfully, Service ID: ${serviceid}`, 'success');
-  } else if (success === 'trueupdate' && serviceid === null && departmentid !== null) {
-      Swal.fire('Updated!', `Department updated successfully, Department ID: ${departmentid}`, 'success').then(() => {
-          window.location.href = '/browse/service';
+  if (success === 'trueupdate') {
+      Swal.fire({
+        title: "Are you sure you want to update this?",
+        text: "Please confirm your action!",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, update it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (serviceid !== null && departmentid === null) {
+            Swal.fire('Updated!', `Service updated successfully, Service ID: ${serviceid}`, 'success');
+          } else if (serviceid === null && departmentid !== null) {
+            Swal.fire('Updated!', `Department updated successfully, Department ID: ${departmentid}`, 'success').then(() => {
+                window.location.href = '/browse/service';
+            });
+          }
+        }
       });
   } 
   if (success === 'falseupdate') {

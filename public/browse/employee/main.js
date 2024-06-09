@@ -271,7 +271,21 @@ window.addEventListener('load', () => {
         });
     }
     if (success === 'trueupdate' && staffid !== '0') {
-      Swal.fire('Updated!', `Staff updated successfully, Staff ID: ${staffid}`, 'success');
+      Swal.fire({
+        title: "Are you sure you want to update this staff?",
+        text: "Please confirm your action!",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, update it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire('Updated!', `Staff updated successfully, Staff ID: ${staffid}`, 'success').then(() => {
+            window.location.href = '/browse/employee';
+          });
+        }
+      });
     }
     if (success === 'falseupdate' || (success === 'trueupdate' && staffid === '0')) {
         Swal.fire('Warning!', decodeURIComponent(err) + '<br>Staff is already existed, please try again!', 'error').then(() => {

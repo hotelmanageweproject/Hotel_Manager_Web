@@ -325,12 +325,26 @@ window.addEventListener('load', () => {
     });
   }
 
-  // Handle update success
-  if (success === 'trueupdate' && bookingid !== 0 && roomid === null) {
-    Swal.fire('Updated!', `Booking updated successfully, Booking ID: ${bookingid}`, 'success');
-  } else if (success === 'trueupdate' && roomid !== 0 && bookingid !== 0) {
-    Swal.fire('Updated!', `Booking room updated successfully, Booking ID: ${bookingid} Room ID: ${roomid}`, 'success');
-  } 
+  // Handle update with confirmation
+  if (success === 'trueupdate') {
+    Swal.fire({
+      title: "Are you sure you want to update this?",
+      text: "Please confirm your action!",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (bookingid !== 0 && roomid === null) {
+          Swal.fire('Updated!', `Booking updated successfully, Booking ID: ${bookingid}`, 'success');
+        } else if (roomid !== 0 && bookingid !== 0) {
+          Swal.fire('Updated!', `Booking room updated successfully, Booking ID: ${bookingid} Room ID: ${roomid}`, 'success');
+        }
+      }
+    });
+  }
   if (success === 'falseupdate' && err !== null) {
     Swal.fire({
       icon: 'error',

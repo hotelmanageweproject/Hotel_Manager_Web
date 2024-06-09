@@ -321,12 +321,26 @@ window.addEventListener('load', () => {
           });    
     }
     // Xử lí khi update thành công
-    if (success === 'trueupdate' && roomid !== '0' && roomid !== null && roomtype === null && receiptid === null) {
-      Swal.fire('Updated!', `Room updated successfully, Room ID: ${roomid}`, 'success');
-    } else if (success === 'trueupdate' && roomtype !== null && roomid === null && receiptid === null) {
-        Swal.fire('Updated!', `Room Type updated successfully, Room Type Name: ${roomtype}`, 'success');
-    } else if (success === 'trueupdate' && receiptid !== null && roomid === null && roomtype === null) {
-        Swal.fire('Updated!', `Room Service updated successfully, Receipt ID: ${receiptid}`, 'success');
+    if (success === 'trueupdate') {
+        Swal.fire({
+          title: "Are you sure you want to update this?",
+          text: "Please confirm your action!",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, update it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            if (roomid !== '0' && roomid !== null && roomtype === null && receiptid === null) {
+              Swal.fire('Updated!', `Room updated successfully, Room ID: ${roomid}`, 'success');
+            } else if (roomtype !== null && roomid === null && receiptid === null) {
+              Swal.fire('Updated!', `Room Type updated successfully, Room Type Name: ${roomtype}`, 'success');
+            } else if (receiptid !== null && roomid === null && roomtype === null) {
+              Swal.fire('Updated!', `Room Service updated successfully, Receipt ID: ${receiptid}`, 'success');
+            }
+          }
+        });
     }
 });
 

@@ -293,7 +293,7 @@ function showDetailsPopup(customerid) {
     const success = urlParams.get('success');
     const customerid = urlParams.get('customerid');
     const err = urlParams.get('err');
-
+  
     if (success === 'trueadd' && customerid !== '0') {
       Swal.fire('Success!', `Customer added successfully, Customer ID: ${customerid}`, 'success');
     }
@@ -302,7 +302,7 @@ function showDetailsPopup(customerid) {
         window.location.href = '/browse/customer';
       });
     }
-
+  
     if (success === 'truedel' && customerid !== '0') {
       Swal.fire({
         title: "Are you sure?",
@@ -325,17 +325,31 @@ function showDetailsPopup(customerid) {
         window.location.href = '/browse/customer';
       });
     }
-
+  
     if (success === 'trueupdate' && customerid !== '0') {
-      Swal.fire('Updated!', `Customer updated successfully, Customer ID: ${customerid}`, 'success');
-    } 
+      Swal.fire({
+        title: "Are you sure you want to update this customer?",
+        text: "Please confirm your action!",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, update it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire('Updated!', `Customer updated successfully, Customer ID: ${customerid}`, 'success').then(() => {
+            window.location.href = '/browse/customer';
+          });
+        }
+      });
+    }
     
     if (success === 'falseupdate' || (success === 'trueupdate' && customerid === '0')) {
-        Swal.fire('Error!', decodeURIComponent(err) + ' Customer is not existed, please try again!', 'error').then(() => {
-            window.location.href = '/browse/customer';
-        });
+      Swal.fire('Error!', decodeURIComponent(err) + ' Customer is not existed, please try again!', 'error').then(() => {
+          window.location.href = '/browse/customer';
+      });
     }
-});
+  });
 
   function sort(order) {
     console.log("Sorting order:", order); // Thêm dòng này để kiểm tra
