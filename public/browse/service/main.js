@@ -391,3 +391,101 @@ document.addEventListener("click", function(event) {
       closeDropdown();
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const serviceIdInput = document.querySelector('#addPopup input[name="serviceid"]');
+  const serviceNameInput = document.querySelector('#addPopup input[name="servicename"]');
+  const noteInput = document.querySelector('#addPopup input[name="note"]');
+  const departmentIdInput = document.querySelector('#addPopup input[name="departmentid"]');
+
+  const fieldsToHighlight = [
+      serviceIdInput, // Thêm serviceIdInput vào danh sách này
+      serviceNameInput,
+      noteInput,
+      departmentIdInput
+  ];
+
+  fieldsToHighlight.forEach(field => {
+      field.addEventListener('input', function() {
+          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else {
+              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+          }
+      });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const departmentIdInput = document.querySelector('#addPopup input[name="departmentid"]');
+  const departmentNameInput = document.querySelector('#addPopup input[name="departmentname"]');
+  const managerInput = document.querySelector('#addPopup input[name="manager"]');
+  const descriptionInput = document.querySelector('#addPopup input[name="description"]');
+
+  const fieldsToHighlight = [
+      departmentNameInput,
+      managerInput,
+      descriptionInput
+  ];
+
+  departmentIdInput.addEventListener('input', function() {
+      if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+      } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+      } else {
+          fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+      }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const serviceIdInput = document.querySelector('#updatePopup input[name="serviceid"]');
+  const serviceNameInput = document.querySelector('#updatePopup input[name="servicename"]');
+  const noteInput = document.querySelector('#updatePopup input[name="note"]');
+  const departmentIdInput = document.querySelector('#updatePopup input[name="departmentid"]');
+
+  const fieldsToHighlight = [
+      serviceIdInput,
+      serviceNameInput,
+      noteInput,
+      departmentIdInput
+  ];
+
+  serviceIdInput.addEventListener('input', function() {
+      if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+      } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+      } else {
+          fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+      }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const departmentIdInput = document.querySelector('#updatePopup input[name="departmentid"]');
+  const departmentNameInput = document.querySelector('#updatePopup input[name="departmentname"]');
+  const managerInput = document.querySelector('#updatePopup input[name="manager"]');
+  const descriptionInput = document.querySelector('#updatePopup input[name="description"]');
+
+  const fieldsToHighlight = [
+      departmentNameInput,
+      managerInput,
+      descriptionInput
+  ];
+
+  departmentIdInput.addEventListener('input', function() {
+      if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+      } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+      } else {
+          fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+      }
+  });
+});
+
+

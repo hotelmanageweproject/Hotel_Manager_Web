@@ -1460,3 +1460,22 @@ table input[type="text"] {
   box-sizing: border-box;
   border-radius: 10px; /* Rounded corners */
 }
+
+.blinking-border {
+  animation: spin-border 1s linear infinite;
+}
+
+@keyframes spin-border {
+  0%, 100% {
+    border-color: transparent;
+  }
+  25% {
+    border-color: #BCBCBC;
+  }
+  50% {
+    border-color: #A2A2A2;
+  }
+  75% {
+    border-color: #878787;
+  }
+}

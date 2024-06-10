@@ -355,3 +355,110 @@ function sort(order) {
     var dropdown = document.getElementById("dropdownMenu");
     dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
   }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const roomTypeInput = document.querySelector('#addPopup input[name="roomtype"]');
+    const statusSelect = document.querySelector('#addPopup select[name="status"]');
+    const roomTypeNameInput = document.querySelector('#addPopup input[name="name"]');
+    const pricePerNightInput = document.querySelector('#addPopup input[name="pricepernight"]');
+    const maxAdultInput = document.querySelector('#addPopup input[name="maxadult"]');
+    const maxChildInput = document.querySelector('#addPopup input[name="maxchild"]');
+
+    const fieldsToHighlight = [
+        roomTypeInput,
+        statusSelect,
+        roomTypeNameInput,
+        pricePerNightInput,
+        maxAdultInput,
+        maxChildInput
+    ];
+
+    fieldsToHighlight.forEach(field => {
+        field.addEventListener('input', function() {
+            if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+                fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+            } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+                fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+            } else {
+                fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+            }
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const newRoomIdInput = document.querySelector('#addPopup input[name="roomid"]');
+  const bookingIdInput = document.querySelector('#addPopup input[name="bookingid"]');
+  const serviceIdSelect = document.querySelector('#addPopup select[name="serviceid"]');
+  const totalInInput = document.querySelector('#addPopup input[name="total_in"]');
+  const dateOfServiceInput = document.querySelector('#addPopup input[name="date"]');
+  const staffIdInput = document.querySelector('#addPopup input[name="staffid"]');
+
+  const fieldsToHighlight = [
+      bookingIdInput,
+      serviceIdSelect,
+      totalInInput,
+      dateOfServiceInput,
+      staffIdInput
+  ];
+
+  newRoomIdInput.addEventListener('input', function() {
+      if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+      } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+      } else {
+          fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+      }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const newRoomIdInput = document.querySelector('#updatePopup input[name="roomid"]');
+  const roomTypeInput = document.querySelector('#updatePopup input[name="roomtype"]');
+  const statusSelect = document.querySelector('#updatePopup select[name="status"]');
+
+  const fieldsToHighlight = [
+      roomTypeInput,
+      statusSelect
+  ];
+
+  newRoomIdInput.addEventListener('input', function() {
+      if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+      } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+      } else {
+          fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+      }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const receiptIdInput = document.querySelector('#updatePopup input[name="receiptid"]');
+  const serviceIdSelect = document.querySelector('#updatePopup select[name="serviceid"]');
+  const totalInInput = document.querySelector('#updatePopup input[name="total_in"]');
+  const dateOfServiceInput = document.querySelector('#updatePopup input[name="date"]');
+  const staffIdInput = document.querySelector('#updatePopup input[name="staffid"]');
+
+  const fieldsToHighlight = [
+      serviceIdSelect,
+      totalInInput,
+      dateOfServiceInput,
+      staffIdInput
+  ];
+
+  receiptIdInput.addEventListener('input', function() {
+      if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+      } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+      } else {
+          fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+      }
+  });
+});
+
+
+
+

@@ -370,3 +370,61 @@ window.addEventListener('load', () => {
     var dropdown = document.getElementById("dropdownMenu");
     dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
   }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const customerIdInput = document.querySelector('#addPopup input[name="customerid"]');
+    const bookingDateInput = document.querySelector('#addPopup input[name="bookingdate"]');
+    const bookingTypeInput = document.querySelector('#addPopup input[name="bookingtype"]');
+    const totalAdultInput = document.querySelector('#addPopup input[name="totaladult"]');
+    const totalChildInput = document.querySelector('#addPopup input[name="totalchild"]');
+    
+    const fieldsToHighlight = [
+        customerIdInput,
+        bookingDateInput,
+        bookingTypeInput,
+        totalAdultInput,
+        totalChildInput
+    ];
+
+    fieldsToHighlight.forEach(field => {
+        field.addEventListener('input', function() {
+            if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+                fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+            } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+                fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+            } else {
+                fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+            }
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const bookingIdInput = document.querySelector('#addPopup input[name="bookingid"]');
+  const roomIdInput = document.querySelector('#addPopup input[name="new_bkrooms"]');
+  const numOfChildInput = document.querySelector('#addPopup input[name="numofchild"]');
+  const numOfAdultInput = document.querySelector('#addPopup input[name="numofadult"]');
+  const checkInInput = document.querySelector('#addPopup input[name="checkin"]');
+  const checkOutInput = document.querySelector('#addPopup input[name="checkout"]');
+
+  const fieldsToHighlight = [
+      bookingIdInput,
+      roomIdInput,
+      numOfChildInput,
+      numOfAdultInput,
+      checkInInput,
+      checkOutInput
+  ];
+
+  fieldsToHighlight.forEach(field => {
+      field.addEventListener('input', function() {
+          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else {
+              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+          }
+      });
+  });
+});
