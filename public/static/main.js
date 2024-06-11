@@ -137,8 +137,8 @@ async function updateLengthOfStayChart(selectedYear) {
               label: 'Average Length of Stay (days)',
               data: months.map((month, index) => data[index + 1] || 0), // Map data to months
               backgroundColor: '#A2D9D9',
-              borderColor: '#A2D9D9',
-              borderWidth: 1
+              borderColor: '#008080',
+              borderWidth: 0.5
           }]
       },
       options: {
@@ -180,8 +180,8 @@ function initializeOccupancyChart() {
           '#F4B678'
         ],
         borderColor: [
-          '#8BC1F7',
-          '#F4B678'
+          '#439bf2',
+          '#ee9031'
         ],
         borderWidth: 1
       }]
@@ -306,7 +306,7 @@ function updateChart(selectedValue) {
               label: "Today",
               data: data.map(function(item) { return item.totalamount; }),
               borderColor: "rgba(0, 128, 0, 1)", // Green border
-              backgroundColor: "rgba(189, 226, 185, 0.5)",
+              backgroundColor: "rgba(189, 226, 185, 0.4)",
               fill: true,
               tension: 0.4,
             },
@@ -314,7 +314,7 @@ function updateChart(selectedValue) {
               label: "Yesterday",
               data: data.map(function(item) { return item.totalamount; }),
               borderColor: "rgba(128, 0, 128, 1)", // Purple border
-              backgroundColor: "rgba(178, 176, 234, 0.5)", 
+              backgroundColor: "rgba(178, 176, 234, 0.4)",
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -345,7 +345,7 @@ function updateChart(selectedValue) {
               label: "This Week",
               data: thisWeekAmounts,
               borderColor: "rgba(0, 128, 0, 1)", // Green border
-              backgroundColor: "rgba(189, 226, 185, 0.5)", // Transparent green background
+              backgroundColor: "rgba(189, 226, 185, 0.4)", // Transparent green background
               fill: true,
               tension: 0.4,
               paymentDates: thisWeekDates // Lưu trữ ngày thanh toán cho mỗi điểm
@@ -354,7 +354,7 @@ function updateChart(selectedValue) {
               label: "Last Week",
               data: lastWeekAmounts,
               borderColor: "rgba(128, 0, 128, 1)", // Purple border
-              backgroundColor: "rgba(178, 176, 234, 0.5)", // Transparent purple background
+              backgroundColor: "rgba(178, 176, 234, 0.4)", // Transparent purple background
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -393,7 +393,7 @@ function updateChart(selectedValue) {
               label: "This Month",
               data: thisMonthAmounts,
               borderColor: "rgba(0, 128, 0, 1)", // Green border
-              backgroundColor: "rgba(189, 226, 185, 0.5)", // Transparent green background
+              backgroundColor: "rgba(189, 226, 185, 0.4)", // Transparent green background
               fill: true,
               tension: 0.4,
             },
@@ -401,7 +401,7 @@ function updateChart(selectedValue) {
               label: "Last Month",
               data: lastMonthAmounts,
               borderColor: "rgba(128, 0, 128, 1)", // Purple border
-              backgroundColor: "rgba(178, 176, 234, 0.5)", // Transparent purple background
+              backgroundColor: "rgba(178, 176, 234, 0.4)", // Transparent purple background
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -436,7 +436,7 @@ function updateChart(selectedValue) {
               label: "This Year",
               data: thisYearAmounts,
               borderColor: "rgba(0, 128, 0, 1)", // Green border
-              backgroundColor: "rgba(189, 226, 185, 0.5)",
+              backgroundColor: "rgba(189, 226, 185, 0.4)",
               fill: true,
               tension: 0.4,
             },
@@ -444,7 +444,7 @@ function updateChart(selectedValue) {
               label: "Last Year",
               data: lastYearAmounts,
               borderColor: "rgba(128, 0, 128, 1)", // Purple border
-              backgroundColor: "rgba(178, 176, 234, 0.5)", // Transparent purple background
+              backgroundColor: "rgba(178, 176, 234, 0.4)", // Transparent purple background
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
