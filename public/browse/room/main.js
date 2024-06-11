@@ -253,7 +253,10 @@ window.addEventListener('load', () => {
     const roomtype = urlParams.get('roomtype');
     const receiptid = urlParams.get('receiptid');
     const err = urlParams.get('err');
-
+    if (err == -1){
+      console.log("Error");
+      window.location.href = '/browse/room';
+    }
     // Xử lí lỗi khi add ở room
     if (success === 'falseadd') {
         Swal.fire({

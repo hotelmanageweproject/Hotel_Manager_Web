@@ -43,7 +43,7 @@ router_employee.get('/', async (req, res) => {
     res.render('browse/employee/index.ejs', { data, page, urlBeforePage, search});
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server error');
+    res.redirect('/browse/customer?err=-1'); 
   }
 });
 

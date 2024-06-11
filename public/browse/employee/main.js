@@ -239,7 +239,10 @@ window.addEventListener('load', () => {
     const success = urlParams.get('success');
     const staffid = urlParams.get('staffid');
     const err = urlParams.get('err');
-
+    if (err == -1){
+      console.log("Error");
+      window.location.href = '/browse/employee';
+    }
     if (success === 'trueadd' && staffid !== '0') {
       Swal.fire('Success!', `Staff added successfully, Staff ID: ${staffid}`, 'success');
     } 

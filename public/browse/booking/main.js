@@ -9,7 +9,7 @@ function getCurrentDate() {
 function updateDate() {
     const date = getCurrentDate();
     document.getElementById('current-date').textContent = date;
-  }
+}
 
 //function to change color of class when hover and back to normal when mouse leave
 function changeColor() {
@@ -256,12 +256,15 @@ window.addEventListener('load', () => {
   const bookingid = urlParams.get('bookingid');
   const roomid = urlParams.get('roomid');
   const err = urlParams.get('err');
-
+  if (err == -1){
+    console.log("Error");
+    window.location.href = '/browse/booking';
+  }
   // Handle addition success
   if (success === 'trueadd' && bookingid !== 0 && roomid === 0) {
     Swal.fire('Success!', `Booking added successfully, Booking ID: ${bookingid}`, 'success');
   } else if (success === 'trueadd' && roomid !== 0) {
-    Swal.fire('Success!', `Added new Room successfully, Booking ID: ${bookingid}`, 'success');
+    Swal.fire('Success!', `Added new Room successfully,in Booking ID: ${bookingid}`, 'success');
   } 
   if (success === 'falseadd' && err !== null) {
     Swal.fire({
@@ -273,7 +276,9 @@ window.addEventListener('load', () => {
     });
   }
   if (success === 'falseadd' && bookingid == 0 && roomid == 0) {
-    Swal.fire('Error!', 'Booking is not existed, please try again!', 'error');
+    Swal.fire('Error!', 'Booking is not existed, please try again!', 'error').then(() => {
+      window.location.href = '/browse/booking';
+    });
   }
 
   // Handle deletion with confirmation
@@ -289,9 +294,13 @@ window.addEventListener('load', () => {
     }).then((result) => {
       if (result.isConfirmed) {
         if (bookingid !== 0 && roomid === null) {
-          Swal.fire('Deleted!', `Booking deleted successfully, Booking ID: ${bookingid}`, 'success');
+          Swal.fire('Deleted!', `Booking deleted successfully, Booking ID: ${bookingid}`, 'success').then(() => {
+            window.location.href = '/browse/booking';
+          });
         } else if (roomid !== 0 && bookingid !== 0) {
-          Swal.fire('Deleted!', `Booking room deleted successfully, Booking ID: ${bookingid} Room ID: ${roomid}`, 'success');
+          Swal.fire('Deleted!', `Booking room deleted successfully, Booking ID: ${bookingid} Room ID: ${roomid}`, 'success').then(() => {
+            window.location.href = '/browse/booking';
+          });
         }
       }
     });
@@ -355,7 +364,9 @@ window.addEventListener('load', () => {
     });
   }
   if (success === 'falseupdate' && bookingid == 0 && roomid == 0) {
-    Swal.fire('Error!', 'Booking ID or Room ID is not existed, please try again!', 'error');
+    Swal.fire('Error!', 'Booking ID or Room ID is not existed, please try again!', 'error').then(() => {
+      window.location.href = '/browse/booking';
+    }); 
   }
 });
 

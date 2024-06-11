@@ -293,7 +293,10 @@ function showDetailsPopup(customerid) {
     const success = urlParams.get('success');
     const customerid = urlParams.get('customerid');
     const err = urlParams.get('err');
-  
+    if (err == -1){
+      console.log("Error");
+      window.location.href = '/browse/customer';
+    }
     if (success === 'trueadd' && customerid !== '0') {
       Swal.fire('Success!', `Customer added successfully, Customer ID: ${customerid}`, 'success');
     }
