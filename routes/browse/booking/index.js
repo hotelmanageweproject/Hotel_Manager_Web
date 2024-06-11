@@ -29,7 +29,7 @@ router_booking.get('/', async (req, res) => {
     res.render('browse/booking/index.ejs', { data, page, urlBeforePage, searchQuery});
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server error');
+    res.redirect('/browse/booking?err=-1');
   }
 });
 

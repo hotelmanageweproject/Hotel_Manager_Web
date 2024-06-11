@@ -82,7 +82,6 @@ router.get('/serviceRanking', async (req, res) => {
     try {
       const data = await staticModel.getRevenueData(period);
       // Điều chỉnh múi giờ của dữ liệu sang UTC+7
-    console.log(data);
       res.json(data);
     } catch (error) {
       res.status(500).send(error.message);

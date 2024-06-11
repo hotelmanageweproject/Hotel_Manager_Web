@@ -76,7 +76,7 @@ const addStaff = (departmentid, personalid, firstname, lastname, birthday, gende
           reject(err);
         } else {
           console.log('Staff added successfully');
-          if (result.rows.length > 0) {
+          if (result.rowCount > 0) {
             resolve(result.rows[0].staffid);
           } else {
             reject(new Error('It seems the value you entered does not exist.'));
@@ -97,7 +97,7 @@ const deleteStaff = (staffID) => {
               reject(err);
           } else {
               console.log('Staff deleted successfully');
-              if (result.rows.length > 0) {
+              if (result.rowCount > 0) {
                 resolve(staffID);
               } else {
                 reject(new Error('It seems the value you entered does not exist.'));
@@ -125,7 +125,8 @@ const updateStaff = (staffid, departmentid, personalid, firstname, lastname, bir
           reject(err);
           } else {
           console.log('Staff updated successfully');
-          if (result.rows.length > 0) {
+          console.log(result);
+          if (result.rowCount > 0) {
             resolve(staffid);
           } else {
             reject(new Error('It seems the value you entered does not exist.'));

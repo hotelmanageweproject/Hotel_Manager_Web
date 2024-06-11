@@ -283,7 +283,10 @@ window.addEventListener('load', () => {
   const serviceid = urlParams.get('serviceid');
   const departmentid = urlParams.get('departmentid1');
   const err = urlParams.get('err');
-
+  if (err == -1){
+    console.log("Error");
+    window.location.href = '/browse/service';
+  }
   if (success === 'trueadd' && serviceid !== null && departmentid === null) {
     Swal.fire('Success!', `Service added successfully, Service ID: ${serviceid}`, 'success');
   } 

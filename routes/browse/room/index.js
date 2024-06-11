@@ -22,7 +22,7 @@ router_room.get('/', async (req, res) => {
     res.render('browse/room/index.ejs', { data, page, urlBeforePage, search, sort });
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server error');
+    res.redirect('/browse/room?err=-1');  
   }
 });
 

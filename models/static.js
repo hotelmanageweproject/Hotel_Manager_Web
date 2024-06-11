@@ -32,7 +32,6 @@ const addPayment = (
     query = `UPDATE payment SET ${updates.join(
       ", "
     )} WHERE bookingid = $1::bigint`;
-    console.log(query);
     values = [bookingid];
     db.query(query, values, (err, result) => {
       if (err) {

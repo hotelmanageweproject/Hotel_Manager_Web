@@ -25,8 +25,8 @@ router_service.get('/', async (req, res) => {
     res.render('browse/service/index.ejs', { data, page, urlBeforePage, search});
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server error');
-  }
+    res.redirect('/browse/service?err=-1'); 
+   }
 });
 
 router_service.get('/api/service-details/:serviceid', async (req, res) => {

@@ -37,7 +37,7 @@ router_cus.get('/', async (req, res) => {
     res.render('browse/customer/index.ejs', {data, page, urlBeforePage, search});
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server error');
+    res.redirect('/browse/customer?err=-1');
   }
 });
 

@@ -74,7 +74,7 @@ const addBooking = (bookingid, customerid, bookingdate, bookingtype, totaladult,
         console.log(result);
         if (err) {
           console.error('Error executing query', err.stack);
-          reject(err);
+          reject(err.detail);
         } else {
           console.log('Booking added successfully');
           if (result.rowCount !== 0 || result.rowCount !== null || result.rowCount !== '0') {
