@@ -363,8 +363,8 @@ function sort(order) {
     const pricePerNightInput = document.querySelector('#addPopup input[name="pricepernight"]');
     const maxAdultInput = document.querySelector('#addPopup input[name="maxadult"]');
     const maxChildInput = document.querySelector('#addPopup input[name="maxchild"]');
-
-    const fieldsToHighlight = [
+  
+    const roomFields = [
         roomTypeInput,
         statusSelect,
         roomTypeNameInput,
@@ -372,73 +372,56 @@ function sort(order) {
         maxAdultInput,
         maxChildInput
     ];
-
-    fieldsToHighlight.forEach(field => {
-        field.addEventListener('input', function() {
-            if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-                fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-            } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-                fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-            } else {
-                fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
-            }
+  
+    const newRoomIdInput = document.querySelector('#addPopup input[name="roomid"]');
+    const bookingIdInput = document.querySelector('#addPopup input[name="bookingid"]');
+    const serviceIdSelect = document.querySelector('#addPopup select[name="serviceid"]');
+    const totalInInput = document.querySelector('#addPopup input[name="total_in"]');
+    const dateOfServiceInput = document.querySelector('#addPopup input[name="date"]');
+    const staffIdInput = document.querySelector('#addPopup input[name="staffid"]');
+  
+    const bookingFields = [
+        bookingIdInput,
+        serviceIdSelect,
+        totalInInput,
+        dateOfServiceInput,
+        staffIdInput
+    ];
+  
+    newRoomIdInput.addEventListener('input', function() {
+      if (newRoomIdInput.value.trim() !== '') {
+        roomTypeInput.addEventListener('input', function() {
+          roomFields.forEach(field => field.classList.add('blinking-border'));
         });
+        bookingIdInput.addEventListener('input', function() {
+          bookingFields.forEach(field => field.classList.add('blinking-border'));
+        });
+      } else {
+        roomFields.forEach(field => field.classList.remove('blinking-border'));
+        bookingFields.forEach(field => field.classList.remove('blinking-border'));
+      }
     });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  const newRoomIdInput = document.querySelector('#addPopup input[name="roomid"]');
-  const bookingIdInput = document.querySelector('#addPopup input[name="bookingid"]');
-  const serviceIdSelect = document.querySelector('#addPopup select[name="serviceid"]');
-  const totalInInput = document.querySelector('#addPopup input[name="total_in"]');
-  const dateOfServiceInput = document.querySelector('#addPopup input[name="date"]');
-  const staffIdInput = document.querySelector('#addPopup input[name="staffid"]');
-
-  const fieldsToHighlight = [
-      newRoomIdInput, // Thêm newRoomIdInput vào danh sách này
-      bookingIdInput,
-      serviceIdSelect,
-      totalInInput,
-      dateOfServiceInput,
-      staffIdInput
-  ];
-
-  fieldsToHighlight.forEach(field => {
+  
+    roomFields.forEach(field => {
       field.addEventListener('input', function() {
-          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-          } else {
-              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
-          }
+        if (roomFields.every(field => field.value.trim() === '')) {
+          roomFields.forEach(field => field.classList.remove('blinking-border'));
+        } else {
+          roomFields.forEach(field => field.classList.add('blinking-border'));
+        }
       });
-  });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  const newRoomIdInput = document.querySelector('#updatePopup input[name="roomid"]');
-  const roomTypeInput = document.querySelector('#updatePopup input[name="roomtype"]');
-  const statusSelect = document.querySelector('#updatePopup select[name="status"]');
-
-  const fieldsToHighlight = [
-      newRoomIdInput, // Thêm newRoomIdInput vào danh sách này
-      roomTypeInput,
-      statusSelect
-  ];
-
-  fieldsToHighlight.forEach(field => {
+    });
+  
+    bookingFields.forEach(field => {
       field.addEventListener('input', function() {
-          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-          } else {
-              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
-          }
+        if (bookingFields.every(field => field.value.trim() === '')) {
+          bookingFields.forEach(field => field.classList.remove('blinking-border'));
+        } else {
+          bookingFields.forEach(field => field.classList.add('blinking-border'));
+        }
       });
+    });
   });
-});
 
 document.addEventListener('DOMContentLoaded', function() {
   const receiptIdInput = document.querySelector('#updatePopup input[name="receiptid"]');
