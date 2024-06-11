@@ -847,7 +847,15 @@
 #HS-date-selector:hover {
   border: 1px solid #000; /* Hiển thị viền khi di chuột */
 }
-
+#HS-date-selector2 {
+  padding: 7px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+#HS-date-selector2:hover {
+  border: 1px solid #000; /* Hiển thị viền khi di chuột */
+}
 /* Container for the occupancy chart */
 .occupancy-chart-container {
   margin: 10px;

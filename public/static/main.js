@@ -1,3 +1,6 @@
+var occupancyChart;
+var myChart;
+
 //function to get current date
 function getCurrentDate() {
   var date = new Date();
@@ -10,8 +13,6 @@ function updateDate() {
   const date = getCurrentDate();
   document.getElementById("current-date").textContent = date;
 }
-
-//function to change color of class when hover and back to normal when mouse leave
 function changeColor() {
   var classes = [
     "menu-item1",
@@ -68,35 +69,178 @@ function goToStaticHomePage() {
   }
 }
 
-function changeYear1(direction) {
-  const yearElement = document.getElementById("chart-year");
-  let currentYear = parseInt(yearElement.textContent);
-  currentYear += direction;
-  yearElement.textContent = currentYear;
-  updateChart(document.getElementById("chart-date-selector").value);
-}
-function changeYear2(direction) {
-  const yearElement = document.getElementById("occupancy-chart-year");
-  let currentYear = parseInt(yearElement.textContent);
-  currentYear += direction;
-  yearElement.textContent = currentYear;
-  updateHotelStatistic(
-    document.getElementById("occupancy-chart-year-selector").value
-  );
+document.addEventListener('DOMContentLoaded', () => {
+  // Lấy ngày hiện tại
+  const today = new Date().toISOString().split('T')[0];
+  // Cập nhật biểu đồ với ngày hiện tại
+  if (today){
+      updateOccupancyChart(today);
+      initializeOccupancyChart();
+      updateHotelStatistic('today');
+  }
+  
+  const periodSelector = document.getElementById('hotel-statistic-date-selector');
+  if (periodSelector) {
+    periodSelector.addEventListener('change', () => {
+      updateHotelStatistic(periodSelector.value);
+    });
+  }
+
+  // Initialize Length of Stay Chart
+  const currentYear = new Date().getFullYear();
+  const yearSpan = document.getElementById('length-of-stay-chart-year');
+  if (yearSpan) {
+    yearSpan.innerText = currentYear;
+    updateLengthOfStayChart(currentYear);
+  }
+});
+//function to change color of class when hover and back to normal when mouse leave
+
+
+function changeYear3(change) {
+  const yearSpan = document.getElementById('length-of-stay-chart-year');
+  let currentYear = parseInt(yearSpan.innerText);
+  currentYear += change;
+  yearSpan.innerText = currentYear;
+  updateLengthOfStayChart(currentYear);
 }
 
-function changeYear3(direction) {
-  const yearElement = document.getElementById("length-of-stay-chart-year");
-  let currentYear = parseInt(yearElement.textContent);
-  currentYear += direction;
-  yearElement.textContent = currentYear;
-  updateHotelStatistic(
-    document.getElementById("LOS-chart-year-selector").value
-  );
+// Length of Stay Chart
+async function fetchLengthOfStayData(year) {
+  try {
+      const response = await fetch(`/static/averageBookingDuration?year=${year}`);
+      if (!response.ok) {
+          Swal.fire('Error!', 'An error occurred while fetching length of stay data.', 'error');
+      }
+      const data = await response.json();
+      return data;
+  } catch (error) {
+      console.error('Error fetching length of stay data:', error);
+      return [];
+  }
 }
 
-var myChart;
+async function updateLengthOfStayChart(selectedYear) {
+  const ctx = document.getElementById('lengthOfStayChart').getContext('2d');
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const data = await fetchLengthOfStayData(selectedYear);
 
+  if (window.lengthOfStayChartInstance) {
+      window.lengthOfStayChartInstance.destroy();
+  }
+
+  window.lengthOfStayChartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: months,
+          datasets: [{
+              label: 'Average Length of Stay (days)',
+              data: months.map((month, index) => data[index + 1] || 0), // Map data to months
+              backgroundColor: '#A2D9D9',
+              borderColor: '#A2D9D9',
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+}
+// Occupancy Chart
+
+
+function initializeOccupancyChart() {
+  const dateInput = document.getElementById('HS-date-selector2');
+  if (dateInput) {
+    const selectedDate = dateInput.value;
+    if (selectedDate){
+      updateOccupancyChart(selectedDate);
+    }
+    dateInput.addEventListener('change', (event) => {
+      const newDate = event.target.value;
+      if (newDate){
+          updateOccupancyChart(newDate);
+      }
+    });
+  }
+  const ctx = document.getElementById('occupancyChart').getContext('2d');
+  occupancyChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Occupied', 'Available'],
+      datasets: [{
+        label: 'Room Occupancy',
+        data: [0, 0], // Khởi tạo với dữ liệu trống
+        backgroundColor: [
+          '#8BC1F7',
+          '#F4B678'
+        ],
+        borderColor: [
+          '#8BC1F7',
+          '#F4B678'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        tooltip: {
+          callbacks: {
+            label: function(tooltipItem) {
+              const label = tooltipItem.label || '';
+              const value = tooltipItem.raw || 0;
+              const total = tooltipItem.dataset.data.reduce((acc, val) => acc + val, 0);
+              const percentage = ((value / total) * 100).toFixed(2) + '%';
+              return `${label}: ${value} (${percentage})`;
+            }
+          }
+        },
+        datalabels: {
+          formatter: (value, ctx) => {
+            let sum = 0;
+            let dataArr = ctx.chart.data.datasets[0].data;
+            dataArr.map(data => {
+              sum += data;
+            });
+            let percentage = (value * 100 / sum).toFixed(2) + "%";
+            return percentage;
+          },
+          color: '#000',
+        }
+      }
+    },
+    plugins: [ChartDataLabels]
+  });
+}
+async function updateOccupancyChart(date) {
+  try {
+    const response = await fetch(`/static/occupancyRate?date=${date}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    
+    // Chuyển đổi occupiedRoom thành số
+    const occupiedRoom = parseInt(data.occupiedRoom, 10);
+    const numberOfRoom = parseInt(data.numberOfRoom, 10);
+    const occupancyData = [occupiedRoom, numberOfRoom - occupiedRoom];
+
+    occupancyChart.data.datasets[0].data = occupancyData;
+    occupancyChart.update();
+  } catch (error) {
+    console.error('Error fetching occupancy data:', error);
+  }
+}
+// Revenue Chart
 function initializeChart() {
   var ctx = document.getElementById("myChart").getContext("2d");
   myChart = new Chart(ctx, {
@@ -161,16 +305,16 @@ function updateChart(selectedValue) {
             {
               label: "Today",
               data: data.map(function(item) { return item.totalamount; }),
-              borderColor: "green",
-              backgroundColor: "#BDE2B9",
+              borderColor: "rgba(0, 128, 0, 1)", // Green border
+              backgroundColor: "rgba(189, 226, 185, 0.5)",
               fill: true,
               tension: 0.4,
             },
             {
               label: "Yesterday",
               data: data.map(function(item) { return item.totalamount; }),
-              borderColor: "purple",
-              backgroundColor: "#B2B0EA",
+              borderColor: "rgba(128, 0, 128, 1)", // Purple border
+              backgroundColor: "rgba(178, 176, 234, 0.5)", 
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -200,8 +344,8 @@ function updateChart(selectedValue) {
             {
               label: "This Week",
               data: thisWeekAmounts,
-              borderColor: "green",
-              backgroundColor: "#BDE2B9",
+              borderColor: "rgba(0, 128, 0, 1)", // Green border
+              backgroundColor: "rgba(189, 226, 185, 0.5)", // Transparent green background
               fill: true,
               tension: 0.4,
               paymentDates: thisWeekDates // Lưu trữ ngày thanh toán cho mỗi điểm
@@ -209,8 +353,8 @@ function updateChart(selectedValue) {
             {
               label: "Last Week",
               data: lastWeekAmounts,
-              borderColor: "purple",
-              backgroundColor: "#B2B0EA",
+              borderColor: "rgba(128, 0, 128, 1)", // Purple border
+              backgroundColor: "rgba(178, 176, 234, 0.5)", // Transparent purple background
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -248,16 +392,16 @@ function updateChart(selectedValue) {
             {
               label: "This Month",
               data: thisMonthAmounts,
-              borderColor: "green",
-              backgroundColor: "#BDE2B9",
+              borderColor: "rgba(0, 128, 0, 1)", // Green border
+              backgroundColor: "rgba(189, 226, 185, 0.5)", // Transparent green background
               fill: true,
               tension: 0.4,
             },
             {
               label: "Last Month",
               data: lastMonthAmounts,
-              borderColor: "purple",
-              backgroundColor: "#B2B0EA",
+              borderColor: "rgba(128, 0, 128, 1)", // Purple border
+              backgroundColor: "rgba(178, 176, 234, 0.5)", // Transparent purple background
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -291,16 +435,16 @@ function updateChart(selectedValue) {
             {
               label: "This Year",
               data: thisYearAmounts,
-              borderColor: "green",
-              backgroundColor: "#BDE2B9",
+              borderColor: "rgba(0, 128, 0, 1)", // Green border
+              backgroundColor: "rgba(189, 226, 185, 0.5)",
               fill: true,
               tension: 0.4,
             },
             {
               label: "Last Year",
               data: lastYearAmounts,
-              borderColor: "purple",
-              backgroundColor: "#B2B0EA",
+              borderColor: "rgba(128, 0, 128, 1)", // Purple border
+              backgroundColor: "rgba(178, 176, 234, 0.5)", // Transparent purple background
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -336,37 +480,39 @@ function updateChart(selectedValue) {
 function dateTruncWeek(date, offset = 0) {
   const day = date.getDay();
   const diff = date.getDate() - day + (day === 0 ? -6 : 1) + offset; // Điều chỉnh để Thứ Hai là ngày đầu tuần
-  console.log(diff);
   return new Date(date.setDate(diff));
 }
+// Hotel Statistic
 function updateHotelStatistic(period) {
-    
-    const dateInput = document.getElementById('HS-date-selector').value;
-    if (!dateInput) {
-      //alert('Please select a date.');
-      Swal.fire('Error!', 'Please select a date.', 'error');
-      return;
-    }
-    fetch(`/static/hotelStatistic?period=${period}&date=${dateInput}`)
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) {
-          //alert(data.error);
-          Swal.fire('Error!', data.error, 'error');
-        } else {
-          document.querySelector('.value.bookings').textContent = data.bookings || '0';
-          document.querySelector('.value.customers').textContent = data.customers || '0';
-          document.querySelector('.value.rooms').textContent = data.rooms || '0';
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        //alert('An error occurred while fetching hotel statistics.');
-        Swal.fire('Error!', 'An error occurred while fetching hotel statistics.', 'error');
-      });
+  let dateInput = document.getElementById('HS-date-selector').value;
+  if (!dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput = today;
   }
+  fetch(`/static/hotelStatistic?period=${period}&date=${dateInput}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        Swal.fire('Error!', data.error, 'error');
+      } else {
+        const bookingsElement = document.querySelector('.value.bookings');
+        const customersElement = document.querySelector('.value.customers');
+        
+        if (bookingsElement) {
+          bookingsElement.textContent = data.bookings || '0';
+        }
+        if (customersElement) {
+          customersElement.textContent = data.customers || '0';
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      Swal.fire('Error!', 'An error occurred while fetching hotel statistics.', 'error');
+    });
+}
 
-
+// Popup payment
 function showPopup(popupId) {
   var popup = document.getElementById(popupId);
   var overlay = document.getElementById("overlay");
@@ -468,7 +614,7 @@ document
 function fetchPaymentData() {
   const bookingid = document.getElementById("bookingidInput").value;
   if (!bookingid) {
-    console.log("No booking ID provided.");
+    Swal.fire('Error!', 'Please enter a booking ID.', 'error');
     return; // Thoát khỏi hàm nếu không có booking ID
   }
   fetch(`/static/searchPayment?bookingid=${bookingid}`)
@@ -632,127 +778,3 @@ document.querySelectorAll('.payment-option').forEach(button => {
       this.classList.add('selected');
     });
   });
-
-  var occupancyChart; // Biến toàn cục
-
-  function initializeOccupancyChart() {
-    const ctx = document.getElementById('occupancyChart').getContext('2d');
-    occupancyChart = new Chart(ctx, { // Sử dụng biến toàn cục
-      type: 'pie',
-      data: {
-        labels: ['Occupied', 'Available'],
-        datasets: [{
-          label: 'Room Occupancy',
-          data: [75, 25], // Giả sử 75% phòng đã được thuê và 25% còn trống
-          backgroundColor: [
-            '#8BC1F7',
-            '#F4B678'
-          ],
-          borderColor: [
-            '#8BC1F7',
-            '#F4B678'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false, // Đảm bảo biểu đồ không bị méo
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          tooltip: {
-            mode: 'index',
-            intersect: false,
-          },
-          datalabels: {
-            formatter: (value, ctx) => {
-              let sum = 0;
-              let dataArr = ctx.chart.data.datasets[0].data;
-              dataArr.map(data => {
-                sum += data;
-              });
-              let percentage = (value * 100 / sum).toFixed(2) + "%";
-              return percentage;
-            },
-            color: '#000',
-          }
-        }
-      },
-      plugins: [ChartDataLabels]
-    });
-  }
-  
-  function updateOccupancyChart(timeframe) {
-    // Giả sử bạn có một API hoặc một cách nào đó để lấy dữ liệu dựa trên timeframe
-    // Dưới đây là dữ liệu giả định
-    var data = [75, 25]; // Mặc định
-    if (timeframe === 'week') {
-      data = [70, 30];
-    } else if (timeframe === 'month') {
-      data = [60, 40];
-    } else if (timeframe === 'year') {
-      data = [50, 50];
-    }
-  
-    occupancyChart.data.datasets[0].data = data;
-    occupancyChart.update();
-  }
-  
-  document.addEventListener('DOMContentLoaded', function() {
-    initializeOccupancyChart();
-  });
-
-  function updateLengthOfStayChart(selectedYear) {
-    const ctx = document.getElementById('lengthOfStayChart').getContext('2d');
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const data = fetchLengthOfStayData(selectedYear);
-
-    if (window.lengthOfStayChartInstance) {
-        window.lengthOfStayChartInstance.destroy();
-    }
-
-    window.lengthOfStayChartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: months,
-            datasets: [{
-                label: 'Average Length of Stay (days)',
-                data: data,
-                backgroundColor: '#A2D9D9',
-                borderColor: '#A2D9D9',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}
-
-function fetchLengthOfStayData(year) {
-    const dataByYear = {
-        2023: [3, 2.5, 3.2, 3.5, 3, 4, 4.5, 4, 3.5, 3.2, 2.8, 3],
-        2024: [2.8, 3, 3.1, 3.6, 3.8, 4.2, 4.6, 4.1, 3.7, 3.3, 3, 2.9],
-        2025: [3, 3.2, 3.4, 3.6, 3.8, 4, 4.2, 4, 3.8, 3.6, 3.4, 3.2]
-    };
-    return dataByYear[year] || dataByYear[new Date().getFullYear()];
-}
-
-function changeYear3(change) {
-    const yearSpan = document.getElementById('length-of-stay-chart-year');
-    let currentYear = parseInt(yearSpan.innerText);
-    currentYear += change;
-    yearSpan.innerText = currentYear;
-    updateLengthOfStayChart(currentYear);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const currentYear = parseInt(document.getElementById('length-of-stay-chart-year').innerText);
-    updateLengthOfStayChart(currentYear);
-}); 

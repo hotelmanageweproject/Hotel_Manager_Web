@@ -28,10 +28,8 @@ router_room.get('/', async (req, res) => {
 
 router_room.get('/api/room-details/:roomid', async (req, res) => {
   const roomid = req.params.roomid;
-  console.log("Kick: " + roomid);
   try {
       const details = await roomModel.getRoomDetails(roomid);
-      console.log(details);
       res.json(details);
   } catch (error) {
       console.error('Error fetching customer details', error);
@@ -41,7 +39,6 @@ router_room.get('/api/room-details/:roomid', async (req, res) => {
 
 router_room.post('/addRoom', async (req, res) => {
   const { roomid, roomtype, status, name, pricepernight, maxadult, maxchild, bookingid, serviceid, total_in, date, staffid } = req.body;
-  console.log("Add room: ", req.body);
   try {
     const roomid1 = await roomModel.addRoom(roomid, roomtype, status, name, pricepernight, maxadult, maxchild, bookingid, serviceid, total_in, date, staffid);
     res.redirect(`/browse/room?success=trueadd&roomid=${roomid1}`);
@@ -53,7 +50,6 @@ router_room.post('/addRoom', async (req, res) => {
 
 router_room.post('/deleteRoom',async (req, res) => {
   const {roomtypeid,roomid,receiptid} = req.body;
-  console.log("Delete room: ",req.body);
   try {
     const roomid2 = await roomModel.deleteRoom(roomtypeid,roomid,receiptid);
     if (roomid !== '' && roomid2 !== 0) {
@@ -73,7 +69,6 @@ router_room.post('/deleteRoom',async (req, res) => {
 
 router_room.post('/updateRoom', async (req, res) => {
   const {roomid, roomtype, status, name, pricepernight, maxadult, maxchild, receiptid, serviceid,total_in,date,staffid} = req.body;
-  console.log("Update room: ",req.body);
   try {
     const roomid3 = await roomModel.updateRoom(roomid, roomtype, status, name, pricepernight, maxadult, maxchild, receiptid, serviceid,total_in,date,staffid);
     if (roomid !== '' && roomid3 !== 0) {

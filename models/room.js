@@ -5,7 +5,6 @@ import db from '../config/db.js'; // Đảm bảo rằng bạn đã import db t�
 const getRoom = async (roomid, roomtype, status, pricepernight, maxadult, maxchild, roomstate,search, limit, offset, sort) => {
   let whereConditions = [];
   let query = '';
-  console.log(status);
   if (roomid) whereConditions.push(`r.roomid LIKE '%${roomid}%'`);
   if (status) whereConditions.push(`r.status LIKE '%${status}%'`);
   if (roomtype) whereConditions.push(`rt.name LIKE '%${roomtype}%'`);
@@ -40,7 +39,6 @@ join roomtype rt on rt.roomtypeid = r.roomtype
   } 
   query += `LIMIT ${limit} OFFSET ${offset}`;
   };
-  console.log(query);
   const result = await db.query(query);
   return result.rows;
 };
@@ -58,7 +56,6 @@ JOIN services s ON s.serviceid = rs.serviceid
 Where rs.date <= current_date;
 `;
   const values = [roomid];
-  console.log("roomid:",roomid);
   const result = await db.query(query, values);
   return result.rows;
 };
@@ -124,7 +121,6 @@ const deleteRoom = (roomtypeid,roomid,receiptid) => {
               reject(err.detail);
           } else {
               console.log('Room, room type or reciept deleted successfully');
-              console.log(result);
               if (roomtypeid !== '' && roomid === '' && receiptid === '' && result.rowCount !== 0) {
                 resolve(result.rows[0].name);
             } else if (roomtypeid === '' && roomid !== '' && receiptid === '' && result.rowCount !== 0) {
@@ -184,7 +180,6 @@ const updateRoom = (roomid, roomtype, status, name, pricepernight, maxadult, max
         reject(err.detail);
       } else {
         console.log('Room updated successfully');
-        console.log(result);
         if (roomtype !== '' && roomid === '' && receiptid === '' && result.rowCount !== null && result.rowCount !== 0) {
           resolve(result.rows[0].name);
         } else if (roomid !== '' && receiptid === '' && result.rowCount !== 0 && result.rowCount !== null) {

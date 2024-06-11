@@ -284,7 +284,6 @@ window.addEventListener('load', () => {
   const departmentid = urlParams.get('departmentid1');
   const err = urlParams.get('err');
   if (err == -1){
-    console.log("Error");
     window.location.href = '/browse/service';
   }
   if (success === 'trueadd' && serviceid !== null && departmentid === null) {
@@ -376,7 +375,6 @@ function toggleDropdown() {
   }
   
   function sort(order) {
-    console.log("Sorting order:", order); // Thêm dòng này để kiểm tra
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('sort', order);
     window.location.search = urlParams.toString();

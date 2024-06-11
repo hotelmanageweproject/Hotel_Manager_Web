@@ -183,7 +183,6 @@ window.onclick = function(event) {
 }
 
 function showDetailsPopup(bookingid) {
-    console.log("Kick: " + bookingid);
     fetch(`/browse/booking/api/booking-details/${bookingid}`)
     .then(response => response.json())
     .then(data => {
@@ -192,7 +191,6 @@ function showDetailsPopup(bookingid) {
         const content = popup.querySelector('.document-popup-content');
         
         content.innerHTML = ''; // Xóa nội dung cũ
-        console.log(data);
 
         data.forEach(detail => {
             if (!detail.bookingid || !detail.paymentid) {
@@ -257,7 +255,6 @@ window.addEventListener('load', () => {
   const roomid = urlParams.get('roomid');
   const err = urlParams.get('err');
   if (err == -1){
-    console.log("Error");
     window.location.href = '/browse/booking';
   }
   // Handle addition success
@@ -371,7 +368,6 @@ window.addEventListener('load', () => {
 });
 
   function sort(order) {
-    console.log("Sorting order:", order); // Thêm dòng này để kiểm tra
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('sort', order);
     window.location.search = urlParams.toString();

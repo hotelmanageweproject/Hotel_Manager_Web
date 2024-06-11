@@ -43,14 +43,12 @@ router_cus.get('/', async (req, res) => {
 
 router_cus.get('/api/customer-details/:customerid', async (req, res) => {
   const customerid = req.params.customerid;
-  console.log("Kick: " + customerid);
   try {
       const details = await customerModel.getCustomerDetails(customerid);
       details.forEach(i => {
         i.checkin = moment(i.checkin).format('YYYY-MM-DD');
         i.checkout = moment(i.checkout).format('YYYY-MM-DD');
       });
-      console.log(details);
       res.json(details);
   } catch (error) {
       console.error('Error fetching customer details', error);
@@ -72,7 +70,6 @@ router_cus.post('/addCustomer', async (req, res) => {
 router_cus.post('/deleteCustomer', async (req, res) => {
   const {customerid,personalid} = req.body;
   try {
-    console.log("Delete customer: ",customerid);
     const customerid2 = await customerModel.deleteCustomer(customerid,personalid);
     res.redirect(`/browse/customer?success=truedel&customerid=${customerid2}`);
   } catch (err) {
@@ -83,7 +80,6 @@ router_cus.post('/deleteCustomer', async (req, res) => {
 
 router_cus.post('/updateCustomer', async (req, res) => {
   const {customerid, personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank} = req.body;
-  console.log("Update customer: ",req.body);
   try {
     const customerid3 = await customerModel.updateCustomer(customerid, {personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank});
     res.redirect(`/browse/customer?success=trueupdate&customerid=${customerid3}`);

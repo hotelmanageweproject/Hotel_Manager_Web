@@ -2,7 +2,6 @@ import pool from '../config/db.js';
 
 const getRevenueData = async (period) => {
   let query = '';
-  console.log(period);
   switch (period) {
     case 'today':
       query = `

@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
   </head>
   <body
-    onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart(); closePopup();fetchServiceRanking();fetchCustomerRanking();initializeChart();initializeOccupancyChart()"
+    onload="getCurrentDate(); updateDate(); changeColor(); goToBrowseHomePage(); goToStaticHomePage(); goToHomePage(); initializeChart(); closePopup();fetchServiceRanking();fetchCustomerRanking();initializeChart();initializeOccupancyChart();updateLengthOfStayChart()"
   >
     <form class="home-page">
       <div class="sidebar">
@@ -146,7 +146,7 @@
           <div class="occupancy-chart-header">
             <span class="occupancy-chart-title">OCCUPANCY RATE<img class="occupancy-rankingicon" src="/img/occupancyicon.gif"/></span>
             <div class="occupancy-chart-year-selector">
-              <input type="date" id="HS-date-selector" name="chartDate">
+              <input type="date" id="HS-date-selector2" name="chartDate">
             </div>
           </div>
           <canvas id="occupancyChart"></canvas>
