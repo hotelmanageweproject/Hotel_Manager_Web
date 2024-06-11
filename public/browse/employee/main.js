@@ -191,7 +191,6 @@ function showDetailsPopup(staffid) {
         const content = popup.querySelector('.document-popup-content');
         
         content.innerHTML = ''; // Xóa nội dung cũ
-        console.log(data);
 
         data.forEach(detail => {
             if (!detail.departmentid) {
@@ -240,7 +239,6 @@ window.addEventListener('load', () => {
     const staffid = urlParams.get('staffid');
     const err = urlParams.get('err');
     if (err == -1){
-      console.log("Error");
       window.location.href = '/browse/employee';
     }
     if (success === 'trueadd' && staffid !== '0') {
@@ -303,7 +301,6 @@ function toggleDropdown() {
   }
   
  function sort(order) {
-    console.log("Sorting order:", order); // Thêm dòng này để kiểm tra
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('sort', order);
     window.location.search = urlParams.toString();

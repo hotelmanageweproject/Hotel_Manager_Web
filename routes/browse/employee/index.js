@@ -51,7 +51,6 @@ router_employee.get('/api/staff-details/:staffid', async (req, res) => {
   const staffid = req.params.staffid;
   try {
       const details = await employeeModel.getStaffDetails(staffid);
-      console.log(details);
       res.json(details);
   } catch (error) {
       console.error('Error fetching staff details', error);
@@ -61,7 +60,6 @@ router_employee.get('/api/staff-details/:staffid', async (req, res) => {
 
 router_employee.post('/addEmployee', async (req, res) => {
   const {departmentid, personalid, firstname, lastname, birthday, gender, email, phone, address, currentsal, startdate, enddate} = req.body;
-  console.log("Add staff: ",req.body);
   try {
     const staffid = await employeeModel.addStaff(departmentid, personalid, firstname, lastname, birthday, gender, email, phone, address, currentsal, startdate, enddate);
     res.redirect(`/browse/employee?success=trueadd&staffid=${staffid}`);  
@@ -73,7 +71,6 @@ router_employee.post('/addEmployee', async (req, res) => {
 
 router_employee.post('/deleteEmployee',async (req, res) => {
   const {staffid} = req.body;
-  console.log("Delete staff: ",req.body);
   try {
     const staffid2 = await employeeModel.deleteStaff(staffid);
     res.redirect(`/browse/employee?success=truedel&staffid=${staffid2}`);
@@ -85,7 +82,6 @@ router_employee.post('/deleteEmployee',async (req, res) => {
 
 router_employee.post('/updateEmployee', async (req, res) => {
   const { staffid,departmentid, personalid, firstname, lastname, birthday, gender, email, phone, address, currentsal, startdate, enddate} = req.body;
-  console.log("Update staff: ",req.body);
   try {
     const staffid3 = await employeeModel.updateStaff(staffid,departmentid, personalid, firstname, lastname, birthday, gender, email, phone, address, currentsal, startdate, enddate);
     res.redirect(`/browse/employee?success=trueupdate&staffid=${staffid3}`);

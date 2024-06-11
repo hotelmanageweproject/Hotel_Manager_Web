@@ -20,7 +20,6 @@ router.get('/searchPayment', async (req, res) => {
     const { bookingid } = req.query;
     try {
       const payment = await staticModel.getPaymentByBookingId(bookingid);
-      console.log(payment);
       if (payment) {
         payment.paymentdate = format(new Date(payment.paymentdate), 'EEEE, dd/MM/yyyy');
         res.json(payment);
@@ -67,6 +66,16 @@ router.get('/serviceRanking', async (req, res) => {
     }
   });
 
+  router.get('/averageBookingDuration', async (req, res) => {
+    const { year } = req.query;
+    try {
+      const data = await staticModel.getAverageBookingDurationByMonth(year);
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   router.get('/hotelStatistic', async (req, res) => {
     const { period, date } = req.query;
     try {
@@ -97,7 +106,6 @@ router.post('/addPayment',async (req, res) => {
   // Chuyển đổi giá trị đã xử l thành số
   totalamount = parseFloat(totalamount);
   additionalcharge = parseFloat(additionalcharge);
-  console.log(paymentmethod);
   try {
     const payment = await staticModel.addPayment(bookingid, totalamount,additionalcharge, paymentmethod, paymentdate, note);
     
@@ -106,6 +114,15 @@ router.post('/addPayment',async (req, res) => {
     } else {
       res.status(404).json({ message: 'Booking not found' });
     }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+router.get('/occupancyRate', async (req, res) => {
+  const { date } = req.query;
+  try {
+    const data = await staticModel.getOccupancyRate(date);
+    res.json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

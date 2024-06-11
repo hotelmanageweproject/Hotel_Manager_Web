@@ -49,7 +49,6 @@ const getService = async (
     }
     query += `LIMIT ${limit} OFFSET ${offset}`;
   }
-  console.log(query);
 
   const result = await db.query(query);
   return result.rows;
@@ -96,7 +95,6 @@ const addService = (
         return reject(err);
       } else {
         console.log("Query executed successfully");
-        console.log(result);
         if (result.rows.length > 0) {
           resolve(result.rows[0].serviceid || result.rows[0].departmentid);
         } else {
@@ -197,7 +195,6 @@ const updateService = (
       // OUTPUT: departmentID vừa cập nhật sẽ được trả về
     }
 
-    console.log(query);
     db.query(query, (err, result) => {
       if (err) {
         console.error("Error executing query", err.stack);

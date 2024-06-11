@@ -53,6 +53,47 @@ const addPayment = (
     });
   });
 };
+
+const getAverageBookingDurationByMonth = (year) => {
+  return new Promise((resolve, reject) => {
+    const query = `
+      SELECT 
+        EXTRACT(MONTH FROM checkin) AS month,
+        (checkout - checkin) AS booking_duration
+      FROM 
+        booking_rooms
+      WHERE 
+        EXTRACT(YEAR FROM checkin) = $1;
+    `;
+    const values = [year];
+
+    db.query(query, values, (err, result) => {
+      if (err) {
+        console.error("Error executing query", err.stack);
+        reject(err);
+      } else {
+        const monthlyDurations = {};
+        result.rows.forEach(row => {
+          if (!monthlyDurations[row.month]) {
+            monthlyDurations[row.month] = [];
+          }
+          monthlyDurations[row.month].push(row.booking_duration);
+        });
+
+        const averageDurations = {};
+        for (const month in monthlyDurations) {
+          const durations = monthlyDurations[month];
+          const totalDuration = durations.reduce((sum, duration) => sum + duration, 0);
+          averageDurations[month] = totalDuration / durations.length;
+        }
+
+        resolve(averageDurations);
+      }
+    });
+  });
+};
+
+
 const getPaymentByBookingId = (bookingid) => {
   return new Promise((resolve, reject) => {
     const query = `SELECT payment.*, customers.personalid 
@@ -291,6 +332,33 @@ const getHotelStatistic = (period, date) => {
       });
     });
   };
+
+  const getOccupancyRate = (date) => {
+    return new Promise((resolve, reject) => {
+      const query = `
+        SELECT count(bk.bkid) AS occupied_room, count_room() AS number_of_room
+        FROM booking_rooms bk
+        WHERE $1 BETWEEN bk.checkin AND bk.checkout;
+      `;
+      const values = [date];
+  
+      db.query(query, values, (err, result) => {
+        if (err) {
+          console.error("Error executing query", err.stack);
+          reject(err);
+        } else {
+          const occupiedRoom = result.rows[0].occupied_room;
+          const numberOfRoom = result.rows[0].number_of_room;
+          const occupancyRate = (occupiedRoom / numberOfRoom) * 100;
+          resolve({
+            occupiedRoom,
+            numberOfRoom,
+            occupancyRate
+          });
+        }
+      });
+    });
+  };
 export default {
   addPayment,
   getPaymentByBookingId,
@@ -299,6 +367,7 @@ export default {
   getServiceRankingFull,
   getCustomerRankingFull,
   getHotelStatistic,
-  getRevenueData
+  getRevenueData,
+  getAverageBookingDurationByMonth,
+  getOccupancyRate
 };
-

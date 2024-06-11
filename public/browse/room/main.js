@@ -191,7 +191,6 @@ function showDetailsPopup(roomid) {
         const content = popup.querySelector('.document-popup-content');
         
         content.innerHTML = ''; // Xóa nội dung cũ
-        console.log(data);
 
         data.forEach(detail => {
             if (!detail.receiptid) {
@@ -254,7 +253,6 @@ window.addEventListener('load', () => {
     const receiptid = urlParams.get('receiptid');
     const err = urlParams.get('err');
     if (err == -1){
-      console.log("Error");
       window.location.href = '/browse/room';
     }
     // Xử lí lỗi khi add ở room
@@ -348,7 +346,6 @@ window.addEventListener('load', () => {
 });
 
 function sort(order) {
-    console.log("Sorting order:", order); // Thêm dòng này để kiểm tra
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('sort', order);
     window.location.search = urlParams.toString();

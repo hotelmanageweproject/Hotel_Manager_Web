@@ -128,7 +128,6 @@ const addCustomer = (rankid, personalid, firstname, lastname, birthdate, gender,
 // Query xóa dữ liệu
 const deleteCustomer = (customerid, personalid) => {
   return new Promise((resolve, reject) => {
-    console.log("customerid: ", customerid, "personalid: ", personalid);
     const query = `SELECT * FROM delete_customer($1, $2)`;
     const values = [customerid || null, personalid || null]; // Sử dụng null nếu giá trị là undefined
     db.query(query, values, (err, result) => {
@@ -146,7 +145,6 @@ const deleteCustomer = (customerid, personalid) => {
 const updateCustomer = (customerid, { personalid, firstname, lastname, birthdate, gender, email, phone, address, namerank }) => {
   return new Promise((resolve, reject) => {
     const fields = { personalid, firstname, lastname, birthdate, gender, email, phone, address };
-    console.log("fields: ",fields);
     const updates = [];
     for (let key in fields) {
       if (fields[key] !== undefined && fields[key] !== '') {

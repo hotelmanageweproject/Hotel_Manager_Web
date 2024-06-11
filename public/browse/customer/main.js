@@ -183,7 +183,6 @@ window.onclick = function(event) {
 }
 
 function showDetailsPopup(customerid) {
-    console.log("Kick: " + customerid);
     fetch(`/browse/customer/api/customer-details/${customerid}`)
     .then(response => response.json())
     .then(data => {
@@ -192,7 +191,6 @@ function showDetailsPopup(customerid) {
         const content = popup.querySelector('.document-popup-content');
         
         content.innerHTML = ''; // Xóa nội dung cũ
-        console.log(data);
         
         if (data.length > 0) {
             const discountRow = document.createElement('div');
@@ -294,7 +292,6 @@ function showDetailsPopup(customerid) {
     const customerid = urlParams.get('customerid');
     const err = urlParams.get('err');
     if (err == -1){
-      console.log("Error");
       window.location.href = '/browse/customer';
     }
     if (success === 'trueadd' && customerid !== '0') {
@@ -355,7 +352,6 @@ function showDetailsPopup(customerid) {
   });
 
   function sort(order) {
-    console.log("Sorting order:", order); // Thêm dòng này để kiểm tra
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('sort', order);
     window.location.search = urlParams.toString();

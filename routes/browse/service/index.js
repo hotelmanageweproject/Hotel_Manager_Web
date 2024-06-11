@@ -20,8 +20,6 @@ router_service.get('/', async (req, res) => {
   const offset = page * limit;
   try {
     const data = await serviceModel.getService(serviceid, servicename, note, departmentid, departmentname, manager, descrpition,search, limit, offset, sort);
-    console.log("Url: ",urlBeforePage);
-    console.log("page: ",page)
     res.render('browse/service/index.ejs', { data, page, urlBeforePage, search});
   } catch (err) {
     console.error(err);
@@ -33,7 +31,6 @@ router_service.get('/api/service-details/:serviceid', async (req, res) => {
   const serviceid = req.params.serviceid;
   try {
       const details = await serviceModel.getServiceDetails(serviceid);
-      console.log(details);
       res.json(details);
   } catch (error) {
       console.error('Error fetching customer details', error);
@@ -73,7 +70,6 @@ router_service.post('/deleteService',async (req, res) => {
 
 router_service.post('/updateService', async (req, res) => {
   const {serviceid, servicename,  note,departmentid,departmentname,manager,description} = req.body;
-  console.log("Update service: ",req.body);
   try {
     const service3 = await serviceModel.updateService(serviceid, servicename,note,departmentid,departmentname,manager,description);
     if (serviceid != '') {

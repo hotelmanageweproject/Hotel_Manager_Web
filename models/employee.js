@@ -44,7 +44,6 @@ const getStaff = async (staffid, departmentname, personalid, firstname, lastname
   } 
   query += `LIMIT ${limit} OFFSET ${offset}`;  
 };
-  console.log(query);
   const result = await db.query(query);
   return result.rows;
 };
@@ -125,7 +124,6 @@ const updateStaff = (staffid, departmentid, personalid, firstname, lastname, bir
           reject(err);
           } else {
           console.log('Staff updated successfully');
-          console.log(result);
           if (result.rowCount > 0) {
             resolve(staffid);
           } else {
