@@ -401,49 +401,41 @@ document.addEventListener('DOMContentLoaded', function() {
   const noteInput = document.querySelector('#addPopup input[name="note"]');
   const departmentIdInput = document.querySelector('#addPopup input[name="departmentid"]');
 
-  const fieldsToHighlight = [
-      serviceIdInput, // Thêm serviceIdInput vào danh sách này
-      serviceNameInput,
-      noteInput,
-      departmentIdInput
-  ];
+  const serviceFields = [serviceIdInput, serviceNameInput, noteInput];
+  const departmentFields = [departmentIdInput];
 
-  fieldsToHighlight.forEach(field => {
+  serviceFields.forEach(field => {
       field.addEventListener('input', function() {
-          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          if (serviceFields.every(field => field.value.trim() === '')) {
+              departmentIdInput.classList.remove('blinking-border');
           } else {
-              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+              departmentIdInput.classList.add('blinking-border');
           }
       });
   });
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-  const departmentIdInput = document.querySelector('#addPopup input[name="departmentid"]');
+  // Adding event listener to serviceIdInput to add blinking-border class to serviceNameInput and noteInput
+  serviceIdInput.addEventListener('input', function() {
+      if (serviceIdInput.value.trim() !== '') {
+          serviceNameInput.classList.add('blinking-border');
+          noteInput.classList.add('blinking-border');
+      } else {
+          serviceNameInput.classList.remove('blinking-border');
+          noteInput.classList.remove('blinking-border');
+      }
+  });
+
   const departmentNameInput = document.querySelector('#addPopup input[name="departmentname"]');
   const managerInput = document.querySelector('#addPopup input[name="manager"]');
   const descriptionInput = document.querySelector('#addPopup input[name="description"]');
 
-  const fieldsToHighlight = [
-      departmentIdInput, // Thêm departmentIdInput vào danh sách này
-      departmentNameInput,
-      managerInput,
-      descriptionInput
-  ];
-
-  fieldsToHighlight.forEach(field => {
-      field.addEventListener('input', function() {
-          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-          } else {
-              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
-          }
-      });
+  departmentIdInput.addEventListener('input', function() {
+      const departmentRelatedFields = [departmentNameInput, managerInput, descriptionInput];
+      if (departmentIdInput.value.trim() === '') {
+          departmentRelatedFields.forEach(field => field.classList.remove('blinking-border'));
+      } else {
+          departmentRelatedFields.forEach(field => field.classList.add('blinking-border'));
+      }
   });
 });
 
@@ -453,49 +445,41 @@ document.addEventListener('DOMContentLoaded', function() {
   const noteInput = document.querySelector('#updatePopup input[name="note"]');
   const departmentIdInput = document.querySelector('#updatePopup input[name="departmentid"]');
 
-  const fieldsToHighlight = [
-      serviceIdInput,
-      serviceNameInput,
-      noteInput,
-      departmentIdInput
-  ];
+  const serviceFields = [serviceIdInput, serviceNameInput, noteInput];
+  const departmentFields = [departmentIdInput];
 
-  fieldsToHighlight.forEach(field => {
+  serviceFields.forEach(field => {
       field.addEventListener('input', function() {
-          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          if (serviceFields.every(field => field.value.trim() === '')) {
+              departmentIdInput.classList.remove('blinking-border');
           } else {
-              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+              departmentIdInput.classList.add('blinking-border');
           }
       });
   });
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-  const departmentIdInput = document.querySelector('#updatePopup input[name="departmentid"]');
+  // Adding event listener to serviceIdInput to add blinking-border class to serviceNameInput and noteInput
+  serviceIdInput.addEventListener('input', function() {
+      if (serviceIdInput.value.trim() !== '') {
+          serviceNameInput.classList.add('blinking-border');
+          noteInput.classList.add('blinking-border');
+      } else {
+          serviceNameInput.classList.remove('blinking-border');
+          noteInput.classList.remove('blinking-border');
+      }
+  });
+
   const departmentNameInput = document.querySelector('#updatePopup input[name="departmentname"]');
   const managerInput = document.querySelector('#updatePopup input[name="manager"]');
   const descriptionInput = document.querySelector('#updatePopup input[name="description"]');
 
-  const fieldsToHighlight = [
-      departmentIdInput, // Thêm departmentIdInput vào danh sách này
-      departmentNameInput,
-      managerInput,
-      descriptionInput
-  ];
-
-  fieldsToHighlight.forEach(field => {
-      field.addEventListener('input', function() {
-          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-          } else {
-              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
-          }
-      });
+  departmentIdInput.addEventListener('input', function() {
+      const departmentRelatedFields = [departmentNameInput, managerInput, descriptionInput];
+      if (departmentIdInput.value.trim() === '') {
+          departmentRelatedFields.forEach(field => field.classList.remove('blinking-border'));
+      } else {
+          departmentRelatedFields.forEach(field => field.classList.add('blinking-border'));
+      }
   });
 });
 

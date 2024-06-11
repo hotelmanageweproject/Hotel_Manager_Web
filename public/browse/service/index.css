@@ -1470,12 +1470,12 @@ table input[type="text"] {
     border-color: transparent;
   }
   25% {
-    border-color: #BCBCBC;
+    border-color: #b3d7ff; /* Light Blue */
   }
   50% {
-    border-color: #A2A2A2;
+    border-color: #3399ff; /* Medium Blue */
   }
   75% {
-    border-color: #878787;
+    border-color: #0066cc; /* Dark Blue */
   }
 }

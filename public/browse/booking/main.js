@@ -440,3 +440,42 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+  const bookingIdInput = document.querySelector('#updatePopup input[name="bookingid"]');
+  const customerIdInput = document.querySelector('#updatePopup input[name="customerid"]');
+  const roomIdInput = document.querySelector('#updatePopup input[name="roomid"]');
+
+  const bookingFields = [
+    document.querySelector('#updatePopup input[name="bookingdate"]'),
+    document.querySelector('#updatePopup input[name="bookingtype"]'),
+    document.querySelector('#updatePopup input[name="totaladult"]'),
+    document.querySelector('#updatePopup input[name="totalchild"]')
+  ];
+
+  const roomFields = [
+    document.querySelector('#updatePopup input[name="numofchild"]'),
+    document.querySelector('#updatePopup input[name="numofadult"]'),
+    document.querySelector('#updatePopup input[name="checkin"]'),
+    document.querySelector('#updatePopup input[name="checkout"]')
+  ];
+
+  bookingIdInput.addEventListener('input', function() {
+    // Reset all fields when bookingId is changed
+    [...bookingFields, ...roomFields].forEach(field => field.classList.remove('blinking-border'));
+  });
+
+  customerIdInput.addEventListener('input', function() {
+    if (bookingIdInput.value.trim() !== '') {
+      bookingFields.forEach(field => field.classList.add('blinking-border'));
+      roomFields.forEach(field => field.classList.remove('blinking-border'));
+    }
+  });
+
+  roomIdInput.addEventListener('input', function() {
+    if (bookingIdInput.value.trim() !== '') {
+      roomFields.forEach(field => field.classList.add('blinking-border'));
+      bookingFields.forEach(field => field.classList.remove('blinking-border'));
+    }
+  });
+});
+
