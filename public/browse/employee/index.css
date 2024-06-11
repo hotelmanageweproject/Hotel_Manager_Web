@@ -736,16 +736,16 @@ color: #171c26;
 color: var(--gray-500);
 }
 .div2 {
-position: relative;
-font-size: var(--caption-size);
-letter-spacing: 0.03em;
-line-height: 18px;
-font-weight: 500;
-font-family: var(--body-b2);
-text-align: right;
-display: inline-block;
-min-width: 29px;
-}
+  position: relative;
+  font-size: var(--caption-size);
+  letter-spacing: 0.03em;
+  line-height: 18px;
+  font-weight: 500;
+  font-family: var(--body-b2);
+  text-align: center;
+  display: inline-block;
+  min-width: 29px;
+  }
 .right-icon2 {
 height: 16px;
 width: 16px;

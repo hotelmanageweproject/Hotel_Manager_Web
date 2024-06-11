@@ -395,6 +395,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const staffIdInput = document.querySelector('#addPopup input[name="staffid"]');
 
   const fieldsToHighlight = [
+      newRoomIdInput, // Thêm newRoomIdInput vào danh sách này
       bookingIdInput,
       serviceIdSelect,
       totalInInput,
@@ -402,14 +403,16 @@ document.addEventListener('DOMContentLoaded', function() {
       staffIdInput
   ];
 
-  newRoomIdInput.addEventListener('input', function() {
-      if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-      } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-      } else {
-          fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
-      }
+  fieldsToHighlight.forEach(field => {
+      field.addEventListener('input', function() {
+          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else {
+              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+          }
+      });
   });
 });
 
@@ -419,18 +422,21 @@ document.addEventListener('DOMContentLoaded', function() {
   const statusSelect = document.querySelector('#updatePopup select[name="status"]');
 
   const fieldsToHighlight = [
+      newRoomIdInput, // Thêm newRoomIdInput vào danh sách này
       roomTypeInput,
       statusSelect
   ];
 
-  newRoomIdInput.addEventListener('input', function() {
-      if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-      } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-      } else {
-          fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
-      }
+  fieldsToHighlight.forEach(field => {
+      field.addEventListener('input', function() {
+          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else {
+              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+          }
+      });
   });
 });
 
@@ -442,23 +448,25 @@ document.addEventListener('DOMContentLoaded', function() {
   const staffIdInput = document.querySelector('#updatePopup input[name="staffid"]');
 
   const fieldsToHighlight = [
+      receiptIdInput, // Thêm receiptIdInput vào danh sách này
       serviceIdSelect,
       totalInInput,
       dateOfServiceInput,
       staffIdInput
   ];
 
-  receiptIdInput.addEventListener('input', function() {
-      if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-      } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-      } else {
-          fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
-      }
+  fieldsToHighlight.forEach(field => {
+      field.addEventListener('input', function() {
+          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else {
+              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+          }
+      });
   });
 });
-
 
 
 

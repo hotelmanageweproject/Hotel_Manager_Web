@@ -742,7 +742,7 @@ letter-spacing: 0.03em;
 line-height: 18px;
 font-weight: 500;
 font-family: var(--body-b2);
-text-align: right;
+text-align: center;
 display: inline-block;
 min-width: 29px;
 }
@@ -785,6 +785,7 @@ height: 100%;
 height: 20px;
 width: 93px;
 position: relative;
+text-align: center;
 }
 .table-pagination2 {
   position: relative; /* Thay đổi từ fixed sang relative */

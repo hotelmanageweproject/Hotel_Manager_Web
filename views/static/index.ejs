@@ -116,12 +116,6 @@
             <span class="value customers"></span>
             <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('HotelStatisticCustomer')" />
           </div>
-          <div class="statistic-item">
-            <img class="icon" src="/img/roomicon.gif" alt="Rooms Icon" />
-            <span class="label">Rooms</span>
-            <span class="value rooms"></span>
-            <img class="info-icon" src="/img/infoicon.gif" alt="Info Icon" onclick="showPopup('HotelStatisticRoom')" />
-          </div>
         </div>
 
         <div class="ranking-service">
@@ -136,34 +130,23 @@
           </table>
         </div>
      
-        <div class="hotel-statistic-ranking-container">
-          <div class="chart-container">
-            <div class="chart-header">
-              <span class="chart-title">AVERAGE LENGTH OF STAY<img class="rankingicon" src="/img/lengthofstayicon.gif"/></span>
-              <div class="LOS-chart-year-selector">
-                <button type="button" onclick="changeYear3(-1)"><img src="/img/arrow-left.png" alt="Previous Year"></button>
-                <span id="length-of-stay-chart-year">2024</span>
-                <button type="button" onclick="changeYear3(1)"><img src="/img/arrow-right.png" alt="Next Year"></button>
-              </div>
+        <div class="LOS-chart-container">
+          <div class="chart-header">
+            <span class="chart-title">AVERAGE LENGTH OF STAY<img class="rankingicon" src="/img/lengthofstayicon.gif"/></span>
+            <div class="LOS-chart-year-selector">
+              <button type="button" onclick="changeYear3(-1)"><img src="/img/arrow-left.png" alt="Previous Year"></button>
+              <span id="length-of-stay-chart-year">2024</span>
+              <button type="button" onclick="changeYear3(1)"><img src="/img/arrow-right.png" alt="Next Year"></button>
             </div>
-            <canvas id="lengthOfStayChart"></canvas>
           </div>
+          <canvas id="lengthOfStayChart"></canvas>
         </div>
+
         <div class="occupancy-chart-container">
           <div class="occupancy-chart-header">
             <span class="occupancy-chart-title">OCCUPANCY RATE<img class="occupancy-rankingicon" src="/img/occupancyicon.gif"/></span>
             <div class="occupancy-chart-year-selector">
-              <button type="button" onclick="changeYear2(-1)"><img src="/img/arrow-left.png" alt="Previous Year"></button>
-              <span id="occupancy-chart-year">2024</span>
-              <button type="button" onclick="changeYear2(1)"><img src="/img/arrow-right.png" alt="Next Year"></button>
-            </div>
-            <div class="occupancy-chart-date-selector">
-              <select id="occupancy-chart-date-selector" onchange="updateOccupancyChart(this.value)">
-                <option value="today">Today</option>
-                <option value="week">Week</option>
-                <option value="month">Month</option>
-                <option value="year">Year</option>
-              </select>
+              <input type="date" id="HS-date-selector" name="chartDate">
             </div>
           </div>
           <canvas id="occupancyChart"></canvas>

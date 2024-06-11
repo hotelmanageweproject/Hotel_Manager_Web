@@ -425,19 +425,22 @@ document.addEventListener('DOMContentLoaded', function() {
   const descriptionInput = document.querySelector('#addPopup input[name="description"]');
 
   const fieldsToHighlight = [
+      departmentIdInput, // Thêm departmentIdInput vào danh sách này
       departmentNameInput,
       managerInput,
       descriptionInput
   ];
 
-  departmentIdInput.addEventListener('input', function() {
-      if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-      } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-      } else {
-          fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
-      }
+  fieldsToHighlight.forEach(field => {
+      field.addEventListener('input', function() {
+          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else {
+              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+          }
+      });
   });
 });
 
@@ -454,14 +457,16 @@ document.addEventListener('DOMContentLoaded', function() {
       departmentIdInput
   ];
 
-  serviceIdInput.addEventListener('input', function() {
-      if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-      } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-      } else {
-          fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
-      }
+  fieldsToHighlight.forEach(field => {
+      field.addEventListener('input', function() {
+          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else {
+              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+          }
+      });
   });
 });
 
@@ -472,19 +477,22 @@ document.addEventListener('DOMContentLoaded', function() {
   const descriptionInput = document.querySelector('#updatePopup input[name="description"]');
 
   const fieldsToHighlight = [
+      departmentIdInput, // Thêm departmentIdInput vào danh sách này
       departmentNameInput,
       managerInput,
       descriptionInput
   ];
 
-  departmentIdInput.addEventListener('input', function() {
-      if (fieldsToHighlight.every(field => field.value.trim() === '')) {
-          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-      } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
-          fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
-      } else {
-          fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
-      }
+  fieldsToHighlight.forEach(field => {
+      field.addEventListener('input', function() {
+          if (fieldsToHighlight.every(field => field.value.trim() === '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else if (fieldsToHighlight.every(field => field.value.trim() !== '')) {
+              fieldsToHighlight.forEach(field => field.classList.remove('blinking-border'));
+          } else {
+              fieldsToHighlight.forEach(field => field.classList.add('blinking-border'));
+          }
+      });
   });
 });
 
