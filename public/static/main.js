@@ -162,7 +162,7 @@ function updateChart(selectedValue) {
               label: "Today",
               data: data.map(function(item) { return item.totalamount; }),
               borderColor: "green",
-              backgroundColor: "#BDE2B9",
+              backgroundColor: "rgba(189, 226, 185, 0.4)",
               fill: true,
               tension: 0.4,
             },
@@ -170,7 +170,7 @@ function updateChart(selectedValue) {
               label: "Yesterday",
               data: data.map(function(item) { return item.totalamount; }),
               borderColor: "purple",
-              backgroundColor: "#B2B0EA",
+              backgroundColor: "rgba(178, 176, 234, 0.4)",
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -201,7 +201,7 @@ function updateChart(selectedValue) {
               label: "This Week",
               data: thisWeekAmounts,
               borderColor: "green",
-              backgroundColor: "#BDE2B9",
+              backgroundColor: "rgba(189, 226, 185, 0.4)",
               fill: true,
               tension: 0.4,
               paymentDates: thisWeekDates // Lưu trữ ngày thanh toán cho mỗi điểm
@@ -210,7 +210,7 @@ function updateChart(selectedValue) {
               label: "Last Week",
               data: lastWeekAmounts,
               borderColor: "purple",
-              backgroundColor: "#B2B0EA",
+              backgroundColor: "rgba(178, 176, 234, 0.4)",
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -249,7 +249,7 @@ function updateChart(selectedValue) {
               label: "This Month",
               data: thisMonthAmounts,
               borderColor: "green",
-              backgroundColor: "#BDE2B9",
+              backgroundColor: "rgba(189, 226, 185, 0.4)",
               fill: true,
               tension: 0.4,
             },
@@ -257,7 +257,7 @@ function updateChart(selectedValue) {
               label: "Last Month",
               data: lastMonthAmounts,
               borderColor: "purple",
-              backgroundColor: "#B2B0EA",
+              backgroundColor: "rgba(178, 176, 234, 0.4)",
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -292,7 +292,7 @@ function updateChart(selectedValue) {
               label: "This Year",
               data: thisYearAmounts,
               borderColor: "green",
-              backgroundColor: "#BDE2B9",
+              backgroundColor: "rgba(189, 226, 185, 0.4)",
               fill: true,
               tension: 0.4,
             },
@@ -300,7 +300,7 @@ function updateChart(selectedValue) {
               label: "Last Year",
               data: lastYearAmounts,
               borderColor: "purple",
-              backgroundColor: "#B2B0EA",
+              backgroundColor: "rgba(178, 176, 234, 0.4)",
               fill: true,
               borderDash: [5, 5],
               tension: 0.4,
@@ -649,10 +649,10 @@ document.querySelectorAll('.payment-option').forEach(button => {
             '#F4B678'
           ],
           borderColor: [
-            '#8BC1F7',
-            '#F4B678'
+            '#439bf2',
+            '#ee9031'
           ],
-          borderWidth: 1
+          borderWidth: 0.5
         }]
       },
       options: {
@@ -687,15 +687,8 @@ document.querySelectorAll('.payment-option').forEach(button => {
   function updateOccupancyChart(timeframe) {
     // Giả sử bạn có một API hoặc một cách nào đó để lấy dữ liệu dựa trên timeframe
     // Dưới đây là dữ liệu giả định
-    var data = [75, 25]; // Mặc định
-    if (timeframe === 'week') {
-      data = [70, 30];
-    } else if (timeframe === 'month') {
-      data = [60, 40];
-    } else if (timeframe === 'year') {
-      data = [50, 50];
-    }
-  
+    var data = [63, 37]; // Mặc định
+
     occupancyChart.data.datasets[0].data = data;
     occupancyChart.update();
   }
@@ -721,8 +714,8 @@ document.querySelectorAll('.payment-option').forEach(button => {
                 label: 'Average Length of Stay (days)',
                 data: data,
                 backgroundColor: '#A2D9D9',
-                borderColor: '#A2D9D9',
-                borderWidth: 1
+                borderColor: '#008080',
+                borderWidth: 0.5
             }]
         },
         options: {
@@ -736,12 +729,11 @@ document.querySelectorAll('.payment-option').forEach(button => {
 }
 
 function fetchLengthOfStayData(year) {
-    const dataByYear = {
-        2023: [3, 2.5, 3.2, 3.5, 3, 4, 4.5, 4, 3.5, 3.2, 2.8, 3],
-        2024: [2.8, 3, 3.1, 3.6, 3.8, 4.2, 4.6, 4.1, 3.7, 3.3, 3, 2.9],
-        2025: [3, 3.2, 3.4, 3.6, 3.8, 4, 4.2, 4, 3.8, 3.6, 3.4, 3.2]
-    };
-    return dataByYear[year] || dataByYear[new Date().getFullYear()];
+  const currentYear = new Date().getFullYear();
+  // Tạo dữ liệu ngẫu nhiên cho mỗi tháng
+  const randomData = Array.from({ length: 12 }, () => (Math.random() * 2 + 2).toFixed(1));
+
+  return randomData;
 }
 
 function changeYear3(change) {
