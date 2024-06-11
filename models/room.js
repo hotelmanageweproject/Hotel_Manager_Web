@@ -55,7 +55,7 @@ SELECT rs.receiptid, rs.bkid, sq.bookingid, sq.roomid, s.serviceid, s.name AS se
 FROM room_service rs
 JOIN subquery sq ON sq.bkid = rs.bkid
 JOIN services s ON s.serviceid = rs.serviceid
-Where rs.date <= current_date;;
+Where rs.date <= current_date;
 `;
   const values = [roomid];
   console.log("roomid:",roomid);
