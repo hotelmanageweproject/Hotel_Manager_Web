@@ -273,7 +273,7 @@ window.addEventListener('load', () => {
     });
   }
   if (success === 'falseadd' && bookingid == 0 && roomid == 0) {
-    Swal.fire('Error!', 'Booking is not existed, please try again!', 'error').then(() => {
+    Swal.fire('Error!', 'Booking is not existed <br> Room has been added to this BookingID <br> Please try again!', 'error').then(() => {
       window.location.href = '/browse/booking';
     });
   }

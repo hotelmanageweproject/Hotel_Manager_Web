@@ -52,8 +52,7 @@ const getRoomDetails = async(roomid) => {
 SELECT rs.receiptid, rs.bkid, sq.bookingid, sq.roomid, s.serviceid, s.name AS servicename, rs.total, rs.date , rs.staffid
 FROM room_service rs
 JOIN subquery sq ON sq.bkid = rs.bkid
-JOIN services s ON s.serviceid = rs.serviceid
-Where rs.date <= current_date;
+JOIN services s ON s.serviceid = rs.serviceid;
 `;
   const values = [roomid];
   const result = await db.query(query, values);

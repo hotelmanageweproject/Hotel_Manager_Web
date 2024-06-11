@@ -71,11 +71,12 @@ const addBooking = (bookingid, customerid, bookingdate, bookingtype, totaladult,
       }
       db.query(query, values, (err, result) => {
         if (err) {
-          console.error('Error executing query', err.stack);
-          reject(err.detail);
+         // console.error('Error executing query', err.stack);
+          reject(err); // Trả về lỗi chi tiết
         } else {
           console.log('Booking added successfully');
-          if (result.rowCount !== 0 || result.rowCount !== null || result.rowCount !== '0') {
+          console.log(result.rows[0].new_bkrooms);
+          if (result.rowCount !== 0 && result.rowCount !== null && result.rowCount !== '0' && result.rows[0].new_bkrooms !== '(,,)') {
             if (new_bkrooms === '' && bookingid === '') {
               resolve(result.rows[0].new_booking);
             } else if (new_bkrooms !== '' && bookingid !== '') {

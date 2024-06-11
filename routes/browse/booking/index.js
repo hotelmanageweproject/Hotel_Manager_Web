@@ -45,17 +45,18 @@ router_booking.get('/api/booking-details/:bookingid', async (req, res) => {
 });
 
 router_booking.post('/addBooking', async (req, res) => {
-  const {bookingid, customerid, bookingdate, bookingtype, totaladult, totalchild, new_bkrooms,numofchild,numofadult,checkin, checkout} = req.body;
+  const { bookingid, customerid, bookingdate, bookingtype, totaladult, totalchild, new_bkrooms, numofchild, numofadult, checkin, checkout } = req.body;
   try {
-    const booking1 = await bookingModel.addBooking(bookingid, customerid, bookingdate, bookingtype, totaladult, totalchild, new_bkrooms,numofchild,numofadult,checkin, checkout);
+    const booking1 = await bookingModel.addBooking(bookingid, customerid, bookingdate, bookingtype, totaladult, totalchild, new_bkrooms, numofchild, numofadult, checkin, checkout);
     if (new_bkrooms === '' && bookingid === '') {
       res.redirect(`/browse/booking?success=trueadd&bookingid=${booking1}`);
     } else if (booking1 === 2) {
       res.redirect(`/browse/booking?success=trueadd&bookingid=${bookingid}`);
-    }  else if (booking1 === 0){
+    } else if (booking1 === 0) {
       res.redirect(`/browse/booking?success=falseadd&bookingid=0&roomid=0`);
-    }  } catch (err) {
-      res.redirect(`/browse/booking?success=falseadd&err=${encodeURIComponent(err)}`);
+    }
+  } catch (err) {
+    res.redirect(`/browse/booking?success=falseadd&err=${encodeURIComponent(err)}`);
     console.error('Error adding booking', err);
   }
 });
