@@ -57,6 +57,7 @@ Where rs.date <= current_date;
 `;
   const values = [roomid];
   const result = await db.query(query, values);
+  console.log(result.rows);
   return result.rows;
 };
 
