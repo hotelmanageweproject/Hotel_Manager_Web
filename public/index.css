@@ -281,27 +281,36 @@
 }
 
 .content-section {
-  background-color: #f9f9f9;
+  background-color: #white; /* Ensure the background color is white */
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 8px;
+  border: 1px solid #CCC; /* Adds a 1px solid black border */
 }
 
 .content-section h2 {
-  color: #333;
-  font-size: 24px;
-  margin-top: 10px;
+  color: #333; /* Darker color for more emphasis */
+  font-size: 28px; /* Larger font size */
+  margin-top: 20px; /* More top margin for better spacing */
+  padding: 10px 20px; /* More padding for a bolder look */
+  background-color: #f0f0f0; /* Light background to make it stand out */
+  border-radius: 8px; /* Slightly larger border radius for a softer edge */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
 }
 
 .content-section h3 {
-  color: #555;
-  font-size: 18px;
+  color: #fff; /* White text */
+  background-color: #000; /* Black background */
+  padding: 2px 2px; /* Padding around the text */
+  border-radius: 5px; /* Rounded corners */
+  display: inline-block; /* Make the h3 behave like a button */
 }
-
 .content-section ul, .content-section ol {
   padding-left: 20px;
 }
-
+.content-section li {
+  color: #000;
+}
 .content-section a {
   color: #0066cc;
   text-decoration: none;
@@ -309,4 +318,12 @@
 
 .content-section a:hover {
   text-decoration: underline;
+}
+
+.icon {
+  margin-left: 10px; /* Adds space between the text and the icon */
+  vertical-align: middle;
+  margin-bottom: 5px;
+  width: 30px; /* Sets a fixed width for the icon */
+  height: 30px; /* Sets a fixed height for the icon */
 }

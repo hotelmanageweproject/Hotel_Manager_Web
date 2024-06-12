@@ -74,7 +74,7 @@
           <hr>
           <section id="getting-started">
             <h2>Getting Started</h2>
-            <h3>Accessing the Website</h3>
+            <h3>Accessing the Website</h3><img class="icon" src="img/accessicon.gif">
             <ul>
               <li>Open your web browser.</li>
               <li>Enter the URL: <a href="http://localhost:3000/">http://localhost:3000/</a></li>
@@ -82,37 +82,45 @@
             </ul>
           </section>
           <h2 id="room-management">Room Management</h2>
-          <h3>Adding a New Room</h3>
+          <h3>Adding a New Room</h3> <img class="icon" src="img/addicon.gif">
           <ol>
               <li>Go to <a href="http://localhost:3000/browse/">Browse</a> in the sidebar.</li>
               <li>Click on <a href="http://localhost:3000/browse/room/">Rooms</a></li>
               <li>Click on "Add".</li>
-              <li>Fill in the room details: Room ID, Status, Room Type, Price Per Night, Max Adult, Max Child, Room State, Service ID.</li>
-              <li>Click "Submit" to add the room to your database.</li>
+              <li>Add:</li>
+                <ul>
+                  <li>If adding new room: Fill in the room details: New room ID, Room Type, Select Status, Room Type Name, Price per night, Max adult, Max Child.</li>
+                  <li>If adding new service for existed room: Fill in ther room service details: New Room ID, Booking ID, Select Service ID, Total in, Date of service, Staff ID.</li>
+                </ul>
+              <li>Click "Submit" to add to your database.</li>
           </ol>
-          <h3>Updating Room Details</h3>
+          <h3>Updating Room Details</h3><img class="icon" src="img/updateicon.gif">
           <ol>
               <li>Go to "Update".</li>
-              <li>Type Room ID that you want to edit.</li>
-              <li>Update the necessary details.</li>
-              <li>We can update new service for room by typing new Service ID in update popup. </li>
+              <li>Updating:</li>
+                <ul>
+                  <li>If updating room: Fill in New Room ID, Room Type, Select status.</li>
+                  <li>If updating room type: Fill in Room type, Room type name, Price per night, Max adult, Max child.</li>
+                  <li>If updating serive: Fill in Receipt ID, Select service ID, Total in, Date of service, Staff ID.</li>
+                </ul>
               <li>Click "Submit" to apply changes.</li>
           </ol>
-          <h3>Deleting a Room</h3>
+          <h3>Deleting a Room</h3><img class="icon" src="img/deleteicon.gif">
           <ol>
               <li>Go to "Delete”.</li>
               <li>Type Room ID that you want to delete.</li>
               <li>We can also delete a service id of a room by entering the room id of that room and entering the service id we want.</li>
               <li>Click "Delete" and confirm the action.</li>
           </ol>
-          <h3>Viewing all Room</h3>
+          <h3>Viewing all Room</h3><img class="icon" src="img/viewicon.gif">
           <ul>
-              <li>Scroll down to see all Room Table.</li>
-              <li>Click on 3doc icon to see all info of a Room.</li>
+              <li>Scroll right to see all Room Table.</li>
+              <li>Click and type info that need to search on the blank under table header.</li>
+              <li>Click on 3doc icon to see all info of a Room: Booking ID, Room ID, Discount, Total for Booking, ...</li>
               <li>Click on right arrow to see the next page and left arrow to see the previous page.</li>
           </ul>
 
-          <h3>Page function</h3>
+          <h3>Page function</h3><img class="icon" src="img/settingicon.gif">
           <ul>
               <li>Click on the search bar and type what you want to find it in the table.</li>
               <li>We can choose date for table by click on date seletor.</li>
@@ -122,36 +130,44 @@
           </ul>
           
           <h2 id="booking-management">Booking Management</h2>
-          <h3>Adding a New Booking</h3>
+          <h3>Adding a New Booking</h3><img class="icon" src="img/addicon.gif">
           <ol>
               <li>Go to <a href="http://localhost:3000/browse/">Browse</a> in the sidebar.</li>
               <li>Click on <a href="http://localhost:3000/browse/booking/">Booking</a>.</li>
               <li>Click on "Add"</li>
-              <li>Fill in the room details: Booking ID, Customer ID, Booking Date, Booking Type, Total Adult, Total Child, Room ID, Check in, Check out, Num of Child, Num of Adult.</li>
+              <li>Adding:</li>
+                <ul>
+                  <li>If adding boking for customer: Fill in Customer ID, Booking Date, Booking Type, Total adult, Total Child.</li>
+                  <li>If adding room for booking: Fill in New Booking ID, Room ID, Num of adult, Num of chilt, Check-in, Check-out.</li>
+                </ul>
               <li>Click "Submit."</li>
           </ol>
-          <h3>Updating Booking Details</h3>
+          <h3>Updating Booking Details</h3><img class="icon" src="img/updateicon.gif">
           <ol>
               <li>Go to "Update".</li>
               <li>Type Booking ID that you want to edit.</li>
-              <li>Update the necessary details.</li>
-              <li>We can update new room for booking by typing new Room ID in update popup. </li>
+              <li>Updating:</li>
+                <ul>
+                  <li>If updating customer: Fill in New Booking ID, Customer ID, Booking Date, Booking Type, Total adult, Total child.</li>
+                  <li>If updating room: Fill in New Booking ID, Room ID, Num of adult, Num of child, Check-in, Check-out</li>
+                </ul>
               <li>Click "Submit" to apply changes.</li>
           </ol>
-          <h3>Deleting a Booking</h3>
+          <h3>Deleting a Booking</h3><img class="icon" src="img/deleteicon.gif">
           <ol>
               <li>Go to "Delete”.</li>
               <li>Type Booking ID that you want to delete.</li>
               <li>We can also delete a room id of a booking by entering the booking id of that boking and entering the room id we want.</li>
               <li>Click "Delete" and confirm the action.</li>
           </ol>
-          <h3>Viewing all Booking</h3>
+          <h3>Viewing all Booking</h3><img class="icon" src="img/viewicon.gif">
           <ul>
-              <li>Scroll down to see all Room Table.</li>
-              <li>Click on 3doc icon to see all info of a Room.</li>
-              <li>Click on right arrow to see the next page and left arrow to see the previous page.</li>
+            <li>Scroll right to see all Room Table.</li>
+            <li>Click and type info that need to search on the blank under table header.</li>
+            <li>Click on 3doc icon to see all info of a Room: Booking ID, Room ID, Discount, Total for Booking, ...</li>
+            <li>Click on right arrow to see the next page and left arrow to see the previous page.</li>
           </ul>
-          <h3>Page function</h3>
+          <h3>Page function</h3><img class="icon" src="img/settingicon.gif">
           <ul>
               <li>Click on the search bar and type what you want to find it in the table.</li>
               <li>We can choose date for table by click on date seletor.</li>
@@ -161,7 +177,7 @@
           </ul>
           
           <h2 id="customer-management">Customer Management</h2>
-          <h3>Adding a New Customer</h3>
+          <h3>Adding a New Customer</h3><img class="icon" src="img/addicon.gif">
           <ol>
               <li>Go to <a href="http://localhost:3000/browse/">Browse</a> in the sidebar.</li>
               <li>Click on <a href="http://localhost:3000/browse/customer/">Customers</a>.</li>
@@ -169,26 +185,27 @@
               <li>Fill in the room details: Customer ID, Personal ID, First Name, Last Name, Birth Date, Gender, Email, Phone, Address, Name Rank.</li>
               <li>Click "Submit."</li>
           </ol>
-          <h3>Updating Customer Information</h3>
+          <h3>Updating Customer Information</h3><img class="icon" src="img/updateicon.gif">
           <ol>
               <li>Go to "Update".</li>
               <li>Type Customer ID that you want to edit.</li>
               <li>Update the necessary details.</li>
               <li>Click "Submit" to apply changes.</li>
           </ol>
-          <h3>Deleting a Customer</h3>
+          <h3>Deleting a Customer</h3><img class="icon" src="img/deleteicon.gif">
           <ol>
               <li>Go to "Delete”.</li>
               <li>Type Customer ID that you want to delete.</li>
               <li>Click "Delete" and confirm the action.</li>
           </ol>
-          <h3>Viewing all Customer</h3>
+          <h3>Viewing all Booking</h3><img class="icon" src="img/viewicon.gif">
           <ul>
-              <li>Scroll down to see all Room Table.</li>
-              <li>Click on 3doc icon to see all info of a Room.</li>
-              <li>Click on right arrow to see the next page and left arrow to see the previous page.</li>
+            <li>Scroll right to see all Room Table.</li>
+            <li>Click and type info that need to search on the blank under table header.</li>
+            <li>Click on 3doc icon to see all info of a Room: Booking ID, Room ID, Discount, Total for Booking, ...</li>
+            <li>Click on right arrow to see the next page and left arrow to see the previous page.</li>
           </ul>
-          <h3>Page function</h3>
+          <h3>Page function</h3><img class="icon" src="img/settingicon.gif">
           <ul>
               <li>Click on the search bar and type what you want to find it in the table.</li>
               <li>We can choose date for table by click on date seletor.</li>
@@ -198,34 +215,42 @@
           </ul>
           
           <h2 id="service-management">Service Management</h2>
-          <h3>Adding a New Service</h3>
+          <h3>Adding a New Service</h3><img class="icon" src="img/addicon.gif">
           <ol>
               <li>Go to <a href="http://localhost:3000/browse/">Browse</a> in the sidebar.</li>
               <li>Click on <a href="http://localhost:3000/browse/service/">Services</a>.</li>
               <li>Click on "Add"</li>
-              <li>Fill in the room details: Service ID, Service Name, Note, Department ID, Department Name, Manager, Description.</li>
+              <li>Adding:</li>
+              <ul>
+                <li>If adding Service: Fill in Service ID, Service Name, note, Department ID.</li>
+                <li>If adding Department: Fill in Department ID, Department Name, Manager, Description.</li>
+              </ul>
               <li>Click "Submit."</li>
           </ol>
-          <h3>Updating Service Information</h3>
+          <h3>Updating Service Information</h3><img class="icon" src="img/updateicon.gif">
           <ol>
               <li>Go to "Update".</li>
-              <li>Type Service ID that you want to edit.</li>
-              <li>Update the necessary details.</li>
+              <li>Updating:</li>
+              <ul>
+                <li>If updating Service: Fill in Service ID, Service Name, note, Department ID.</li>
+                <li>If updating Department: Fill in Department ID, Department Name, Manager, Description.</li>
+              </ul>
               <li>Click "Submit" to apply changes.</li>
           </ol>
-          <h3>Deleting a Service</h3>
+          <h3>Deleting a Service</h3><img class="icon" src="img/deleteicon.gif">
           <ol>
               <li>Go to "Delete”.</li>
               <li>Type Service ID that you want to delete.</li>
               <li>Click "Delete" and confirm the action.</li>
           </ol>
-          <h3>Viewing all Service</h3>
+          <h3>Viewing all Booking</h3><img class="icon" src="img/viewicon.gif">
           <ul>
-              <li>Scroll down to see all Room Table.</li>
-              <li>Click on 3doc icon to see all info of a Room.</li>
-              <li>Click on right arrow to see the next page and left arrow to see the previous page.</li>
+            <li>Scroll right to see all Room Table.</li>
+            <li>Click and type info that need to search on the blank under table header.</li>
+            <li>Click on 3doc icon to see all info of a Room: Booking ID, Room ID, Discount, Total for Booking, ...</li>
+            <li>Click on right arrow to see the next page and left arrow to see the previous page.</li>
           </ul>
-          <h3>Page function</h3>
+          <h3>Page function</h3><img class="icon" src="img/settingicon.gif">
           <ul>
               <li>Click on the search bar and type what you want to find it in the table.</li>
               <li>We can choose date for table by click on date seletor.</li>
@@ -235,7 +260,7 @@
           </ul>
           
           <h2 id="employee-management">Employee Management</h2>
-          <h3>Adding a New Employee</h3>
+          <h3>Adding a New Employee</h3><img class="icon" src="img/addicon.gif">
           <ol>
               <li>Go to <a href="http://localhost:3000/browse/">Browse</a> in the sidebar.</li>
               <li>Click on <a href="http://localhost:3000/browse/employee/">Employees</a>.</li>
@@ -243,26 +268,27 @@
               <li>Fill in the room details: Staff ID, Department Name, Personal ID, First Name, Last Name, Birth Date, Gender, Email, Phone, Address, Current Sal, Start Date, End Date.</li>
               <li>Click "Submit."</li>
           </ol>
-          <h3>Updating Employee Information</h3>
+          <h3>Updating Employee Information</h3><img class="icon" src="img/updateicon.gif">
           <ol>
               <li>Go to "Update".</li>
               <li>Type Staff ID that you want to edit.</li>
               <li>Update the necessary details.</li>
               <li>Click "Submit" to apply changes.</li>
           </ol>
-          <h3>Deleting a Employee</h3>
+          <h3>Deleting a Employee</h3><img class="icon" src="img/deleteicon.gif">
           <ol>
               <li>Go to "Delete”.</li>
               <li>Type Staff ID that you want to delete.</li>
               <li>Click "Delete" and confirm the action.</li>
           </ol>
-          <h3>Viewing all Employee</h3>
+          <h3>Viewing all Booking</h3><img class="icon" src="img/viewicon.gif">
           <ul>
-              <li>Scroll down to see all Room Table.</li>
-              <li>Click on 3doc icon to see all info of a Room.</li>
-              <li>Click on right arrow to see the next page and left arrow to see the previous page.</li>
+            <li>Scroll right to see all Room Table.</li>
+            <li>Click and type info that need to search on the blank under table header.</li>
+            <li>Click on 3doc icon to see all info of a Room: Booking ID, Room ID, Discount, Total for Booking, ...</li>
+            <li>Click on right arrow to see the next page and left arrow to see the previous page.</li>
           </ul>
-          <h3>Page function</h3>
+          <h3>Page function</h3><img class="icon" src="img/settingicon.gif">
           <ul>
               <li>Click on the search bar and type what you want to find it in the table.</li>
               <li>We can choose date for table by click on date seletor.</li>
@@ -275,27 +301,37 @@
           <ul>
               <li>Go to <a href="http://localhost:3000/static/">Statistic</a> in the sidebar.</li>
           </ul>
-          <h3>Payment</h3>
+          <h3>Payment</h3><img class="icon" src="img/paymenticon.gif">
           <ul>
-              <li>Click on “Check total payment” and type Booking ID that need to check. There will be a popup to show all services which Booking ID have used and total amount.</li>
-              <li>Click on button “Payment” to add payment for Booking ID.</li>
+              <li>Click on “Check bill for Booking ID” and type Booking ID that need to check. There will be a popup to show all services which Booking ID have used and total amount.</li>
+              <li>Click on button “Add Payment” to add payment for Booking ID.</li>
           </ul>
-          <h3>Hotel Statistic: Bookings, Customers, Rooms</h3>
+          <h3>Hotel Statistic: Bookings, Customers</h3><img class="icon" src="img/staticicon.gif">
           <ul>
-              <li>Show the number of Bookings/Customers/Rooms at the current date.</li>
+              <li>Show the number of Bookings/Customersat the current date.</li>
               <li>Click on the info icon after each row and there will be a popup which can choose the date to see the number of Bookings/Customers/Rooms.</li>
           </ul>
-          <h3>Revenue chart</h3>
+          <h3>Revenue chart</h3><img class="icon" src="img/revenueicon.gif">
           <ul>
               <li>Show the hotel revenue at the current date.</li>
               <li>Choose the time to see hotel revenue that need to check.</li>
           </ul>
-          <h3>Ranking Service</h3>
+          <h3>Occupancy rate</h3><img class="icon" src="img/occupancyicon.gif">
+          <ul>
+              <li>Show the hotel Occupancy rate per day.</li>
+              <li>Choose the day we want to see the Occupancy rate of that day.</li>
+          </ul>
+          <h3>Average length of stay</h3><img class="icon" src="img/lengthofstayicon.gif">
+          <ul>
+              <li>Show the average length of stay per month of a year.</li>
+              <li>CHoose the year we want to see the average length of stay of that year.</li>
+          </ul>
+          <h3>Ranking Service</h3><img class="icon" src="img/best-value.gif">
           <ul>
               <li>Show top 5 Services.</li>
               <li>Click on the info icon to see a full list.</li>
           </ul>
-          <h3>Ranking Customer</h3>
+          <h3>Ranking Customer</h3><img class="icon" src="img/ratingsicon.gif">
           <ul>
               <li>Show top 5 Customers.</li>
               <li>Click on the info icon to see a full list.</li>
