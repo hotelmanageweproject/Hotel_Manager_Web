@@ -10,6 +10,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   padding: 0 var(--padding-base);
+  margin-top: 10px;
 }
 .functions {
   flex: 1;
@@ -313,7 +314,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   margin-left: 42px; 
-  margin-top: 100px;
+  margin-top: 60px;
   transition: border 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
 }
 .LOS-chart-container:hover {
@@ -958,6 +959,3 @@
   border: 1px solid #ccc;
   font-size: 14px;
 }
-
-
-
