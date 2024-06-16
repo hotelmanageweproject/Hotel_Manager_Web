@@ -87,9 +87,10 @@ const addRoom = (roomid, roomtype, status, name, pricepernight, maxadult, maxchi
           resolve(result.rows[0].name);
         } else if (bookingid !== '' && roomid !== '' && serviceid !== '' && result.rows[0].new_rmservice !== '(,,,,)') {
           resolve(roomid);
-        } else if (result.rows[0].new_rmservice === '(,,,,)'){
+        } else if (result.rows === null) {
+          if (result.rows[0].new_rmservice === '(,,,,)' || result.rowCount === null || result.rowCount === '0'){
           resolve(0);
-        }
+        } }
       }
     });
   });

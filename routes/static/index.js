@@ -80,6 +80,7 @@ router.get('/serviceRanking', async (req, res) => {
     const { period, date } = req.query;
     try {
       const statistic = await staticModel.getHotelStatistic(period, date);
+      console.log(statistic);
       res.json(statistic);
     } catch (error) {
       res.status(500).json({ error: error.message });

@@ -73,7 +73,7 @@ const getAverageBookingDurationByMonth = (year) => {
         reject(err);
       } else {
         const monthlyDurations = {};
-        result.rows.forEach(row => {
+        result.rows.forEach((row) => {
           if (!monthlyDurations[row.month]) {
             monthlyDurations[row.month] = [];
           }
@@ -83,7 +83,10 @@ const getAverageBookingDurationByMonth = (year) => {
         const averageDurations = {};
         for (const month in monthlyDurations) {
           const durations = monthlyDurations[month];
-          const totalDuration = durations.reduce((sum, duration) => sum + duration, 0);
+          const totalDuration = durations.reduce(
+            (sum, duration) => sum + duration,
+            0
+          );
           averageDurations[month] = totalDuration / durations.length;
         }
 
@@ -92,7 +95,6 @@ const getAverageBookingDurationByMonth = (year) => {
     });
   });
 };
-
 
 const getPaymentByBookingId = (bookingid) => {
   return new Promise((resolve, reject) => {
@@ -212,61 +214,57 @@ const getCustomerRankingFull = () => {
 };
 
 const getHotelStatistic = (period, date) => {
-    return new Promise((resolve, reject) => {
-      let query = '';
-      switch (period) {
-        case 'today':
-          query = `
+  return new Promise((resolve, reject) => {
+    let query = "";
+    switch (period) {
+      case "today":
+        query = `
           SELECT 
           (SELECT count(b.bookingid) FROM booking b WHERE b.bookingdate = $1) AS bookings,
-          (SELECT SUM(b.totaladult) + SUM(b.totalchild) AS total_customer FROM booking b WHERE b.bookingdate = $1) AS customers,
-          (SELECT count(br.roomid) FROM booking_rooms br WHERE $1 BETWEEN br.checkin AND br.checkout) AS rooms
+          (SELECT SUM(b.totaladult) + SUM(b.totalchild) AS total_customer FROM booking b WHERE b.bookingdate = $1) AS customers
           `;
-          break;
-        case 'week':
-          query = `
+        break;
+      case "week":
+        query = `
           SELECT 
           (SELECT COUNT(*) FROM booking WHERE bookingdate BETWEEN $1::date - INTERVAL '6 days' AND $1::date) AS bookings,
-          (SELECT COUNT(DISTINCT customerid) FROM booking WHERE bookingdate BETWEEN $1::date - INTERVAL '6 days' AND $1::date) AS customers,
-          (SELECT COUNT(DISTINCT roomid) FROM booking_rooms WHERE $1::date BETWEEN checkin AND checkout) AS rooms
+          (SELECT COUNT(DISTINCT customerid) FROM booking WHERE bookingdate BETWEEN $1::date - INTERVAL '6 days' AND $1::date) AS customers
           `;
-          break;
-        case 'month':
-          query = `
+        break;
+      case "month":
+        query = `
           SELECT 
           (SELECT COUNT(*) FROM booking WHERE date_trunc('month', bookingdate) = date_trunc('month', $1::date)) AS bookings,
-          (SELECT COUNT(DISTINCT customerid) FROM booking WHERE date_trunc('month', bookingdate) = date_trunc('month', $1::date)) AS customers,
-          (SELECT COUNT(DISTINCT roomid) FROM booking_rooms WHERE $1::date BETWEEN checkin AND checkout) AS rooms
+          (SELECT COUNT(DISTINCT customerid) FROM booking WHERE date_trunc('month', bookingdate) = date_trunc('month', $1::date)) AS customers
           `;
-          break;
-        case 'year':
-          query = `
+        break;
+      case "year":
+        query = `
           SELECT 
           (SELECT COUNT(*) FROM booking WHERE date_trunc('year', bookingdate) = date_trunc('year', $1::date)) AS bookings,
-          (SELECT COUNT(DISTINCT customerid) FROM booking WHERE date_trunc('year', bookingdate) = date_trunc('year', $1::date)) AS customers,
-          (SELECT COUNT(DISTINCT roomid) FROM booking_rooms WHERE $1::date BETWEEN checkin AND checkout) AS rooms
+          (SELECT COUNT(DISTINCT customerid) FROM booking WHERE date_trunc('year', bookingdate) = date_trunc('year', $1::date)) AS customers
           `;
-          break;
-        default:
-          reject(new Error('Invalid period'));
-          return;
+        break;
+      default:
+        reject(new Error("Invalid period"));
+        return;
+    }
+
+    db.query(query, [date], (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result.rows[0]);
       }
-  
-      db.query(query, [date], (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result.rows[0]);
-        }
-      });
     });
-  };
-  const getRevenueData = (period) => {
-    return new Promise((resolve, reject) => {
-      let query = '';
-      switch (period) {
-        case 'today':
-          query = `
+  });
+};
+const getRevenueData = (period) => {
+  return new Promise((resolve, reject) => {
+    let query = "";
+    switch (period) {
+      case "today":
+        query = `
             SELECT p.paymentdate, SUM(p.totalamount) as totalamount
             FROM payment p
             WHERE p.paymentdate BETWEEN current_date - INTERVAL '1 day' AND current_date
@@ -274,9 +272,9 @@ const getHotelStatistic = (period, date) => {
             GROUP BY p.paymentdate
             ORDER BY p.paymentdate;
           `;
-          break;
-        case 'week':
-          query = `
+        break;
+      case "week":
+        query = `
           WITH this_week AS (
             SELECT p.paymentdate AT TIME ZONE 'UTC' AT TIME ZONE 'UTC+7' as paymentdate, SUM(p.totalamount) as totalamount, 'this_week' as week_type
             FROM payment p
@@ -296,69 +294,82 @@ const getHotelStatistic = (period, date) => {
           SELECT * FROM last_week
           ORDER BY paymentdate;
           `;
-          break;
-        case 'month':
-          query = `
-            SELECT p.paymentdate AT TIME ZONE 'UTC' AT TIME ZONE 'UTC+7' as paymentdate, SUM(p.totalamount) as totalamount
-            FROM payment p
-            WHERE p.paymentdate BETWEEN date_trunc('month', current_date) - INTERVAL '1 month' AND current_date
-            AND p.paymentstatus = 'paid'
-            GROUP BY p.paymentdate
-            ORDER BY p.paymentdate;
+        break;
+      case "month":
+        query = `
+           SELECT 
+    date_trunc('day', p.paymentdate AT TIME ZONE 'UTC' AT TIME ZONE 'UTC+7') as paymentdate, 
+    SUM(p.totalamount) as totalamount
+FROM 
+    payment p
+WHERE 
+    (p.paymentdate BETWEEN date_trunc('month', current_date) - INTERVAL '1 month' AND date_trunc('month', current_date) - INTERVAL '1 day')
+    OR 
+    (p.paymentdate BETWEEN date_trunc('month', current_date) AND date_trunc('month', current_date) + INTERVAL '1 month' - INTERVAL '1 day')
+    AND p.paymentstatus = 'paid'
+GROUP BY 
+    date_trunc('day', p.paymentdate AT TIME ZONE 'UTC' AT TIME ZONE 'UTC+7')
+ORDER BY 
+    paymentdate;
           `;
-          break;
-        case 'year':
-          query = `
-            SELECT date_trunc('month', p.paymentdate AT TIME ZONE 'UTC' AT TIME ZONE 'UTC+7') as month, SUM(p.totalamount) as totalamount
-            FROM payment p
-            WHERE p.paymentdate BETWEEN current_date - INTERVAL '1 year' AND current_date
-            AND p.paymentstatus = 'paid'
-            GROUP BY month
-            ORDER BY month;
+        break;
+      case "year":
+        query = `
+            SELECT
+    date_trunc('month', p.paymentdate AT TIME ZONE 'UTC' AT TIME ZONE 'UTC+7') as month,
+    SUM(p.totalamount) as totalamount
+FROM
+    payment p
+WHERE
+    (p.paymentdate BETWEEN date_trunc('year', current_date) - INTERVAL '1 year' AND date_trunc('year', current_date) - INTERVAL '1 day')
+    OR
+    (p.paymentdate BETWEEN date_trunc('year', current_date) AND date_trunc('year', current_date) + INTERVAL '1 year' - INTERVAL '1 day')
+    AND p.paymentstatus = 'paid'
+GROUP BY month ORDER BY month;
           `;
-          break;
-        default:
-          reject(new Error('Invalid period'));
-          return;
-      }
-  
-      db.query(query, (err, result) => {
-        if (err) {
-          console.error("Error executing query", err.stack);
-          reject(err);
-        } else {
-          resolve(result.rows);
-        }
-      });
-    });
-  };
+        break;
+      default:
+        reject(new Error("Invalid period"));
+        return;
+    }
 
-  const getOccupancyRate = (date) => {
-    return new Promise((resolve, reject) => {
-      const query = `
+    db.query(query, (err, result) => {
+      if (err) {
+        console.error("Error executing query", err.stack);
+        reject(err);
+      } else {
+        resolve(result.rows);
+      }
+    });
+  });
+};
+
+const getOccupancyRate = (date) => {
+  return new Promise((resolve, reject) => {
+    const query = `
         SELECT count(bk.bkid) AS occupied_room, count_room() AS number_of_room
         FROM booking_rooms bk
         WHERE $1 BETWEEN bk.checkin AND bk.checkout;
       `;
-      const values = [date];
-  
-      db.query(query, values, (err, result) => {
-        if (err) {
-          console.error("Error executing query", err.stack);
-          reject(err);
-        } else {
-          const occupiedRoom = result.rows[0].occupied_room;
-          const numberOfRoom = result.rows[0].number_of_room;
-          const occupancyRate = (occupiedRoom / numberOfRoom) * 100;
-          resolve({
-            occupiedRoom,
-            numberOfRoom,
-            occupancyRate
-          });
-        }
-      });
+    const values = [date];
+
+    db.query(query, values, (err, result) => {
+      if (err) {
+        console.error("Error executing query", err.stack);
+        reject(err);
+      } else {
+        const occupiedRoom = result.rows[0].occupied_room;
+        const numberOfRoom = result.rows[0].number_of_room;
+        const occupancyRate = (occupiedRoom / numberOfRoom) * 100;
+        resolve({
+          occupiedRoom,
+          numberOfRoom,
+          occupancyRate,
+        });
+      }
     });
-  };
+  });
+};
 export default {
   addPayment,
   getPaymentByBookingId,
@@ -369,5 +380,5 @@ export default {
   getHotelStatistic,
   getRevenueData,
   getAverageBookingDurationByMonth,
-  getOccupancyRate
+  getOccupancyRate,
 };
