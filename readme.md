@@ -57,6 +57,7 @@
      port: 5432,
    };
    ```
+   Data gen for Database: [Google Drive](https://drive.google.com/drive/folders/1_U9xc79UQ5C7Sfb7EuXeyTOlTEvR6tFX).
 ### Lưu ý:
 - Đảm bảo rằng bạn đã cập nhật đúng thông tin kết nối cơ sở dữ liệu trong `config/db.js`.
 - Kiểm tra và đảm bảo rằng các bảng trong cơ sở dữ liệu đã được tạo đúng theo các truy vấn trong các file model.
