@@ -2,9 +2,7 @@
 
 ### Thư mục và Vai Trò:
 - **public/**: Chứa các file tĩnh như CSS, JavaScript, hình ảnh.
-  - **public/browse/customer**: Chứa CSS cho trang khách hàng.
 - **views/**: Chứa các file EJS để render giao diện người dùng.
-  - **views/browse/customer**: Chứa file EJS hiển thị dữ liệu khách hàng.
 - **models/**: Chứa các file model để tương tác với cơ sở dữ liệu.
 - **config/**: Chứa các file cấu hình, bao gồm cấu hình cơ sở dữ liệu.
 - **routes/**: Chứa các file định tuyến cho ứng dụng.
